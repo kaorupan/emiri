@@ -20,19 +20,28 @@ python3 -m http.server 8000
 /                         TOP（index.html）
 /suhijutsu/               数秘術 個人鑑定
 /suhijutsu/aisho/         数秘術 相性
+/tarot/                   タロット（大アルカナ22枚・3枚引き）
 /aisho/                   相性占いTOP
 /learn/                   占いを知るTOP
 /learn/suhijutsu/         数秘術を知る
 /assets/css/common.css        全ページ共通（色・カード・ナビ・フォーム）
 /assets/css/numerology.css    数秘術専用（クラス名は .num- 接頭辞）
+/assets/css/tarot.css         タロット専用（クラス名は .tarot- 接頭辞）
 /assets/js/core/date.js             生年月日の共通仕様（0001〜9999年・実在日・日本時間の今日）
 /assets/js/core/dom.js              DOMヘルパー（textContentのみ）
 /assets/js/core/profile.js          共通プロフィール（端末内保存。明示的に選んだ時だけ）
 /assets/js/core/birthdate-field.js  生年月日入力の共通部品（エラーは入力欄の下に表示）
+/assets/js/core/random.js           乱数源（crypto.getRandomValues）
+/assets/js/core/storage.js          localStorage の安全な窓口（使えない環境でも例外を出さない）
 /assets/js/engines/numerology.js    数秘術の計算（DOMに触らない純粋関数）
 /assets/js/content/numerology-text.js  数秘術の鑑定文（計算結果 → 表示用データ）
 /assets/js/pages/numerology-page.js                 個人鑑定ページの描画
 /assets/js/pages/numerology-compatibility-page.js   相性ページの描画
+/assets/js/engines/tarot.js          タロットの抽選と「1日1回」の判定（DOMに触らない）
+/assets/js/content/tarot-deck.js     カードデータ（番号・名前・キーワード・正逆の意味・逆位置の表れ方）
+/assets/js/content/tarot-readings.js テーマ別の読み（カード×テーマ×正逆）
+/assets/js/content/tarot-text.js     テーマ定義と、総合メッセージ・注意点の組み立て
+/assets/js/pages/tarot-page.js       タロットページの描画と操作
 /tests/*.test.js          計算・日付の自動テスト（Node）
 /tests/e2e/browser_test.py  ブラウザ操作テスト（Playwright）
 /tools/check-site.mjs     重複ID・リンク切れ・H1・meta・禁止表現などの静的チェック
@@ -50,6 +59,31 @@ python3 -m http.server 8000
 
 各ファイルは即時関数で囲み、グローバルに出すのは `Karute` / `KaruteEngines` / `KaruteContent` の名前空間だけです。
 
+## タロット
+
+```js
+KaruteEngines.tarot.drawTarot({ theme: "love", date: "2026-09-27", random: Karute.random.secure })
+// → { spread: "three-card", theme: "love", date: "2026-09-27",
+//     cards: [{ position: "past", cardId: 5, orientation: "reversed" }, …] }
+```
+
+- シャッフルは Fisher–Yates。逆位置の確率は `REVERSED_PROBABILITY`（0.35、旧版の値を維持）。
+- 伏せたカードの向きはシャッフル時に決まり、選んだ後に変わらない。選んだ順に過去→現在→未来。
+- テーマを増やすとき（例：決断・今日のメッセージ）は、`tarot-text.js` の `THEMES` に1件、`tarot-readings.js` の全22枚に同じキーの `{ upright, reversed }` を足す。テストが全カード分そろっているか確認する。
+- カード画像を使うときは `tarot-deck.js` の各カードの `image` にパスを入れる（未設定なら文字のカード）。
+
+### 「同じテーマは1日1回」
+
+- 同じ端末・同じ日・同じテーマでは同じ結果を表示する。日付は日本時間0時で切り替える（端末の時計のタイムゾーンに依存しない）。
+- 保存先：localStorage のキー `uranai-karute:tarot`。中身は次の形だけ（質問文などの自由入力は保存しない）。
+  ```json
+  { "version": 1, "date": "2026-09-27",
+    "readings": { "love": { "cards": [ { "position": "past", "cardId": 5, "orientation": "reversed" }, … ] } } }
+  ```
+- 日付が変わった記録は使わず、次に保存するときに上書きする（前日以前の結果は残さない）。
+- 同じ日・同じテーマの結果がすでにあれば上書きしない（先に引いた結果を正とする）。
+- 保存データが壊れていたら無視して新しく引く。localStorage が使えない環境では、ページを開いている間だけ覚え、画面にその旨を表示する。
+
 ## 新しい占術を追加するとき
 
 1. `assets/js/engines/<占術>.js` に計算だけを書き、`tests/<占術>.test.js` に既知の答えでテストを書く
@@ -66,7 +100,8 @@ python3 -m http.server 8000
 ```sh
 npm test            # 計算・日付の自動テスト（node --test）
 npm run check       # 静的チェック
-python3 tests/e2e/browser_test.py   # ブラウザ操作テスト（要 Playwright + Chromium）
+python3 tests/e2e/browser_test.py   # ブラウザ操作テスト：サイト全体と数秘術（要 Playwright + Chromium）
+python3 tests/e2e/tarot_test.py     # ブラウザ操作テスト：タロット
 ```
 
 ## 公開前に決めること

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>タロット占い（無料）｜3枚引きで過去・現在・未来を読む｜占いのカルテ</title>
+<meta name="description" content="大アルカナ22枚から3枚を引き、過去・現在・未来の流れを読む無料のタロット占い。総合・恋愛・仕事・人間関係・お金のテーマ別に鑑定します。同じテーマの結果は1日1回。登録不要。">
+<link rel="canonical" href="/tarot/">
+<meta property="og:site_name" content="占いのカルテ">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="タロット占い（無料）｜占いのカルテ">
+<meta property="og:description" content="大アルカナ22枚の3枚引きで、過去・現在・未来をテーマ別に読みます。">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/tarot.css">
+<script defer src="../assets/js/core/date.js"></script>
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/core/random.js"></script>
+<script defer src="../assets/js/core/storage.js"></script>
+<script defer src="../assets/js/engines/tarot.js"></script>
+<script defer src="../assets/js/content/tarot-deck.js"></script>
+<script defer src="../assets/js/content/tarot-readings.js"></script>
+<script defer src="../assets/js/content/tarot-text.js"></script>
+<script defer src="../assets/js/pages/tarot-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../">🔮 占いのカルテ</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../#uranau" aria-current="page">占う</a></li>
+        <li><a href="../aisho/">相性</a></li>
+        <li><span class="nav-soon" aria-disabled="true">運勢 <span class="soon-badge">準備中</span></span></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../">占いのカルテ</a></li>
+      <li aria-current="page">タロット</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">TAROT READING</p>
+    <h1>タロットのカルテ</h1>
+    <p>いま気になっているテーマを選び、伏せられた22枚から直感で3枚を選んでください。過去・現在・未来の流れとして読み解きます。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">完全無料</li>
+      <li class="badge">登録不要</li>
+      <li class="badge">大アルカナ22枚</li>
+    </ul>
+  </section>
+
+  <form id="tarot-form" class="card tarot-form" novalidate>
+    <fieldset class="tarot-themes">
+      <legend>何について占いますか？</legend>
+      <ul class="tarot-theme-list">
+        <li><label><input type="radio" name="tarot-theme" value="general" checked><span class="tarot-theme-name">総合</span><span class="tarot-theme-desc">いまの自分と全体の流れ</span><span class="tarot-theme-done" hidden>今日占い済み</span></label></li>
+        <li><label><input type="radio" name="tarot-theme" value="love"><span class="tarot-theme-name">恋愛</span><span class="tarot-theme-desc">気になる人・恋人・出会い</span><span class="tarot-theme-done" hidden>今日占い済み</span></label></li>
+        <li><label><input type="radio" name="tarot-theme" value="work"><span class="tarot-theme-name">仕事</span><span class="tarot-theme-desc">進め方・職場・キャリア</span><span class="tarot-theme-done" hidden>今日占い済み</span></label></li>
+        <li><label><input type="radio" name="tarot-theme" value="relationships"><span class="tarot-theme-name">人間関係</span><span class="tarot-theme-desc">友人・家族・職場の人</span><span class="tarot-theme-done" hidden>今日占い済み</span></label></li>
+        <li><label><input type="radio" name="tarot-theme" value="money"><span class="tarot-theme-name">お金</span><span class="tarot-theme-desc">使い方・貯め方・収入</span><span class="tarot-theme-done" hidden>今日占い済み</span></label></li>
+      </ul>
+    </fieldset>
+
+    <div class="tarot-question">
+      <label for="tarot-question">相談したいこと（任意）</label>
+      <textarea id="tarot-question" maxlength="200" placeholder="例：気になっている人との関係を良くするために、今できることは？" aria-describedby="tarot-question-hint"></textarea>
+      <p id="tarot-question-hint" class="tarot-hint">入力した内容は結果画面に表示するだけで、保存や送信はしません（200文字まで）。</p>
+    </div>
+
+    <p id="tarot-today-status" class="tarot-status" role="status" hidden></p>
+    <p id="tarot-storage-note" class="tarot-notice" hidden>この端末では結果を保存できないため、「同じテーマは1日1回」の仕組みは使えません。ページを開き直すと、同じテーマでも別のカードになります。</p>
+
+    <button type="submit" class="btn">カードをシャッフルする</button>
+  </form>
+
+  <section id="tarot-pick" class="card tarot-pick" aria-labelledby="tarot-pick-title" hidden>
+    <p class="eyebrow">CHOOSE 3 CARDS</p>
+    <h2 id="tarot-pick-title">直感で3枚選んでください</h2>
+    <p class="tarot-hint">選んだ順に、1枚目が過去、2枚目が現在、3枚目が未来になります。</p>
+    <p id="tarot-pick-status" class="tarot-pick-status" aria-live="polite"></p>
+    <ul id="tarot-deck" class="tarot-deck" aria-label="伏せられた22枚のカード"></ul>
+  </section>
+
+  <div id="tarot-result" class="tarot-result" hidden>
+    <div id="tarot-result-body"></div>
+  </div>
+
+  <section class="card prose" aria-labelledby="about-title">
+    <h2 id="about-title">このタロットで分かること</h2>
+    <p>タロットは、カードに描かれた象徴を通して、今の状況や気持ち、これからの向き合い方を考える占いです。未来を決めつけるものではなく、「今」を整理するヒントとして使えます。</p>
+    <p>このページでは、人生の大きなテーマや転機を象徴する<strong>大アルカナ22枚</strong>（「愚者」から「世界」まで）を使い、総合・恋愛・仕事・人間関係・お金のテーマごとに読み方を変えて鑑定します。</p>
+
+    <h3>3枚引き（過去・現在・未来）について</h3>
+    <p>選んだ順に、1枚目を「過去（今につながる背景）」、2枚目を「現在（いま中心にあること）」、3枚目を「未来（このまま進んだ先にある可能性）」として読みます。3枚をばらばらに読むのではなく、過去から現在、現在から未来への流れとしてつなげて読みます。</p>
+
+    <h3>正位置・逆位置について</h3>
+    <p>カードが上下正しく出た「正位置」は、カードのテーマがまっすぐ表れている状態です。上下逆に出た「逆位置」は、単純に悪い意味ではなく、停滞・内向化・過剰・不足・見直しなど、テーマの別の表れ方として読みます。</p>
+
+    <h3>同じテーマは1日1回</h3>
+    <p>結果が気に入るまで何度も引き直すのではなく、同じ端末・同じ日・同じテーマでは同じ結果を表示します。テーマを変えれば別の観点で占え、日本時間の0時を過ぎると新しく引けます。結果の保存には、テーマ・日付・引いたカードと向きだけをこの端末のブラウザ内に残し、前日以前の結果は残しません。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../">TOP</a></li>
+        <li><a href="../suhijutsu/">数秘術</a></li>
+        <li><a href="../suhijutsu/aisho/">数秘術の相性</a></li>
+        <li><a href="../aisho/">相性占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© 占いのカルテ</p>
+  </div>
+</footer>
+</body>
+</html>
