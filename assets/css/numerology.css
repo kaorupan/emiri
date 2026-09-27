@@ -1,0 +1,82 @@
+/* 数秘術ページ専用（.num- 接頭辞）。旧 numerology-v11 のカルテ表・数字表示を引き継ぐ */
+
+.num-form { max-width: 760px; margin: 8px auto 0; }
+.num-result { margin-top: 28px; }
+
+.num-block { scroll-margin-top: 80px; }
+.step-no { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: #1a1020; font-size: 12px; letter-spacing: 0; margin-right: 4px; }
+
+.num-summary { border-color: rgba(231, 197, 104, .35); }
+.num-table-wrap { overflow-x: auto; }
+.num-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.num-table th, .num-table td { padding: 12px 10px; border-bottom: 1px solid var(--line-soft); text-align: left; vertical-align: middle; }
+.num-table thead th { color: var(--gold); font-size: 12px; letter-spacing: .06em; }
+.num-table tbody th { white-space: nowrap; font-weight: 700; }
+.num-cell-number { font: 700 28px/1 var(--serif); color: var(--gold); text-align: center !important; width: 64px; }
+@media (max-width: 560px) {
+  .num-table thead th:nth-child(3), .num-table tbody td:nth-child(3) { display: none; }
+  .num-table th, .num-table td { padding: 10px 6px; font-size: 13px; }
+  .num-cell-number { font-size: 24px; width: 48px; }
+}
+
+.num-core { margin-top: 18px; padding: 20px; border-radius: 18px; background: radial-gradient(circle at top, rgba(162, 124, 255, .16), transparent 70%), #0d0a16; border: 1px solid #3b2c50; }
+.num-core-name { font-weight: 900; font-size: 18px; color: var(--text) !important; }
+
+.num-traits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0 0; }
+.num-trait { padding: 12px 14px; border-radius: 14px; background: #0d0914; border: 1px solid #382943; }
+.num-trait dt { font-size: 12px; color: var(--gold); font-weight: 800; }
+.num-trait dd { margin: 4px 0 0; font-size: 14px; line-height: 1.7; }
+.num-reading .num-traits { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 640px) { .num-traits, .num-reading .num-traits { grid-template-columns: 1fr; } }
+
+.num-hero { text-align: center; padding: 8px 0 18px; }
+.num-big { font: 700 clamp(64px, 16vw, 96px)/1 var(--serif); color: var(--gold) !important; margin: 0 0 6px !important; text-shadow: 0 0 40px rgba(231, 197, 104, .25); }
+.num-mid { flex: none; display: grid; place-items: center; width: 72px; height: 72px; margin: 0 !important; border-radius: 50%; border: 1px solid #8068a8; font: 700 32px/1 var(--serif); color: var(--gold) !important; box-shadow: 0 0 30px rgba(140, 98, 214, .2); }
+.num-inline { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+.num-tag { font-size: 19px; font-weight: 900; color: var(--text) !important; margin: 0 0 4px !important; }
+.num-lead { color: var(--muted) !important; }
+.num-lead-strong { font-weight: 800; color: var(--text) !important; }
+.num-note { font-size: 13px; color: var(--muted) !important; }
+.num-master { display: inline-block; margin: 4px 0 8px; padding: 4px 10px; border-radius: 999px; font-size: 12px; color: var(--gold); border: 1px solid rgba(231, 197, 104, .5); background: var(--gold-soft); }
+
+.num-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.num-sub { padding: 16px; border-radius: 16px; background: #0d0914; border: 1px solid #382943; }
+@media (max-width: 640px) { .num-grid { grid-template-columns: 1fr; } }
+
+.num-reading { padding: 18px 0; border-top: 1px solid var(--line-soft); }
+.num-reading:first-of-type { border-top: 0; padding-top: 4px; }
+
+.num-months { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.num-month { padding: 14px; border-radius: 14px; background: #0d0914; border: 1px solid #3b2c47; }
+.num-month p { margin: 0 !important; }
+.num-month-head { display: flex; justify-content: space-between; font-weight: 900; color: var(--gold) !important; }
+.num-month-num { font-size: 12px; color: var(--muted); font-weight: 700; }
+.num-month-theme { font-weight: 800; margin: 4px 0 !important; }
+.num-month-text { font-size: 13px; line-height: 1.7; color: var(--muted) !important; }
+@media (max-width: 760px) { .num-months { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 440px) { .num-months { grid-template-columns: 1fr; } }
+
+/* 相性 */
+.num-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.num-fields > div { padding: 16px; border: 1px solid #3b2e52; border-radius: 16px; background: #0d0a16; min-width: 0; }
+@media (max-width: 720px) { .num-fields { grid-template-columns: 1fr; } }
+
+.num-chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 0 14px; }
+.num-chip { padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .05); border: 1px solid #4a3960; font-size: 13px; }
+.num-chip b { color: var(--gold); font-size: 16px; }
+
+.num-score-hero { text-align: center; margin-bottom: 8px; }
+.num-score { font: 700 72px/1 var(--serif); color: var(--gold) !important; margin: 0 !important; }
+.num-score small { font-size: 18px; color: var(--muted); }
+.num-score-level { font-weight: 900; color: var(--gold) !important; }
+.num-scores { list-style: none; padding: 0; margin: 16px 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.num-score-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 12px 14px; border-radius: 14px; background: #0d0914; border: 1px solid #382943; }
+.num-score-item b { color: var(--gold); font-size: 22px; }
+.num-score-item small { grid-column: 1 / -1; color: var(--muted); font-size: 12px; }
+.num-bar { grid-column: 1 / -1; height: 6px; border-radius: 99px; background: #211b2d; overflow: hidden; }
+.num-bar i { display: block; height: 100%; background: linear-gradient(90deg, #725cff, #e1bf67); }
+@media (max-width: 560px) { .num-scores { grid-template-columns: 1fr; } .num-score { font-size: 60px; } }
+.num-method { font-size: 12px; color: var(--muted) !important; padding: 12px 14px; border-radius: 12px; border: 1px solid #3a2e4e; background: #0d0a16; }
+.num-pill { display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--gold); background: var(--gold-soft); vertical-align: middle; }
+.num-list { padding-left: 1.2em; margin: 0; }
+.num-list li { margin: 6px 0; color: #e3dcea; }

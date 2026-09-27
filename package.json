@@ -1,0 +1,10 @@
+{
+  "name": "uranai-karute",
+  "private": true,
+  "description": "占いのカルテ（静的サイト）",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node tools/check-site.mjs",
+    "e2e": "python3 tests/e2e/browser_test.py"
+  }
+}
