@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>星獣カルテ｜生まれた日の季節と月のリズムで決まる12星獣｜占いのカルテ</title>
+<meta name="description" content="生年月日から、生まれた日の「季節」と「月のリズム（満ち欠け）」を読み、12の星獣のどれを宿しているかを占う、占いのカルテ独自のエンターテインメント占い。なぜその星獣なのかも表示します。無料・登録不要。">
+<link rel="canonical" href="/seiju/">
+<meta property="og:site_name" content="占いのカルテ">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="星獣カルテ｜占いのカルテ">
+<meta property="og:description" content="生まれた日の季節と月のリズムから、あなたの星獣を読み解くオリジナル占い。">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/seiju.css">
+<script defer src="../assets/js/core/date.js"></script>
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/core/profile.js"></script>
+<script defer src="../assets/js/core/birthdate-field.js"></script>
+<script defer src="../assets/js/core/astro.js"></script>
+<script defer src="../assets/js/engines/seiju.js"></script>
+<script defer src="../assets/js/content/seiju-data.js"></script>
+<script defer src="../assets/js/content/seiju-text.js"></script>
+<script defer src="../assets/js/pages/seiju-render.js"></script>
+<script defer src="../assets/js/pages/seiju-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../">🔮 占いのカルテ</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../#uranau" aria-current="page">占う</a></li>
+        <li><a href="../aisho/">相性</a></li>
+        <li><span class="nav-soon" aria-disabled="true">運勢 <span class="soon-badge">準備中</span></span></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../">占いのカルテ</a></li>
+      <li aria-current="page">星獣カルテ</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">ORIGINAL · STAR BEAST KARTE</p>
+    <h1>星獣カルテ</h1>
+    <p>人は、生まれた日にひとつの星獣を宿す。生まれた日の「季節」と「月のリズム」が重なって生まれる、12の星獣からあなたの星獣を読み解きます。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">占いのカルテ オリジナル</li>
+      <li class="badge">完全無料</li>
+      <li class="badge">生年月日だけでOK</li>
+    </ul>
+  </section>
+
+  <form id="seiju-form" class="card seiju-form" novalidate>
+    <div data-birthdate="self"></div>
+    <button type="submit" class="btn">星獣を調べる</button>
+  </form>
+
+  <div id="seiju-result" class="seiju-result" hidden>
+    <div id="seiju-result-body"></div>
+
+    <section class="card" aria-labelledby="seiju-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="seiju-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="aisho/">気になる人との星獣の相性を見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="#seiju-about">星獣カルテとは？（しくみと12星獣の一覧） <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../suhijutsu/">同じ生年月日で、数秘術でも見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../tarot/">いまの悩みをタロットで見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section id="seiju-about" class="card prose" aria-labelledby="seiju-about-title">
+    <h2 id="seiju-about-title">星獣カルテとは？</h2>
+    <p>星獣カルテは、<strong>占いのカルテ独自のエンターテインメント占い</strong>です。伝統的な占術や、既存の動物キャラクター占いを再現したものではありません。また、天文学的・科学的な性格診断でもありません。「自分にはこんな面もあるかも」「あの人との違いはここかも」と、自己理解や会話のきっかけとして楽しんでください。</p>
+
+    <h3>季節 × 月のリズム ＝ 12星獣</h3>
+    <p>星獣は、生まれた日の2つの要素が重なって決まります。</p>
+    <ul>
+      <li><strong>季節（太陽がつくる4つの季節）</strong>：芽吹きの季節（立春〜）、陽ざしの季節（立夏〜）、実りの季節（立秋〜）、静けさの季節（立冬〜）。暦の上の季節で、その年の立春などの日から切り替わります。</li>
+      <li><strong>月のリズム（月の満ち欠けを3つに分けたもの）</strong>：新月から次の新月までを3等分し、満ちゆく月（新月〜）、満ちた月（満月をはさむ時期）、欠けゆく月（満月のあと〜）とします。</li>
+    </ul>
+
+    <h3>12星獣の地図</h3>
+    <div class="seiju-map-wrap">
+      <table class="seiju-map">
+        <caption class="visually-hidden">12星獣の地図。行が季節、列が月のリズム</caption>
+        <thead><tr><td></td><th scope="col">満ちゆく月</th><th scope="col">満ちた月</th><th scope="col">欠けゆく月</th></tr></thead>
+        <tbody>
+          <tr data-season="spring"><th scope="row">春</th><td><b aria-hidden="true">虎</b><small>雷光の虎</small></td><td><b aria-hidden="true">兎</b><small>夢渡りの兎</small></td><td><b aria-hidden="true">熊</b><small>森護の熊</small></td></tr>
+          <tr data-season="summer"><th scope="row">夏</th><td><b aria-hidden="true">隼</b><small>炎翼の隼</small></td><td><b aria-hidden="true">海</b><small>星海のイルカ</small></td><td><b aria-hidden="true">鷹</b><small>蒼天の鷹</small></td></tr>
+          <tr data-season="autumn"><th scope="row">秋</th><td><b aria-hidden="true">獅</b><small>黄金の獅子</small></td><td><b aria-hidden="true">鹿</b><small>大地の鹿</small></td><td><b aria-hidden="true">狐</b><small>白銀の狐</small></td></tr>
+          <tr data-season="winter"><th scope="row">冬</th><td><b aria-hidden="true">狼</b><small>暁の狼</small></td><td><b aria-hidden="true">猫</b><small>月影の猫</small></td><td><b aria-hidden="true">梟</b><small>深海の梟</small></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>満ちゆく月の星獣は「動き出す力」、満ちた月の星獣は「映し出す力（感じ取る・つながる）」、欠けゆく月の星獣は「見極める力」を持ちます。</p>
+
+    <h3>計算について</h3>
+    <p>季節は、その日の終わり（日本時間24時）の太陽の位置で、月のリズムは、その日の正午（日本時間）の月の満ち欠けで決めています。太陽と月の位置は天文計算の近似式（日食・月食や春分・夏至の記録で精度を確かめた式）で求めています。精度が十分な範囲として1800年〜2100年の生まれを扱い、それ以外の年代も同じ方法で計算しますが、結果には「推定」と表示します。生まれた時刻によって月のリズムが変わりうる日は、結果の中でお知らせします。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../">TOP</a></li>
+        <li><a href="../suhijutsu/">数秘術</a></li>
+        <li><a href="../suhijutsu/aisho/">数秘術の相性</a></li>
+        <li><a href="../aisho/">相性占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© 占いのカルテ</p>
+  </div>
+</footer>
+</body>
+</html>
