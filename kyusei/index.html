@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>九星気学｜本命星・月命星を立春と節入りで正しく判定｜占いのカルテ</title>
+<meta name="description" content="生年月日から九星気学の本命星と月命星を、その年の立春・節入りの時刻にもとづいて判定し、性格・仕事・恋愛・人間関係を読み解きます。節入り当日は生まれた時刻でも確かめられます。無料・登録不要。">
+<link rel="canonical" href="/kyusei/">
+<meta property="og:site_name" content="占いのカルテ">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="九星気学｜占いのカルテ">
+<meta property="og:description" content="本命星と月命星、ふたつの星の五行の関係から、あなたの性質を読み解きます。">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/kyusei.css">
+<script defer src="../assets/js/core/date.js"></script>
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/core/profile.js"></script>
+<script defer src="../assets/js/core/birthdate-field.js"></script>
+<script defer src="../assets/js/core/astro.js"></script>
+<script defer src="../assets/js/content/kyusei-data.js"></script>
+<script defer src="../assets/js/engines/kyusei.js"></script>
+<script defer src="../assets/js/content/kyusei-text.js"></script>
+<script defer src="../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../assets/js/pages/kyusei-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../">🔮 占いのカルテ</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../#uranau" aria-current="page">占う</a></li>
+        <li><a href="../aisho/">相性</a></li>
+        <li><span class="nav-soon" aria-disabled="true">運勢 <span class="soon-badge">準備中</span></span></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../">占いのカルテ</a></li>
+      <li aria-current="page">九星気学</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">NINE STAR KI</p>
+    <h1>九星気学のカルテ</h1>
+    <p>生まれた年の星「本命星」と、生まれた月の星「月命星」。ふたつの星と五行の関係から、あなたの性質・仕事・恋愛・人間関係を読み解きます。年と月の区切りは、その年の立春と節入りの時刻で判定します。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">完全無料</li>
+      <li class="badge">生年月日だけでOK</li>
+      <li class="badge">立春・節入りの時刻で判定</li>
+    </ul>
+  </section>
+
+  <form id="kyusei-form" class="card kyusei-form" novalidate>
+    <div data-birthdate="self"></div>
+    <div data-birthtime="self"></div>
+    <button type="submit" class="btn">本命星と月命星を調べる</button>
+  </form>
+
+  <div id="kyusei-result" class="kyusei-result" hidden>
+    <div id="kyusei-result-body"></div>
+
+    <section class="card" aria-labelledby="kyusei-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="kyusei-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="aisho/">気になる人との九星気学の相性を見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="#kyusei-about">九星気学とは？（本命星・月命星・節入りのしくみ） <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../suhijutsu/">同じ生年月日で、数秘術でも見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../seiju/">生まれた日の季節と月から、星獣カルテを見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section id="kyusei-about" class="card prose" aria-labelledby="kyusei-about-title">
+    <h2 id="kyusei-about-title">九星気学とは？</h2>
+    <p>九星気学は、一白水星から九紫火星までの9つの星と、木・火・土・金・水の「五行」を使って、人の性質や人どうしの関係を読む日本の占術です。星は1年ごと・1か月ごとに巡っていて、生まれたときに巡っていた星をその人の星とします。</p>
+
+    <h3>本命星とは</h3>
+    <p>生まれた年の星です。九星気学の「1年」は1月1日ではなく<strong>立春</strong>（毎年2月4日ごろ）から始まるため、1月1日から立春の前までに生まれた人は、前の年の星になります。たとえば2024年2月3日生まれの人は、2023年の星（四緑木星）です。</p>
+
+    <h3>月命星とは</h3>
+    <p>生まれた月の星です。九星気学の「1か月」は、暦の1日ではなく<strong>節入り</strong>から始まります。月命星は、その年の本命星のグループと、生まれた月の組み合わせで決まります。本命星がその人の基本的な性質を、月命星が内面や感じ方を表すとされます。</p>
+
+    <h3>節入りとは</h3>
+    <p>二十四節気のうち、月の始まりとなる12の「節」（立春・啓蟄・清明・立夏・芒種・小暑・立秋・白露・寒露・立冬・大雪・小寒）に入る瞬間です。太陽が決まった位置に来た時刻なので、年によって日付や時刻が少しずつ変わります。節入りの当日に生まれた人は、生まれた時刻によって星が変わる場合があります。</p>
+
+    <h3>五行の関係</h3>
+    <p>九星はそれぞれ五行を持ちます（一白＝水、二黒・五黄・八白＝土、三碧・四緑＝木、六白・七赤＝金、九紫＝火）。同じ五行どうしを<strong>比和</strong>、一方が他方を生み出す関係を<strong>相生</strong>（木→火→土→金→水→木）、一方が他方を抑える関係を<strong>相剋</strong>（木→土→水→火→金→木）といいます。このページでは、本命星と月命星の関係や、ふたりの相性をこの関係から読み解きます。相剋は「悪い関係」という意味ではなく、刺激や調整が生まれやすい関係として扱っています。</p>
+
+    <h3>計算について</h3>
+    <p>立春・節入りの時刻は、天文計算（太陽の位置の高精度な近似式）で求めています。国立天文台が公表している二十四節気の時刻とおよそ1分以内で一致することを確かめており、1800年〜2100年の生まれを確認済みの範囲としています。それ以外の年代も同じ方法で計算しますが、誤差が大きくなるため結果に「推定」と表示します。時刻はすべて日本時間です。1582年より前の日付も、現在の暦（グレゴリオ暦）をさかのぼって当てはめて扱います。</p>
+    <p>本命星・月命星の判定は九星気学で広く使われている規則に沿っています。性格や相性の文章は、九星と五行の伝統的な対応をもとに占いのカルテが書いた読み解きです。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../">TOP</a></li>
+        <li><a href="../suhijutsu/">数秘術</a></li>
+        <li><a href="../suhijutsu/aisho/">数秘術の相性</a></li>
+        <li><a href="../aisho/">相性占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© 占いのカルテ</p>
+  </div>
+</footer>
+</body>
+</html>

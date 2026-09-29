@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>九星気学の相性占い｜本命星・月命星の五行で見るふたりの関係｜占いのカルテ</title>
+<meta name="description" content="ふたりの生年月日から九星気学の本命星・月命星を判定し、五行の関係（比和・相生・相剋）から、価値観・コミュニケーション・生活ペース・親密さの傾向を読み解きます。無料・登録不要。">
+<link rel="canonical" href="/kyusei/aisho/">
+<meta property="og:site_name" content="占いのカルテ">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="九星気学の相性占い｜占いのカルテ">
+<meta property="og:description" content="本命星・月命星の五行の関係から、ふたりの関係の傾向を読み解きます。">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/kyusei.css">
+<script defer src="../../assets/js/core/date.js"></script>
+<script defer src="../../assets/js/core/dom.js"></script>
+<script defer src="../../assets/js/core/profile.js"></script>
+<script defer src="../../assets/js/core/birthdate-field.js"></script>
+<script defer src="../../assets/js/core/astro.js"></script>
+<script defer src="../../assets/js/content/kyusei-data.js"></script>
+<script defer src="../../assets/js/engines/kyusei.js"></script>
+<script defer src="../../assets/js/content/kyusei-text.js"></script>
+<script defer src="../../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../../assets/js/pages/kyusei-compatibility-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../../">🔮 占いのカルテ</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../../#uranau">占う</a></li>
+        <li><a href="../../aisho/" aria-current="page">相性</a></li>
+        <li><span class="nav-soon" aria-disabled="true">運勢 <span class="soon-badge">準備中</span></span></li>
+        <li><a href="../../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../../">占いのカルテ</a></li>
+      <li><a href="../">九星気学</a></li>
+      <li aria-current="page">相性</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">NINE STAR KI COMPATIBILITY</p>
+    <h1>九星気学の相性占い</h1>
+    <p>ふたりの本命星と月命星を判定し、五行の関係（比和・相生・相剋）から、価値観やコミュニケーション、生活のペース、親密さの傾向を読み解きます。</p>
+  </section>
+
+  <form id="kyusei-aisho-form" class="card kyusei-form" novalidate>
+    <div class="kyusei-fields">
+      <div><div data-birthdate="self"></div><div data-birthtime="self"></div></div>
+      <div><div data-birthdate="partner"></div><div data-birthtime="partner"></div></div>
+    </div>
+    <p class="kyusei-meta">お相手の生年月日と、ふたりの生まれた時刻は保存しません。</p>
+    <button type="submit" class="btn">ふたりの九星気学の相性を見る</button>
+  </form>
+
+  <div id="kyusei-aisho-result" class="kyusei-result" hidden>
+    <div id="kyusei-aisho-result-body"></div>
+
+    <section class="card" aria-labelledby="kyusei-aisho-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="kyusei-aisho-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="../">自分の本命星・月命星をくわしく見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../#kyusei-about">九星気学とは？（本命星・月命星・節入りのしくみ） <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../../seiju/aisho/">星獣カルテの相性も見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../../suhijutsu/aisho/">数秘術の相性も見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card prose" aria-labelledby="kyusei-aisho-about-title">
+    <h2 id="kyusei-aisho-about-title">九星気学の相性の見方</h2>
+    <p>このページでは、ふたりの本命星どうし（外に見える価値観や生き方）と、月命星どうし（内面や気持ちの動き方）の五行の関係を見ています。</p>
+    <ul>
+      <li><strong>比和（同じ五行）</strong>：感覚を共有しやすい関係</li>
+      <li><strong>相生（一方が他方を生む）</strong>：力を渡しやすい関係。どちらが渡す側になりやすいかも表示します。</li>
+      <li><strong>相剋（一方が他方を抑える）</strong>：刺激や調整が生まれやすい関係。悪い相性という意味ではありません。</li>
+    </ul>
+    <p>五行の関係は、ふたりの関係のすべてを決めるものではありません。関係の傾向を知り、話し合うきっかけとしてお使いください。相性の読み解きは占いのカルテ独自の文章で、点数は付けていません。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../../">TOP</a></li>
+        <li><a href="../../suhijutsu/">数秘術</a></li>
+        <li><a href="../../suhijutsu/aisho/">数秘術の相性</a></li>
+        <li><a href="../../aisho/">相性占い</a></li>
+        <li><a href="../../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© 占いのカルテ</p>
+  </div>
+</footer>
+</body>
+</html>
