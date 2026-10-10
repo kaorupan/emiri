@@ -14,3 +14,10 @@
 .yume-search label { display: block; font-weight: 700; margin-bottom: 6px; }
 .yume-search input { width: 100%; box-sizing: border-box; padding: 12px 14px; border-radius: 12px; border: 1px solid #382943; background: #0d0914; color: var(--text); font-size: 16px; }
 @media (max-width: 420px) { .yume-list { grid-template-columns: 1fr; } }
+.yume-toc ol { margin: 8px 0 0; padding-left: 1.4em; columns: 2; column-gap: 24px; }
+.yume-toc li { margin: 4px 0; break-inside: avoid; }
+.yume-toc a { color: var(--text); }
+.yume-toc a:hover, .yume-toc a:focus-visible { color: var(--gold); }
+.yume-parent { margin: 16px 0; }
+.prose h3[id] { scroll-margin-top: 16px; }
+@media (max-width: 520px) { .yume-toc ol { columns: 1; } }

@@ -10,15 +10,39 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
-const CATS = ["animal", "people", "action", "body", "nature", "place", "thing"];
+// カテゴリの並び順。data/<id>.mjs がカテゴリ本体。
+// data/*-more.mjs は既存カテゴリへの追加（addTo）と、既存の語への追記（upgrade：心理・恋愛・仕事・場面の追加）。
+const CATS = ["animal", "insect", "people", "action", "body", "nature", "place", "thing", "supernatural"];
+const MORE = fs.readdirSync(path.join(ROOT, "tools/yume/data")).filter((f) => /-more\.mjs$/.test(f)).sort();
 const LUCK = { good: "吉夢", mixed: "状況しだい", caution: "注意のサイン" };
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const cats = [];
 for (const c of CATS) cats.push((await import(path.join(ROOT, "tools/yume/data", c + ".mjs"))).default);
+for (const f of MORE) {
+  const m = (await import(path.join(ROOT, "tools/yume/data", f))).default;
+  if (m.addTo) {
+    const cat = cats.find((c) => c.id === m.addTo);
+    if (!cat) throw new Error(`${f}: カテゴリ ${m.addTo} がない`);
+    cat.entries.push(...m.entries);
+  }
+  for (const [slug, up] of Object.entries(m.upgrade || {})) {
+    const e = cats.flatMap((c) => c.entries).find((x) => x.slug === slug);
+    if (!e) throw new Error(`${f}: upgrade の ${slug} がない`);
+    for (const k of ["psych", "love", "work", "meaning", "summary", "advice"]) if (up[k]) e[k] = up[k];
+    if (up.variants) e.variants = e.variants.concat(up.variants);
+    if (up.related) e.related = [...new Set(e.related.concat(up.related))];
+  }
+}
 const all = [];
 cats.forEach((c) => c.entries.forEach((e) => all.push({ ...e, cat: c })));
 const bySlug = new Map(all.map((e) => [e.slug, e]));
+if (bySlug.size !== all.length) throw new Error("slug が重複している");
+for (const e of all) {
+  if (e.parent && !bySlug.has(e.parent)) throw new Error(`${e.slug}: parent ${e.parent} がない`);
+  for (const r of e.related) if (!bySlug.has(r)) throw new Error(`${e.slug}: related ${r} がない`);
+}
+const childrenOf = (slug) => all.filter((x) => x.parent === slug);
 
 const TEMPLATE = fs.readFileSync(path.join(ROOT, "learn/suhijutsu/index.html"), "utf8");
 function head(rel, title, desc, ogTitle, ogDesc, depth) {
@@ -40,8 +64,11 @@ function entryPage(e) {
   const rel = `yume/${e.slug}/`;
   const word = e.word;
   const title = `【夢占い】${word}の夢の意味｜${e.variants.slice(0, 2).map((v) => v[0].replace(/の夢$/, "")).join("・")}など｜えみり`;
-  const desc = `${word}の夢の意味を夢占いで解説。${e.summary}${e.variants.map((v) => v[0]).slice(0, 3).join("、")}など、場面ごとの意味とアドバイスも紹介します。`;
-  const related = e.related.map((s) => bySlug.get(s)).filter(Boolean);
+  const desc = `${word}の夢の意味を夢占いで解説。${e.summary}${e.variants.map((v) => v[0]).slice(0, 3).join("、")}など、${e.variants.length}の場面ごとの意味とアドバイスを紹介します。`;
+  const related = e.related.map((s) => bySlug.get(s)).filter((r) => r && r.slug !== e.parent);
+  const parent = e.parent ? bySlug.get(e.parent) : null;
+  const children = childrenOf(e.slug);
+  const toc = e.variants.length >= 4;
   const sameCat = e.cat.entries.filter((x) => x.slug !== e.slug && !e.related.includes(x.slug)).slice(0, 6);
   const body = `<main id="main" class="wrap-narrow">
   <nav class="breadcrumb" aria-label="パンくずリスト">
@@ -49,7 +76,7 @@ function entryPage(e) {
       <li><a href="../../">えみり</a></li>
       <li><a href="../">夢占い辞典</a></li>
       <li><a href="../#yume-${e.cat.id}">${esc(e.cat.name)}</a></li>
-      <li aria-current="page">${esc(word)}</li>
+${parent ? `      <li><a href="../${parent.slug}/">${esc(parent.word)}</a></li>\n` : ""}      <li aria-current="page">${esc(word)}</li>
     </ol>
   </nav>
 
@@ -67,11 +94,43 @@ function entryPage(e) {
     <p>${esc(e.meaning)}</p>
   </section>
 
-  <section class="card prose" aria-labelledby="yume-variants-title">
+${toc ? `  <nav class="card yume-toc" aria-labelledby="yume-toc-title">
+    <p class="eyebrow">CONTENTS</p>
+    <h2 id="yume-toc-title">${esc(word)}の夢　場面から探す</h2>
+    <ol>
+${e.variants.map((v, i) => `      <li><a href="#s${i + 1}">${esc(v[0])}</a></li>`).join("\n")}
+    </ol>
+  </nav>
+
+` : ""}${children.length ? `  <section class="card" aria-labelledby="yume-kids-title">
+    <p class="eyebrow">TYPES</p>
+    <h2 id="yume-kids-title">種類別の${esc(word)}の夢</h2>
+    <ul class="yume-tags">
+${children.map((c) => `      <li><a href="../${c.slug}/">${esc(c.word)}の夢</a></li>`).join("\n")}
+    </ul>
+  </section>
+
+` : ""}${e.psych ? `  <section class="card prose" aria-labelledby="yume-psych-title">
+    <p class="eyebrow">MIND</p>
+    <h2 id="yume-psych-title">${esc(word)}の夢を見るときの心理</h2>
+    <p>${esc(e.psych)}</p>
+  </section>
+
+` : ""}  <section class="card prose" aria-labelledby="yume-variants-title">
     <p class="eyebrow">SITUATIONS</p>
     <h2 id="yume-variants-title">場面別の意味</h2>
-${e.variants.map((v) => `    <h3>${esc(v[0])}</h3>\n    <p>${esc(v[1])}</p>`).join("\n")}
+${e.variants.map((v, i) => `    <h3 id="s${i + 1}">${esc(v[0])}</h3>\n    <p>${esc(v[1])}</p>`).join("\n")}
   </section>
+
+${e.love || e.work ? `  <section class="card prose" aria-labelledby="yume-life-title">
+    <p class="eyebrow">LOVE &amp; WORK</p>
+    <h2 id="yume-life-title">恋愛・仕事での意味</h2>
+${e.love ? `    <h3>恋愛</h3>\n    <p>${esc(e.love)}</p>` : ""}
+${e.work ? `    <h3>仕事・人間関係</h3>\n    <p>${esc(e.work)}</p>` : ""}
+  </section>
+` : ""}${parent ? `
+  <p class="yume-parent"><a href="../${parent.slug}/">← ${esc(parent.word)}の夢 全体の意味を見る</a></p>
+` : ""}
 
   <section class="card prose" aria-labelledby="yume-advice-title">
     <p class="eyebrow">ADVICE</p>
@@ -131,7 +190,7 @@ ${c.entries.map((e) => `      <li data-words="${esc(e.word + " " + e.reading + "
   <section class="hero">
     <p class="eyebrow">DREAM DICTIONARY</p>
     <h1>夢占い辞典</h1>
-    <p>見た夢のキーワードから、夢が伝えるメッセージを読み解きます。動物・人物・行動・体・自然・場所・お金や物の${all.length}のキーワードを、場面別の意味とアドバイスつきで解説しています。</p>
+    <p>見た夢のキーワードから、夢が伝えるメッセージを読み解きます。動物・虫・人物・行動・体・自然・場所・お金や物・不思議な存在の${all.length}のキーワードを、${all.reduce((t, e) => t + e.variants.length, 0)}の場面別の意味とアドバイスつきで解説しています。</p>
   </section>
 
   <form class="card yume-search" role="search" onsubmit="return false">
