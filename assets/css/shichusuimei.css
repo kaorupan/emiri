@@ -1,0 +1,36 @@
+/* 四柱推命ページ（kyusei.css の五行の色・カード部品を使う） */
+.ssm-table-wrap { margin: 14px 0; overflow-x: auto; }
+.ssm-table { width: 100%; border-collapse: separate; border-spacing: 4px; table-layout: fixed; font-size: 14px; }
+.ssm-table th, .ssm-table td { text-align: center; padding: 8px 4px; border-radius: 10px; background: #0d0914; border: 1px solid #382943; }
+.ssm-table thead th { background: transparent; border: 0; color: var(--gold); font-weight: 700; }
+.ssm-table tbody th { width: 30%; background: transparent; border: 0; color: var(--muted); font-weight: 400; font-size: 12px; text-align: left; padding-left: 0; }
+.ssm-char { background: var(--el-bg, #0d0914) !important; border-color: var(--el, #382943) !important; }
+.ssm-kanji { display: block; font-family: var(--serif); font-size: 28px; line-height: 1.2; color: var(--el, var(--text)); }
+.ssm-reading { display: block; font-size: 10px; color: var(--muted); }
+.ssm-self { color: var(--muted); font-size: 12px; }
+.ssm-center { outline: 2px solid var(--gold); outline-offset: -2px; color: var(--gold); font-weight: 700; }
+.ssm-empty { color: var(--muted); font-size: 11px; }
+.ssm-catch { font-size: 17px; margin: 12px 0; }
+.ssm-catch b { color: var(--gold); }
+.ssm-lead { font-family: var(--serif); font-size: 18px; color: var(--el, var(--gold)); }
+
+.ssm-bars { list-style: none; padding: 0; margin: 14px 0; display: grid; gap: 8px; }
+.ssm-bar { display: grid; grid-template-columns: 2em 1fr 3em; grid-template-areas: "label track count" ". image image"; align-items: center; gap: 2px 10px; }
+.ssm-bar-label { grid-area: label; font-family: var(--serif); font-size: 18px; color: var(--el); text-align: center; }
+.ssm-bar-track { grid-area: track; height: 12px; border-radius: 6px; background: #0d0914; border: 1px solid #382943; overflow: hidden; }
+.ssm-bar-fill { display: block; height: 100%; background: var(--el); }
+.ssm-bar-count { grid-area: count; text-align: right; font-size: 14px; }
+.ssm-bar-image { grid-area: image; font-size: 12px; color: var(--muted); }
+
+.ssm-years { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; }
+.ssm-year { padding: 12px 14px; border-radius: 14px; background: #0d0914; border: 1px solid #382943; }
+.ssm-year p { margin: 0; }
+.ssm-year-head { margin-bottom: 4px !important; }
+.ssm-year-head b { color: var(--gold); }
+.ssm-tag { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: 11px; border: 1px solid var(--purple); color: var(--purple); }
+
+@media (max-width: 420px) {
+  .ssm-kanji { font-size: 24px; }
+  .ssm-table { font-size: 12px; border-spacing: 3px; }
+  .ssm-table tbody th { font-size: 11px; }
+}

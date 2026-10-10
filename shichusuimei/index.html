@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>四柱推命｜命式・日干・通変星・五行を無料で鑑定｜えみり</title>
+<meta name="description" content="生年月日（と分かれば生まれた時刻）から四柱推命の命式を作り、日干・中心星（通変星）・十二運・五行のバランス・天中殺・これから3年の流れを読み解きます。年と月は立春・節入りの時刻で判定。無料・登録不要。">
+<link rel="canonical" href="https://emiri-uranai.com/shichusuimei/">
+<meta property="og:url" content="https://emiri-uranai.com/shichusuimei/">
+<link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../feed.xml">
+<meta property="og:site_name" content="えみり">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="四柱推命｜えみり">
+<meta property="og:description" content="命式の8文字から、あなたの本質・才能・五行のバランスと、これからの流れを読み解きます。">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/kyusei.css">
+<link rel="stylesheet" href="../assets/css/shichusuimei.css">
+<script defer src="../assets/js/core/date.js"></script>
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/core/profile.js"></script>
+<script defer src="../assets/js/core/birthdate-field.js"></script>
+<script defer src="../assets/js/core/astro.js"></script>
+<script defer src="../assets/js/content/kyusei-data.js"></script>
+<script defer src="../assets/js/engines/kyusei.js"></script>
+<script defer src="../assets/js/engines/shichusuimei.js"></script>
+<script defer src="../assets/js/content/shichusuimei-text.js"></script>
+<script defer src="../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../assets/js/pages/shichusuimei-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../#uranau" aria-current="page">無料占い</a></li>
+        <li><a href="../aisho/">相性</a></li>
+        <li><a href="../unsei/">今日の運勢</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../">えみり</a></li>
+      <li aria-current="page">四柱推命</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">FOUR PILLARS OF DESTINY</p>
+    <h1>四柱推命のカルテ</h1>
+    <p>生まれた年・月・日・時刻の4つの柱を干支で表した「命式」から、あなたの本質（日干）、考え方や行動の傾向（中心星）、五行のバランス、これから3年の流れを読み解きます。年と月の区切りは、立春と節入りの時刻で判定します。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">完全無料</li>
+      <li class="badge">生年月日だけでOK</li>
+      <li class="badge">時刻を入れると時柱も</li>
+    </ul>
+  </section>
+
+  <form id="ssm-form" class="card kyusei-form" novalidate>
+    <div data-birthdate="self"></div>
+    <div data-birthtime="self"></div>
+    <button type="submit" class="btn">命式を作る</button>
+  </form>
+
+  <div id="ssm-result" class="kyusei-result" hidden>
+    <div id="ssm-result-body"></div>
+
+    <section class="card" aria-labelledby="ssm-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="ssm-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="#ssm-about">四柱推命とは？（命式・日干・通変星・十二運のしくみ） <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../kyusei/">同じ生年月日で、九星気学でも見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../suhijutsu/">数秘術のカルテを見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../unsei/">今日の運勢を見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section id="ssm-about" class="card prose" aria-labelledby="ssm-about-title">
+    <h2 id="ssm-about-title">四柱推命とは？</h2>
+    <p>四柱推命は、中国で生まれた占術です。生まれた年・月・日・時刻を、それぞれ十干（甲・乙・丙…）と十二支（子・丑・寅…）の組み合わせ（干支）で表し、4本の柱に並べたものを「命式」と呼びます。命式の文字を木・火・土・金・水の五行と陰陽で読み、その人の性質や運の流れを見ます。</p>
+
+    <h3>日干（自分の星）</h3>
+    <p>生まれた日の干支の上の文字が「日干」で、命式の中の「自分」を表します。甲は大樹、丙は太陽、壬は大河のように、十干にはそれぞれ自然のたとえがあります。</p>
+
+    <h3>通変星と中心星</h3>
+    <p>日干から見て、ほかの文字が「同じ五行か」「自分が生む・抑える五行か」「自分を生む・抑える五行か」と陰陽の異同で、比肩・劫財・食神・傷官・偏財・正財・偏官・正官・偏印・印綬の10の通変星に分けます。生まれた月の地支に蔵された干（本気）の通変星を「中心星」とし、その人を代表する星として読みます。</p>
+
+    <h3>十二運</h3>
+    <p>日干の勢いが十二支のどこで強まり弱まるかを、長生・沐浴・冠帯・建禄・帝旺・衰・病・死・墓・絶・胎・養の12段階で表したものです。陽の干は順に、陰の干は逆に巡る方式で計算しています。</p>
+
+    <h3>天中殺（空亡）</h3>
+    <p>60の干支を10ずつに分けると、12の十二支のうち2つが余ります。日柱が属するまとまりで余る2つの十二支が、その人の天中殺です。</p>
+
+    <h3>計算について</h3>
+    <p>年柱は立春の時刻、月柱は12の節（立春・啓蟄・清明…小寒）の時刻で切り替えます。時刻は天文計算（太陽の位置の高精度な近似式）で求め、国立天文台が公表している時刻とおよそ1分以内で一致することを確かめています。日柱は日本時間の暦日（0時で切り替え）、時柱は23時〜1時を子の刻とし、23時台の時干は翌日の日干から求めます。出生地による時差（経度）の補正はしていません。蔵干は十二支の本気だけを使います。</p>
+    <p>命式・通変星・十二運・天中殺の計算結果は、独立した別の暦計算ライブラリと2万件以上の生年月日・時刻で突き合わせ、すべて一致することを確かめています。性格や流れの文章は、十干・通変星・五行の伝統的な意味をもとにえみりが書いた読み解きです。大運・格局・用神などの詳しい判断は扱っていません。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../">TOP</a></li>
+        <li><a href="../#uranau">無料占い</a></li>
+        <li><a href="../aisho/">相性占い</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
+  </div>
+</footer>
+</body>
+</html>

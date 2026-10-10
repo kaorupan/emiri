@@ -36,6 +36,7 @@ python3 -m http.server 8000
 /seiju/aisho/             星獣カルテ 相性
 /kyusei/                  九星気学 個人鑑定（本命星・月命星）
 /kyusei/aisho/            九星気学 相性
+/shichusuimei/            四柱推命（命式・日干・中心星・十二運・五行・天中殺・年運）
 /aisho/                   相性占いTOP
 /learn/                   占いを知るTOP
 /learn/suhijutsu/         数秘術を知る
@@ -44,6 +45,7 @@ python3 -m http.server 8000
 /assets/css/tarot.css         タロット専用（クラス名は .tarot- 接頭辞）
 /assets/css/seiju.css         星獣カルテ専用（クラス名は .seiju- 接頭辞）
 /assets/css/kyusei.css        九星気学専用（クラス名は .kyusei- 接頭辞）
+/assets/css/shichusuimei.css  四柱推命専用（.ssm- 接頭辞。kyusei.css の部品も使う）
 /assets/js/core/date.js             生年月日の共通仕様（0001〜9999年・実在日・日本時間の今日）
 /assets/js/core/dom.js              DOMヘルパー（textContentのみ）
 /assets/js/core/profile.js          共通プロフィール（端末内保存。明示的に選んだ時だけ）
@@ -70,6 +72,9 @@ python3 -m http.server 8000
 /assets/js/content/kyusei-text.js    九星気学の鑑定文（伝統的な位置づけ TRADITION と、サイト独自の読み解き STAR_TEXT を分けて持つ）
 /assets/js/pages/kyusei-render.js    九星気学の描画部品（出生時刻の任意入力・九星のしるし・五行の巡り・境界のお知らせ）
 /assets/js/pages/kyusei-page.js / kyusei-compatibility-page.js  各ページの描画
+/assets/js/engines/shichusuimei.js   四柱推命の計算（年柱・月柱は kyusei.js の立春・節入り判定を使う。方式は冒頭コメント）
+/assets/js/content/shichusuimei-text.js  四柱推命の鑑定文（TRADITION と、えみりの読み解きを分けて持つ）
+/assets/js/pages/shichusuimei-page.js    四柱推命ページの描画（kyusei-render.js の部品を使う）
 /assets/js/engines/daily.js          今日の運勢の計算（日の干支・日の九星・日盤・月の星座・ランキング。DOMに触らない）
 /assets/js/content/daily-text.js     今日の運勢の文章（宮・ハウスの読み、暦、今日誕生日の人）
 /assets/css/daily.css                今日の運勢専用（クラス名は .daily- 接頭辞）
@@ -254,3 +259,8 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 ## 数秘術の計算ルール
 
 旧 `numerology-v11.html` の式を変更せずに移植しています（監査でA判定）。相性は統合版で追加された `compatibilityEngine()` を正本とし、同じ値になることを 12,000 組のランダムな生年月日で照合済みです。相性は「数秘術の唯一の公式」ではなく「えみり独自の相性分析」として表示します。
+
+## 四柱推命の検証
+- tests/fixtures/shichusuimei-lunar.json：lunar-javascript 1.7.3（EightChar sect 2）で作った正解データ。
+  年柱・月柱は中国時間（UTC+8）で節入りを判定するため、日本時間から1時間引いて比べている。
+  作成時は 1900〜2100年のランダムな生年月日・時刻 2万件で突き合わせ、四柱・通変星・蔵干・十二運・天中殺がすべて一致。
