@@ -7,6 +7,9 @@
 //          https://www.luft.co.jp/cgi/nine-star-ki-table.php → tests/fixtures/nikka-kyusei-luft.json
 //  [LUFT-GZ] 同ページの六十干支（2026年）
 //  [NAOJ]  国立天文台 暦計算室「令和8年(2026)暦要項 朔弦望」https://eco.mtk.nao.ac.jp/koyomi/yoko/2026/rekiyou263.html
+//  [KICHI] 2026年の一粒万倍日・天赦日：ルフト「縁起のいい日・吉日カレンダー」を基本に、節入り当日の扱いを
+//          ベストカレンダー・JAL「一粒万倍日カレンダー」にそろえたもの → tests/fixtures/kichijitsu-2026.json
+//  [NAOJ-24] 国立天文台「令和8年(2026)暦要項 二十四節気」https://eco.mtk.nao.ac.jp/koyomi/yoko/2026/rekiyou262.html
 //  [AE]    astronomy-engine 2.1.19 の EclipticGeoMoon（月の視黄経・その日の春分点基準）。独立した実装との比較
 const test = require("node:test");
 const assert = require("node:assert/strict");
@@ -135,6 +138,78 @@ test("生成：同じ日付で2回実行しても同じファイル（2回目は
   assert.match(first, /2026年10月10日（土）の運勢/);
   assert.match(first, /href="\.\.\/2026-10-11\/"/);
   assert.match(fs.readFileSync(path.join(tmp, "index.html"), "utf8"), /<!-- daily:start -->[\s\S]*unsei\/2026-10-1\d\/[\s\S]*<!-- daily:end -->/);
+  assert.ok(fs.existsSync(path.join(tmp, "koyomi/2026-10/index.html")) && fs.existsSync(path.join(tmp, "koyomi/2026-11/index.html")));
+  assert.match(fs.readFileSync(path.join(tmp, "koyomi/2026-10/index.html"), "utf8"), /10\/1（木）[\s\S]*天赦日・一粒万倍日/);
   assert.match(run(), /変更なし/);
   fs.rmSync(tmp, { recursive: true, force: true });
+});
+
+test("[KICHI] 2026年の一粒万倍日（63日）・天赦日（6日）が全日一致", () => {
+  const fx = JSON.parse(fs.readFileSync(path.join(__dirname, "fixtures/kichijitsu-2026.json"), "utf8"));
+  const ichi = [], ten = [];
+  for (let i = 0; i < 365; i++) {
+    const d = daily.addDays({ year: 2026, month: 1, day: 1 }, i);
+    const k = calc(d.year, d.month, d.day).koyomi.kichijitsu;
+    if (k.includes("ichiryu")) ichi.push(`${d.month}/${d.day}`);
+    if (k.includes("tensha")) ten.push(`${d.month}/${d.day}`);
+  }
+  assert.deepEqual(ichi, fx.ichiryumanbai);
+  assert.deepEqual(ten, fx.tensha);
+});
+
+test("寅の日・巳の日・己巳の日：日の十二支・干支どおり（己巳の日は巳の日と重ねて出さない）", () => {
+  for (let i = 0; i < 120; i++) {
+    const d = daily.addDays({ year: 2026, month: 1, day: 1 }, i);
+    const r = calc(d.year, d.month, d.day);
+    const k = r.koyomi.kichijitsu, gz = r.sexagenary.name;
+    assert.equal(k.includes("tora"), gz[1] === "寅", gz);
+    assert.equal(k.includes("tsuchinotomi"), gz === "己巳", gz);
+    assert.equal(k.includes("mi"), gz[1] === "巳" && gz !== "己巳", gz);
+  }
+  assert.deepEqual(calc(2026, 10, 10).koyomi.kichijitsu, ["mi"]);
+  assert.deepEqual(calc(2026, 10, 1).koyomi.kichijitsu, ["tensha", "ichiryu"]);
+});
+
+test("[NAOJ-24] 2026年の二十四節気：24個すべて日付が一致し、時刻は±1分", () => {
+  const naoj = [["小寒", 1, 5, 17, 23], ["大寒", 1, 20, 10, 45], ["立春", 2, 4, 5, 2], ["雨水", 2, 19, 0, 52], ["啓蟄", 3, 5, 22, 59],
+    ["春分", 3, 20, 23, 46], ["清明", 4, 5, 3, 40], ["穀雨", 4, 20, 10, 39], ["立夏", 5, 5, 20, 49], ["小満", 5, 21, 9, 37],
+    ["芒種", 6, 6, 0, 48], ["夏至", 6, 21, 17, 25], ["小暑", 7, 7, 10, 57], ["大暑", 7, 23, 4, 13], ["立秋", 8, 7, 20, 43],
+    ["処暑", 8, 23, 11, 19], ["白露", 9, 7, 23, 41], ["秋分", 9, 23, 9, 5], ["寒露", 10, 8, 15, 29], ["霜降", 10, 23, 18, 38],
+    ["立冬", 11, 7, 18, 52], ["小雪", 11, 22, 16, 23], ["大雪", 12, 7, 11, 53], ["冬至", 12, 22, 5, 50]];
+  for (const [name, m, d, h, mi] of naoj) {
+    const r = calc(2026, m, d);
+    assert.equal(r.koyomi.term.today, name, `${m}/${d}`);
+    const t = r.koyomi.term.current.time;
+    assert.ok(Math.abs(t.hour * 60 + t.minute - (h * 60 + mi)) <= 1, `${name} ${t.hour}:${t.minute}`);
+    const prev = daily.addDays({ year: 2026, month: m, day: d }, -1);
+    assert.notEqual(calc(prev.year, prev.month, prev.day).koyomi.term.today, name);
+  }
+  const r = calc(2026, 10, 10).koyomi.term;
+  assert.equal(r.current.name, "寒露");
+  assert.equal(r.next.name, "霜降");
+  assert.equal(r.next.inDays, 13);
+});
+
+test("[NAOJ] 次の新月・満月：日付・時刻（±1分）・あと何日", () => {
+  const r = calc(2026, 10, 10).nextMoon;
+  assert.deepEqual([r.new.date.month, r.new.date.day, r.new.inDays], [10, 11, 1]);
+  assert.ok(Math.abs(r.new.time.hour * 60 + r.new.time.minute - 50) <= 1);
+  assert.deepEqual([r.full.date.month, r.full.date.day, r.full.inDays], [10, 26, 16]);
+  // 新月の当日は「次の新月」を翌月のものにする
+  const r2 = calc(2026, 10, 11).nextMoon;
+  assert.deepEqual([r2.new.date.month, r2.new.date.day], [11, 9]);
+  assert.equal(daily.SIGNS[calc(2026, 10, 11).moon.events[0].sign].name, "天秤座");
+  assert.equal(daily.SIGNS[calc(2026, 10, 26).moon.events[0].sign].name, "牡牛座");
+});
+
+test("文章：節気24・吉日5・新月満月の星座12がそろい、記事に吉日・節気・月の節がある", () => {
+  for (const t of daily.SOLAR_TERMS) assert.ok(text.TERM_TEXT[t.name], t.name);
+  for (const id of ["tensha", "ichiryu", "tsuchinotomi", "tora", "mi"]) assert.ok(text.KICHIJITSU[id].text && text.KICHIJITSU[id].actions.length === 3, id);
+  assert.equal(text.NEW_MOON_WISH.length, 12);
+  assert.equal(text.FULL_MOON_RELEASE.length, 12);
+  const v = text.buildDaily(calc(2026, 10, 1));
+  assert.match(v.lead, /^今日は天赦日と一粒万倍日が重なる/);
+  assert.equal(v.moonFeature.kind, "countdown");
+  assert.equal(text.buildDaily(calc(2026, 10, 11)).moonFeature.kind, "new");
+  assert.equal(text.buildDaily(calc(2026, 10, 23)).season.featured, true);
 });

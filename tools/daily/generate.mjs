@@ -151,6 +151,32 @@ ${view.calendar.map((c) => `      <div><dt>${esc(c.label)}</dt><dd>${esc(c.value
     </dl>
 ${view.events.length ? `    <ul class="daily-events">${view.events.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>\n` : ""}    <p>${esc(view.dayStar.text)}${esc(view.moonMood)}</p>
   </section>
+${view.kichijitsu.length ? `
+  <section class="section" aria-labelledby="daily-kichi-title">
+    <p class="eyebrow">LUCKY DAY</p>
+    <h2 id="daily-kichi-title">今日の吉日：${esc(view.kichijitsu.map((k) => k.name).join("・"))}</h2>
+    <div class="daily-kichi-list">
+${view.kichijitsu.map((k) => `      <article class="daily-kichi" id="daily-kichi-${k.id}">
+        <h3>${esc(k.name)}<small>（${esc(k.reading)}）</small></h3>
+        <p>${esc(k.text)}</p>
+        <p class="daily-kichi-actions"><b>この日にしたいこと</b>${k.actions.map((a) => esc(a)).join("／")}</p>
+      </article>`).join("\n")}
+    </div>
+  </section>
+` : ""}
+  <div class="daily-twin">
+    <section class="card daily-season${view.season.featured ? " is-featured" : ""}" aria-labelledby="daily-season-title">
+      <p class="eyebrow">SEASON</p>
+      <h2 id="daily-season-title">${esc(view.season.title)}</h2>
+      <p>${esc(view.season.text)}</p>
+    </section>
+    <section class="card daily-moon${view.moonFeature.featured ? " is-featured" : ""}" aria-labelledby="daily-moon-title">
+      <p class="eyebrow">MOON</p>
+      <h2 id="daily-moon-title">${esc(view.moonFeature.title)}</h2>
+      <p>${esc(view.moonFeature.text)}</p>
+${view.moonFeature.tip ? `      <p class="daily-advice"><b>ひとこと</b>${esc(view.moonFeature.tip)}</p>\n` : ""}    </section>
+  </div>
+  <p class="daily-month-link"><a href="../../koyomi/${view.monthIso}/">${Number(view.monthIso.slice(5))}月の吉日カレンダー（一粒万倍日・天赦日・寅の日・巳の日）を見る →</a></p>
 
   <section class="section" aria-labelledby="daily-kyusei-title">
     <p class="eyebrow">NINE STAR KI</p>
@@ -211,6 +237,159 @@ ${view.events.length ? `    <ul class="daily-events">${view.events.map((e) => `<
   });
 }
 
+// ---------- 吉日カレンダー（月ごと） ----------
+const KOYOMI = path.join(ROOT, "koyomi");
+const MONTH_RE = /^(\d{4})-(\d{2})$/;
+
+function monthPage(ym) {
+  const [y, m] = ym.split("-").map(Number);
+  const prefix = "../../";
+  const last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  const days = [];
+  for (let d = 1; d <= last; d++) {
+    const r = daily.calculateDaily({ year: y, month: m, day: d });
+    days.push({ d, r, v: text.buildDaily(r) });
+  }
+  const groups = ["tensha", "ichiryu", "tsuchinotomi", "tora", "mi"].map((id) => ({
+    id, name: text.KICHIJITSU[id].name, reading: text.KICHIJITSU[id].reading, text: text.KICHIJITSU[id].text,
+    // 己巳の日も巳の日のひとつなので、月のまとめでは巳の日にも含める
+    days: days.filter((x) => x.r.koyomi.kichijitsu.includes(id) || (id === "mi" && x.r.koyomi.kichijitsu.includes("tsuchinotomi")))
+  }));
+  const wd = (x) => daily.WEEKDAYS.charAt(x.r.date.weekday);
+  const dayLink = (x, label) => {
+    const iso = `${ym}-${pad2(x.d)}`;
+    return fs.existsSync(path.join(UNSEI, iso, "index.html")) ? `<a href="../../unsei/${iso}/">${label}</a>` : label;
+  };
+  const summary = groups.map((g) => `      <div><dt>${esc(g.name)}</dt><dd>${g.days.length ? g.days.map((x) => `${m}/${x.d}（${wd(x)}）`).join("・") : "なし"}</dd></div>`).join("\n");
+  const both = days.filter((x) => x.r.koyomi.kichijitsu.includes("tensha") && x.r.koyomi.kichijitsu.includes("ichiryu"));
+  const terms = days.filter((x) => x.r.koyomi.term.today).map((x) => `${m}月${x.d}日が${x.r.koyomi.term.today}`);
+  const moons = days.flatMap((x) => x.r.moon.events.map((e) => `${m}月${x.d}日が${daily.SIGNS[e.sign].name}の${e.kind === "new" ? "新月" : "満月"}`));
+  const counts = groups.filter((g) => g.days.length).map((g) => `${g.name}${g.days.length}日`).join("、");
+  const lead = `${y}年${m}月の吉日は、${counts}。${both.length ? `${both.map((x) => `${m}月${x.d}日`).join("・")}は天赦日と一粒万倍日が重なる、とくに縁起のよい日です。` : ""}二十四節気は${terms.join("・")}、月は${moons.join("・")}です。`;
+  const rows = days.map((x) => {
+    const k = x.r.koyomi.kichijitsu.map((id) => text.KICHIJITSU[id].name).join("・");
+    const extra = [x.r.koyomi.term.today, ...x.r.moon.events.map((e) => (e.kind === "new" ? "新月" : "満月"))].filter(Boolean).join("・");
+    return `      <tr${k ? ' class="has-kichi"' : ""}><th scope="row">${dayLink(x, `${m}/${x.d}（${wd(x)}）`)}</th><td>${esc(x.r.sexagenary.name)}</td><td>${esc(k || "—")}</td><td>${esc(extra || "—")}</td></tr>`;
+  }).join("\n");
+  const prevYm = m === 1 ? `${y - 1}-12` : `${y}-${pad2(m - 1)}`;
+  const nextYm = m === 12 ? `${y + 1}-01` : `${y}-${pad2(m + 1)}`;
+  const exists = (k) => fs.existsSync(path.join(KOYOMI, k, "index.html")) || monthTargets.includes(k);
+  const body = `  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="${prefix}">えみり</a></li>
+      <li><a href="../">吉日カレンダー</a></li>
+      <li aria-current="page">${y}年${m}月</li>
+    </ol>
+  </nav>
+
+  <section class="hero hero-compact">
+    <p class="eyebrow">LUCKY DAYS CALENDAR</p>
+    <h1>${y}年${m}月の吉日カレンダー</h1>
+    <p>${esc(lead)}</p>
+  </section>
+
+  <section class="card daily-calendar" aria-labelledby="koyomi-summary-title">
+    <h2 id="koyomi-summary-title">${m}月の吉日まとめ</h2>
+    <dl class="koyomi-summary">
+${summary}
+    </dl>
+  </section>
+
+  <section class="section" aria-labelledby="koyomi-table-title">
+    <h2 id="koyomi-table-title">${m}月の毎日の暦</h2>
+    <div class="koyomi-table-wrap">
+    <table class="koyomi-table">
+      <thead><tr><th scope="col">日付</th><th scope="col">干支</th><th scope="col">吉日</th><th scope="col">節気・月</th></tr></thead>
+      <tbody>
+${rows}
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="koyomi-about-title">
+    <h2 id="koyomi-about-title">それぞれの吉日について</h2>
+    <div class="daily-kichi-list">
+${groups.map((g) => `      <article class="daily-kichi" id="koyomi-${g.id}">
+        <h3>${esc(g.name)}<small>（${esc(g.reading)}）</small></h3>
+        <p>${esc(g.text)}</p>
+      </article>`).join("\n")}
+    </div>
+  </section>
+
+  <nav class="daily-pager" aria-label="前後の月の吉日カレンダー">
+    ${exists(prevYm) ? `<a href="../${prevYm}/">← ${Number(prevYm.slice(5))}月</a>` : "<span></span>"}
+    <a href="../">吉日カレンダーの一覧</a>
+    ${exists(nextYm) ? `<a href="../${nextYm}/">${Number(nextYm.slice(5))}月 →</a>` : "<span></span>"}
+  </nav>
+
+  <section class="card prose daily-method" aria-labelledby="koyomi-method-title">
+    <h2 id="koyomi-method-title">このカレンダーの求め方</h2>
+    <ul>
+      <li>日付は日本時間です。月の区切り（節月）は、二十四節気の節入りの日から新しい月として数えています。</li>
+      <li>一粒万倍日は節月と日の十二支から、天赦日は季節（立春・立夏・立秋・立冬で区切る）と日の干支から求めています。節入りの日の扱いなどにより、暦によっては1〜2日ずれることがあります。</li>
+      <li>二十四節気と新月・満月は、国立天文台の値とほぼ同じ（±1分）になる天文計算で求めています。</li>
+    </ul>
+  </section>`;
+  const rel = `koyomi/${ym}/index.html`;
+  return page({
+    prefix,
+    rel,
+    title: `${y}年${m}月の吉日カレンダー｜一粒万倍日・天赦日・寅の日・巳の日｜えみり`,
+    description: lead.slice(0, 160),
+    ogTitle: `${y}年${m}月の吉日カレンダー｜えみり`,
+    body,
+    css: ["daily.css"],
+    ld: [breadcrumb([[config.siteName, "index.html"], ["吉日カレンダー", "koyomi/index.html"], [`${y}年${m}月`, rel]])]
+  });
+}
+
+function listMonths() {
+  if (!fs.existsSync(KOYOMI)) return [];
+  return fs.readdirSync(KOYOMI, { withFileTypes: true }).filter((e) => e.isDirectory() && MONTH_RE.test(e.name)).map((e) => e.name).sort();
+}
+
+function koyomiIndex(months) {
+  const prefix = "../";
+  const byYear = new Map();
+  for (const ym of [...months].reverse()) {
+    const y = ym.slice(0, 4);
+    if (!byYear.has(y)) byYear.set(y, []);
+    byYear.get(y).push(ym);
+  }
+  const list = [...byYear.entries()].map(([y, ms]) => `    <h3>${y}年</h3>
+    <ul class="daily-archive">${ms.map((ym) => `<li><a href="${ym}/">${Number(ym.slice(5))}月</a></li>`).join("")}</ul>`).join("\n");
+  const body = `  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="${prefix}">えみり</a></li>
+      <li aria-current="page">吉日カレンダー</li>
+    </ol>
+  </nav>
+
+  <section class="hero hero-compact">
+    <p class="eyebrow">LUCKY DAYS CALENDAR</p>
+    <h1>吉日カレンダー</h1>
+    <p>一粒万倍日・天赦日・己巳の日・寅の日・巳の日などの吉日と、二十四節気・新月・満月を、月ごとにまとめています。</p>
+  </section>
+
+  <section class="section" aria-labelledby="koyomi-list-title">
+    <h2 id="koyomi-list-title">月ごとの吉日カレンダー</h2>
+${list}
+  </section>`;
+  return page({
+    prefix,
+    rel: "koyomi/index.html",
+    title: "吉日カレンダー｜一粒万倍日・天赦日・寅の日・巳の日｜えみり",
+    description: "一粒万倍日・天赦日・己巳の日・寅の日・巳の日などの吉日と、二十四節気・新月・満月を月ごとにまとめた吉日カレンダーです。",
+    ogTitle: "吉日カレンダー｜えみり",
+    body,
+    css: ["daily.css"],
+    ld: [breadcrumb([[config.siteName, "index.html"], ["吉日カレンダー", "koyomi/index.html"]])]
+  });
+}
+
+let monthTargets = [];
+
 function listDates() {
   if (!fs.existsSync(UNSEI)) return [];
   return fs.readdirSync(UNSEI, { withFileTypes: true })
@@ -245,7 +424,8 @@ function indexPage(latestView, dates) {
   <section class="hero hero-compact">
     <p class="eyebrow">DAILY FORTUNE</p>
     <h1>今日の運勢</h1>
-    <p>九星気学と12星座の今日の運勢ランキングを、毎日お届けします。日の九星や月の位置などの暦も、毎日計算して載せています。</p>
+    <p>九星気学と12星座の今日の運勢ランキングを、毎日お届けします。日の九星や月の位置、一粒万倍日などの吉日、二十四節気も、毎日計算して載せています。</p>
+    <p><a href="../koyomi/">一粒万倍日・天赦日などの吉日カレンダーを見る →</a></p>
   </section>
 
   <section class="card daily-latest" aria-labelledby="daily-latest-title">
@@ -334,6 +514,29 @@ function main() {
   for (const j of [first - 1, last + 1]) {
     if (j >= 0 && j < dates.length && !targets.includes(dates[j]) && writeDay(dates[j], dates)) changed.push(`unsei/${dates[j]}/`);
   }
+
+  // 吉日カレンダー：対象の日付の月と、その翌月（先に公開しておくと検索に載りやすい）
+  const ymOf = (d) => d.slice(0, 7);
+  const months = new Set(targets.map(ymOf));
+  for (const d of targets) {
+    const [yy, mm] = d.split("-").map(Number);
+    months.add(mm === 12 ? `${yy + 1}-01` : `${yy}-${pad2(mm + 1)}`);
+  }
+  if (process.argv.includes("--all")) for (const ym of listMonths()) months.add(ym);
+  monthTargets = [...months].sort();
+  for (const ym of monthTargets) {
+    if (writeIfChanged(path.join(KOYOMI, ym, "index.html"), monthPage(ym))) changed.push(`koyomi/${ym}/`);
+  }
+  // 前後リンクのため、隣の月も作り直す
+  const allMonths = [...new Set([...listMonths(), ...monthTargets])].sort();
+  for (const ym of allMonths) {
+    if (monthTargets.includes(ym)) continue;
+    const i = allMonths.indexOf(ym);
+    if (monthTargets.includes(allMonths[i - 1]) || monthTargets.includes(allMonths[i + 1])) {
+      if (writeIfChanged(path.join(KOYOMI, ym, "index.html"), monthPage(ym))) changed.push(`koyomi/${ym}/`);
+    }
+  }
+  if (writeIfChanged(path.join(KOYOMI, "index.html"), koyomiIndex(allMonths))) changed.push("koyomi/");
 
   // 一覧とTOPは「今日」（範囲の最後ではなく、今日以前で最も新しい日）を表示する
   const today = iso(todayJst());

@@ -111,6 +111,83 @@
     "やさしさや想像力が広がる"
   ];
 
+  // 暦の吉日（選日）。言い伝えとしての意味を、えみりの言葉でまとめたもの
+  var KICHIJITSU = {
+    tensha: { name: "天赦日", reading: "てんしゃび",
+      text: "天がすべてを赦（ゆる）すとされる、暦の上で最上の吉日。年に5〜6回しかなく、何かを新しく始めるのにふさわしい日と言われています。",
+      actions: ["新しいことを始める", "大切な人に気持ちを伝える", "ずっと迷っていたことを決める"] },
+    ichiryu: { name: "一粒万倍日", reading: "いちりゅうまんばいび",
+      text: "一粒のもみが万倍にも実る稲穂になるという意味の吉日。この日に始めたことは大きく育つと言われます。一方で、借りることや人に頼りすぎることも増えやすいとされます。",
+      actions: ["新しい財布を使い始める", "貯金や学びを始める", "種をまくように小さな一歩を踏み出す"] },
+    tsuchinotomi: { name: "己巳の日", reading: "つちのとみのひ",
+      text: "60日に一度めぐる、巳の日の中でも特に縁起がよいとされる日。弁財天とのご縁が深まり、金運や芸ごとに恵まれる日と言われています。",
+      actions: ["お財布やお金まわりを整える", "芸ごとや習いごとに取り組む", "弁財天をおまつりする寺社へお参りする"] },
+    tora: { name: "寅の日", reading: "とらのひ",
+      text: "12日に一度めぐる日。虎は「千里を行って千里を帰る」と言われることから、出ていったお金が戻ってくる、旅が無事に終わる日とされています。",
+      actions: ["お財布を新しくする", "旅行の計画を立てる", "金運のお守りを新しくする"] },
+    mi: { name: "巳の日", reading: "みのひ",
+      text: "12日に一度めぐる日。巳（へび）は弁財天のお使いとされ、金運や芸ごと、人の魅力が高まる日と言われています。",
+      actions: ["お財布やお金まわりを整える", "芸ごとや習いごとに取り組む", "身の回りをきれいにする"] }
+  };
+
+  // 二十四節気のたより
+  var TERM_TEXT = {
+    "春分": "昼と夜の長さがほぼ同じになる日。ここから昼が長くなり、春が本格的に動き出します。",
+    "清明": "すべてのものが清らかで明るく、生き生きとするころ。花が咲きそろい、外に出たくなる季節です。",
+    "穀雨": "穀物を育てる春の雨が降るころ。じっくり育てたいことに、恵みの雨が降り注ぎます。",
+    "立夏": "暦の上で夏が始まる日。新緑がまぶしく、動き出すのに気持ちのよい季節です。",
+    "小満": "草木が育ち、天地に満ちはじめるころ。少しずつ形になってきたものを確かめたい時期です。",
+    "芒種": "稲や麦など、穂の出る穀物の種をまくころ。梅雨入りも近く、次の実りへの準備の時期です。",
+    "夏至": "一年でいちばん昼が長い日。太陽の力が最も強まる、エネルギーに満ちた節目です。",
+    "小暑": "梅雨明けが近づき、暑さが本格的になりはじめるころ。体をいたわりながら過ごしたい時期です。",
+    "大暑": "一年でいちばん暑さが厳しいころ。無理をせず、休むことも大切にしたい季節です。",
+    "立秋": "暦の上で秋が始まる日。暑さは残りますが、風や空に少しずつ秋の気配が混じります。",
+    "処暑": "暑さがおさまりはじめるころ。夏の疲れを整え、次の季節に向けて身支度を始めましょう。",
+    "白露": "草花に朝露が白く光りはじめるころ。空気が澄み、秋の深まりを感じる季節です。",
+    "秋分": "昼と夜の長さがほぼ同じになる日。ここから夜が長くなり、内側を見つめる季節へ向かいます。",
+    "寒露": "草木に冷たい露が宿るころ。秋が深まり、実りを味わいながら落ち着いて過ごしたい時期です。",
+    "霜降": "朝晩の冷え込みで霜が降りはじめるころ。冬支度を始め、心と体を温めたい季節です。",
+    "立冬": "暦の上で冬が始まる日。日差しがやわらぎ、ゆっくりと力を蓄える季節へ入ります。",
+    "小雪": "わずかに雪が降りはじめるころ。一年の締めくくりに向けて、身の回りを整えたい時期です。",
+    "大雪": "山々が雪に覆われはじめるころ。寒さが本格的になり、静かに一年を振り返る季節です。",
+    "冬至": "一年でいちばん昼が短い日。ここから日が長くなるため、運気が上向きはじめる日とも言われます。",
+    "小寒": "寒の入り。ここから節分までが一年でいちばん寒い時期です。体を温めて過ごしましょう。",
+    "大寒": "一年でいちばん寒さが厳しいころ。春に向けて、静かに力を蓄える時期です。",
+    "立春": "暦の上で春が始まる日。九星気学ではここから新しい一年が始まる、大切な節目です。",
+    "雨水": "雪が雨に変わり、氷がとけはじめるころ。固まっていたものがゆるみ、動き出す季節です。",
+    "啓蟄": "冬ごもりしていた虫たちが土から出てくるころ。眠っていた計画を動かすのにも良い季節です。"
+  };
+
+  // 新月の日の願い（その星座のテーマ）／満月の日の手放し（その星座のテーマ）
+  var NEW_MOON_WISH = [
+    "新しく始めたいこと、自分から動き出したいこと",
+    "お金や暮らしの心地よさ、自分の価値を育てること",
+    "学び、会話、身近な人とのつながり",
+    "家族や住まい、心が安らぐ場所づくり",
+    "好きなこと、恋愛、自分らしい表現",
+    "仕事の進め方、生活習慣、体のケア",
+    "パートナーや大切な人との関係",
+    "深い絆、受け継ぐもの、心から変わりたいこと",
+    "遠くへの旅、学び直し、視野を広げること",
+    "仕事の目標、社会での役割、積み上げたい実績",
+    "仲間との未来、新しい価値観、叶えたい夢",
+    "癒やし、直感、手放して楽になりたいこと"
+  ];
+  var FULL_MOON_RELEASE = [
+    "焦りや、ひとりで抱え込むくせ",
+    "使いすぎや、変化を怖がる気持ち",
+    "情報の取りすぎや、言葉の行き違い",
+    "過去へのこだわりや、気持ちの揺れ",
+    "人の目を気にしすぎる気持ち",
+    "完璧を求めすぎるくせや、体の無理",
+    "人に合わせすぎる関係",
+    "執着や、手放せずにいるもの",
+    "広げすぎた予定や、根拠のない思い込み",
+    "肩の力の入りすぎや、背負いすぎた責任",
+    "古い人間関係や、まわりから浮くことへの不安",
+    "あいまいな不安や、ためこんだ疲れ"
+  ];
+
   function pad2(n) { return (n < 10 ? "0" : "") + n; }
   function timeText(t) { return t.hour + ":" + pad2(t.minute); }
   function dateText(d) { return d.year + "年" + d.month + "月" + d.day + "日（" + daily.WEEKDAYS.charAt(d.weekday) + "）"; }
@@ -130,7 +207,7 @@
         : moonSign }
     ];
     var events = r.moon.events.map(function (e) {
-      return (e.kind === "new" ? "新月" : "満月") + "：" + timeText(e.time) + "ごろ（" + moonSign + "）";
+      return (e.kind === "new" ? "新月" : "満月") + "：" + timeText(e.time) + "ごろ（" + signName(e.sign) + "）";
     });
 
     var kyusei = r.kyusei.map(function (k) {
@@ -159,12 +236,48 @@
       : b.signs.map(function (s) { return signName(s.sign); }).join("または") + "（生まれた年によって変わります）";
 
     var top = kyusei[0], topSign = zodiac[0];
+
+    var ko = r.koyomi;
+    var kichijitsu = ko.kichijitsu.map(function (id) { var k = KICHIJITSU[id]; return { id: id, name: k.name, reading: k.reading, text: k.text, actions: k.actions }; });
+    var kichiNames = kichijitsu.map(function (k) { return k.name; });
+    var kichiLine = kichiNames.length ? "今日は" + kichiNames.join("と") + "。" : "";
+    if (ko.kichijitsu.indexOf("tensha") !== -1 && ko.kichijitsu.indexOf("ichiryu") !== -1) kichiLine = "今日は天赦日と一粒万倍日が重なる、とても縁起のよい日。";
+    var md = function (d) { return d.month + "月" + d.day + "日"; };
+    var cur = ko.term.current, nxt = ko.term.next;
+    var season = ko.term.today
+      ? { title: "今日は二十四節気の「" + cur.name + "」", featured: true,
+          text: "今日" + timeText(cur.time) + "ごろ、二十四節気の「" + cur.name + "（" + cur.reading + "）」を迎えます。" + TERM_TEXT[cur.name] }
+      : { title: "季節は「" + cur.name + "」", featured: false,
+          text: md(cur.date) + "から二十四節気の「" + cur.name + "（" + cur.reading + "）」に入っています。" + TERM_TEXT[cur.name] + "次の節気は" + md(nxt.date) + "の「" + nxt.name + "」、あと" + nxt.inDays + "日です。" };
+    var ev = r.moon.events[0];
+    var nm = r.nextMoon["new"], fm = r.nextMoon.full;
+    var moonFeature;
+    var evSign = ev ? signName(ev.sign) : "";
+    if (ev && ev.kind === "new") {
+      moonFeature = { kind: "new", title: evSign + "の新月", featured: true,
+        text: "今日" + timeText(ev.time) + "ごろ、" + evSign + "で新月を迎えます。新月は物事の始まりの合図。" + evSign + "の新月は「" + NEW_MOON_WISH[ev.sign] + "」についての願いごとや目標を立てるのに向いていると言われます。",
+        tip: "新月から2日ほどのうちに、叶えたいことを「〜しています」と完了形で紙に書き出すのがおすすめです。" };
+    } else if (ev && ev.kind === "full") {
+      moonFeature = { kind: "full", title: evSign + "の満月", featured: true,
+        text: "今日" + timeText(ev.time) + "ごろ、" + evSign + "で満月を迎えます。満月は物事が満ちて実を結ぶ合図。" + evSign + "の満月は「" + FULL_MOON_RELEASE[ev.sign] + "」を手放し、これまでの成果を受け取るのに向いていると言われます。",
+        tip: "ここ半月を振り返り、うまくいったことに感謝して、もう要らないものを一つ手放してみましょう。" };
+    } else {
+      moonFeature = { kind: "countdown", title: "次の新月・満月", featured: false,
+        text: "次の新月は" + md(nm.date) + " " + timeText(nm.time) + "ごろ（" + signName(nm.sign) + "、あと" + nm.inDays + "日）、次の満月は" + md(fm.date) + " " + timeText(fm.time) + "ごろ（" + signName(fm.sign) + "、あと" + fm.inDays + "日）です。" +
+          (nm.inDays < fm.inDays ? signName(nm.sign) + "の新月は「" + NEW_MOON_WISH[nm.sign] + "」の願いごとに向いています。" : signName(fm.sign) + "の満月は「" + FULL_MOON_RELEASE[fm.sign] + "」を手放すのに向いています。") };
+    }
+    calendar.push({ label: "二十四節気", value: ko.term.today ? cur.name + "（今日から）" : cur.name + "（" + md(cur.date) + "〜）" });
+    if (kichiNames.length) calendar.push({ label: "吉日", value: kichiNames.join("・") });
     return {
       iso: isoDate(r.date),
       dateText: dateText(r.date),
       title: dateText(r.date) + "の運勢",
-      lead: star.name + "が中心に入り、月は" + moonSign + "。" + MOON_MOOD[r.moon.sign] + "空気の中、九星では" + top.name + "、12星座では" + topSign.name + "がいちばん追い風を受けやすい一日です。",
+      lead: kichiLine + star.name + "が中心に入り、月は" + moonSign + "。" + MOON_MOOD[r.moon.sign] + "空気の中、九星では" + top.name + "、12星座では" + topSign.name + "がいちばん追い風を受けやすい一日です。",
       dayStar: { name: star.name, text: DAY_STAR[r.dayStar.number] },
+      kichijitsu: kichijitsu,
+      season: season,
+      moonFeature: moonFeature,
+      monthIso: r.date.year + "-" + pad2(r.date.month),
       moonMood: "月が" + moonSign + "にある日は、" + MOON_MOOD[r.moon.sign] + "雰囲気になりやすいと考えられています。",
       calendar: calendar,
       events: events,
@@ -189,6 +302,10 @@
     FLOW: FLOW,
     HOUSE: HOUSE,
     MOON_MOOD: MOON_MOOD,
+    KICHIJITSU: KICHIJITSU,
+    TERM_TEXT: TERM_TEXT,
+    NEW_MOON_WISH: NEW_MOON_WISH,
+    FULL_MOON_RELEASE: FULL_MOON_RELEASE,
     buildDaily: buildDaily
   };
 });

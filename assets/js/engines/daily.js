@@ -18,6 +18,13 @@
  *   5. 12星座のランキング：日本時間の正午の月の位置（星座）が、各星座から数えて何番目のハウスにあるかで決める（ソーラーハウス）。
  *      ハウスの順位は RANKED_HOUSES（5・11・1・10・9・3・7・2・6・4・8・12の順）。順位はえみりの読み方。
  *      月はおよそ2日半で星座を移るため、その日のうちに次の星座へ移る時刻も返す。
+ *   7. 暦の吉日（選日）：節月（その月の節入りの日から次の節入りの前日まで。節入り当日は新しい月）と日の干支から求める。
+ *      一粒万倍日：節月ごとの十二支（寅月＝丑・午、卯月＝酉・寅、辰月＝子・卯、巳月＝卯・辰、午月＝巳・午、未月＝酉・午、
+ *        申月＝子・未、酉月＝卯・申、戌月＝酉・午、亥月＝酉・戌、子月＝亥・子、丑月＝子・卯）。
+ *      天赦日：立春〜立夏前の戊寅、立夏〜立秋前の甲午、立秋〜立冬前の戊申、立冬〜立春前の甲子。
+ *      寅の日・巳の日：日の十二支。己巳の日：日の干支が己巳。
+ *   8. 二十四節気：太陽黄経15°ごとの時刻（astro.js の高精度式）。日付は日本時間。今日の節気と次の節気を返す。
+ *   9. 次の新月・満月：日本時間の今日より後の最初の新月・満月の日時と、そのときの月の星座。
  *   6. 今日誕生日の人：誕生日の数（バースデーナンバー）・誕生月と日の数（アティチュードナンバー）と、
  *      その月日に生まれた人の太陽星座（1950〜2025年の各年の正午で判定。年によって変わる日は両方を返す）。
  *
@@ -51,6 +58,28 @@
   var RANKED_HOUSES = [5, 11, 1, 10, 9, 3, 7, 2, 6, 4, 8, 12];
 
   var BIRTH_SIGN_YEARS = [1950, 2025];
+
+  // 二十四節気（太陽黄経 0°＝春分 から15°ごと）。setsu：月の区切りになる「節」なら、その節月の十二支（0＝子）
+  var SOLAR_TERMS = [
+    { lon: 0, name: "春分", reading: "しゅんぶん" }, { lon: 15, name: "清明", reading: "せいめい", setsu: 4 },
+    { lon: 30, name: "穀雨", reading: "こくう" }, { lon: 45, name: "立夏", reading: "りっか", setsu: 5 },
+    { lon: 60, name: "小満", reading: "しょうまん" }, { lon: 75, name: "芒種", reading: "ぼうしゅ", setsu: 6 },
+    { lon: 90, name: "夏至", reading: "げし" }, { lon: 105, name: "小暑", reading: "しょうしょ", setsu: 7 },
+    { lon: 120, name: "大暑", reading: "たいしょ" }, { lon: 135, name: "立秋", reading: "りっしゅう", setsu: 8 },
+    { lon: 150, name: "処暑", reading: "しょしょ" }, { lon: 165, name: "白露", reading: "はくろ", setsu: 9 },
+    { lon: 180, name: "秋分", reading: "しゅうぶん" }, { lon: 195, name: "寒露", reading: "かんろ", setsu: 10 },
+    { lon: 210, name: "霜降", reading: "そうこう" }, { lon: 225, name: "立冬", reading: "りっとう", setsu: 11 },
+    { lon: 240, name: "小雪", reading: "しょうせつ" }, { lon: 255, name: "大雪", reading: "たいせつ", setsu: 0 },
+    { lon: 270, name: "冬至", reading: "とうじ" }, { lon: 285, name: "小寒", reading: "しょうかん", setsu: 1 },
+    { lon: 300, name: "大寒", reading: "だいかん" }, { lon: 315, name: "立春", reading: "りっしゅん", setsu: 2 },
+    { lon: 330, name: "雨水", reading: "うすい" }, { lon: 345, name: "啓蟄", reading: "けいちつ", setsu: 3 }
+  ];
+
+  // 一粒万倍日：節月の十二支 → その月に一粒万倍日となる日の十二支
+  var ICHIRYU = { 2: [1, 6], 3: [9, 2], 4: [0, 3], 5: [3, 4], 6: [5, 6], 7: [9, 6], 8: [0, 7], 9: [3, 8], 10: [9, 6], 11: [9, 10], 0: [11, 0], 1: [0, 3] };
+  // 天赦日：季節の始まり（立春・立夏・立秋・立冬の黄経）→ 日の干支（60干支の番号）
+  var TENSHA = { 315: 14, 45: 30, 135: 44, 225: 0 };
+  var KICHIJITSU_ORDER = ["tensha", "ichiryu", "tsuchinotomi", "tora", "mi"];
 
   function mod(n, m) { return ((n % m) + m) % m; }
 
@@ -167,15 +196,78 @@
     var toUT = function (jdTT) { return jdTT - astro.deltaT(y) / 86400; };
     var events = [];
     [lun.previousNewMoon, lun.nextNewMoon].map(toUT).forEach(function (jd) {
-      if (jd >= dayStart && jd < dayStart + 1) events.push({ kind: "new", time: jstTime(jd) });
+      if (jd >= dayStart && jd < dayStart + 1) events.push({ kind: "new", time: jstTime(jd), sign: signIndex(astro.moonLongitude(jd)) });
     });
     var full = toUT(astro.fullMoonJd(lun.k));
-    if (full >= dayStart && full < dayStart + 1) events.push({ kind: "full", time: jstTime(full) });
+    if (full >= dayStart && full < dayStart + 1) events.push({ kind: "full", time: jstTime(full), sign: signIndex(astro.moonLongitude(full)) });
     return {
       longitude: lon, sign: sign, startSign: startSign, ingress: ingress,
       age: lun.age, ageText: (Math.round(lun.age * 10) / 10).toFixed(1), phase: moonPhaseName(lun.age),
       events: events
     };
+  }
+
+  var termCache = {};
+  // year の前後を含む二十四節気の一覧（日本時間の日付つき、時刻順）
+  function termsAround(year) {
+    if (termCache[year]) return termCache[year];
+    var list = [];
+    for (var y = year - 1; y <= year + 1; y++) {
+      SOLAR_TERMS.forEach(function (t) {
+        var jd = astro.solarLongitudeTime(y, t.lon);
+        var dt = astro.jstDateTimeFromJulianDay(jd);
+        list.push({ term: t, jd: jd, dayNumber: dayNumber(dt.year, dt.month, dt.day), date: { year: dt.year, month: dt.month, day: dt.day }, time: jstTime(jd) });
+      });
+    }
+    list.sort(function (a, b) { return a.jd - b.jd; });
+    var seen = {};
+    list = list.filter(function (x) { var k = Math.round(x.jd * 10); if (seen[k]) return false; seen[k] = true; return true; });
+    termCache[year] = list;
+    return list;
+  }
+
+  function koyomiOf(n, year, sx) {
+    var list = termsAround(year);
+    var current = null, next = null, setsu = null, season = null;
+    for (var i = 0; i < list.length; i++) {
+      var t = list[i];
+      if (t.dayNumber <= n) {
+        current = t;
+        if (t.term.setsu !== undefined) setsu = t;
+        if (TENSHA[t.term.lon] !== undefined) season = t;
+      } else if (!next) { next = t; }
+    }
+    var branch = sx % 12;
+    var kichi = [];
+    if (season && TENSHA[season.term.lon] === sx) kichi.push("tensha");
+    if (setsu && ICHIRYU[setsu.term.setsu].indexOf(branch) !== -1) kichi.push("ichiryu");
+    if (sx === 5) kichi.push("tsuchinotomi");
+    if (branch === 2) kichi.push("tora");
+    if (branch === 5 && sx !== 5) kichi.push("mi");
+    var pick = function (t) { return t && { name: t.term.name, reading: t.term.reading, lon: t.term.lon, date: t.date, time: t.time, inDays: t.dayNumber - n }; };
+    return {
+      kichijitsu: kichi.sort(function (a, b) { return KICHIJITSU_ORDER.indexOf(a) - KICHIJITSU_ORDER.indexOf(b); }),
+      term: { current: pick(current), next: pick(next), today: current && current.dayNumber === n ? current.term.name : null },
+      setsuMonthBranch: setsu ? setsu.term.setsu : null
+    };
+  }
+
+  // 日本時間の暦日 n より後（翌日以降）の最初の新月・満月
+  function nextMoons(n, year) {
+    var dayEnd = astro.julianDayJst(dateFromDayNumber(n).year, dateFromDayNumber(n).month, dateFromDayNumber(n).day, 24);
+    var toUT = function (jdTT) { return jdTT - astro.deltaT(year) / 86400; };
+    var k = Math.floor((dayEnd - 2451550.09766) / 29.530588861) - 1;
+    var found = { "new": null, full: null };
+    for (var i = 0; i < 4 && (!found["new"] || !found.full); i++, k++) {
+      [["new", astro.newMoonJd(k)], ["full", astro.fullMoonJd(k)]].forEach(function (e) {
+        var jd = toUT(e[1]);
+        if (jd >= dayEnd && !found[e[0]]) {
+          var dt = astro.jstDateTimeFromJulianDay(jd);
+          found[e[0]] = { date: { year: dt.year, month: dt.month, day: dt.day }, time: jstTime(jd), sign: signIndex(astro.moonLongitude(jd)), inDays: dayNumber(dt.year, dt.month, dt.day) - n };
+        }
+      });
+    }
+    return found;
   }
 
   function birthSigns(month, day) {
@@ -231,6 +323,8 @@
       moon: moon,
       zodiac: zodiac,
       birthday: birthdayOf(d.month, d.day),
+      koyomi: koyomiOf(n, d.year, sx),
+      nextMoon: nextMoons(n, d.year),
       precision: astro.isVerifiedYear(d.year) ? "verified" : "estimated"
     };
   }
@@ -242,6 +336,9 @@
 
   return {
     SIGNS: SIGNS,
+    SOLAR_TERMS: SOLAR_TERMS,
+    termsAround: termsAround,
+    dateFromDayNumber: dateFromDayNumber,
     WEEKDAYS: WEEKDAYS,
     FLIGHT_ORDER: FLIGHT_ORDER,
     RANKED_PALACES: RANKED_PALACES,

@@ -42,3 +42,35 @@
 .daily-archive a:hover { border-color: #8262a4; }
 .daily-latest .btn { max-width: 360px; }
 @media (max-width: 420px) { .section > h2 { font-size: 20px; } .daily-calendar h2 { font-size: 20px; } }
+
+/* 吉日・節気・月 */
+.daily-kichi-list { display: grid; gap: 10px; }
+.daily-kichi { padding: 18px; border: 1px solid #8b6c32; border-radius: var(--radius-sm); background: radial-gradient(circle at top right, #59401d40, transparent 60%), #120d14; }
+.daily-kichi h3 { margin: 0 0 6px; font: 700 19px/1.4 var(--serif); color: var(--gold); }
+.daily-kichi h3 small { margin-left: 6px; font: 400 12px var(--sans); color: var(--muted); }
+.daily-kichi p { margin: 0 0 6px; color: #e3dcea; font-size: 14px; }
+.daily-kichi-actions { font-size: 13px !important; color: var(--muted) !important; margin: 0 !important; }
+.daily-kichi-actions b { color: var(--gold); margin-right: 8px; font-size: 12px; }
+.daily-twin { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }
+.daily-twin .card { margin: 0; }
+.daily-twin h2 { font-size: 19px !important; }
+.daily-twin .is-featured { border-color: #8b6c32; background: radial-gradient(circle at top left, #59401d55, transparent 60%), linear-gradient(180deg, rgba(28, 20, 42, .96), rgba(14, 11, 25, .96)); }
+@media (max-width: 720px) { .daily-twin { grid-template-columns: 1fr; } }
+.daily-month-link { margin: 16px 0 0; font-size: 14px; }
+
+.koyomi-summary { display: grid; gap: 8px; margin: 0; }
+.koyomi-summary div { display: grid; grid-template-columns: 7em 1fr; gap: 10px; padding: 10px 12px; border: 1px solid #3b2c47; border-radius: var(--radius-sm); background: #0d0914; }
+.koyomi-summary dt { color: var(--gold); font-weight: 800; font-size: 14px; }
+.koyomi-summary dd { margin: 0; font-size: 14px; line-height: 1.7; }
+@media (max-width: 480px) { .koyomi-summary div { grid-template-columns: 1fr; gap: 2px; } }
+.koyomi-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.koyomi-table { width: 100%; border-collapse: collapse; font-size: 14px; background: #110c18; }
+.koyomi-table th, .koyomi-table td { padding: 8px 10px; border-bottom: 1px solid #2c2136; text-align: left; white-space: nowrap; }
+.koyomi-table thead th { color: var(--muted); font-size: 12px; font-weight: 700; background: #0d0914; }
+.koyomi-table tbody th { font-weight: 700; }
+.koyomi-table tr.has-kichi td:nth-child(3) { color: var(--gold); font-weight: 700; }
+@media (max-width: 480px) {
+  .koyomi-table th, .koyomi-table td { padding: 8px 6px; font-size: 13px; }
+  .koyomi-table td:nth-child(3), .koyomi-table td:nth-child(4) { white-space: normal; }
+}
+@media (max-width: 420px) { .hero h1 { font-size: 22px; } }

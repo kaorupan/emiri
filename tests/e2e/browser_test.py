@@ -29,6 +29,8 @@ PAGES = ["", "premium/", "suhijutsu/", "suhijutsu/aisho/", "aisho/", "learn/", "
 # 今日の運勢：生成済みの日付ページのうち最新のもの
 _UNSEI = sorted(d for d in os.listdir(os.path.join(ROOT, "unsei")) if len(d) == 10 and d[4] == "-") if os.path.isdir(os.path.join(ROOT, "unsei")) else []
 PAGES += [f"unsei/{d}/" for d in _UNSEI[-1:]]
+_KOYOMI = sorted(d for d in os.listdir(os.path.join(ROOT, "koyomi")) if len(d) == 7 and d[4] == "-") if os.path.isdir(os.path.join(ROOT, "koyomi")) else []
+PAGES += ["koyomi/"] + [f"koyomi/{d}/" for d in _KOYOMI[:1]]
 SHOTS = sys.argv[sys.argv.index("--shots") + 1] if "--shots" in sys.argv else None
 
 results = []
