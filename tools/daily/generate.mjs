@@ -21,6 +21,16 @@ const daily = require(path.join(ROOT, "assets/js/engines/daily.js"));
 const { applyHead, loadConfig, urlOf, run: runSeo } = await import(path.join(ROOT, "tools/seo/seo.mjs"));
 const config = loadConfig(ROOT);
 const text = require(path.join(ROOT, "assets/js/content/daily-text.js"));
+const kyureki = require(path.join(ROOT, "assets/js/core/kyureki.js"));
+const shukuyo = require(path.join(ROOT, "assets/js/engines/shukuyo.js"));
+
+// 今日の運勢の計算に、旧暦・六曜・日の宿（宿曜）を加える
+function calculate(date) {
+  const r = daily.calculateDaily(date);
+  r.kyureki = kyureki.fromGregorian(date.year, date.month, date.day);
+  r.shuku = shukuyo.shukuOfDate(date.year, date.month, date.day).shuku;
+  return r;
+}
 
 const UNSEI = path.join(ROOT, "unsei");
 const ISO_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -247,7 +257,7 @@ function monthPage(ym) {
   const last = new Date(Date.UTC(y, m, 0)).getUTCDate();
   const days = [];
   for (let d = 1; d <= last; d++) {
-    const r = daily.calculateDaily({ year: y, month: m, day: d });
+    const r = calculate({ year: y, month: m, day: d });
     days.push({ d, r, v: text.buildDaily(r) });
   }
   const groups = ["tensha", "ichiryu", "tsuchinotomi", "tora", "mi"].map((id) => ({
@@ -269,7 +279,7 @@ function monthPage(ym) {
   const rows = days.map((x) => {
     const k = x.r.koyomi.kichijitsu.map((id) => text.KICHIJITSU[id].name).join("・");
     const extra = [x.r.koyomi.term.today, ...x.r.moon.events.map((e) => (e.kind === "new" ? "新月" : "満月"))].filter(Boolean).join("・");
-    return `      <tr${k ? ' class="has-kichi"' : ""}><th scope="row">${dayLink(x, `${m}/${x.d}（${wd(x)}）`)}</th><td>${esc(x.r.sexagenary.name)}</td><td>${esc(k || "—")}</td><td>${esc(extra || "—")}</td></tr>`;
+    return `      <tr${k ? ' class="has-kichi"' : ""}><th scope="row">${dayLink(x, `${m}/${x.d}（${wd(x)}）`)}</th><td>${esc(x.r.kyureki.rokuyo)}</td><td>${esc(x.r.sexagenary.name)}</td><td>${esc(k || "—")}</td><td>${esc(extra || "—")}</td></tr>`;
   }).join("\n");
   const prevYm = m === 1 ? `${y - 1}-12` : `${y}-${pad2(m - 1)}`;
   const nextYm = m === 12 ? `${y + 1}-01` : `${y}-${pad2(m + 1)}`;
@@ -299,7 +309,7 @@ ${summary}
     <h2 id="koyomi-table-title">${m}月の毎日の暦</h2>
     <div class="koyomi-table-wrap">
     <table class="koyomi-table">
-      <thead><tr><th scope="col">日付</th><th scope="col">干支</th><th scope="col">吉日</th><th scope="col">節気・月</th></tr></thead>
+      <thead><tr><th scope="col">日付</th><th scope="col">六曜</th><th scope="col">干支</th><th scope="col">吉日</th><th scope="col">節気・月</th></tr></thead>
       <tbody>
 ${rows}
       </tbody>
@@ -478,7 +488,7 @@ function topSection(view) {
 
 // ---------- 実行 ----------
 function viewOf(dateStr) {
-  return text.buildDaily(daily.calculateDaily(parseIso(dateStr)));
+  return text.buildDaily(calculate(parseIso(dateStr)));
 }
 
 function writeIfChanged(file, content) {

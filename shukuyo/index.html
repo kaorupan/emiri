@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>宿曜占星術｜本命宿と27宿の相性を旧暦から無料で鑑定｜えみり</title>
+<meta name="description" content="生年月日を旧暦に直して、宿曜占星術の本命宿（27宿）を求め、性格・恋愛・仕事、三九の秘法による27宿との相性、今日のあなたの巡りを読み解きます。無料・登録不要。">
+<link rel="canonical" href="https://emiri-uranai.com/shukuyo/">
+<meta property="og:url" content="https://emiri-uranai.com/shukuyo/">
+<link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../feed.xml">
+<meta property="og:site_name" content="えみり">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="宿曜占星術｜えみり">
+<meta property="og:description" content="旧暦から本命宿を求め、性格と27宿との相性、今日の巡りを読み解きます。">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/kyusei.css">
+<link rel="stylesheet" href="../assets/css/shukuyo.css">
+<script defer src="../assets/js/core/date.js"></script>
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/core/profile.js"></script>
+<script defer src="../assets/js/core/birthdate-field.js"></script>
+<script defer src="../assets/js/core/astro.js"></script>
+<script defer src="../assets/js/core/kyureki.js"></script>
+<script defer src="../assets/js/engines/shukuyo.js"></script>
+<script defer src="../assets/js/content/shukuyo-text.js"></script>
+<script defer src="../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../assets/js/pages/shukuyo-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../#uranau" aria-current="page">無料占い</a></li>
+        <li><a href="../aisho/">相性</a></li>
+        <li><a href="../unsei/">今日の運勢</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../">えみり</a></li>
+      <li aria-current="page">宿曜占星術</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">SHUKUYO ASTROLOGY</p>
+    <h1>宿曜占星術のカルテ</h1>
+    <p>生まれた日を旧暦に直し、その日に月が宿っていた星座「本命宿」を27宿から求めます。性格・恋愛・仕事に加えて、「三九の秘法」による27宿との相性と、今日のあなたの巡りを読み解きます。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">完全無料</li>
+      <li class="badge">生年月日だけでOK</li>
+      <li class="badge">旧暦を天文計算で算出</li>
+    </ul>
+  </section>
+
+  <form id="shuku-form" class="card kyusei-form" novalidate>
+    <div data-birthdate="self"></div>
+    <button type="submit" class="btn">本命宿を調べる</button>
+  </form>
+
+  <div id="shuku-result" class="kyusei-result" hidden>
+    <div id="shuku-result-body"></div>
+
+    <section class="card" aria-labelledby="shuku-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="shuku-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="#shuku-about">宿曜占星術とは？（本命宿・旧暦・三九の秘法のしくみ） <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../shichusuimei/">同じ生年月日で、四柱推命でも見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../maya/">マヤ暦のカルテを見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../unsei/">今日の運勢を見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section id="shuku-about" class="card prose" aria-labelledby="shuku-about-title">
+    <h2 id="shuku-about-title">宿曜占星術とは？</h2>
+    <p>宿曜占星術は、インドの占星術が仏教の経典『宿曜経』として中国に伝わり、平安時代に弘法大師空海が日本へもたらしたとされる占術です。月の通り道を27の星座（宿）に分け、生まれた日に月がどの宿にあったかで、その人の本命宿を決めます。</p>
+
+    <h3>本命宿の求め方</h3>
+    <p>生まれた日を旧暦（月の満ち欠けにもとづく暦）に直し、旧暦の各月の1日に決まった宿（1月は室宿、2月は奎宿、3月は胃宿…）から、1日ごとに宿を順に進めて求めます。旧暦の閏月は、同じ番号の月と同じ宿から数えます。</p>
+
+    <h3>三九の秘法（相性）</h3>
+    <p>自分の本命宿から相手の本命宿までを27宿の並びで数え、その位置で「命」「業・胎」「栄・親」「友・衰」「安・壊」「危・成」の関係と、近距離・中距離・遠距離を決めます。相性は「良い・悪い」だけでなく、お互いが与え合う影響の種類として読みます。</p>
+
+    <h3>計算について</h3>
+    <p>旧暦は、新月（朔）と中気（太陽が30°ごとの位置に来る時刻）を天文計算で求め、現在の日本で一般的な天保暦の規則で組み立てています。日付・時刻は日本時間です。1900〜2100年の毎日について、別の天文計算ライブラリから独立に組み立てた旧暦と照らし合わせ、新月が日付の変わり目の数十秒以内にある1か月を除いてすべて一致することを確かめています。そのような境目の月に生まれた方には、結果にお知らせを表示します。</p>
+    <p>各宿の性格や相性の文章は、宿曜占星術の伝統的な性格づけをもとにえみりが書いた読み解きです。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../">TOP</a></li>
+        <li><a href="../#uranau">無料占い</a></li>
+        <li><a href="../aisho/">相性占い</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
+  </div>
+</footer>
+</body>
+</html>

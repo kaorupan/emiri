@@ -37,6 +37,7 @@ python3 -m http.server 8000
 /kyusei/                  九星気学 個人鑑定（本命星・月命星）
 /kyusei/aisho/            九星気学 相性
 /shichusuimei/            四柱推命（命式・日干・中心星・十二運・五行・天中殺・年運）
+/shukuyo/                 宿曜占星術（本命宿・性格・三九の秘法の相性・今日の巡り）
 /maya/                    マヤ暦（KIN・太陽の紋章・銀河の音・ウェイブスペル・4つの関係KIN・黒KIN・年回り）
 /aisho/                   相性占いTOP
 /learn/                   占いを知るTOP
@@ -76,6 +77,11 @@ python3 -m http.server 8000
 /assets/js/engines/shichusuimei.js   四柱推命の計算（年柱・月柱は kyusei.js の立春・節入り判定を使う。方式は冒頭コメント）
 /assets/js/content/shichusuimei-text.js  四柱推命の鑑定文（TRADITION と、えみりの読み解きを分けて持つ）
 /assets/js/pages/shichusuimei-page.js    四柱推命ページの描画（kyusei-render.js の部品を使う）
+/assets/js/core/kyureki.js    旧暦（天保暦の規則・六曜）。今日の運勢の旧暦・六曜・日の宿にも使う
+/assets/js/engines/shukuyo.js 宿曜占星術の計算（本命宿・三九の秘法・日の宿）
+/assets/js/content/shukuyo-text.js  宿曜占星術の鑑定文
+/assets/js/pages/shukuyo-page.js    宿曜占星術ページの描画
+/assets/css/shukuyo.css      宿曜専用（.shuku- 接頭辞）
 /assets/js/engines/maya.js   マヤ暦（13の月の暦・ドリームスペル）の計算。方式は冒頭コメント
 /assets/js/content/maya-text.js  マヤ暦の鑑定文
 /assets/js/pages/maya-page.js    マヤ暦ページの描画
@@ -273,3 +279,8 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 ## マヤ暦の検証
 - tests/fixtures/maya-reference.json：公開されている年別一覧・早見表の値（出典はファイル内）。
 - ガイドKINの紋章のずれは音ごとに 0・12・4・16・8（音1〜5、以後くり返し）。複数の解説サイトの表と一致を確認。
+
+## 旧暦・宿曜の検証
+- tests/fixtures/kyureki-astronomy-engine.json：astronomy-engine の新月・中気（日本時間）から別に組み立てた旧暦。
+  作成時に1900〜2100年の全73,383日を突き合わせ、新月が0時の34秒後にある2097年1月の1か月だけ1日ずれた（nearEdge で案内）。
+- 六曜は2026年10月をベストカレンダーと照合。本命宿は「觜宿の有名人」として紹介されている12人の生年月日で照合。

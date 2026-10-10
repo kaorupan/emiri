@@ -206,6 +206,12 @@
         ? signName(r.moon.startSign) + " → " + timeText(r.moon.ingress.time) + "ごろから" + signName(r.moon.ingress.sign)
         : moonSign }
     ];
+    if (r.kyureki) {
+      var kr = r.kyureki;
+      calendar.unshift({ label: "旧暦", value: (kr.leap ? "閏" : "") + kr.month + "月" + kr.day + "日" });
+      calendar.splice(1, 0, { label: "六曜", value: kr.rokuyo });
+    }
+    if (r.shuku) calendar.push({ label: "日の宿（宿曜）", value: r.shuku.name });
     var events = r.moon.events.map(function (e) {
       return (e.kind === "new" ? "新月" : "満月") + "：" + timeText(e.time) + "ごろ（" + signName(e.sign) + "）";
     });
