@@ -6,6 +6,7 @@
  *   - 太陽の視黄経：第25章の低精度式（誤差 およそ0.01°＝時刻で15分程度、1800〜2100年）
  *   - 新月・満月の時刻：第49章（平均の朔望＋周期補正項。惑星による微小補正は省略、誤差は数分程度）
  *   - 節入りの時刻（九星気学用）：VSOP87D の短縮級数＋ΔT（下の「節気」の節を参照。sunLongitude とは別関数）
+ *   - 月の黄経（今日の運勢用）：第47章の主要40項（moonLongitude）
  *
  * 注意：
  *   - sunLongitude・新月・満月は「力学時（TT）」の式で、世界時（UT）との差 ΔT は無視している（星獣カルテ用。結果を変えないため据え置き）。
@@ -335,6 +336,56 @@
     return solarLongitudeCrossing(longitude, julianDay(year, 3, 20.5) + offset / 360 * 365.2422);
   }
 
+  /* ------------------------------------------------------------------
+   * 月の黄経（今日の運勢：12星座の「月の位置」に使う）
+   * Meeus 第47章の級数のうち振幅の大きい40項＋A1〜A3の補正。誤差はおよそ0.01°（月が動く時間で1〜2分）。
+   * 入力は世界時のユリウス日。内部で ΔT を足して力学時にする。黄経は「その日の春分点」基準（章動は省略、最大0.005°）。
+   */
+  var MOON_TERMS = [ // [D, M, M', F, 係数（1e-6 度）]
+    [0, 0, 1, 0, 6288774], [2, 0, -1, 0, 1274027], [2, 0, 0, 0, 658314], [0, 0, 2, 0, 213618],
+    [0, 1, 0, 0, -185116], [0, 0, 0, 2, -114332], [2, 0, -2, 0, 58793], [2, -1, -1, 0, 57066],
+    [2, 0, 1, 0, 53322], [2, -1, 0, 0, 45758], [0, 1, -1, 0, -40923], [1, 0, 0, 0, -34720],
+    [0, 1, 1, 0, -30383], [2, 0, 0, -2, 15327], [0, 0, 1, 2, -12528], [0, 0, 1, -2, 10980],
+    [4, 0, -1, 0, 10675], [0, 0, 3, 0, 10034], [4, 0, -2, 0, 8548], [2, 1, -1, 0, -7888],
+    [2, 1, 0, 0, -6766], [1, 0, -1, 0, -5163], [1, 1, 0, 0, 4987], [2, -1, 1, 0, 4036],
+    [2, 0, 2, 0, 3994], [4, 0, 0, 0, 3861], [2, 0, -3, 0, 3665], [0, 1, -2, 0, -2689],
+    [2, 0, -1, 2, -2602], [2, -1, -2, 0, 2390], [1, 0, 1, 0, -2348], [2, -2, 0, 0, 2236],
+    [0, 1, 2, 0, -2120], [0, 2, 0, 0, -2069], [2, -2, -1, 0, 2048], [2, 0, 1, -2, -1773],
+    [2, 0, 0, 2, -1595], [4, -1, -1, 0, 1215], [0, 0, 2, 2, -1110], [3, 0, -1, 0, -892]
+  ];
+
+  function moonLongitude(jdUT) {
+    var jd = jdUT + deltaT(yearOfJulianDay(jdUT)) / 86400;
+    var t = (jd - 2451545) / 36525;
+    var lp = 218.3164477 + 481267.88123421 * t - 0.0015786 * t * t;
+    var d = 297.8501921 + 445267.1114034 * t - 0.0018819 * t * t;
+    var m = 357.5291092 + 35999.0502909 * t - 0.0001536 * t * t;
+    var mp = 134.9633964 + 477198.8675055 * t + 0.0087414 * t * t;
+    var f = 93.2720950 + 483202.0175233 * t - 0.0036539 * t * t;
+    var e = 1 - 0.002516 * t - 0.0000074 * t * t;
+    var sum = 0;
+    for (var i = 0; i < MOON_TERMS.length; i++) {
+      var r = MOON_TERMS[i];
+      var c = r[4] * (Math.abs(r[1]) === 1 ? e : Math.abs(r[1]) === 2 ? e * e : 1);
+      sum += c * sinD(r[0] * d + r[1] * m + r[2] * mp + r[3] * f);
+    }
+    sum += 3958 * sinD(119.75 + 131.849 * t) + 1962 * sinD(lp - f) + 318 * sinD(53.09 + 479264.290 * t);
+    return norm360(lp + sum / 1e6);
+  }
+
+  // 月が黄経 longitude（30°の倍数など）を通る時刻（世界時）。jdFrom から前方へ最大 maxDays 日探す。なければ null
+  function moonLongitudeCrossing(longitude, jdFrom, maxDays) {
+    var ahead = norm360(longitude - moonLongitude(jdFrom));
+    if (ahead / 12.0 > maxDays + 1) return null; // 月は1日に約12〜15°進む
+    var jd = jdFrom + ahead / 13.176;
+    for (var i = 0; i < 8; i++) {
+      var diff = norm360(longitude - moonLongitude(jd) + 180) - 180;
+      jd += diff / 13.176;
+      if (Math.abs(diff) < 1e-6) break;
+    }
+    return jd >= jdFrom && jd <= jdFrom + maxDays ? jd : null;
+  }
+
   // ユリウス日（世界時）→ 日本時間の日付と時刻
   function jstDateTimeFromJulianDay(jd) {
     var date = jstDateFromJulianDay(jd);
@@ -371,6 +422,8 @@
     solarLongitudeCrossing: solarLongitudeCrossing,
     previousSolarLongitudeTime: previousSolarLongitudeTime,
     solarLongitudeTime: solarLongitudeTime,
-    jstDateTimeFromJulianDay: jstDateTimeFromJulianDay
+    jstDateTimeFromJulianDay: jstDateTimeFromJulianDay,
+    moonLongitude: moonLongitude,
+    moonLongitudeCrossing: moonLongitudeCrossing
   };
 });

@@ -1,0 +1,44 @@
+/* 今日の運勢（/unsei/）専用。クラス名は .daily- 接頭辞 */
+
+.daily-koyomi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 0 0 14px; }
+.daily-koyomi div { padding: 12px; border: 1px solid #3b2c47; border-radius: var(--radius-sm); background: #0d0914; }
+.daily-koyomi dt { font-size: 11px; color: var(--muted); letter-spacing: .06em; }
+.daily-koyomi dd { margin: 2px 0 0; font-weight: 800; font-size: 15px; line-height: 1.5; }
+@media (max-width: 720px) { .daily-koyomi { grid-template-columns: 1fr 1fr; } }
+
+.daily-events { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+.daily-events li { padding: 6px 12px; border-radius: 999px; background: var(--gold-soft); border: 1px solid #8b6c32; color: var(--gold); font-weight: 700; font-size: 13px; }
+
+.daily-rank { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.daily-rank-item { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #110c18; }
+.daily-rank-item.is-top { border-color: #8b6c32; background: radial-gradient(circle at top left, #59401d40, transparent 60%), #120d14; }
+.daily-rank-no { margin: 0; text-align: center; color: var(--muted); font-size: 12px; }
+.daily-rank-no span { display: block; font: 700 30px/1.1 var(--serif); color: var(--text); }
+.daily-rank-item.is-top .daily-rank-no span { color: var(--gold); }
+.daily-rank-body h3 { margin: 0 0 4px; font-size: 17px; line-height: 1.5; }
+.daily-rank-key { display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; border: 1px solid #5b456e; font-size: 11px; font-weight: 700; color: #d7ccef; vertical-align: 2px; }
+.daily-rank-body p { margin: 0 0 6px; color: #e3dcea; font-size: 14px; }
+.daily-advice { color: var(--muted) !important; font-size: 13px !important; margin: 0 !important; }
+.daily-advice b { color: var(--gold); margin-right: 8px; font-size: 12px; }
+@media (max-width: 480px) { .daily-rank-item { grid-template-columns: 44px 1fr; gap: 10px; padding: 14px 12px; } .daily-rank-no span { font-size: 24px; } }
+
+.daily-birthday-sign { color: var(--gold) !important; font-weight: 700; }
+
+.daily-pager { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin: 28px 0 0; font-size: 14px; }
+.daily-pager a:last-child { justify-self: end; }
+.daily-pager a:nth-child(2) { justify-self: center; }
+
+.daily-method { margin-top: 24px; }
+.daily-method h2 { font-size: 16px !important; }
+.daily-method li { font-size: 13px; color: var(--muted) !important; }
+
+.daily-top3 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 4px; }
+.daily-top3 h3 { font-size: 14px; margin: 0 0 6px; color: var(--gold); }
+.daily-top3 ol, .today-top3 ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+.daily-top3 li span { display: inline-block; width: 3em; color: var(--muted); font-size: 12px; }
+
+.daily-archive { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.daily-archive a { display: inline-block; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: #110c18; text-decoration: none; color: var(--text); font-size: 13px; }
+.daily-archive a:hover { border-color: #8262a4; }
+.daily-latest .btn { max-width: 360px; }
+@media (max-width: 420px) { .section > h2 { font-size: 20px; } .daily-calendar h2 { font-size: 20px; } }

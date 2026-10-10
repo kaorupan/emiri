@@ -24,6 +24,8 @@ python3 -m http.server 8000
 ```
 /                         TOP（index.html）：無料占い／本格占いの切り替え・今日の運勢・悩みから選ぶ・占術から選ぶ（#uranau）
 /premium/                 本格占いTOP（準備中）
+/unsei/                   今日の運勢の一覧（自動生成）
+/unsei/YYYY-MM-DD/        その日の運勢：九星・12星座ランキング、暦、今日誕生日の人（自動生成）
 /suhijutsu/               数秘術 個人鑑定
 /suhijutsu/aisho/         数秘術 相性
 /tarot/                   タロット（大アルカナ22枚・3枚引き）
@@ -65,6 +67,12 @@ python3 -m http.server 8000
 /assets/js/content/kyusei-text.js    九星気学の鑑定文（伝統的な位置づけ TRADITION と、サイト独自の読み解き STAR_TEXT を分けて持つ）
 /assets/js/pages/kyusei-render.js    九星気学の描画部品（出生時刻の任意入力・九星のしるし・五行の巡り・境界のお知らせ）
 /assets/js/pages/kyusei-page.js / kyusei-compatibility-page.js  各ページの描画
+/assets/js/engines/daily.js          今日の運勢の計算（日の干支・日の九星・日盤・月の星座・ランキング。DOMに触らない）
+/assets/js/content/daily-text.js     今日の運勢の文章（宮・ハウスの読み、暦、今日誕生日の人）
+/assets/css/daily.css                今日の運勢専用（クラス名は .daily- 接頭辞）
+/tools/daily/generate.mjs            今日の運勢ページの生成（npm run daily）
+/tools/daily/run-daily.bat           自分のWindows PCで毎日生成・公開するときのバッチ
+/.github/workflows/daily-unsei.yml   GitHub Actions で毎日 0:05（日本時間）に生成・公開
 /tests/*.test.js          計算・日付の自動テスト（Node）
 /tests/e2e/browser_test.py  ブラウザ操作テスト（Playwright）
 /tools/check-site.mjs     重複ID・リンク切れ・H1・meta・禁止表現などの静的チェック
@@ -166,6 +174,41 @@ KaruteEngines.kyusei.calculateKyuseiCompatibility(a, b) // a, b は生年月日�
 - 成美堂出版『占い大全 命占』第3章 九星気学（1991年3月20日生まれ → 月命星 四緑木星）
 - Oggi.jp（2025年2月＝二黒土星の月、1月1日〜2月3日生まれは前年の星）：https://oggi.jp/7697504 ・ https://oggi.jp/6772474
 
+## 今日の運勢（毎日の自動生成）
+
+```sh
+npm run daily                                   # 日本時間の今日のページを作る
+node tools/daily/generate.mjs --date 2026-10-10 # 日付を指定
+node tools/daily/generate.mjs --date 2026-10-01 --days 10  # まとめて作る（過去の日付の作り直しにも）
+```
+
+- 生成するもの：`unsei/<日付>/index.html`、`unsei/index.html`（一覧）、TOP の「今日の運勢」欄（`<!-- daily:start -->`〜`<!-- daily:end -->` の間だけ）、前日のページ（「次の日」リンクのため）。
+- 文章は計算結果と文章データ（daily-text.js）の組み合わせで作る。AI や外部サービスは使わないので、費用はかからず、同じ日付なら何度実行しても同じ結果になる。
+- 自動化は2通り。どちらか一方だけ使う。
+  1. **GitHub Actions**（おすすめ・PCの電源が切れていても動く）：リポジトリを GitHub に置くと、`.github/workflows/daily-unsei.yml` が毎日 0:05 ごろに生成してコミットする。公開先（GitHub Pages・Cloudflare Pages・Netlify など）をリポジトリにつないでおけば、コミットのたびに自動で公開される。
+  2. **自分のWindows PC**：タスクスケジューラで `tools\daily\run-daily.bat` を毎日 0:05 に実行する。PCが起動していないと動かない。
+
+### 計算のしかた
+
+| 項目 | えみりの方式 |
+|---|---|
+| 日付 | 日本時間の暦日 |
+| 日の干支 | ユリウス通日の60日周期（2000年1月1日＝戊午） |
+| 日の九星 | 冬至に最も近い甲子＝一白で陽遁、夏至に最も近い甲子＝九紫で陰遁。冬至・夏至が甲午なら後の甲子。切替日の間隔が240日になるときは後の甲子の30日前（甲午）で切り替える（九星の閏：冬至側は七赤、夏至側は三碧が2日続く）。冬至・夏至の日付は astro.js の高精度式 |
+| 九星のランキング | 日盤で本命星が入る宮の順（巽・乾・震・兌・離・坤・艮・坎・中宮）。日の星との五行の関係はひと言で添えるだけで、順位には使わない |
+| 月の位置 | Meeus 第47章の主要40項（`astro.moonLongitude`）。astronomy-engine と比べて1900〜2100年で最大0.011° |
+| 12星座のランキング | 正午（日本時間）の月の星座が、その星座から数えて何番目のハウスか。順位は 5・11・1・10・9・3・7・2・6・4・8・12 番目の順 |
+| 新月・満月 | astro.js の朔望の式（力学時）から ΔT を引いて日本時間に。国立天文台の値と±1分 |
+| 今日誕生日の人 | 数秘術のバースデー・アティチュードナンバーと、1950〜2025年の各年の正午で判定した太陽星座（年で変わる日は両方を表示） |
+
+順位（どの宮・ハウスを上にするか）は伝統的な意味をもとにした、えみりの読み方です。流派によって違う点：冬至・夏至が癸巳の日に当たる年の切替日（前の甲子をとる流派と後の甲子をとる流派がある。ここでは最も近い前の甲子）。
+
+### テストの出典（tests/daily.test.js）
+
+- ルフト「九星気学早見表」日家九星：1997・2008・2009・2020・2026・2031・2032年の全日（2,558日、閏の年を含む）と2026年の六十干支：https://www.luft.co.jp/cgi/nine-star-ki-table.php
+- 国立天文台「令和8年(2026)暦要項 朔弦望」：https://eco.mtk.nao.ac.jp/koyomi/yoko/2026/rekiyou263.html
+- astronomy-engine 2.1.19（月の黄経の比較。テストには固定値だけを書いている）
+
 ## 新しい占術を追加するとき
 
 1. `assets/js/engines/<占術>.js` に計算だけを書き、`tests/<占術>.test.js` に既知の答えでテストを書く
@@ -182,6 +225,7 @@ KaruteEngines.kyusei.calculateKyuseiCompatibility(a, b) // a, b は生年月日�
 ```sh
 npm test            # 計算・日付の自動テスト（node --test）
 npm run check       # 静的チェック
+npm run daily       # 今日の運勢ページを作る
 python3 tests/e2e/browser_test.py   # ブラウザ操作テスト：サイト全体と数秘術（要 Playwright + Chromium）
 python3 tests/e2e/tarot_test.py     # ブラウザ操作テスト：タロット
 python3 tests/e2e/seiju_test.py     # ブラウザ操作テスト：星獣カルテ

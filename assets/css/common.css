@@ -199,6 +199,11 @@ img { max-width: 100%; }
 .today-links b { display: block; font-size: 15px; }
 .today-links small { display: block; color: var(--muted); font-size: 12px; line-height: 1.6; }
 .today-icon { font-size: 26px; line-height: 1; flex: none; }
+.today-date { font: 700 13px var(--sans); color: var(--muted); margin-left: 4px; letter-spacing: 0; }
+.today-top3 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.today-top3 h3 { font-size: 12px; margin: 0 0 4px; color: var(--gold); letter-spacing: .06em; }
+.today-top3 ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; font-size: 14px; font-weight: 700; }
+.today-top3 li span { display: inline-block; width: 2.8em; color: var(--muted); font-size: 12px; font-weight: 400; }
 @media (max-width: 720px) { .today { grid-template-columns: 1fr; padding: 18px; } }
 
 /* ---- 悩みから選ぶ ---- */

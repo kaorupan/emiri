@@ -5,6 +5,7 @@
   "scripts": {
     "test": "node --test tests/*.test.js",
     "check": "node tools/check-site.mjs",
+    "daily": "node tools/daily/generate.mjs",
     "e2e": "python3 tests/e2e/browser_test.py && python3 tests/e2e/tarot_test.py && python3 tests/e2e/seiju_test.py && python3 tests/e2e/kyusei_test.py"
   }
 }

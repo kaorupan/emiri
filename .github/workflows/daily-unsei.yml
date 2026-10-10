@@ -1,0 +1,42 @@
+# 今日の運勢を毎日自動で作って公開する（GitHub Actions・無料枠で動く）
+#   毎日 日本時間 0:05 ごろに実行（GitHub の混雑で数分〜数十分遅れることがある）
+#   手動で動かすとき：GitHub の Actions タブ → daily-unsei → Run workflow
+name: daily-unsei
+
+on:
+  schedule:
+    - cron: "5 15 * * *" # UTC 15:05 = 日本時間 0:05
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-unsei
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 今日の運勢を生成
+        run: node tools/daily/generate.mjs
+      - name: テストと静的チェック
+        run: |
+          npm test
+          npm run check
+      - name: 変更があればコミット
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "emiri-bot"
+            git config user.email "emiri-bot@users.noreply.github.com"
+            git add unsei index.html
+            git commit -m "今日の運勢を更新（$(TZ=Asia/Tokyo date +%Y-%m-%d)）"
+            git push
+          else
+            echo "変更なし"
+          fi
