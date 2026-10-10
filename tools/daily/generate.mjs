@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 今日の運勢ページの自動生成：node tools/daily/generate.mjs [--date 2026-10-10] [--days 1]
+// 今日の運勢ページの自動生成：node tools/daily/generate.mjs [--date 2026-10-10] [--days 1] [--all]
 //
 //  - unsei/<日付>/index.html   その日の運勢（九星・12星座ランキング、暦、今日誕生日の人）
 //  - unsei/index.html          運勢の一覧（最新日＋過去の日付）
@@ -321,6 +321,9 @@ function main() {
 
   const targets = [];
   for (let k = 0; k < days; k++) targets.push(iso(daily.addDays(start, k)));
+  // --all：生成済みの全日付を作り直す（文章や正式URLを変えたあとに使う）
+  if (process.argv.includes("--all")) for (const d of listDates()) if (!targets.includes(d)) targets.push(d);
+  targets.sort();
 
   // 一覧に載せる日付（既存＋今回）。前後リンクはこの並びで決める
   const dates = [...new Set([...listDates(), ...targets])].sort();

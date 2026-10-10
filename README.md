@@ -239,7 +239,7 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 
 ## 公開前に決めること
 
-- **正式URL**：`site.config.json` の `baseUrl`（いまは `https://emiri-uranai.com`）から、全ページの canonical・og:url・sitemap.xml・feed.xml・robots.txt を作ります。独自ドメインに移るときは `baseUrl` を変えて `npm run seo` を実行するだけです。独自ドメイン emiri-uranai.com（Cloudflare で DNS 管理、GitHub Pages の Custom domain に登録）で公開している。
+- **正式URL**：`site.config.json` の `baseUrl`（いまは `https://emiri-uranai.com`）から、全ページの canonical・og:url・sitemap.xml・feed.xml・robots.txt を作ります。独自ドメインに移るときは `baseUrl` を変えて `node tools/daily/generate.mjs --all`（運勢の記事の構造化データも作り直し、最後に SEO の仕上げも実行）を実行します。独自ドメイン emiri-uranai.com（Cloudflare で DNS 管理、GitHub Pages の Custom domain に登録）で公開している。
 - **OGP画像**：未設定です。
 
 ## 数秘術の計算ルール
