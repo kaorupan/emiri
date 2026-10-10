@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ホロスコープ｜太陽・月・惑星10天体の星座を無料で鑑定｜えみり</title>
+<meta name="description" content="生年月日（と分かれば生まれた時刻）から、太陽・月・水星・金星・火星・木星・土星・天王星・海王星・冥王星の星座と度数を天文計算で求め、性格・恋愛・行動力・エレメントのバランス・アスペクト・今年の木星と土星を読み解きます。無料・登録不要。">
+<link rel="canonical" href="https://emiri-uranai.com/horoscope/">
+<meta property="og:url" content="https://emiri-uranai.com/horoscope/">
+<link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../feed.xml">
+<meta property="og:site_name" content="えみり">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="ホロスコープ｜えみり">
+<meta property="og:description" content="10天体の星座から、あなたの性格・愛し方・行動力と今年の流れを読み解きます。">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/kyusei.css">
+<link rel="stylesheet" href="../assets/css/shichusuimei.css">
+<link rel="stylesheet" href="../assets/css/maya.css">
+<link rel="stylesheet" href="../assets/css/horoscope.css">
+<script defer src="../assets/js/core/date.js"></script>
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/core/profile.js"></script>
+<script defer src="../assets/js/core/birthdate-field.js"></script>
+<script defer src="../assets/js/vendor/astronomy-engine-2.1.19.min.js"></script>
+<script defer src="../assets/js/engines/horoscope.js"></script>
+<script defer src="../assets/js/content/horoscope-text.js"></script>
+<script defer src="../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../assets/js/pages/horoscope-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../#uranau" aria-current="page">無料占い</a></li>
+        <li><a href="../aisho/">相性</a></li>
+        <li><a href="../unsei/">今日の運勢</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../">えみり</a></li>
+      <li aria-current="page">ホロスコープ</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">HOROSCOPE</p>
+    <h1>ホロスコープのカルテ</h1>
+    <p>生まれた瞬間の空で、太陽・月・惑星の10天体がどの星座にあったかを天文計算で求め、あなたの性格、心の安らぎ方、考え方、愛し方、行動力、天体どうしの角度（アスペクト）、そして今年の木星と土星の流れを読み解きます。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">完全無料</li>
+      <li class="badge">10天体の星座と度数</li>
+      <li class="badge">時刻を入れると月も確定</li>
+    </ul>
+  </section>
+
+  <form id="horo-form" class="card kyusei-form" novalidate>
+    <div data-birthdate="self"></div>
+    <div data-birthtime="self"></div>
+    <button type="submit" class="btn">ホロスコープを見る</button>
+  </form>
+
+  <div id="horo-result" class="kyusei-result" hidden>
+    <div id="horo-result-body"></div>
+
+    <section class="card" aria-labelledby="horo-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="horo-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="aisho/">気になる人とのホロスコープの相性を見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="#horo-about">ホロスコープとは？（天体・星座・アスペクトのしくみ） <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../unsei/">今日の12星座の運勢を見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../shukuyo/">月の星座から読む、宿曜占星術も見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section id="horo-about" class="card prose" aria-labelledby="horo-about-title">
+    <h2 id="horo-about-title">ホロスコープとは？</h2>
+    <p>ホロスコープは、生まれた瞬間に太陽・月・惑星が空のどこにあったかを12星座の上に表した図で、西洋占星術の基本です。雑誌などでおなじみの「何座生まれ」は太陽の星座のことで、ホロスコープでは月や金星、火星など10の天体の星座をあわせて読みます。</p>
+
+    <h3>天体が表すもの</h3>
+    <p>太陽は生き方の中心、月は感情と素の自分、水星は考え方、金星は愛し方と楽しみ方、火星は行動力、木星は幸運と成長、土星は試練と責任を表します。天王星・海王星・冥王星はゆっくり動くため、世代に共通する価値観を表すとされます。</p>
+
+    <h3>アスペクト</h3>
+    <p>天体どうしが作る角度のことです。0°（合）・60°（セクスタイル）・90°（スクエア）・120°（トライン）・180°（衝）を主要なアスペクトとし、このページでは太陽から土星までの7天体どうしを見ています。</p>
+
+    <h3>計算について</h3>
+    <p>天体の位置は、天文計算ライブラリ astronomy-engine（MIT License）で、地球から見た視黄経を求めています。星座は春分点を牡羊座0°とするトロピカル方式です。公開されている2025年の星座入りの時刻と数分以内で一致することを確かめています。生まれた時刻は日本時間で、分からない場合は正午で計算し、その日のうちに星座が変わる天体があればお知らせします。</p>
+    <p>アセンダント（上昇星座）とハウスは出生地が必要なため、このページでは扱っていません。性格や相性の文章は、星座と天体の伝統的な意味をもとにえみりが書いた読み解きです。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../">TOP</a></li>
+        <li><a href="../#uranau">無料占い</a></li>
+        <li><a href="../aisho/">相性占い</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
+  </div>
+</footer>
+</body>
+</html>

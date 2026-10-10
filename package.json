@@ -7,6 +7,6 @@
     "check": "node tools/check-site.mjs",
     "daily": "node tools/daily/generate.mjs",
     "seo": "node tools/seo/seo.mjs",
-    "e2e": "python3 tests/e2e/browser_test.py && python3 tests/e2e/tarot_test.py && python3 tests/e2e/seiju_test.py && python3 tests/e2e/kyusei_test.py && python3 tests/e2e/shichusuimei_test.py && python3 tests/e2e/maya_test.py && python3 tests/e2e/shukuyo_test.py && python3 tests/e2e/compat_test.py"
+    "e2e": "python3 tests/e2e/browser_test.py && python3 tests/e2e/tarot_test.py && python3 tests/e2e/seiju_test.py && python3 tests/e2e/kyusei_test.py && python3 tests/e2e/shichusuimei_test.py && python3 tests/e2e/maya_test.py && python3 tests/e2e/shukuyo_test.py && python3 tests/e2e/compat_test.py && python3 tests/e2e/horoscope_test.py"
   }
 }

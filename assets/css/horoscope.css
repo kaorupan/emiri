@@ -1,0 +1,16 @@
+/* ホロスコープページ（kyusei.css・shichusuimei.css の部品を使う） */
+.horo-big { font-size: 18px; margin: 10px 0; }
+.horo-big b { color: var(--gold); font-family: var(--serif); font-size: 22px; }
+.horo-table { width: 100%; border-collapse: collapse; margin: 10px 0 12px; font-size: 14px; }
+.horo-table th, .horo-table td { padding: 7px 8px; border-bottom: 1px solid #382943; text-align: left; }
+.horo-table thead th { color: var(--muted); font-weight: 400; font-size: 12px; }
+.horo-table tbody th { width: 30%; color: var(--gold); font-weight: 700; }
+.horo-table tr.is-uncertain td { color: var(--muted); }
+.horo-flag { margin-left: 4px; color: var(--purple); }
+.horo-aspect-soft { border-left: 3px solid #7cc98f; }
+.horo-aspect-hard { border-left: 3px solid #f08a6c; }
+.horo-aspect-neutral { border-left: 3px solid var(--gold); }
+[data-horo="火"] { --el: #f08a6c; } [data-horo="地"] { --el: #e2b35c; } [data-horo="風"] { --el: #d9dce8; } [data-horo="水"] { --el: #7fb4f0; }
+[data-horo="活動"] { --el: #f0786c; } [data-horo="不動"] { --el: #e7c568; } [data-horo="柔軟"] { --el: #a27cff; }
+.ssm-bar[data-horo] .ssm-bar-label { font-size: 14px; width: auto; }
+.ssm-bar[data-horo] { grid-template-columns: 3em 1fr 2em; grid-template-areas: "label track count"; }

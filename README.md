@@ -38,6 +38,7 @@ python3 -m http.server 8000
 /kyusei/aisho/            九星気学 相性
 /shichusuimei/            四柱推命（命式・日干・中心星・十二運・五行・天中殺・年運）
 /shichusuimei/aisho/ ・ /maya/aisho/ ・ /shukuyo/aisho/   各占術の相性（共通部品 assets/js/pages/compat-page.js）
+/horoscope/ ・ /horoscope/aisho/  ホロスコープ（10天体・アスペクト・今年の木星土星）と相性（シナストリー）
 /shukuyo/                 宿曜占星術（本命宿・性格・三九の秘法の相性・今日の巡り）
 /maya/                    マヤ暦（KIN・太陽の紋章・銀河の音・ウェイブスペル・4つの関係KIN・黒KIN・年回り）
 /aisho/                   相性占いTOP
@@ -290,3 +291,8 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - kantei-text.js の buildKantei(person, today, partner?) に、相性の相手（1人・任意）を渡すと「〇〇さんとの相性」の章が「おわりに」の前に入る。
 - 鑑定書の最後に「追加の相性鑑定」（別のお相手との相性の章だけを追加購入）への案内を表示する。
 - 見本（/premium/sample/）は架空の「ミライ」さん（1992年5月15日）を相性の相手に設定し、相性の章は書き出しとお相手のカルテだけ読める。
+
+## ホロスコープ
+- 天体の位置は assets/js/vendor/astronomy-engine-2.1.19.min.js（MIT License、著作権表示はファイル先頭）で計算。
+- tests/fixtures/horoscope-ingress-2025.json：公開されている2025年の星座入りの時刻と照合（太陽・水星は数分以内）。
+- アセンダント・ハウスは出生地が必要なため、本格占い（出生地の入力）で扱う予定。

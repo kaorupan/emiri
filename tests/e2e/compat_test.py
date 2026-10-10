@@ -45,6 +45,7 @@ async def fill(page, prefix, a, b):
 CASES = [
     ("shichusuimei/aisho/", "ssm-aisho", ["あなたの四柱推命", "お相手の四柱推命", "日干の相性", "ふたりの星（通変星）", "暮らしの相性と五行", "ふたりの相性を、もっとくわしく"], ["干合（引き合う組み合わせ）", "お相手は、あなたにとって「正財」"]),
     ("maya/aisho/", "maya-aisho", ["あなたのKIN", "お相手のKIN", "ふたりの縁", "ふたりのKIN", "ふたりの相性を、もっとくわしく"], ["KIN110", "同じ色の紋章"]),
+    ("horoscope/aisho/", "horo-aisho", ["あなたのホロスコープ", "お相手のホロスコープ", "ふたりの星の相性", "ふたりの天体どうしの角度", "ふたりの相性を、もっとくわしく"], ["太陽どうし", "月どうし", "山羊座", "牡牛座"]),
     ("shukuyo/aisho/", "shuku-aisho", ["あなたの本命宿", "お相手の本命宿", "ふたりの関係：", "恋愛・仕事の相性", "ふたりの相性を、もっとくわしく"], ["友・衰（ゆう・すい）", "奎宿", "氐宿"]),
 ]
 
@@ -72,7 +73,7 @@ async def run(browser, base, label, viewport, mobile):
             await page.screenshot(path=os.path.join(SHOTS, f"compat-{prefix}-{label}.png"), full_page=True)
     await page.goto(base + "aisho/")
     links = await page.evaluate("() => [...document.querySelectorAll('a')].map(a => a.getAttribute('href'))")
-    check("相性ハブから3つの相性ページへ", all(f"../{x}/aisho/" in links for x in ["shichusuimei", "maya", "shukuyo"]))
+    check("相性ハブから3つの相性ページへ", all(f"../{x}/aisho/" in links for x in ["shichusuimei", "maya", "shukuyo", "horoscope"]))
     check("コンソールエラーなし", not errors, errors)
     await ctx.close()
 
