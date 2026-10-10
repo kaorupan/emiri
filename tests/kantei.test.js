@@ -56,3 +56,30 @@ test("年の宮の文章が9宮すべてそろっている", () => {
   for (const id of daily.FLIGHT_ORDER) assert.ok(kantei.YEAR_PALACE[id] && kantei.YEAR_PALACE[id].text, id);
   for (let i = 1; i <= 9; i++) assert.ok(kantei.NUM_AXIS[i] && kantei.STAR_AXIS[i], i);
 });
+
+test("相性の相手を1人設定すると「〇〇さんとの相性」の章が「おわりに」の前に入る", () => {
+  const r = kantei.buildKantei({ name: "サンプル", year: 1990, month: 1, day: 1 }, TODAY, { name: "ミライ", year: 1992, month: 5, day: 15 });
+  const ids = r.chapters.map((c) => c.id);
+  assert.deepEqual(ids.slice(-2), ["aisho", "closing"]);
+  const a = r.chapters.find((c) => c.id === "aisho");
+  assert.equal(a.title, "ミライさんとの相性");
+  assert.equal(r.partnerName, "ミライさん");
+  const t = JSON.stringify(a.blocks);
+  for (const h of ["ふたりの全体像", "恋愛の相性", "価値観と会話", "暮らしと結婚", "すれ違いやすいポイントと仲直り", "親密さと距離感", "ふたりのタイミング", "長続きのコツ"]) assert.ok(t.includes(h), h);
+  assert.ok(!/undefined|null|NaN/.test(t));
+  assert.ok(r.upsell && r.upsell.title);
+  // 名前なしのお相手は「お相手」
+  const r2 = kantei.buildKantei({ year: 1990, month: 1, day: 1 }, TODAY, { year: 1985, month: 7, day: 7 });
+  assert.equal(r2.chapters.find((c) => c.id === "aisho").title, "お相手との相性");
+  // お相手なしなら章は入らない
+  assert.ok(!kantei.buildKantei({ year: 1990, month: 1, day: 1 }, TODAY).chapters.some((c) => c.id === "aisho"));
+});
+
+test("相性の章：幅広いお相手の生年月日で欠けずに組み立てられる", () => {
+  for (let i = 0; i < 120; i++) {
+    const y = 1940 + (i * 7) % 70, m = 1 + (i * 5) % 12, d = 1 + (i * 11) % 28;
+    const r = kantei.buildKantei({ year: 1990, month: 1, day: 1 }, TODAY, { year: y, month: m, day: d, time: i % 3 === 0 ? "12:00" : null });
+    const t = JSON.stringify(r.chapters.find((c) => c.id === "aisho"));
+    assert.ok(!/undefined|NaN/.test(t), `${y}-${m}-${d}`);
+  }
+});

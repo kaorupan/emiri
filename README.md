@@ -37,6 +37,7 @@ python3 -m http.server 8000
 /kyusei/                  九星気学 個人鑑定（本命星・月命星）
 /kyusei/aisho/            九星気学 相性
 /shichusuimei/            四柱推命（命式・日干・中心星・十二運・五行・天中殺・年運）
+/shichusuimei/aisho/ ・ /maya/aisho/ ・ /shukuyo/aisho/   各占術の相性（共通部品 assets/js/pages/compat-page.js）
 /shukuyo/                 宿曜占星術（本命宿・性格・三九の秘法の相性・今日の巡り）
 /maya/                    マヤ暦（KIN・太陽の紋章・銀河の音・ウェイブスペル・4つの関係KIN・黒KIN・年回り）
 /aisho/                   相性占いTOP
@@ -284,3 +285,8 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - tests/fixtures/kyureki-astronomy-engine.json：astronomy-engine の新月・中気（日本時間）から別に組み立てた旧暦。
   作成時に1900〜2100年の全73,383日を突き合わせ、新月が0時の34秒後にある2097年1月の1か月だけ1日ずれた（nearEdge で案内）。
 - 六曜は2026年10月をベストカレンダーと照合。本命宿は「觜宿の有名人」として紹介されている12人の生年月日で照合。
+
+## 本格占い：相性の章
+- kantei-text.js の buildKantei(person, today, partner?) に、相性の相手（1人・任意）を渡すと「〇〇さんとの相性」の章が「おわりに」の前に入る。
+- 鑑定書の最後に「追加の相性鑑定」（別のお相手との相性の章だけを追加購入）への案内を表示する。
+- 見本（/premium/sample/）は架空の「ミライ」さん（1992年5月15日）を相性の相手に設定し、相性の章は書き出しとお相手のカルテだけ読める。

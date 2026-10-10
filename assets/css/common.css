@@ -256,3 +256,7 @@ img { max-width: 100%; }
 @media (max-width: 420px) {
   .hero h1 { font-size: 25px; }
 }
+
+/* 相性ページの結果の下に出す、本格占い（相性の章つき鑑定書）への案内 */
+.premium-upsell { border-color: var(--gold); background: linear-gradient(160deg, rgba(231, 197, 104, .10), rgba(23, 16, 32, .9)); }
+.premium-upsell h2 { color: var(--gold); }

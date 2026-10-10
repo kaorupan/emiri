@@ -14,6 +14,8 @@
  *   7. 類似KIN：銀河の音が同じで、紋章の番号（1〜20）の和が19または39になるKIN。
  *      反対KIN：銀河の音が同じで、紋章が10番先のKIN。神秘KIN：KIN番号の和が261になるKIN。
  *   8. 黒KIN（銀河の活性化の入り口）：260のKINのうち、決まった模様をなす52のKIN。
+ *  10. 相性：ふたりのKINが、同じKIN・神秘・類似・反対・ガイドの関係にあるか、紋章・音・ウェイブスペル・色が同じか、
+ *      音の和が14になるか（神秘の音）を見る。「ふたりのKIN」は2つのKIN番号の和（260を超えたら260を引く）。
  *   9. 年回り：誕生日ごとに1年ずつ巡るKIN（毎年の誕生日のKIN。銀河の音は1年に1つ進み、13年で一巡）。
  *
  * ブラウザでは window.KaruteEngines.maya、Node では module.exports で使える。
@@ -150,7 +152,38 @@
     return list;
   }
 
+  function ensure(x) { return x && x.kin ? x : calculateMaya(x); }
+
+  /**
+   * マヤ暦の相性
+   * @param a,b 生年月日、または calculateMaya の結果
+   */
+  function calculateMayaCompatibility(a, b) {
+    var ra = ensure(a), rb = ensure(b);
+    var ka = ra.kin, kb = rb.kin;
+    var links = [];
+    if (ka === kb) links.push("same");
+    else {
+      if (ka + kb === 261) links.push("occult");
+      if (ra.relations.analog.kin === kb) links.push("analog");
+      if (ra.relations.antipode.kin === kb) links.push("antipode");
+      if (ra.relations.guide.kin === kb && ka !== kb) links.push("partnerGuide");
+      if (rb.relations.guide.kin === ka && ka !== kb) links.push("youGuide");
+    }
+    var shared = [];
+    if (ka !== kb) {
+      if (ra.seal.index === rb.seal.index) shared.push("seal");
+      if (ra.tone.number === rb.tone.number) shared.push("tone");
+      if (ra.wavespell.index === rb.wavespell.index) shared.push("wavespell");
+      if (ra.seal.color === rb.seal.color && ra.seal.index !== rb.seal.index) shared.push("color");
+      if (ra.tone.number + rb.tone.number === 14) shared.push("toneMystic");
+    }
+    var pair = (ka + kb - 1) % 260 + 1;
+    return { person1: ra, person2: rb, links: links, shared: shared, pairKin: kinInfo(pair) };
+  }
+
   return {
+    calculateMayaCompatibility: calculateMayaCompatibility,
     SEALS: SEALS,
     TONES: TONES,
     BLACK_KIN: BLACK_KIN,

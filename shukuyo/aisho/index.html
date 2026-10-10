@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>宿曜占星術の相性占い｜三九の秘法で栄親・安壊などを読む｜えみり</title>
+<meta name="description" content="ふたりの生年月日を旧暦に直して本命宿を求め、三九の秘法で「命」「業・胎」「栄・親」「友・衰」「安・壊」「危・成」の関係と距離、恋愛・仕事の相性を読み解きます。無料・登録不要。">
+<link rel="canonical" href="https://emiri-uranai.com/shukuyo/aisho/">
+<meta property="og:url" content="https://emiri-uranai.com/shukuyo/aisho/">
+<link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../../feed.xml">
+<meta property="og:site_name" content="えみり">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="宿曜占星術の相性占い｜えみり">
+<meta property="og:description" content="三九の秘法で、ふたりの関係と距離を読み解きます。">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/kyusei.css">
+<link rel="stylesheet" href="../../assets/css/shukuyo.css">
+<script defer src="../../assets/js/core/date.js"></script>
+<script defer src="../../assets/js/core/dom.js"></script>
+<script defer src="../../assets/js/core/profile.js"></script>
+<script defer src="../../assets/js/core/birthdate-field.js"></script>
+<script defer src="../../assets/js/core/astro.js"></script>
+<script defer src="../../assets/js/core/kyureki.js"></script>
+<script defer src="../../assets/js/engines/shukuyo.js"></script>
+<script defer src="../../assets/js/content/shukuyo-text.js"></script>
+<script defer src="../../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../../assets/js/pages/compat-page.js"></script>
+<script defer src="../../assets/js/pages/shukuyo-compatibility-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../../"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../../#uranau">無料占い</a></li>
+        <li><a href="../../aisho/" aria-current="page">相性</a></li>
+        <li><a href="../../unsei/">今日の運勢</a></li>
+        <li><a href="../../premium/">本格占い</a></li>
+        <li><a href="../../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../../">えみり</a></li>
+      <li><a href="../">宿曜占星術</a></li>
+      <li aria-current="page">相性</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">SHUKUYO COMPATIBILITY</p>
+    <h1>宿曜占星術の相性占い</h1>
+    <p>ふたりの本命宿から、三九の秘法で関係の種類（命・業胎・栄親・友衰・安壊・危成）と距離（近・中・遠）を求め、自分から見た相手、相手から見た自分の役割を読み解きます。</p>
+  </section>
+
+  <form id="shuku-aisho-form" class="card kyusei-form" novalidate>
+    <div class="kyusei-fields">
+      <div><div data-birthdate="self"></div></div>
+      <div><div data-birthdate="partner"></div></div>
+    </div>
+    <p class="kyusei-meta">お相手の生年月日は保存しません。</p>
+    <button type="submit" class="btn">ふたりの宿曜の相性を見る</button>
+  </form>
+
+  <div id="shuku-aisho-result" class="kyusei-result" hidden>
+    <div id="shuku-aisho-result-body"></div>
+
+    <section class="card premium-upsell" aria-labelledby="shuku-aisho-premium-title">
+      <p class="eyebrow">PREMIUM</p>
+      <h2 id="shuku-aisho-premium-title">ふたりの相性を、もっとくわしく</h2>
+      <p>本格占いの「総合鑑定書」では、あなたの鑑定に加えて、お相手1人との相性を数秘術・九星気学・星獣カルテの3つの占術から読み解いた章をお届けします（準備中）。</p>
+      <p><a class="btn btn-ghost" href="../../premium/">本格占いを見る</a></p>
+    </section>
+
+    <section class="card" aria-labelledby="shuku-aisho-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="shuku-aisho-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="../">自分の本命宿をくわしく見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../#shuku-about">宿曜占星術とは？ <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../../maya/aisho/">マヤ暦の相性も見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../../shichusuimei/aisho/">四柱推命の相性も見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card prose" aria-labelledby="shuku-aisho-about-title">
+    <h2 id="shuku-aisho-about-title">宿曜占星術の相性の見方</h2>
+    <p>自分の本命宿から相手の本命宿までを27宿の並びで数えて、関係を決めます。</p>
+    <ul>
+      <li><strong>栄・親</strong>：互いに繁栄をもたらし合う、もっとも良いとされる関係</li>
+      <li><strong>友・衰</strong>：気が合い、安らげる関係</li>
+      <li><strong>安・壊</strong>：強く惹かれ合う一方、影響も大きい関係</li>
+      <li><strong>危・成</strong>：違いから刺激と学びを得る関係</li>
+      <li><strong>業・胎</strong>：前世からの縁があるとされる関係</li>
+      <li><strong>命</strong>：同じ本命宿どうし</li>
+    </ul>
+    <p>本命宿の求め方は宿曜占星術のカルテと同じです（旧暦は天文計算で算出）。相性の読み解きはえみり独自の文章です。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../../">TOP</a></li>
+        <li><a href="../../#uranau">無料占い</a></li>
+        <li><a href="../../aisho/">相性占い</a></li>
+        <li><a href="../../premium/">本格占い</a></li>
+        <li><a href="../../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
+  </div>
+</footer>
+</body>
+</html>

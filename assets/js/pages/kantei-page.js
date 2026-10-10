@@ -3,6 +3,7 @@
  * 組み立て：KaruteContent.kantei / 描画：このファイル
  *
  * 表示する人の情報は、ページ内の <div id="kantei-root" data-person='{"name":…,"year":…}'> から読む。
+ * 相性の相手（任意・1人）は data-partner='{"name":…,"year":…}' から読み、「〇〇さんとの相性」の章を加える。
  * （購入後のページでは、支払い確認の結果からこの情報を受け取って同じ関数で描画する）
  */
 (function (root) {
@@ -20,7 +21,8 @@
    * 見本用のモザイク
    *   本文は「同じ長さのダミー文字」に置き換えてからぼかす。本物の文章はページに一切入れない
    *   （ぼかしを外したり、ソースを見たりしても読めない）。
-   *   読めるのは：表紙、目次、各章と見出しの名前、第1章「はじめに」、第2章「あなたのカルテ」、第3章の書き出し。
+   *   読めるのは：表紙、目次、各章と見出しの名前、第1章「はじめに」、第2章「あなたのカルテ」、第3章の書き出し、
+   *   相性の章の書き出しとお相手のカルテ。
    */
   var FILLER = "あなたのうまれもったちからとこれからのながれをよみときますほしとかずときせつがおしえてくれること";
   function filler(text) {
@@ -28,20 +30,21 @@
     for (var i = 0; i < n; i++) out += FILLER.charAt((i * 7 + n) % FILLER.length);
     return out;
   }
-  var OPEN_CHAPTERS = { intro: "all", karute: "all", axis: "first" };
+  var OPEN_CHAPTERS = { intro: "all", karute: "all", axis: "first", aisho: "lead" };
 
   function maskReport(report) {
     var chapters = report.chapters.map(function (c) {
       var mode = OPEN_CHAPTERS[c.id];
       if (mode === "all") return c;
-      var shownFirst = false;
+      var shownFirst = false, shownFacts = false;
       var blocks = c.blocks.map(function (b) {
         if (b.type === "h3") return b;
         if (b.type === "p") {
-          if (mode === "first" && !shownFirst) { shownFirst = true; return b; }
+          if ((mode === "first" || mode === "lead") && !shownFirst) { shownFirst = true; return b; }
           return { type: "p", masked: true, text: filler(b.text) };
         }
         if (b.type === "ul") return { type: "ul", masked: true, items: b.items.map(filler) };
+        if (b.type === "facts" && mode === "lead" && !shownFacts) { shownFacts = true; return b; }
         if (b.type === "facts") return { type: "facts", masked: true, rows: b.rows.map(function (r) { return [r[0], filler(r[1])]; }) };
         if (b.type === "years") return { type: "years", masked: true, items: b.items.map(function (y) { return { year: y.year, rows: y.rows.map(function (r) { return [r[0], filler(r[1])]; }) }; }) };
         if (b.type === "months") return { type: "months", masked: true, items: b.items.map(function (m) { return { month: m.month, number: "", theme: filler(m.theme), text: filler(m.text) }; }) };
@@ -89,7 +92,8 @@
       h("p", { class: "kantei-who" }, report.who),
       h("p", { class: "kantei-meta" }, report.birthLabel + "生まれ"),
       h("p", { class: "kantei-meta" }, "作成日：" + report.madeLabel),
-      h("p", { class: "kantei-axis" }, "あなたの軸：", h("b", null, report.axis.mainName), "　もうひとつの柱：", h("b", null, report.axis.subName))
+      h("p", { class: "kantei-axis" }, "あなたの軸：", h("b", null, report.axis.mainName), "　もうひとつの柱：", h("b", null, report.axis.subName)),
+      report.partnerName ? h("p", { class: "kantei-meta" }, "相性の相手：" + report.partnerName) : null
     ));
     container.appendChild(h("nav", { class: "kantei-toc", "aria-label": "鑑定書の目次" },
       h("h2", null, "目次"),
@@ -103,6 +107,14 @@
         c.masked ? h("p", { class: "kantei-locked" }, "この章の本文は、購入後にあなたの生年月日で読めます") : null
       ));
     });
+    if (report.upsell) {
+      container.appendChild(h("section", { class: "kantei-upsell", "aria-labelledby": "kantei-upsell-title" },
+        h("p", { class: "eyebrow" }, "MORE COMPATIBILITY"),
+        h("h2", { id: "kantei-upsell-title" }, report.upsell.title),
+        h("p", null, report.upsell.text),
+        h("p", { class: "kantei-meta" }, report.upsell.note)
+      ));
+    }
     container.appendChild(h("section", { class: "kantei-method" },
       h("h2", null, "この鑑定書について"),
       h("ul", null, report.method.map(function (t) { return h("li", null, t); }))
@@ -116,7 +128,9 @@
     try { person = JSON.parse(container.getAttribute("data-person") || "null"); } catch (e) { person = null; }
     if (!person) return;
     var sample = container.hasAttribute("data-sample");
-    var report = kantei.buildKantei(person, todayJst());
+    var partner = null;
+    try { partner = JSON.parse(container.getAttribute("data-partner") || "null"); } catch (e) { partner = null; }
+    var report = kantei.buildKantei(person, todayJst(), partner || undefined);
     render(container, sample ? maskReport(report) : report, { sample: sample });
     var printBtn = document.getElementById("kantei-print");
     if (printBtn) printBtn.addEventListener("click", function () { root.print(); });

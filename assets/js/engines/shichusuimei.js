@@ -18,6 +18,8 @@
  *   9. 五行のバランス：天干と地支（地支はその支の五行）の数。時柱が分からないときは6つで数える。
  *  10. 天中殺（空亡）：日柱の旬で決まる2つの十二支。
  *  11. 年運：その年（立春で区切る）の干支を、日干から見た通変星と十二運で読む。
+ *  12. 相性：日干どうし（干合＝甲己・乙庚・丙辛・丁壬・戊癸、それ以外は五行の比和・相生・相剋）、
+ *      相手の日干があなたから見て何の通変星か（逆も）、日支どうし（支合・三合・冲）、五行の補い合いで読む。
  *   ※ 大運・格局・用神・身強弱の判定は扱わない。
  *
  * ブラウザでは window.KaruteEngines.shichusuimei、Node では module.exports で使える。
@@ -224,7 +226,52 @@
     return list;
   }
 
+  // 五行の関係（x から見た y）：same / generates（x が y を生む）/ generated / controls（x が y を抑える）/ controlled
+  function elementRelation(x, y) {
+    var d = mod(y - x, 5);
+    return ["same", "generates", "controls", "controlled", "generated"][d];
+  }
+
+  function branchRelation(x, y) {
+    if (x === y) return "same";
+    if ((x + y) % 12 === 1) return "shigou";
+    if (Math.abs(x - y) === 6) return "chuu";
+    if (x % 4 === y % 4) return "sangou";
+    return "none";
+  }
+
+  function ensure(x) { return x && x.pillars ? x : calculateShichusuimei(x); }
+
+  /**
+   * 四柱推命の相性
+   * @param a,b 生年月日（＋時刻）または calculateShichusuimei の結果
+   */
+  function calculateShichusuimeiCompatibility(a, b) {
+    var ra = ensure(a), rb = ensure(b);
+    var sa = ra.dayMaster.index, sb = rb.dayMaster.index;
+    var kangou = Math.abs(sa - sb) === 5;
+    var ea = stemElement(sa), eb = stemElement(sb);
+    var ba = ra.byKey.day.branch.index, bb = rb.byKey.day.branch.index;
+    function lacks(r) { return r.elements.filter(function (e) { return e.count === 0; }).map(function (e) { return e.element; }); }
+    function has(r, el) { return r.elements.filter(function (e) { return e.element === el; })[0].count; }
+    return {
+      person1: ra,
+      person2: rb,
+      stem: { kangou: kangou, relation: elementRelation(ea, eb), sameStem: sa === sb },
+      partnerAsStar: tsuhenInfo(tsuhenIndex(sa, sb)),
+      youAsStar: tsuhenInfo(tsuhenIndex(sb, sa)),
+      branch: { relation: branchRelation(ba, bb), you: branchInfo(ba), partner: branchInfo(bb) },
+      complement: {
+        partnerGives: lacks(ra).filter(function (el) { return has(rb, el) >= 2; }),
+        youGive: lacks(rb).filter(function (el) { return has(ra, el) >= 2; })
+      }
+    };
+  }
+
   return {
+    calculateShichusuimeiCompatibility: calculateShichusuimeiCompatibility,
+    elementRelation: elementRelation,
+    branchRelation: branchRelation,
     STEMS: STEMS,
     BRANCHES: BRANCHES,
     ELEMENTS: ELEMENTS,

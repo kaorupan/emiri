@@ -11,6 +11,10 @@
  *   重み：ライフパス3、本命星3、星獣の季節2、バースデー1、アティチュード1、月命星1、星獣の月のリズム1。
  *   同点のときは、ライフパス → 本命星 → 星獣の季節 の軸を優先する。
  *
+ * 「〇〇さんとの相性」（相性の相手を1人設定したときだけ入る章）
+ *   数秘術・九星気学・星獣カルテの相性（無料の相性占いと同じ計算・文章）を、テーマごとに並べ直してまとめる。
+ *   最後に「別のお相手との相性鑑定」への案内（upsell）を付ける。
+ *
  * 「これから3年の流れ」
  *   数秘術：その年のパーソナルイヤー。九星気学：その年の年盤で本命星が入る宮（同会）。
  *   九星気学の年は立春で切り替わるため、「その年の立春から翌年の立春の前まで」と明記する。
@@ -94,12 +98,79 @@
     return { year: y, month: m, day: d, time: p.time || null, name: String(p.name || "").trim() };
   }
 
+  /*
+   * 相性の章
+   *   me / partner：requireInput 済みの入力。whoMe / whoPartner：呼び名（「あなた」「〇〇さん」）
+   */
+  function buildAishoChapter(me, partner, whoPartner, today) {
+    var bA = { year: me.year, month: me.month, day: me.day }, bB = { year: partner.year, month: partner.month, day: partner.day };
+    var nc = numText.buildCompatibility(numEngine.calculateCompatibility(bA, bB, { targetYear: today.year }));
+    var kc = kyText.buildKyuseiCompatibilityView(kyEngine.calculateKyuseiCompatibility(
+      me.time ? { year: me.year, month: me.month, day: me.day, time: me.time } : bA,
+      partner.time ? { year: partner.year, month: partner.month, day: partner.day, time: partner.time } : bB));
+    var sc = sjText.buildSeijuCompatibilityView(sjEngine.calculateSeijuCompatibility(bA, bB));
+    var nd = {};
+    nc.details.forEach(function (d) { nd[d.title.replace(/（.*）$/, "")] = d; });
+    var kd = {};
+    kc.details.forEach(function (d) { kd[d.title] = d; });
+    var sd = {};
+    (sc.details || []).forEach(function (d) { sd[d.title] = d; });
+    var pName = whoPartner;
+    var pb = partner.year + "年" + partner.month + "月" + partner.day + "日" + (partner.time ? " " + partner.time : "");
+    var pKy = kc.partner, pSj = sc.partner;
+    var text = function (d) { return d ? (d.text || (d.list ? d.list.join("　") : "")) : null; };
+    var blocks = [
+      para("ここからは、" + pName + "との相性を、数秘術・九星気学・星獣カルテの3つの占術から読み解きます。点数や良し悪しで決めつけるのではなく、ふたりの関係をより心地よくするためのヒントとしてお読みください。"),
+      facts([
+        [pName + "の生年月日", pb],
+        ["数秘術", "ライフパス " + nc.partner.numbers[0].number + "（" + nc.partner.numbers[0].label + "）"],
+        ["九星気学", "本命星 " + pKy.honmei.name + "／月命星 " + pKy.getsumei.name],
+        ["星獣カルテ", pSj.beast.name + "（" + pSj.beast.season.name + " × " + pSj.beast.moon.name + "）"]
+      ]),
+      heading("ふたりの全体像"),
+      para("数秘術：" + nc.total.headline + nc.total.message),
+      para("九星気学：本命星どうしは「" + kc.total.label + "」。" + kc.total.lead + (kc.total.inner ? kc.total.inner.text : "")),
+      para("星獣カルテ：「" + sc.total.label + "」。" + sc.total.lead),
+      heading("惹かれ合う理由"),
+      para(text(nd["惹かれ合う理由"])),
+      sd["惹かれ合うポイント"] ? para(text(sd["惹かれ合うポイント"])) : null,
+      heading("恋愛の相性"),
+      para(text(nd["恋愛の相性"])),
+      heading("価値観と会話"),
+      para(text(nd["価値観・会話"])),
+      kd["価値観"] ? para(text(kd["価値観"])) : null,
+      kd["コミュニケーション"] ? para(text(kd["コミュニケーション"])) : null,
+      heading("暮らしと結婚"),
+      para(text(nd["結婚・暮らしの相性"])),
+      kd["生活ペース"] ? para(text(kd["生活ペース"])) : null,
+      para(text(nd["お金・生活感覚"])),
+      heading("あなたから見た" + pName + "、" + pName + "から見たあなた"),
+      para(text(nd["あなたから見たお相手"])),
+      para(text(nd["お相手から見たあなた"])),
+      heading("すれ違いやすいポイントと仲直り"),
+      para(text(nd["すれ違いやすいポイント"])),
+      para(text(nd["仲直りの方法"])),
+      heading("親密さと距離感"),
+      para(nc.intimacy.text),
+      facts(kc.intimacy.slice(0, 3).map(function (x) { return [x.title, x.text]; })),
+      heading("ふたりのタイミング"),
+      para(text(nd["今年のふたり"])),
+      para(text(nd["関係が動きやすい月"])),
+      heading("長続きのコツ"),
+      list((nd["長続きするためのコツ"] && nd["長続きするためのコツ"].list) || []),
+      kd["関係を育てるコツ"] ? para(text(kd["関係を育てるコツ"])) : null
+    ].filter(function (b) { return b && (b.type !== "p" || b.text); });
+    return { id: "aisho", title: pName + "との相性", blocks: blocks };
+  }
+
   /**
    * @param {{name?:string, year:number, month:number, day:number, time?:string}} person
    * @param {{year:number, month:number, day:number}} today 作成日（日本時間）
+   * @param {{name?:string, year:number, month:number, day:number, time?:string}} [partner] 相性を見るお相手（1人・任意）
    */
-  function buildKantei(person, today) {
+  function buildKantei(person, today, partner) {
     var p = requireInput(person);
+    var q = partner ? requireInput(partner) : null;
     var birth = { year: p.year, month: p.month, day: p.day };
     var num = numEngine.calculateNumerology(birth, { targetYear: today.year });
     var nv = numText.buildPersonal(num);
@@ -267,15 +338,22 @@
         para(beast.growth),
         para(kv.growthExtra)
       ] },
+      q ? buildAishoChapter(p, q, q.name ? q.name + "さん" : "お相手", today) : null,
       { id: "closing", title: "おわりに", blocks: [
         para(who + "の中心にある「" + A.name + "」の力は、どの占術から見ても、あなたらしさの源です。うまくいかない時期も、その力を使う場所や方法を少し変えるだけで、流れは変わっていきます。"),
         para("この鑑定書は、いつでも読み返せるように保存しておいてください。年が変わったときや迷ったとき、もう一度ページを開くと、そのときのあなたに必要な言葉が見つかるかもしれません。"),
         para("※ 占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。")
       ] }
-    ];
+    ].filter(Boolean);
 
     return {
       title: "総合鑑定書",
+      partnerName: q ? (q.name ? q.name + "さん" : "お相手") : null,
+      upsell: {
+        title: "ほかの人との相性も、見てみませんか？",
+        text: "この鑑定書と同じ3つの占術で、別のお相手との相性を読み解く「追加の相性鑑定」をご用意します。家族、友人、職場の人、気になるあの人――大切な人との関係を、もう一歩深く知ることができます。",
+        note: "お相手の生年月日を入力するだけで、相性の章をお届けします（準備中）。"
+      },
       who: who,
       name: p.name,
       birthLabel: birthLabel,
@@ -286,7 +364,7 @@
         "数秘術・九星気学・星獣カルテの計算は、えみりの無料占いと同じ方法で行っています（九星気学は立春・節入りの時刻で判定）。",
         "「あなたの軸」と「これから3年の流れ」は、3つの占術の結果をもとに、えみりが用意した読み方で組み立てています。",
         "鑑定文はAIを使わず、えみりが書いた文章を計算結果に合わせて組み合わせています。"
-      ]
+      ].concat(q ? ["相性の章は、えみりの無料の相性占い（数秘術・九星気学・星獣カルテ）と同じ計算と文章をもとに、テーマごとにまとめ直したものです。"] : [])
     };
   }
 

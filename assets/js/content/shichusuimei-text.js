@@ -327,7 +327,79 @@
     };
   }
 
+  // ---------------- 相性：えみりの読み解き ----------------
+  var COMPAT_TRADITION = "四柱推命の相性は、ふたりの日干（自分自身を表す文字）どうしの関係を中心に見ます。とくに「干合」（甲と己、乙と庚、丙と辛、丁と壬、戊と癸）は、陰と陽が引き合い、結びつく組み合わせとされます。あわせて、相手が自分にとって何の通変星に当たるか、日支（生まれた日の十二支）どうしの関係、五行の補い合いを読みます。";
+
+  var STEM_REL = {
+    kangou: { label: "干合（引き合う組み合わせ）", text: "ふたりの日干は「干合」の関係。陰と陽が自然に引き合い、出会ったときから不思議と気になる、結びつきの強い組み合わせです。一緒にいると、お互いの性質が少しずつ混ざり合い、ふたりでひとつのチームのようになっていきます。" },
+    same: { label: "比和（同じ五行）", text: "ふたりの日干は同じ五行。感じ方や大切にしたいものが近く、説明しなくても分かり合える気楽さがあります。似ているぶん、同じところでつまずきやすいので、どちらかが一歩引いて全体を見る役を交代でとると◎。" },
+    generates: { label: "相生（あなたが力を渡す）", text: "あなたの五行がお相手の五行を生む関係。あなたの存在が、お相手の力や自信を自然に引き出します。あなたは与える側になりやすいので、お相手からの感謝や支えを素直に受け取ることも大切に。" },
+    generated: { label: "相生（お相手が力をくれる）", text: "お相手の五行があなたの五行を生む関係。お相手のそばにいると、あなたは安心して力を発揮できます。受け取るだけにならないよう、ことばや行動で感謝を返すと、関係がさらに温まります。" },
+    controls: { label: "相剋（あなたが引き締める）", text: "あなたの五行がお相手の五行を抑える関係。あなたはお相手を引き締め、方向を整える役になりやすい組み合わせです。言いすぎると窮屈に感じさせるので、伝えるときはやわらかく、認めることばを先に。" },
+    controlled: { label: "相剋（お相手が引き締める）", text: "お相手の五行があなたの五行を抑える関係。お相手は、あなたに足りない視点やけじめを持ち込んでくれる存在です。ときに厳しく感じても、それはあなたを鍛え、成長させる刺激になります。" }
+  };
+
+  var AS_PARTNER = {
+    "比肩": "対等な仲間。同じ目線で並んで歩ける相手です。競い合うより、それぞれの得意を生かして協力すると心強い関係に。",
+    "劫財": "刺激し合うライバル的な仲間。一緒にいると負けず嫌いな面が出て、互いを高め合えます。主導権の取り合いには注意。",
+    "食神": "一緒にいて楽しく、肩の力が抜ける相手。あなたが自然体でいられ、好きなことを楽しむ時間が増えていきます。",
+    "傷官": "あなたの感性を鋭く刺激する相手。新しい発想をもらえる一方、言葉がきつく響くことも。率直さを大切にしつつ、思いやりを添えて。",
+    "偏財": "人やチャンスとの縁を広げてくれる相手。一緒に出かけたり、新しい人と出会ったりする機会が増えます。",
+    "正財": "誠実で、日々の暮らしを支えてくれる相手。四柱推命では、男性にとって正財は妻の星ともされ、安定した関係を築きやすい組み合わせです。",
+    "偏官": "あなたを行動へと駆り立てる相手。困難な場面で頼りになる一方、ペースを乱されると感じることも。",
+    "正官": "きちんとしていて、あなたを正しい方向へ導いてくれる相手。四柱推命では、女性にとって正官は夫の星ともされ、信頼で結ばれやすい組み合わせです。",
+    "偏印": "思いがけない発想や新しい世界を見せてくれる相手。一緒にいると好奇心が刺激され、視野が広がります。",
+    "印綬": "あなたを見守り、知恵や安心を与えてくれる相手。困ったときに相談したくなる、支えになる存在です。"
+  };
+
+  var BRANCH_REL = {
+    shigou: { label: "支合（しごう）", text: "ふたりの日支は「支合」。日常の中で自然に寄り添える、家庭的でなじみやすい組み合わせです。一緒に暮らしたり、長い時間を過ごしたりするほど、心地よさが増していきます。" },
+    sangou: { label: "三合（さんごう）", text: "ふたりの日支は「三合」のグループ。目指す方向がそろいやすく、同じ目標に向かって力を合わせると大きな成果を生む組み合わせです。" },
+    chuu: { label: "冲（ちゅう）", text: "ふたりの日支は向かい合う「冲」。生活のリズムや感じ方が正反対になりやすく、ぶつかることもありますが、そのぶん強く惹かれ合い、互いに変化をもたらす関係です。" },
+    same: { label: "同じ日支", text: "ふたりの日支は同じ十二支。暮らしの感覚や心地よいと感じる環境が似ていて、一緒にいて落ち着ける組み合わせです。" },
+    none: { label: "特別な関係なし", text: "ふたりの日支には、強く結びつく関係もぶつかる関係もありません。お互いのペースを尊重しやすく、関係の形をふたりで自由に作っていけます。" }
+  };
+
+  function personCard(r) {
+    return {
+      birthLabel: dateLabel(r.input) + (r.input.time ? " " + timeLabel(r.input.time) : ""),
+      pillars: r.pillars.map(function (p) { return p.name; }).join("・"),
+      dayMaster: r.dayMaster.name + "（" + DAY_MASTER[r.dayMaster.name].nature + "）",
+      element: r.dayMaster.element,
+      chushin: r.chushin.name,
+      catchphrase: DAY_MASTER[r.dayMaster.name].catch,
+      mayChange: !!r.alternative
+    };
+  }
+
+  function buildShichusuimeiCompatibilityView(c) {
+    var a = c.person1, b = c.person2;
+    var st = c.stem.kangou ? STEM_REL.kangou : STEM_REL[c.stem.relation];
+    var br = BRANCH_REL[c.branch.relation];
+    var comp = [];
+    if (c.complement.partnerGives.length) comp.push("あなたの命式にない" + c.complement.partnerGives.join("・") + "を、お相手がたっぷり持っています。お相手と過ごすことで、あなたに足りない力が補われます。");
+    if (c.complement.youGive.length) comp.push("お相手の命式にない" + c.complement.youGive.join("・") + "を、あなたがたっぷり持っています。あなたの存在が、お相手の支えになります。");
+    if (!comp.length) comp.push("ふたりの命式は、五行を補い合うというより、それぞれのバランスで立っている組み合わせです。お互いの得意な五行を生かし合いましょう。");
+    return {
+      you: personCard(a),
+      partner: personCard(b),
+      anyMayChange: !!(a.alternative || b.alternative),
+      tradition: COMPAT_TRADITION,
+      total: { label: st.label, text: st.text, stems: a.dayMaster.name + "（" + a.dayMaster.element + "）× " + b.dayMaster.name + "（" + b.dayMaster.element + "）" },
+      stars: [
+        { title: "お相手は、あなたにとって「" + c.partnerAsStar.name + "」", text: AS_PARTNER[c.partnerAsStar.name] },
+        { title: "あなたは、お相手にとって「" + c.youAsStar.name + "」", text: AS_PARTNER[c.youAsStar.name] }
+      ],
+      branch: { label: br.label, text: br.text, pair: c.branch.you.name + " × " + c.branch.partner.name },
+      complement: comp
+    };
+  }
+
   return {
+    buildShichusuimeiCompatibilityView: buildShichusuimeiCompatibilityView,
+    STEM_REL: STEM_REL,
+    AS_PARTNER: AS_PARTNER,
+    BRANCH_REL: BRANCH_REL,
     TRADITION: TRADITION,
     DAY_MASTER: DAY_MASTER,
     TSUHEN: TSUHEN,

@@ -22,3 +22,5 @@
 .maya-rel-kin { color: var(--mc); font-weight: 700; }
 .maya-rel-key { color: var(--muted); font-size: 12px !important; }
 @media (max-width: 560px) { .maya-rel { grid-template-columns: 1fr; } }
+.maya-kin-sm { max-width: 260px; padding: 12px; }
+.maya-kin-sm .maya-kin-num { font-size: 34px; }

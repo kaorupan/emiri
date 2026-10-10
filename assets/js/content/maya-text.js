@@ -139,7 +139,56 @@
     };
   }
 
+  // ---------------- 相性：えみりの読み解き ----------------
+  var COMPAT_TRADITION = "マヤ暦の相性は、ふたりのKINが「運命の五角形」（ガイド・類似・反対・神秘）の関係にあるか、紋章・銀河の音・ウェイブスペル・色を共有しているかから読みます。また、ふたりのKIN番号を足して求める「ふたりのKIN」は、ふたりの関係そのものが持つテーマを表すとされます。";
+
+  var LINK = {
+    same: { label: "同じKIN", text: "ふたりは同じKIN。考え方も感じ方もよく似ていて、まるで鏡を見ているような関係です。分かり合える安心感がある一方、同じ弱点も持っているので、ときには違う意見を歓迎して。" },
+    occult: { label: "神秘KIN", text: "ふたりはKIN番号を足すと261になる「神秘KIN」の関係。目に見えないところで深く支え合い、出会ったことに意味を感じやすい、特別なご縁とされます。" },
+    analog: { label: "類似KIN", text: "ふたりは「類似KIN」の関係。感覚や価値観が近く、一緒にいて自然体でいられる、気負わない仲間のような相性です。" },
+    antipode: { label: "反対KIN", text: "ふたりは「反対KIN」の関係。自分にない視点を持つ相手で、ぶつかることもありますが、そのぶん互いの世界を大きく広げ合えます。" },
+    partnerGuide: { label: "お相手があなたのガイドKIN", text: "お相手は、あなたのガイドKIN。人生の道しるべとして、あなたを導き、背中を押してくれる存在です。お相手のことばには耳を傾けてみて。" },
+    youGuide: { label: "あなたがお相手のガイドKIN", text: "あなたは、お相手のガイドKIN。あなたの生き方やことばが、お相手の道しるべになります。押しつけず、見守るように関わると力が生きます。" }
+  };
+
+  var SHARED = {
+    seal: "同じ太陽の紋章。本質が似ていて、相手の喜ぶことや嫌がることが感覚で分かります。",
+    tone: "同じ銀河の音。物事への取り組み方や役割が似ていて、ペースを合わせやすい組み合わせです。",
+    wavespell: "同じウェイブスペル。心の奥にある潜在的なテーマが共通していて、深いところで共鳴し合えます。",
+    color: "同じ色の紋章。「始める・整える・変える・熟す」のうち同じ力を持ち、目指す方向がそろいやすい組み合わせです。",
+    toneMystic: "銀河の音を足すと14になる組み合わせ。神秘KINと同じ音の関係で、互いに足りないものを補い合えるとされます。"
+  };
+
+  function compatPerson(r) {
+    return { birthLabel: dateLabel(r.input), kin: r.kin, seal: r.seal.name, color: r.seal.color, tone: r.tone.number, wavespell: r.wavespell.name, keyword: SEAL[r.seal.name].keyword, leapDay: !!r.leapDay };
+  }
+
+  function buildMayaCompatibilityView(c) {
+    var links = c.links.map(function (k) { return { label: LINK[k].label, text: LINK[k].text }; });
+    var shared = c.shared.map(function (k) { return SHARED[k]; });
+    var pk = c.pairKin;
+    var lead;
+    if (links.length) lead = "ふたりは「" + links.map(function (l) { return l.label; }).join("」「") + "」の関係にある、マヤ暦の上で縁の深い組み合わせです。";
+    else if (shared.length) lead = "ふたりは運命の五角形の関係ではありませんが、共通するエネルギーを持ち、自然に響き合える組み合わせです。";
+    else lead = "ふたりは、それぞれ違うエネルギーを持つ組み合わせ。違いがあるからこそ、お互いにない世界を見せ合えます。";
+    return {
+      you: compatPerson(c.person1),
+      partner: compatPerson(c.person2),
+      tradition: COMPAT_TRADITION,
+      lead: lead,
+      links: links,
+      shared: shared,
+      pairKin: {
+        kin: pk.kin, seal: pk.seal.name, color: pk.seal.color, tone: pk.tone.number,
+        text: "ふたりの関係を表すKINは、KIN" + pk.kin + "「" + pk.seal.name + "・音" + pk.tone.number + "」。この関係のテーマは「" + SEAL[pk.seal.name].keyword + "」、取り組み方は「" + TONE[pk.tone.number].keyword + "」です。" + SEAL[pk.seal.name].body.split("。")[0] + "。ふたりでいるとき、この性質が関係の中に表れやすいでしょう。"
+      }
+    };
+  }
+
   return {
+    buildMayaCompatibilityView: buildMayaCompatibilityView,
+    LINK: LINK,
+    SHARED: SHARED,
     TRADITION: TRADITION,
     COLOR: COLOR,
     SEAL: SEAL,

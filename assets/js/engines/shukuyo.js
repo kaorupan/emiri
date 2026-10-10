@@ -88,7 +88,21 @@
     return { date: date, lunar: s.lunar, shuku: s.shuku, type: r.type, distance: r.distance };
   }
 
+  function ensure(x) { return x && x.honmei ? x : calculateShukuyo(x); }
+
+  /**
+   * 宿曜占星術の相性（三九の秘法）
+   * @param a,b 生年月日、または calculateShukuyo の結果
+   */
+  function calculateShukuyoCompatibility(a, b) {
+    var ra = ensure(a), rb = ensure(b);
+    var you = relation(ra.honmei.index, rb.honmei.index);
+    var partner = relation(rb.honmei.index, ra.honmei.index);
+    return { person1: ra, person2: rb, pair: you.pair, youSee: you.type, partnerSees: partner.type, distance: you.distance };
+  }
+
   return {
+    calculateShukuyoCompatibility: calculateShukuyoCompatibility,
     SHUKU: SHUKU,
     RELATIONS: RELATIONS,
     MONTH_START: MONTH_START,
