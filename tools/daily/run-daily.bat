@@ -6,7 +6,7 @@ cd /d "%~dp0\..\.."
 node tools\daily\generate.mjs || exit /b 1
 call npm test || exit /b 1
 call npm run check || exit /b 1
-git add unsei index.html
+git add -A
 git diff --cached --quiet && exit /b 0
 git commit -m "Update daily fortune (unsei)"
 git push

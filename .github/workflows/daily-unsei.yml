@@ -40,7 +40,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "emiri-bot"
             git config user.email "emiri-bot@users.noreply.github.com"
-            git add unsei index.html
+            git add -A
             git commit -m "今日の運勢を更新（$(TZ=Asia/Tokyo date +%Y-%m-%d)）"
             git push
           else
@@ -49,7 +49,7 @@ jobs:
       - name: 公開するファイルだけを集める
         run: |
           rsync -a --exclude .git --exclude .github --exclude tests --exclude tools --exclude node_modules \
-            --exclude README.md --exclude package.json --exclude .gitignore --exclude _site ./ _site/
+            --exclude README.md --exclude package.json --exclude .gitignore --exclude site.config.json --exclude _site ./ _site/
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

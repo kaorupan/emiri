@@ -8,6 +8,8 @@
 //
 // 日付を省略すると日本時間の今日。同じ日付で何度実行しても同じ結果になる（外部サービス・AIは使わない）。
 // ヘッダー・フッターは TOP（index.html）のものをそのまま使い、リンクの深さだけ合わせる。
+// 最後に tools/seo/seo.mjs を実行して、正式URL・sitemap.xml・feed.xml・robots.txt を更新する。
+// 運勢の記事には構造化データ（BlogPosting・BreadcrumbList）を入れる。
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -16,6 +18,8 @@ import { fileURLToPath } from "node:url";
 const require = createRequire(import.meta.url);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const daily = require(path.join(ROOT, "assets/js/engines/daily.js"));
+const { applyHead, loadConfig, urlOf, run: runSeo } = await import(path.join(ROOT, "tools/seo/seo.mjs"));
+const config = loadConfig(ROOT);
 const text = require(path.join(ROOT, "assets/js/content/daily-text.js"));
 
 const UNSEI = path.join(ROOT, "unsei");
@@ -62,16 +66,27 @@ function chrome(prefix, current) {
   return { header, footer: fix(pick(/<footer class="site-footer">[\s\S]*?<\/footer>/)) };
 }
 
-function page({ prefix, canonical, title, description, ogTitle, body, css = [] }) {
+function ldScript(objects) {
+  return objects.map((o) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, "\\u003c")}</script>`).join("\n");
+}
+
+function breadcrumb(items) {
+  return {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: items.map(([name, rel], i) => ({ "@type": "ListItem", position: i + 1, name, item: urlOf(config, rel) }))
+  };
+}
+
+function page({ prefix, rel, title, description, ogTitle, body, css = [], ld = [] }) {
   const { header, footer } = chrome(prefix, "unsei/");
-  return `<!doctype html>
+  return applyHead(`<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<link rel="canonical" href="${esc(canonical)}">
+<link rel="canonical" href="${esc(urlOf(config, rel))}">
 <meta property="og:site_name" content="えみり">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ja_JP">
@@ -79,6 +94,7 @@ function page({ prefix, canonical, title, description, ogTitle, body, css = [] }
 <meta property="og:description" content="${esc(description)}">
 <link rel="stylesheet" href="${prefix}assets/css/common.css">
 ${css.map((c) => `<link rel="stylesheet" href="${prefix}assets/css/${c}">`).join("\n")}
+${ldScript(ld)}
 </head>
 <body>
 <a class="skip-link" href="#main">本文へスキップ</a>
@@ -91,7 +107,7 @@ ${body}
 ${footer}
 </body>
 </html>
-`;
+`, config, rel);
 }
 
 function rankList(items, listId, labelOf) {
@@ -175,9 +191,18 @@ ${view.events.length ? `    <ul class="daily-events">${view.events.map((e) => `<
       <li>順位は、それぞれの宮・ハウスの伝統的な意味をもとにした、えみりの読み方です。占いの結果は、自己理解やエンターテインメントとしてお楽しみください。</li>
     </ul>
   </section>`;
+  const rel = `unsei/${view.iso}/index.html`;
+  const published = `${view.iso}T00:00:00+09:00`;
+  const org = { "@type": "Organization", name: config.siteName, url: `${config.baseUrl}/` };
   return page({
     prefix,
-    canonical: `/unsei/${view.iso}/`,
+    rel,
+    ld: [{
+      "@context": "https://schema.org", "@type": "BlogPosting",
+      headline: view.title, description: view.lead, datePublished: published, dateModified: published,
+      inLanguage: "ja", articleSection: "今日の運勢", url: urlOf(config, rel), mainEntityOfPage: urlOf(config, rel),
+      author: org, publisher: org
+    }, breadcrumb([[config.siteName, "index.html"], ["今日の運勢", "unsei/index.html"], [view.dateText, rel]])],
     title: `${view.dateText}の運勢｜九星気学・12星座ランキング｜えみり`,
     description: `${view.dateText}の運勢。${view.lead}`,
     ogTitle: `${view.title}｜えみり`,
@@ -240,7 +265,8 @@ ${archive}
   </section>`;
   return page({
     prefix,
-    canonical: "/unsei/",
+    rel: "unsei/index.html",
+    ld: [breadcrumb([[config.siteName, "index.html"], ["今日の運勢", "unsei/index.html"]])],
     title: "今日の運勢｜九星気学・12星座ランキング｜えみり",
     description: "九星気学と12星座の今日の運勢ランキングを毎日更新。日の九星・干支・月齢・月の星座などの暦と、今日誕生日の人の性格もあわせて紹介します。",
     ogTitle: "今日の運勢｜えみり",
@@ -317,6 +343,7 @@ function main() {
   if (!re.test(top)) throw new Error("index.html に <!-- daily:start --> 〜 <!-- daily:end --> が見つかりません");
   if (writeIfChanged(topHtmlPath, top.replace(re, topSection(latest)))) changed.push("index.html");
 
+  for (const f of runSeo(ROOT)) if (!changed.includes(f)) changed.push(f);
   console.log(changed.length ? `更新：${changed.join(", ")}` : "変更なし");
 }
 

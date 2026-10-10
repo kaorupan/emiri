@@ -128,7 +128,7 @@ test("文章：全宮・全ハウス・全関係の文章があり、使わな�
 test("生成：同じ日付で2回実行しても同じファイル（2回目は変更なし）", () => {
   const root = path.join(__dirname, "..");
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "emiri-daily-"));
-  for (const p of ["index.html", "assets", "tools"]) fs.cpSync(path.join(root, p), path.join(tmp, p), { recursive: true });
+  for (const p of ["index.html", "site.config.json", "assets", "tools"]) fs.cpSync(path.join(root, p), path.join(tmp, p), { recursive: true });
   const run = () => execFileSync(process.execPath, [path.join(tmp, "tools/daily/generate.mjs"), "--date", "2026-10-10", "--days", "2"], { encoding: "utf8" });
   run();
   const first = fs.readFileSync(path.join(tmp, "unsei/2026-10-10/index.html"), "utf8");

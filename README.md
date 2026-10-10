@@ -72,6 +72,9 @@ python3 -m http.server 8000
 /assets/css/daily.css                今日の運勢専用（クラス名は .daily- 接頭辞）
 /tools/daily/generate.mjs            今日の運勢ページの生成（npm run daily）
 /tools/daily/run-daily.bat           自分のWindows PCで毎日生成・公開するときのバッチ
+/tools/seo/seo.mjs                   正式URL（canonical・og:url）、RSSの案内、sitemap.xml・feed.xml・robots.txt
+/site.config.json                    公開URL（baseUrl）とサイト名。SEOの設定はここだけ
+/sitemap.xml /feed.xml /robots.txt   自動生成（手で直さない）
 /.github/workflows/daily-unsei.yml   GitHub Actions で毎日 0:05（日本時間）に生成・公開
 /tests/*.test.js          計算・日付の自動テスト（Node）
 /tests/e2e/browser_test.py  ブラウザ操作テスト（Playwright）
@@ -182,6 +185,7 @@ node tools/daily/generate.mjs --date 2026-10-10 # 日付を指定
 node tools/daily/generate.mjs --date 2026-10-01 --days 10  # まとめて作る（過去の日付の作り直しにも）
 ```
 
+- 運勢の記事には構造化データ（BlogPosting・BreadcrumbList）を入れ、sitemap.xml（全ページ）と feed.xml（新しい30日分のRSS）も毎回作り直す。
 - 生成するもの：`unsei/<日付>/index.html`、`unsei/index.html`（一覧）、TOP の「今日の運勢」欄（`<!-- daily:start -->`〜`<!-- daily:end -->` の間だけ）、前日のページ（「次の日」リンクのため）。
 - 文章は計算結果と文章データ（daily-text.js）の組み合わせで作る。AI や外部サービスは使わないので、費用はかからず、同じ日付なら何度実行しても同じ結果になる。
 - 自動化は2通り。どちらか一方だけ使う。
@@ -225,7 +229,8 @@ node tools/daily/generate.mjs --date 2026-10-01 --days 10  # まとめて作る�
 ```sh
 npm test            # 計算・日付の自動テスト（node --test）
 npm run check       # 静的チェック
-npm run daily       # 今日の運勢ページを作る
+npm run daily       # 今日の運勢ページを作る（最後に npm run seo も実行される）
+npm run seo         # 正式URL・sitemap.xml・feed.xml・robots.txt をそろえる
 python3 tests/e2e/browser_test.py   # ブラウザ操作テスト：サイト全体と数秘術（要 Playwright + Chromium）
 python3 tests/e2e/tarot_test.py     # ブラウザ操作テスト：タロット
 python3 tests/e2e/seiju_test.py     # ブラウザ操作テスト：星獣カルテ
@@ -234,7 +239,7 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 
 ## 公開前に決めること
 
-- **canonical**：いまはサイトのルートからのパス（`/suhijutsu/` など）です。ドメインが決まったら `https://…/suhijutsu/` の形に置き換えてください。ルート以外（サブディレクトリ）に置く場合もここを直します。
+- **正式URL**：`site.config.json` の `baseUrl`（いまは `https://kaorupan.github.io/emiri`）から、全ページの canonical・og:url・sitemap.xml・feed.xml・robots.txt を作ります。独自ドメインに移るときは `baseUrl` を変えて `npm run seo` を実行するだけです。なお robots.txt はドメインの直下でしか効かないため、`/emiri/` の下で公開している間は sitemap.xml を Search Console から直接送信してください。
 - **OGP画像**：未設定です。
 
 ## 数秘術の計算ルール
