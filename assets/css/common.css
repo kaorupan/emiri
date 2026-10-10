@@ -260,3 +260,11 @@ img { max-width: 100%; }
 /* 相性ページの結果の下に出す、本格占い（相性の章つき鑑定書）への案内 */
 .premium-upsell { border-color: var(--gold); background: linear-gradient(160deg, rgba(231, 197, 104, .10), rgba(23, 16, 32, .9)); }
 .premium-upsell h2 { color: var(--gold); }
+
+/* 占いを知る：用語の一覧 */
+.learn-dl { margin: 12px 0 0; display: grid; gap: 8px; }
+.learn-dl > div { padding: 10px 14px; border-radius: 12px; background: #0d0914; border: 1px solid #382943; }
+.learn-dl dt { color: var(--gold); font-weight: 700; font-size: 14px; }
+.learn-dl dd { margin: 4px 0 0; font-size: 14px; color: var(--text); }
+.learn-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.learn-group-title { margin-top: 28px; }

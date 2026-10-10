@@ -309,3 +309,7 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - アシュタクータの表は流派差がある。@prisri/jyotish（ISC）の実装と比べ、ヴァルナ・ターラ・グラハ・マイトリは全組み合わせで一致。
   ヨーニは14×14の一般的な表、ガナは「新郎ラークシャサ×新婦デーヴァ＝1点」、ヴァシャは射手座・山羊座を前半後半で分ける方式を採用し、
   バクート・ナーディの打ち消し（例外）は点数に入れずお知らせとして表示する。
+
+## 占いを知る（learn/）
+- learn/suhijutsu/ 以外の解説ページ（tarot・kyusei・shichusuimei・maya・shukuyo・horoscope・shibi・jyotish・seiju・koyomi）は
+  `npm run learn`（tools/learn/generate.mjs）で、鑑定に使っている文章データから作る。鑑定の文章を直したら実行し直す。
