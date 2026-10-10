@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>姓名判断｜名前の画数で五格（天格・人格・地格・外格・総格）を無料で鑑定｜えみり</title>
+<meta name="description" content="名前を入力するだけで、姓名判断の五格（天格・人格・地格・外格・総格）の画数と吉凶、三才配置を鑑定します。性格・恋愛・仕事の運勢も。漢字・ひらがな・カタカナ対応。無料・登録不要。">
+<link rel="canonical" href="https://emiri-uranai.com/seimei/">
+<meta property="og:url" content="https://emiri-uranai.com/seimei/">
+<link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../feed.xml">
+<meta property="og:site_name" content="えみり">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="姓名判断｜えみり">
+<meta property="og:description" content="名前の画数から、五格の吉凶と三才配置で、あなたの性格や運勢の流れを読み解きます。">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/kyusei.css">
+<link rel="stylesheet" href="../assets/css/seimei.css">
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/content/seimei-strokes.js"></script>
+<script defer src="../assets/js/content/seimei-numbers.js"></script>
+<script defer src="../assets/js/content/seimei-text.js"></script>
+<script defer src="../assets/js/engines/seimei.js"></script>
+<script defer src="../assets/js/content/kyusei-data.js"></script>
+<script defer src="../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../assets/js/pages/seimei-render.js"></script>
+<script defer src="../assets/js/pages/seimei-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../#uranau" aria-current="page">無料占い</a></li>
+        <li><a href="../aisho/">相性</a></li>
+        <li><a href="../unsei/">今日の運勢</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../">えみり</a></li>
+      <li aria-current="page">姓名判断</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">NAME READING</p>
+    <h1>姓名判断のカルテ</h1>
+    <p>名前の画数から、性格の中心を表す「人格」、人生全体を表す「総格」など5つの格（五格）の吉凶と、天・人・地の流れ（三才配置）を読み解きます。ご自分の名前はもちろん、赤ちゃんの名づけや、ペンネーム選びの参考にも。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">完全無料</li>
+      <li class="badge">名前を入れるだけ</li>
+      <li class="badge">ひらがな・カタカナもOK</li>
+    </ul>
+  </section>
+
+  <form id="seimei-form" class="card kyusei-form" novalidate>
+    <div data-name="self"></div>
+    <p class="kyusei-meta">入力した名前は保存も送信もしません。この画面の中だけで計算します。</p>
+    <button type="submit" class="btn">姓名判断をする</button>
+  </form>
+
+  <div id="seimei-result" class="kyusei-result" hidden>
+    <div id="seimei-result-body"></div>
+
+    <section class="card" aria-labelledby="seimei-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="seimei-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="aisho/">気になる人との名前の相性を見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="kakusu/">1〜81画の意味を一覧で見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="#seimei-about">姓名判断とは？（五格・霊数・画数の数え方） <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../suhijutsu/">名前と生年月日から、数秘術でも見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../tanjobi/">誕生日占いを見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section id="seimei-about" class="card prose" aria-labelledby="seimei-about-title">
+    <h2 id="seimei-about-title">姓名判断とは？</h2>
+    <p>姓名判断は、名前に使われている漢字やかなの画数から、その人の性格や運勢を読み解く占いです。日本では昭和の初めに熊崎健翁が体系化した、5つの格（五格）で見る方法が広く知られています。</p>
+
+    <h3>五格の出し方</h3>
+    <ul>
+      <li><strong>人格（主運）</strong>：姓の最後の字＋名の最初の字。性格の中心と、働き盛りの運を表す、最も大切な格です。</li>
+      <li><strong>総格（後運）</strong>：すべての字の画数の合計。人生全体の流れと、晩年の運を表します。</li>
+      <li><strong>地格（前運）</strong>：名の画数の合計。生まれ持った個性と、若いころの運を表します。</li>
+      <li><strong>外格（副運）</strong>：総格から人格を引いた数。人間関係や、まわりの環境を表します。</li>
+      <li><strong>天格（祖運）</strong>：姓の画数の合計。家系から受け継ぐものを表し、個人の吉凶にはあまり影響しないとされます。</li>
+    </ul>
+
+    <h3>霊数（れいすう）</h3>
+    <p>姓や名が1字のときは、足りない字のかわりに「1」を足して天格・地格・外格を出します。これを霊数と呼びます。総格には霊数を足しません。</p>
+
+    <h3>画数の数え方について</h3>
+    <p>姓名判断には、旧字体（康熙字典の字形）に直して数える流派と、今の字形のまま数える流派があります。たとえば「さんずい（氵）」を、えみりでは3画で数えますが、旧字体の流派では「水」の4画で数えます。えみりは、ふだん使っている字の形で数える方法をとっています。そのため、ほかのサイトや本と結果が異なることがあります。</p>
+    <p>漢字の画数は、戸籍や住民票の文字の標準字形をまとめた「MJ文字情報一覧表」（IPA／文字情報技術促進協議会）の総画数を使っています。ひらがな・カタカナは書き順どおりの画数で、濁点（゛）は2画、半濁点（゜）は1画、「々」は直前の字と同じ画数として数えます。</p>
+    <p>81を超える数は、80を引いた数として読みます（81で一巡して1に戻ると考えるため）。数の意味と三才配置・相性の読み解きは、一般的な意味をもとにえみりが書いた文章です。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../">TOP</a></li>
+        <li><a href="../#uranau">無料占い</a></li>
+        <li><a href="../aisho/">相性占い</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
+  </div>
+</footer>
+</body>
+</html>

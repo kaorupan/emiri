@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>姓名判断の相性占い｜ふたりの名前の画数で相性を無料診断｜えみり</title>
+<meta name="description" content="ふたりの名前を入力するだけで、姓名判断の人格（性格）と総格（人生の方向性）の五行から、名前の相性を診断します。恋人・夫婦・友人・家族の相性に。無料・登録不要。">
+<link rel="canonical" href="https://emiri-uranai.com/seimei/aisho/">
+<meta property="og:url" content="https://emiri-uranai.com/seimei/aisho/">
+<link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../../feed.xml">
+<meta property="og:site_name" content="えみり">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="姓名判断の相性占い｜えみり">
+<meta property="og:description" content="ふたりの名前の画数から、性格と人生の方向性の相性を読み解きます。">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/kyusei.css">
+<link rel="stylesheet" href="../../assets/css/seimei.css">
+<script defer src="../../assets/js/core/dom.js"></script>
+<script defer src="../../assets/js/content/seimei-strokes.js"></script>
+<script defer src="../../assets/js/content/seimei-numbers.js"></script>
+<script defer src="../../assets/js/content/seimei-text.js"></script>
+<script defer src="../../assets/js/engines/seimei.js"></script>
+<script defer src="../../assets/js/content/kyusei-data.js"></script>
+<script defer src="../../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../../assets/js/pages/seimei-render.js"></script>
+<script defer src="../../assets/js/pages/compat-page.js"></script>
+<script defer src="../../assets/js/pages/seimei-compatibility-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../../"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../../#uranau">無料占い</a></li>
+        <li><a href="../../aisho/" aria-current="page">相性</a></li>
+        <li><a href="../../unsei/">今日の運勢</a></li>
+        <li><a href="../../premium/">本格占い</a></li>
+        <li><a href="../../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../../">えみり</a></li>
+      <li><a href="../">姓名判断</a></li>
+      <li aria-current="page">相性</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">NAME COMPATIBILITY</p>
+    <h1>姓名判断の相性占い</h1>
+    <p>ふたりの名前の画数から、ふだんの性格を表す「人格」どうしと、人生の方向性を表す「総格」どうしの五行の関係を見て、名前の相性を読み解きます。生年月日がわからない相手とも占えます。</p>
+  </section>
+
+  <form id="seimei-aisho-form" class="card kyusei-form" novalidate>
+    <div class="kyusei-fields">
+      <div><div data-name="self"></div></div>
+      <div><div data-name="partner"></div></div>
+    </div>
+    <p class="kyusei-meta">入力した名前は保存も送信もしません。</p>
+    <button type="submit" class="btn">ふたりの名前の相性を見る</button>
+  </form>
+
+  <div id="seimei-aisho-result" class="kyusei-result" hidden>
+    <div id="seimei-aisho-result-body"></div>
+
+    <section class="card" aria-labelledby="seimei-aisho-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="seimei-aisho-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="../">自分の名前をくわしく見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../kakusu/">1〜81画の意味を一覧で見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../../aisho/">生年月日で見る相性占いを選ぶ <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card prose" aria-labelledby="seimei-aisho-about-title">
+    <h2 id="seimei-aisho-about-title">姓名判断の相性の見方</h2>
+    <p>ふたりの人格と総格の数の下1桁を、五行（1・2＝木、3・4＝火、5・6＝土、7・8＝金、9・0＝水）に当てはめて、その関係を見ています。</p>
+    <ul>
+      <li><strong>相生（そうしょう）</strong>：木→火→土→金→水→木と、一方がもう一方を生かす関係。支え合える相性です。</li>
+      <li><strong>比和（ひわ）</strong>：同じ五行どうし。似た者どうしで、自然体でいられる相性です。</li>
+      <li><strong>相剋（そうこく）</strong>：一方がもう一方を抑える関係。刺激し合い、違いから学べる相性です。</li>
+    </ul>
+    <p>画数の数え方は<a href="../#seimei-about">姓名判断のページ</a>と同じです。相性の読み解きと点数は、えみり独自の目安です。結婚などで姓が変わったあとの名前でも占えます。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../../">TOP</a></li>
+        <li><a href="../../#uranau">無料占い</a></li>
+        <li><a href="../../aisho/">相性占い</a></li>
+        <li><a href="../../premium/">本格占い</a></li>
+        <li><a href="../../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
+  </div>
+</footer>
+</body>
+</html>

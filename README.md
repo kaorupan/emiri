@@ -323,3 +323,13 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 ## 夢占い辞典（yume/）
 - 文章は tools/yume/data/*.mjs（カテゴリごと、えみりのオリジナル）。`npm run yume` で yume/<語>/ と一覧を作る。
 - 一覧ページではキーワード（ひらがな・カタカナどちらでも）でしぼりこめる（assets/js/pages/yume-index.js）。
+
+## 姓名判断（seimei/）
+
+- `/seimei/`（個人鑑定）・`/seimei/aisho/`（名前の相性）は手書きのページ。`/seimei/kakusu/`（1〜81画の意味、82ページ）は `npm run seimei` で作る。
+- 計算：`assets/js/engines/seimei.js`。五格（天格・人格・地格・外格・総格）、姓・名が1字のときは霊数1（天格・地格・外格のみ）、82以上は80を引く、三才配置は下1桁で五行。
+- 画数は今の字形で数える（旧字体に直す康熙字典式はとらない）。漢字は MJ文字情報一覧表の総画数（CC BY-SA 2.1 JP）を `tools/seimei/build-strokes.py` で `assets/js/content/seimei-strokes.js` に書き出したもの（JIS X 0213/0212 の漢字＋髙・𠮷、約1.3万字）。互換漢字（神 U+FA19 など）はその字形の画数。漢字に Unicode 正規化はかけない。
+- かなは書き順どおり、濁点＋2・半濁点＋1、「々」は直前の字と同じ画数。
+- 81数の吉凶は熊崎式の流れをくむ一般的な区分。文章（`seimei-numbers.js`・`seimei-text.js`）はえみりのオリジナル。総合点と相性点はえみり独自の目安。
+- 名前は保存も送信もしない。
+- テスト：`tests/seimei.test.js`、`tests/e2e/seimei_test.py`。
