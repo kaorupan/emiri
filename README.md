@@ -37,6 +37,7 @@ python3 -m http.server 8000
 /kyusei/                  九星気学 個人鑑定（本命星・月命星）
 /kyusei/aisho/            九星気学 相性
 /shichusuimei/            四柱推命（命式・日干・中心星・十二運・五行・天中殺・年運）
+/maya/                    マヤ暦（KIN・太陽の紋章・銀河の音・ウェイブスペル・4つの関係KIN・黒KIN・年回り）
 /aisho/                   相性占いTOP
 /learn/                   占いを知るTOP
 /learn/suhijutsu/         数秘術を知る
@@ -75,6 +76,10 @@ python3 -m http.server 8000
 /assets/js/engines/shichusuimei.js   四柱推命の計算（年柱・月柱は kyusei.js の立春・節入り判定を使う。方式は冒頭コメント）
 /assets/js/content/shichusuimei-text.js  四柱推命の鑑定文（TRADITION と、えみりの読み解きを分けて持つ）
 /assets/js/pages/shichusuimei-page.js    四柱推命ページの描画（kyusei-render.js の部品を使う）
+/assets/js/engines/maya.js   マヤ暦（13の月の暦・ドリームスペル）の計算。方式は冒頭コメント
+/assets/js/content/maya-text.js  マヤ暦の鑑定文
+/assets/js/pages/maya-page.js    マヤ暦ページの描画
+/assets/css/maya.css         マヤ暦専用（.maya- 接頭辞。紋章の4色）
 /assets/js/engines/daily.js          今日の運勢の計算（日の干支・日の九星・日盤・月の星座・ランキング。DOMに触らない）
 /assets/js/content/daily-text.js     今日の運勢の文章（宮・ハウスの読み、暦、今日誕生日の人）
 /assets/css/daily.css                今日の運勢専用（クラス名は .daily- 接頭辞）
@@ -264,3 +269,7 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - tests/fixtures/shichusuimei-lunar.json：lunar-javascript 1.7.3（EightChar sect 2）で作った正解データ。
   年柱・月柱は中国時間（UTC+8）で節入りを判定するため、日本時間から1時間引いて比べている。
   作成時は 1900〜2100年のランダムな生年月日・時刻 2万件で突き合わせ、四柱・通変星・蔵干・十二運・天中殺がすべて一致。
+
+## マヤ暦の検証
+- tests/fixtures/maya-reference.json：公開されている年別一覧・早見表の値（出典はファイル内）。
+- ガイドKINの紋章のずれは音ごとに 0・12・4・16・8（音1〜5、以後くり返し）。複数の解説サイトの表と一致を確認。

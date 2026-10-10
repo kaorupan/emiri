@@ -1,0 +1,24 @@
+/* マヤ暦ページ（kyusei.css のカード部品・shichusuimei.css の年運リストを使う） */
+[data-color="赤"] { --mc: #f0786c; --mc-bg: rgba(240, 120, 108, .14); }
+[data-color="白"] { --mc: #e8e6f0; --mc-bg: rgba(232, 230, 240, .10); }
+[data-color="青"] { --mc: #7fb4f0; --mc-bg: rgba(127, 180, 240, .14); }
+[data-color="黄"] { --mc: #f0cc5c; --mc-bg: rgba(240, 204, 92, .14); }
+
+.maya-kin { margin: 14px auto; max-width: 320px; padding: 18px 16px; text-align: center; border-radius: 18px; background: var(--mc-bg); border: 1px solid var(--mc); }
+.maya-kin p { margin: 0; }
+.maya-kin-num { font-family: var(--serif); font-size: 44px; line-height: 1.1; color: var(--mc); }
+.maya-kin-label { font-size: 14px; letter-spacing: .1em; margin-right: 6px; color: var(--muted); }
+.maya-kin-seal { font-size: 22px; font-weight: 700; margin-top: 4px !important; }
+.maya-kin-tone { font-size: 14px; color: var(--muted); }
+.maya-kin-black { display: inline-block; margin-top: 8px !important; padding: 2px 10px; border-radius: 999px; background: #000; border: 1px solid #777; font-size: 12px; }
+.maya-catch { text-align: center; font-size: 15px; }
+.maya-lead { font-family: var(--serif); font-size: 18px; color: var(--mc, var(--gold)); }
+
+.maya-rel { list-style: none; padding: 0; margin: 12px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.maya-rel-item { padding: 12px 14px; border-radius: 14px; background: #0d0914; border: 1px solid #382943; border-top: 3px solid var(--mc); min-width: 0; }
+.maya-rel-item p { margin: 0 0 4px; font-size: 14px; }
+.maya-rel-label { color: var(--gold); font-weight: 700; }
+.maya-rel-label span { color: var(--muted); font-weight: 400; font-size: 12px; }
+.maya-rel-kin { color: var(--mc); font-weight: 700; }
+.maya-rel-key { color: var(--muted); font-size: 12px !important; }
+@media (max-width: 560px) { .maya-rel { grid-template-columns: 1fr; } }
