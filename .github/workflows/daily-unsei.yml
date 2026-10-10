@@ -1,22 +1,28 @@
-# 今日の運勢を毎日自動で作って公開する（GitHub Actions・無料枠で動く）
-#   毎日 日本時間 0:05 ごろに実行（GitHub の混雑で数分〜数十分遅れることがある）
-#   手動で動かすとき：GitHub の Actions タブ → daily-unsei → Run workflow
+# 今日の運勢を毎日自動で作って、GitHub Pages に公開する（GitHub Actions・無料）
+#   - 毎日 日本時間 0:05 ごろ：今日の運勢を生成 → テスト → コミット → 公開
+#   - main に push したとき：テスト → 公開（その日のページがなければ生成もする）
+#   - 手動：GitHub の Actions タブ → daily-unsei → Run workflow
+#   ※ GitHub の混雑で、定時実行が数分〜数十分遅れることがある
 name: daily-unsei
 
 on:
   schedule:
     - cron: "5 15 * * *" # UTC 15:05 = 日本時間 0:05
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: daily-unsei
   cancel-in-progress: false
 
 jobs:
-  generate:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,3 +46,22 @@ jobs:
           else
             echo "変更なし"
           fi
+      - name: 公開するファイルだけを集める
+        run: |
+          rsync -a --exclude .git --exclude .github --exclude tests --exclude tools --exclude node_modules \
+            --exclude README.md --exclude package.json --exclude .gitignore --exclude _site ./ _site/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

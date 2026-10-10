@@ -185,7 +185,7 @@ node tools/daily/generate.mjs --date 2026-10-01 --days 10  # まとめて作る�
 - 生成するもの：`unsei/<日付>/index.html`、`unsei/index.html`（一覧）、TOP の「今日の運勢」欄（`<!-- daily:start -->`〜`<!-- daily:end -->` の間だけ）、前日のページ（「次の日」リンクのため）。
 - 文章は計算結果と文章データ（daily-text.js）の組み合わせで作る。AI や外部サービスは使わないので、費用はかからず、同じ日付なら何度実行しても同じ結果になる。
 - 自動化は2通り。どちらか一方だけ使う。
-  1. **GitHub Actions**（おすすめ・PCの電源が切れていても動く）：リポジトリを GitHub に置くと、`.github/workflows/daily-unsei.yml` が毎日 0:05 ごろに生成してコミットする。公開先（GitHub Pages・Cloudflare Pages・Netlify など）をリポジトリにつないでおけば、コミットのたびに自動で公開される。
+  1. **GitHub Actions＋GitHub Pages**（採用中・PCの電源が切れていても動く）：`.github/workflows/daily-unsei.yml` が毎日 0:05 ごろに生成・テスト・コミットし、そのまま GitHub Pages に公開する。main に push したときも公開し直す。リポジトリの Settings → Pages の Source は「GitHub Actions」。
   2. **自分のWindows PC**：タスクスケジューラで `tools\daily\run-daily.bat` を毎日 0:05 に実行する。PCが起動していないと動かない。
 
 ### 計算のしかた
