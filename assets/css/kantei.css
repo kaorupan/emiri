@@ -44,6 +44,14 @@
 .kantei-method h2 { font-size: 16px; margin: 0 0 6px; }
 .kantei-method li { font-size: 13px; color: var(--muted); }
 
+/* ---- 見本のモザイク ---- */
+.kantei-mask { filter: blur(5px); user-select: none; -webkit-user-select: none; pointer-events: none; }
+.kantei-chapter.is-masked { position: relative; }
+.kantei-locked { margin: 14px 0 0 !important; padding: 10px 14px; border: 1px dashed #8b6c32; border-radius: var(--radius-sm); text-align: center; color: var(--gold) !important; font-size: 13px; font-weight: 700; }
+.kantei-buy { margin: 24px auto 0; max-width: 760px; text-align: center; padding: 28px 22px; border: 1px solid #8b6c32; border-radius: var(--radius); background: radial-gradient(circle, #59401d44, transparent 65%), #110c12; }
+.kantei-buy h2 { font: 700 24px/1.4 var(--serif); margin: 0 0 8px; }
+.kantei-buy .premium-price { font-size: 28px; }
+
 /* ---- 印刷・PDF保存 ---- */
 @media print {
   @page { size: A4; margin: 16mm 15mm; }

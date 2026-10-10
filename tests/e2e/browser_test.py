@@ -177,6 +177,13 @@ async def all_pages(page, base, label, console_errors):
             res = await page.request.get(url.split("#")[0])
             if res.status != 200:
                 check(f"[{label}] /{p} リンク {h}", False, str(res.status))
+    # 本格占いの見本：本文はダミー文字に置き換わり、本物の文章がページに入っていない
+    await page.goto(base + "premium/sample/")
+    await page.wait_for_selector(".kantei-chapter")
+    html = await page.content()
+    check(f"[{label}] 見本：全文が読める章は2つ、残り10章はモザイク", await page.locator(".kantei-chapter.is-masked").count() == 10 and await page.locator(".kantei-mask").count() > 20)
+    check(f"[{label}] 見本：本文（性格・恋愛など）の本物の文章がページにない", "深く考え、物事の裏側まで理解したいタイプ" not in html and "簡単には心を開きませんが" not in html)
+    check(f"[{label}] 見本：表紙・目次・はじめにはそのまま読める", "総合鑑定書" in html and "目次" in html and "3つの占術で読み解いた" in html)
     check(f"[{label}] ページ・操作全体で console error 0", not console_errors, " | ".join(console_errors[:3]))
 
 
