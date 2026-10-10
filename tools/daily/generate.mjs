@@ -207,6 +207,7 @@ ${view.moonFeature.tip ? `      <p class="daily-advice"><b>ひとこと</b>${esc
     <h2 id="daily-birthday-title">${esc(view.birthday.title)}</h2>
     <p class="daily-birthday-sign">太陽星座：${esc(view.birthday.sign)}</p>
     <p>${esc(view.birthday.text)}</p>
+    <p><a href="${prefix}tanjobi/${view.iso.slice(5)}/">${Number(view.iso.slice(5, 7))}月${Number(view.iso.slice(8))}日生まれの性格・恋愛・相性をくわしく見る →</a></p>
     <p><a href="${prefix}suhijutsu/">生年月日で、数秘術のカルテを見る →</a></p>
   </section>
 

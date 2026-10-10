@@ -1,0 +1,15 @@
+/* 誕生日占い */
+.tj-grid { list-style: none; padding: 0; margin: 10px 0 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.tj-grid a { display: block; padding: 8px 0; text-align: center; border-radius: 10px; background: #0d0914; border: 1px solid #382943; color: var(--text); text-decoration: none; font-size: 14px; }
+.tj-grid a:hover, .tj-grid a:focus-visible { border-color: var(--gold); color: var(--gold); }
+.tj-stone { display: block; font-size: 12px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.tj-jump { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.tj-jump select { padding: 8px 10px; border-radius: 10px; background: #0d0914; color: var(--text); border: 1px solid #382943; font-size: 16px; }
+.tj-jump .btn { flex: 1 1 160px; }
+.tj-days { list-style: none; padding: 0; margin: 10px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.tj-days a { display: block; padding: 10px; text-align: center; border-radius: 12px; background: #0d0914; border: 1px solid #382943; color: var(--text); text-decoration: none; }
+.tj-days small { display: block; font-size: 11px; color: var(--muted); }
+.tj-tools { list-style: none; padding: 0; margin: 12px auto 0; max-width: 560px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.tj-tools a { display: block; padding: 10px 4px; border-radius: 12px; border: 1px solid #8b6c32; color: var(--gold); text-decoration: none; font-size: 13px; }
+.tj-pager { display: flex; justify-content: space-between; gap: 8px; margin: 24px 0 8px; font-size: 14px; }
+@media (max-width: 420px) { .tj-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tj-days { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

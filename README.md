@@ -313,3 +313,9 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 ## 占いを知る（learn/）
 - learn/suhijutsu/ 以外の解説ページ（tarot・kyusei・shichusuimei・maya・shukuyo・horoscope・shibi・jyotish・seiju・koyomi）は
   `npm run learn`（tools/learn/generate.mjs）で、鑑定に使っている文章データから作る。鑑定の文章を直したら実行し直す。
+
+## 誕生日占い（tanjobi/）
+- 366日ぶん（tanjobi/MM-DD/）と一覧（tanjobi/）は `npm run tanjobi`（tools/tanjobi/generate.mjs）で作る。
+- 月日だけで決まるもの（太陽星座・バースデーナンバー・アティチュードナンバー・季節と二十四節気・誕生石）から組み立てる。
+  誕生石は全国宝石卸商協同組合の2021年改訂版（全29石）。
+- 今日の運勢の「今日が誕生日の人」から、その日の誕生日ページへリンクしている。
