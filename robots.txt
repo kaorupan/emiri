@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kaorupan.github.io/emiri/sitemap.xml
+Sitemap: https://emiri-uranai.com/sitemap.xml
