@@ -51,7 +51,9 @@
       try {
         cfg.build(birthA, birthB).forEach(function (node) { if (node) output.appendChild(node); });
       } catch (e) {
-        output.appendChild(h("p", { class: "card kyusei-note", role: "alert" }, "この生年月日は計算できる範囲の外のため、鑑定できません。"));
+        output.appendChild(h("p", { class: "card kyusei-note", role: "alert" }, e && e.message === "time"
+          ? "この占いには、ふたりとも生まれた時刻が必要です。「生まれた時刻」を開いて入力してください。"
+          : "この生年月日は計算できる範囲の外のため、鑑定できません。"));
       }
       wrap.hidden = false;
       Karute.dom.scrollTo(wrap);

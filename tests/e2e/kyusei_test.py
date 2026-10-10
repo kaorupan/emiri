@@ -252,7 +252,7 @@ async def run(browser, base, label, viewport, mobile):
     hrefs = await page.evaluate("() => [...document.querySelectorAll('#uranau a')].map(a => a.getAttribute('href'))")
     check(f"[{label}] TOPから九星気学・九星気学の相性へリンク", "kyusei/" in hrefs and "kyusei/aisho/" in hrefs, str(hrefs))
     soon = await page.evaluate("() => [...document.querySelectorAll('#uranau .tool.is-soon h3')].map(h => h.textContent)")
-    check(f"[{label}] TOP：九星気学・四柱推命・宿曜・ホロスコープは準備中から外れ、紫微斗数などは準備中のまま", "九星気学のカルテ" not in soon and "四柱推命のカルテ" not in soon and "宿曜占星術のカルテ" not in soon and "ホロスコープのカルテ" not in soon and "紫微斗数のカルテ" in soon, str(soon))
+    check(f"[{label}] TOP：九星気学・四柱推命・宿曜・ホロスコープ・紫微斗数は準備中から外れ、インド占星術は準備中のまま", "九星気学のカルテ" not in soon and "四柱推命のカルテ" not in soon and "宿曜占星術のカルテ" not in soon and "ホロスコープのカルテ" not in soon and "紫微斗数のカルテ" not in soon and "インド占星術のカルテ" in soon, str(soon))
     await page.goto(base + "aisho/")
     check(f"[{label}] 相性TOPから九星気学の相性へリンク", await page.locator("a[href='../kyusei/aisho/']").count() == 1)
     await page.goto(base + "learn/")

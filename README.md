@@ -39,6 +39,7 @@ python3 -m http.server 8000
 /shichusuimei/            四柱推命（命式・日干・中心星・十二運・五行・天中殺・年運）
 /shichusuimei/aisho/ ・ /maya/aisho/ ・ /shukuyo/aisho/   各占術の相性（共通部品 assets/js/pages/compat-page.js）
 /horoscope/ ・ /horoscope/aisho/  ホロスコープ（10天体・アスペクト・今年の木星土星）と相性（シナストリー）
+/shibi/ ・ /shibi/aisho/      紫微斗数（命盤・14主星・四化）と相性（生まれた時刻が必須）
 /shukuyo/                 宿曜占星術（本命宿・性格・三九の秘法の相性・今日の巡り）
 /maya/                    マヤ暦（KIN・太陽の紋章・銀河の音・ウェイブスペル・4つの関係KIN・黒KIN・年回り）
 /aisho/                   相性占いTOP
@@ -296,3 +297,7 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - 天体の位置は assets/js/vendor/astronomy-engine-2.1.19.min.js（MIT License、著作権表示はファイル先頭）で計算。
 - tests/fixtures/horoscope-ingress-2025.json：公開されている2025年の星座入りの時刻と照合（太陽・水星は数分以内）。
 - アセンダント・ハウスは出生地が必要なため、本格占い（出生地の入力）で扱う予定。
+
+## 紫微斗数の検証
+- tests/fixtures/shibi-iztro.json：iztro（MIT）の命盤と照合（日本と中国の旧暦の日付が同じ日のみ）。
+  作成時は約3,800件で一致。違ったのは23時台が旧暦の月末にあたる3件だけ（iztro は晩子を当日の月で数える流派、えみりは翌日の子の刻）。

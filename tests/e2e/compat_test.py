@@ -73,7 +73,7 @@ async def run(browser, base, label, viewport, mobile):
             await page.screenshot(path=os.path.join(SHOTS, f"compat-{prefix}-{label}.png"), full_page=True)
     await page.goto(base + "aisho/")
     links = await page.evaluate("() => [...document.querySelectorAll('a')].map(a => a.getAttribute('href'))")
-    check("相性ハブから3つの相性ページへ", all(f"../{x}/aisho/" in links for x in ["shichusuimei", "maya", "shukuyo", "horoscope"]))
+    check("相性ハブから3つの相性ページへ", all(f"../{x}/aisho/" in links for x in ["shichusuimei", "maya", "shukuyo", "horoscope", "shibi"]))
     check("コンソールエラーなし", not errors, errors)
     await ctx.close()
 

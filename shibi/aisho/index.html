@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>紫微斗数の相性占い｜命盤を重ねてふたりの縁を読む｜えみり</title>
+<meta name="description" content="ふたりの生年月日と生まれた時刻から紫微斗数の命盤を作り、命宮の星、夫妻宮と命宮の重なり、四化（化禄・化忌）の飛び先、五行局の関係から、ふたりの縁を読み解きます。無料・登録不要。">
+<link rel="canonical" href="https://emiri-uranai.com/shibi/aisho/">
+<meta property="og:url" content="https://emiri-uranai.com/shibi/aisho/">
+<link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../../feed.xml">
+<meta property="og:site_name" content="えみり">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="紫微斗数の相性占い｜えみり">
+<meta property="og:description" content="ふたりの命盤を重ねて、縁の形を読み解きます。">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/kyusei.css">
+<link rel="stylesheet" href="../../assets/css/shibi.css">
+<script defer src="../../assets/js/core/date.js"></script>
+<script defer src="../../assets/js/core/dom.js"></script>
+<script defer src="../../assets/js/core/profile.js"></script>
+<script defer src="../../assets/js/core/birthdate-field.js"></script>
+<script defer src="../../assets/js/core/astro.js"></script>
+<script defer src="../../assets/js/core/kyureki.js"></script>
+<script defer src="../../assets/js/engines/shibi.js"></script>
+<script defer src="../../assets/js/content/shibi-text.js"></script>
+<script defer src="../../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../../assets/js/pages/compat-page.js"></script>
+<script defer src="../../assets/js/pages/shibi-compatibility-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../../"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../../#uranau">無料占い</a></li>
+        <li><a href="../../aisho/" aria-current="page">相性</a></li>
+        <li><a href="../../unsei/">今日の運勢</a></li>
+        <li><a href="../../premium/">本格占い</a></li>
+        <li><a href="../../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../../">えみり</a></li>
+      <li><a href="../">紫微斗数</a></li>
+      <li aria-current="page">相性</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">ZI WEI DOU SHU COMPATIBILITY</p>
+    <h1>紫微斗数の相性占い</h1>
+    <p>ふたりの命盤を重ねて、命宮の星どうし、あなたの夫妻宮とお相手の命宮の重なり、生まれ年の四化（化禄・化忌）がお互いのどの宮に入るか、五行局の関係から、ふたりの縁の形を読み解きます。ふたりとも生まれた時刻が必要です。</p>
+  </section>
+
+  <form id="shibi-aisho-form" class="card kyusei-form" novalidate>
+    <div class="kyusei-fields">
+      <div><div data-birthdate="self"></div><div data-birthtime="self"></div></div>
+      <div><div data-birthdate="partner"></div><div data-birthtime="partner"></div></div>
+    </div>
+    <p class="kyusei-meta">お相手の生年月日と、ふたりの生まれた時刻は保存しません。</p>
+    <button type="submit" class="btn">ふたりの紫微斗数の相性を見る</button>
+  </form>
+
+  <div id="shibi-aisho-result" class="kyusei-result" hidden>
+    <div id="shibi-aisho-result-body"></div>
+
+    <section class="card premium-upsell" aria-labelledby="shibi-aisho-premium-title">
+      <p class="eyebrow">PREMIUM</p>
+      <h2 id="shibi-aisho-premium-title">ふたりの相性を、もっとくわしく</h2>
+      <p>本格占いの「総合鑑定書」では、あなたの鑑定に加えて、お相手1人との相性を数秘術・九星気学・星獣カルテの3つの占術から読み解いた章をお届けします（980円・準備中）。ほかのお相手との相性も、1人480円で追加できます。</p>
+      <p><a class="btn btn-ghost" href="../../premium/">本格占いを見る</a></p>
+    </section>
+
+    <section class="card" aria-labelledby="shibi-aisho-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="shibi-aisho-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="../">自分の命盤をくわしく見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../#shibi-about">紫微斗数とは？ <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../../shichusuimei/aisho/">四柱推命の相性も見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../../aisho/">ほかの相性占いを見る <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card prose" aria-labelledby="shibi-aisho-about-title">
+    <h2 id="shibi-aisho-about-title">紫微斗数の相性の見方</h2>
+    <ul>
+      <li><strong>命宮の星</strong>：ふたりの命宮に同じ主星があるか</li>
+      <li><strong>夫妻宮と命宮</strong>：あなたの夫妻宮の星がお相手の命宮にあるか（逆も）。求めるパートナー像との重なりを表すとされます</li>
+      <li><strong>四化の飛び先</strong>：お相手の生まれ年の化禄・化忌が、あなたの命盤のどの宮に入るか（逆も）</li>
+      <li><strong>五行局</strong>：ふたりの五行局の相生・相剋・比和</li>
+    </ul>
+    <p>命盤の作り方は紫微斗数のカルテと同じです。相性の読み解きはえみり独自の文章で、点数は付けていません。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../../">TOP</a></li>
+        <li><a href="../../#uranau">無料占い</a></li>
+        <li><a href="../../aisho/">相性占い</a></li>
+        <li><a href="../../premium/">本格占い</a></li>
+        <li><a href="../../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
+  </div>
+</footer>
+</body>
+</html>
