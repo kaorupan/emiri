@@ -25,7 +25,7 @@ from urllib.parse import urljoin, urlparse
 from playwright.async_api import async_playwright
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-PAGES = ["", "premium/", "suhijutsu/", "suhijutsu/aisho/", "aisho/", "learn/", "learn/suhijutsu/", "unsei/"]
+PAGES = ["", "premium/", "premium/sample/", "suhijutsu/", "suhijutsu/aisho/", "aisho/", "learn/", "learn/suhijutsu/", "unsei/"]
 # 今日の運勢：生成済みの日付ページのうち最新のもの
 _UNSEI = sorted(d for d in os.listdir(os.path.join(ROOT, "unsei")) if len(d) == 10 and d[4] == "-") if os.path.isdir(os.path.join(ROOT, "unsei")) else []
 PAGES += [f"unsei/{d}/" for d in _UNSEI[-1:]]

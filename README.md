@@ -24,6 +24,7 @@ python3 -m http.server 8000
 ```
 /                         TOP（index.html）：無料占い／本格占いの切り替え・今日の運勢・悩みから選ぶ・占術から選ぶ（#uranau）
 /premium/                 本格占いTOP（準備中）
+/premium/sample/          総合鑑定書の見本（1992年1月21日生まれ「サンプル」さん）
 /unsei/                   今日の運勢の一覧（自動生成）
 /unsei/YYYY-MM-DD/        その日の運勢：九星・12星座ランキング、暦・吉日・二十四節気・新月満月、今日誕生日の人（自動生成）
 /koyomi/                  吉日カレンダーの一覧（自動生成）
@@ -72,6 +73,9 @@ python3 -m http.server 8000
 /assets/js/engines/daily.js          今日の運勢の計算（日の干支・日の九星・日盤・月の星座・ランキング。DOMに触らない）
 /assets/js/content/daily-text.js     今日の運勢の文章（宮・ハウスの読み、暦、今日誕生日の人）
 /assets/css/daily.css                今日の運勢専用（クラス名は .daily- 接頭辞）
+/assets/js/content/kantei-text.js    本格占い「総合鑑定書」の組み立て（3占術＋あなたの軸＋これから3年。AIなし・同じ入力なら同じ内容）
+/assets/js/pages/kantei-page.js      総合鑑定書の描画と「PDFで保存・印刷」
+/assets/css/kantei.css               総合鑑定書専用（.kantei- 接頭辞）。印刷時はA4・白地・章ごとに改ページ
 /tools/daily/generate.mjs            今日の運勢ページの生成（npm run daily）
 /tools/daily/run-daily.bat           自分のWindows PCで毎日生成・公開するときのバッチ
 /tools/seo/seo.mjs                   正式URL（canonical・og:url）、RSSの案内、sitemap.xml・feed.xml・robots.txt

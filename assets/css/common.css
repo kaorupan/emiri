@@ -231,6 +231,8 @@ img { max-width: 100%; }
 .premium-points { margin: 0 0 12px; padding-left: 1.2em; font-size: 13px; color: #e3dcea; }
 .premium-points li { margin: 4px 0; }
 .premium-soon { margin-top: auto !important; }
+.premium-price { color: var(--gold) !important; font: 700 20px var(--serif); margin: 4px 0 8px !important; }
+.premium-sample-btn { margin-top: 0; min-height: 44px; color: var(--text); }
 .premium-flow { list-style: none; counter-reset: flow; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .premium-flow li { counter-increment: flow; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #110c18; }
 .premium-flow li::before { content: counter(flow); display: inline-grid; place-items: center; width: 28px; height: 28px; margin-bottom: 8px; border-radius: 50%; background: var(--gold-soft); color: var(--gold); font-weight: 900; }
