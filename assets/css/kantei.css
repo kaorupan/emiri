@@ -56,6 +56,7 @@
 .kantei-upsell { margin: 24px 0 0; padding: 22px 20px; border: 1px solid var(--gold); border-radius: var(--radius-sm); background: linear-gradient(160deg, rgba(231, 197, 104, .12), #0d0914); text-align: center; }
 .kantei-upsell h2 { color: var(--gold); font-size: 19px; margin: 4px 0 8px; }
 .kantei-upsell p { margin: 0 0 8px; }
+.kantei-upsell-price { font-family: var(--serif); font-size: 22px; color: var(--gold); }
 
 @media print {
   @page { size: A4; margin: 16mm 15mm; }
@@ -72,7 +73,7 @@
   .kantei-facts div, .kantei-year, .kantei-months li { break-inside: avoid; }
   .kantei-chapter h3 { break-after: avoid; }
   .kantei-upsell { break-before: page; break-inside: avoid; background: none !important; border-color: #8a6a1f !important; color: #222 !important; }
-  .kantei-upsell h2 { color: #8a6a1f !important; }
+  .kantei-upsell h2, .kantei-upsell-price { color: #8a6a1f !important; }
   .kantei-upsell p { color: #222 !important; }
   a { color: #222 !important; text-decoration: none; }
 }

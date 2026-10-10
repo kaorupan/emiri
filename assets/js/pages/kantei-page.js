@@ -112,6 +112,7 @@
         h("p", { class: "eyebrow" }, "MORE COMPATIBILITY"),
         h("h2", { id: "kantei-upsell-title" }, report.upsell.title),
         h("p", null, report.upsell.text),
+        report.upsell.price ? h("p", { class: "kantei-upsell-price" }, report.upsell.price) : null,
         h("p", { class: "kantei-meta" }, report.upsell.note)
       ));
     }

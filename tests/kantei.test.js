@@ -68,6 +68,7 @@ test("相性の相手を1人設定すると「〇〇さんとの相性」の章�
   for (const h of ["ふたりの全体像", "恋愛の相性", "価値観と会話", "暮らしと結婚", "すれ違いやすいポイントと仲直り", "親密さと距離感", "ふたりのタイミング", "長続きのコツ"]) assert.ok(t.includes(h), h);
   assert.ok(!/undefined|null|NaN/.test(t));
   assert.ok(r.upsell && r.upsell.title);
+  assert.equal(r.upsell.price, "お相手1人につき 480円（税込）");
   // 名前なしのお相手は「お相手」
   const r2 = kantei.buildKantei({ year: 1990, month: 1, day: 1 }, TODAY, { year: 1985, month: 7, day: 7 });
   assert.equal(r2.chapters.find((c) => c.id === "aisho").title, "お相手との相性");
