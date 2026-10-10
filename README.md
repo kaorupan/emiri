@@ -40,6 +40,7 @@ python3 -m http.server 8000
 /shichusuimei/aisho/ ・ /maya/aisho/ ・ /shukuyo/aisho/   各占術の相性（共通部品 assets/js/pages/compat-page.js）
 /horoscope/ ・ /horoscope/aisho/  ホロスコープ（10天体・アスペクト・今年の木星土星）と相性（シナストリー）
 /shibi/ ・ /shibi/aisho/      紫微斗数（命盤・14主星・四化）と相性（生まれた時刻が必須）
+/jyotish/ ・ /jyotish/aisho/   インド占星術（9つの星・ラーシ・ナクシャトラ・ダシャー）と相性（アシュタクータ36点）
 /shukuyo/                 宿曜占星術（本命宿・性格・三九の秘法の相性・今日の巡り）
 /maya/                    マヤ暦（KIN・太陽の紋章・銀河の音・ウェイブスペル・4つの関係KIN・黒KIN・年回り）
 /aisho/                   相性占いTOP
@@ -301,3 +302,10 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 ## 紫微斗数の検証
 - tests/fixtures/shibi-iztro.json：iztro（MIT）の命盤と照合（日本と中国の旧暦の日付が同じ日のみ）。
   作成時は約3,800件で一致。違ったのは23時台が旧暦の月末にあたる3件だけ（iztro は晩子を当日の月で数える流派、えみりは翌日の子の刻）。
+
+## インド占星術の検証
+- tests/fixtures/jyotish-swisseph.json：スイス・エフェメリス（pyswisseph、SIDM_LAHIRI）のサイデリアル黄経と照合。
+  作成時は3,000件で、境目（0.03°以内）の17件を除きナクシャトラ・ラーシがすべて一致。
+- アシュタクータの表は流派差がある。@prisri/jyotish（ISC）の実装と比べ、ヴァルナ・ターラ・グラハ・マイトリは全組み合わせで一致。
+  ヨーニは14×14の一般的な表、ガナは「新郎ラークシャサ×新婦デーヴァ＝1点」、ヴァシャは射手座・山羊座を前半後半で分ける方式を採用し、
+  バクート・ナーディの打ち消し（例外）は点数に入れずお知らせとして表示する。

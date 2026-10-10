@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>インド占星術｜月のナクシャトラとダシャーを無料で鑑定｜えみり</title>
+<meta name="description" content="生年月日から、インド占星術（ジョーティッシュ）の9つの星の星座をサイデリアル方式（ラヒリ）で求め、月の星座（ラーシ）、月のナクシャトラ（27宿）、いまのヴィムショッタリ・ダシャーを読み解きます。無料・登録不要。">
+<link rel="canonical" href="https://emiri-uranai.com/jyotish/">
+<meta property="og:url" content="https://emiri-uranai.com/jyotish/">
+<link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../feed.xml">
+<meta property="og:site_name" content="えみり">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="インド占星術｜えみり">
+<meta property="og:description" content="月のナクシャトラとダシャーから、あなたの本質と人生の時期を読み解きます。">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/kyusei.css">
+<link rel="stylesheet" href="../assets/css/shichusuimei.css">
+<link rel="stylesheet" href="../assets/css/maya.css">
+<link rel="stylesheet" href="../assets/css/horoscope.css">
+<link rel="stylesheet" href="../assets/css/jyotish.css">
+<script defer src="../assets/js/core/date.js"></script>
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/core/profile.js"></script>
+<script defer src="../assets/js/core/birthdate-field.js"></script>
+<script defer src="../assets/js/vendor/astronomy-engine-2.1.19.min.js"></script>
+<script defer src="../assets/js/engines/jyotish.js"></script>
+<script defer src="../assets/js/content/jyotish-text.js"></script>
+<script defer src="../assets/js/pages/kyusei-render.js"></script>
+<script defer src="../assets/js/pages/jyotish-page.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-logo" href="../"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="../#uranau" aria-current="page">無料占い</a></li>
+        <li><a href="../aisho/">相性</a></li>
+        <li><a href="../unsei/">今日の運勢</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../">えみり</a></li>
+      <li aria-current="page">インド占星術</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">JYOTISH</p>
+    <h1>インド占星術のカルテ</h1>
+    <p>インドで数千年受け継がれてきた占星術ジョーティッシュで、生まれたときの9つの星を、実際の星座の位置（サイデリアル方式）で求めます。インド占星術でもっとも大切にされる月の星座とナクシャトラ（27宿）、そして人生の時期を表すダシャーを読み解きます。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">完全無料</li>
+      <li class="badge">月のナクシャトラ</li>
+      <li class="badge">いまのダシャー</li>
+    </ul>
+  </section>
+
+  <form id="jyo-form" class="card kyusei-form" novalidate>
+    <div data-birthdate="self"></div>
+    <div data-birthtime="self"></div>
+    <button type="submit" class="btn">インド占星術で見る</button>
+  </form>
+
+  <div id="jyo-result" class="kyusei-result" hidden>
+    <div id="jyo-result-body"></div>
+
+    <section class="card" aria-labelledby="jyo-next-title">
+      <p class="eyebrow">NEXT</p>
+      <h2 id="jyo-next-title">次にできること</h2>
+      <ul class="link-list">
+        <li><a href="aisho/">気になる人とのインド占星術の相性（36点満点）を見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="#jyo-about">インド占星術とは？（ラーシ・ナクシャトラ・ダシャーのしくみ） <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../shukuyo/">ナクシャトラが日本に伝わった、宿曜占星術も見る <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="../horoscope/">西洋占星術のホロスコープと比べる <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <section id="jyo-about" class="card prose" aria-labelledby="jyo-about-title">
+    <h2 id="jyo-about-title">インド占星術とは？</h2>
+    <p>インド占星術（ジョーティッシュ）は、「光の学問」という意味を持つ、インドの伝統的な占星術です。西洋占星術と同じ12の星座を使いますが、季節（春分点）ではなく実際の星座の位置にもとづく「サイデリアル方式」をとるため、星座がおよそ1つ前にずれることがあります。</p>
+
+    <h3>月とナクシャトラ</h3>
+    <p>インド占星術では、心を表す月がとても重視され、月がある星座（ラーシ）と、月の通り道を27に分けたナクシャトラから、その人の本質を読みます。日本の宿曜占星術の二十七宿は、このナクシャトラが仏教とともに伝わったものです。</p>
+
+    <h3>ダシャー</h3>
+    <p>ヴィムショッタリ・ダシャーは、生まれたときの月のナクシャトラから始まり、9つの星が7〜20年ずつ順に人生を支配すると考える、インド占星術独自の時期の読み方です。</p>
+
+    <h3>計算について</h3>
+    <p>星の位置は天文計算ライブラリ astronomy-engine で求め、ラヒリ（チトラパクシャ）のアヤナムシャを引いてサイデリアルの位置にしています。ラーフ・ケートゥは月の平均交点です。インド占星術ソフトの標準であるスイス・エフェメリスの値と、月で0.03°以内、太陽で0.01°以内で一致することを確かめています。ダシャーは1年を365.25日として計算しています。</p>
+    <p>ラグナ（アセンダント）とハウスは出生地が必要なため、このページでは扱っていません。読み解きの文章は、伝統的な意味をもとにえみりが書いたものです。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="サイト内リンク">
+      <ul>
+        <li><a href="../">TOP</a></li>
+        <li><a href="../#uranau">無料占い</a></li>
+        <li><a href="../aisho/">相性占い</a></li>
+        <li><a href="../premium/">本格占い</a></li>
+        <li><a href="../learn/">占いを知る</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
+  </div>
+</footer>
+</body>
+</html>

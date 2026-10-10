@@ -1,0 +1,8 @@
+/* インド占星術ページ（horoscope.css の表・kyusei.css のカード部品を使う） */
+.jyo-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.jyo-score { padding: 12px 14px; border-radius: 14px; background: #0d0914; border: 1px solid #382943; text-align: center; }
+.jyo-score p { margin: 0 0 6px; }
+.jyo-total { font-size: 15px; }
+.jyo-total b { font-family: var(--serif); font-size: 40px; color: var(--gold); }
+.horo-table td + td { white-space: nowrap; }
+@media (max-width: 560px) { .jyo-scores { grid-template-columns: 1fr; } }
