@@ -42,3 +42,14 @@ test("夢占い：場面の目次・種類別ページ（親子）・場面の�
   assert.ok((g.match(/<h3 id="s/g) || []).length >= 10);
   assert.ok(g.includes("ゴキブリの夢を見るときの心理") && g.includes("恋愛・仕事での意味"));
 });
+
+test("夢占い：全ページが最低ライン（場面6つ以上・心理・恋愛と仕事）を満たす", () => {
+  const idx = fs.readFileSync(path.join(ROOT, "yume/index.html"), "utf8");
+  const slugs = [...idx.matchAll(/<li data-words="[^"]*"><a href="([a-z]+)\/">/g)].map((m) => m[1]);
+  for (const s of slugs) {
+    const html = fs.readFileSync(path.join(ROOT, "yume", s, "index.html"), "utf8");
+    assert.ok((html.match(/<h3 id="s/g) || []).length >= 6, s + " 場面6つ以上");
+    assert.ok(html.includes('id="yume-psych-title"'), s + " 心理");
+    assert.ok(html.includes('id="yume-life-title"'), s + " 恋愛・仕事");
+  }
+});
