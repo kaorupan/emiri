@@ -3,26 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>占いのカルテ｜完全無料・登録不要の占いサイト</title>
-<meta name="description" content="「あなたを、ひとつの占いで決めつけない。」数秘術をはじめ、東洋・西洋・オリジナルの占術で自分を多角的に読み解く、完全無料・登録不要の占いサイトです。">
+<title>えみり｜無料占いと本格占いの総合占いサイト</title>
+<meta name="description" content="数秘術・タロット・九星気学・オリジナル占い「星獣カルテ」が登録不要で楽しめる無料占いと、生年月日から精密に計算して鑑定書にまとめる本格占いの総合占いサイト「えみり」。恋愛・相性・仕事・性格を、悩みからも占術からも選べます。">
 <link rel="canonical" href="/">
-<meta property="og:site_name" content="占いのカルテ">
+<meta property="og:site_name" content="えみり">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="占いのカルテ｜完全無料・登録不要の占いサイト">
-<meta property="og:description" content="複数の占術から自分を多角的に理解できる、完全無料・登録不要の占いサイトです。">
+<meta property="og:title" content="えみり｜無料占いと本格占いの総合占いサイト">
+<meta property="og:description" content="登録不要の無料占いと、精密計算の本格占い。恋愛・相性・仕事・性格を、悩みからも占術からも選べる総合占いサイトです。">
 <link rel="stylesheet" href="assets/css/common.css">
 </head>
 <body>
 <a class="skip-link" href="#main">本文へスキップ</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="site-logo" href="./">🔮 占いのカルテ</a>
+    <a class="site-logo" href="./"><span class="site-logo-mark" aria-hidden="true">☾</span>えみり</a>
     <nav class="site-nav" aria-label="メインメニュー">
       <ul>
-        <li><a href="./#uranau">占う</a></li>
+        <li><a href="./#uranau">無料占い</a></li>
         <li><a href="aisho/">相性</a></li>
-        <li><span class="nav-soon" aria-disabled="true">運勢 <span class="soon-badge">準備中</span></span></li>
+        <li><span class="nav-soon" aria-disabled="true">今日の運勢 <span class="soon-badge">準備中</span></span></li>
+        <li><a href="premium/">本格占い</a></li>
         <li><a href="learn/">占いを知る</a></li>
       </ul>
     </nav>
@@ -30,22 +31,91 @@
 </header>
 
 <main id="main" class="wrap">
-  <section class="hero">
-    <p class="eyebrow">FORTUNE TELLING KARTE</p>
+  <nav class="mode-switch" aria-label="無料占いと本格占いの切り替え">
+    <a class="mode-tab is-current" href="./" aria-current="page"><span class="mode-name">無料占い・コラム</span><span class="mode-note">登録不要・何度でも</span></a>
+    <a class="mode-tab" href="premium/"><span class="mode-name">本格占い</span><span class="mode-note">精密鑑定書（準備中）</span></a>
+  </nav>
+
+  <section class="hero hero-compact">
+    <p class="eyebrow">EMIRI FORTUNE</p>
     <h1>あなたを、ひとつの占いで<br>決めつけない。</h1>
-    <p>「占いのカルテ」は、完全無料・登録不要の占いサイトです。生年月日などから、東洋・西洋・オリジナルのさまざまな占術で、性格・才能・仕事・恋愛・相性を違う角度から読み解きます。</p>
+    <p>「えみり」は、無料占いと本格占いの総合占いサイトです。無料占いは登録不要。生年月日から、東洋・西洋・オリジナルのさまざまな占術で、恋愛・相性・仕事・性格を違う角度から読み解きます。</p>
     <ul class="badges" aria-label="特徴">
-      <li class="badge">完全無料</li>
-      <li class="badge">登録不要</li>
+      <li class="badge">無料占いは登録不要</li>
       <li class="badge">相性占い対応</li>
+      <li class="badge">生年月日はサーバーに送らない</li>
     </ul>
-    <p><a class="btn" href="suhijutsu/" style="max-width:360px">数秘術で占ってみる</a></p>
+  </section>
+
+  <section class="today" id="today" aria-labelledby="today-title">
+    <div class="today-head">
+      <p class="eyebrow">TODAY</p>
+      <h2 id="today-title">今日の運勢 <span class="soon-badge">準備中</span></h2>
+      <p class="lead">九星・数秘・12星座ごとの今日の運勢ランキングを、毎朝お届けする予定です。それまでは、次の占いで今日と今年の流れを見られます。</p>
+    </div>
+    <ul class="today-links">
+      <li><a href="tarot/"><span class="today-icon" aria-hidden="true">🃏</span><span><b>今日のタロット</b><small>テーマを選んで3枚引き。同じテーマは1日1回</small></span></a></li>
+      <li><a href="suhijutsu/"><span class="today-icon" aria-hidden="true">🔢</span><span><b>今年と12ヶ月の流れ</b><small>数秘術のパーソナルイヤーで見る</small></span></a></li>
+    </ul>
+  </section>
+
+  <section class="section" id="nayami" aria-labelledby="nayami-title">
+    <p class="eyebrow">BY CONCERN</p>
+    <h2 id="nayami-title">悩みから選ぶ</h2>
+    <p class="lead">知りたいことに合った占いを選べます。</p>
+    <ul class="nayami-grid">
+      <li class="nayami">
+        <h3><span aria-hidden="true">💗</span> 恋愛・片想い</h3>
+        <ul>
+          <li><a href="tarot/">タロットで「恋愛」を占う</a></li>
+          <li><a href="suhijutsu/aisho/">気になる人との相性（数秘術）</a></li>
+        </ul>
+      </li>
+      <li class="nayami">
+        <h3><span aria-hidden="true">💞</span> ふたりの相性</h3>
+        <ul>
+          <li><a href="suhijutsu/aisho/">数秘術の相性</a></li>
+          <li><a href="seiju/aisho/">星獣カルテの相性</a></li>
+          <li><a href="kyusei/aisho/">九星気学の相性</a></li>
+        </ul>
+      </li>
+      <li class="nayami">
+        <h3><span aria-hidden="true">💼</span> 仕事・才能</h3>
+        <ul>
+          <li><a href="suhijutsu/">数秘術で才能と向く役割を見る</a></li>
+          <li><a href="kyusei/">九星気学で仕事の進め方を見る</a></li>
+          <li><a href="tarot/">タロットで「仕事」を占う</a></li>
+        </ul>
+      </li>
+      <li class="nayami">
+        <h3><span aria-hidden="true">🪞</span> 性格・本当の自分</h3>
+        <ul>
+          <li><a href="seiju/">あなたが宿す星獣を調べる</a></li>
+          <li><a href="suhijutsu/">ライフパスナンバーで本質を見る</a></li>
+          <li><a href="kyusei/">本命星と月命星で外と内を見る</a></li>
+        </ul>
+      </li>
+      <li class="nayami">
+        <h3><span aria-hidden="true">🤝</span> 人間関係</h3>
+        <ul>
+          <li><a href="tarot/">タロットで「人間関係」を占う</a></li>
+          <li><a href="kyusei/aisho/">五行で見る、あの人との関係</a></li>
+        </ul>
+      </li>
+      <li class="nayami">
+        <h3><span aria-hidden="true">🪙</span> お金・これから</h3>
+        <ul>
+          <li><a href="tarot/">タロットで「お金」を占う</a></li>
+          <li><a href="suhijutsu/">今年と12ヶ月の流れを見る</a></li>
+        </ul>
+      </li>
+    </ul>
   </section>
 
   <section class="section" id="uranau" aria-labelledby="uranau-title">
-    <p class="eyebrow">FORTUNE TOOLS</p>
-    <h2 id="uranau-title">占う</h2>
-    <p class="lead">いま占えるのは数秘術・タロット・星獣カルテ・九星気学です。ほかの占術は、正しい計算で鑑定できるよう準備が整ったものから順に公開します。</p>
+    <p class="eyebrow">FREE FORTUNE</p>
+    <h2 id="uranau-title">無料占い｜占術から選ぶ</h2>
+    <p class="lead">登録不要で、何度でも占えます。ほかの占術は、正しい計算で鑑定できるよう準備が整ったものから順に公開します。</p>
     <ul class="tool-grid">
       <li class="tool is-ready">
         <span class="tool-icon" aria-hidden="true">🔢</span>
@@ -70,7 +140,7 @@
         <span class="tool-icon" aria-hidden="true">🌗</span>
         <p class="tool-tag">ORIGINAL</p>
         <h3>星獣カルテ</h3>
-        <p>生まれた日の「季節」と「月のリズム」から、あなたが宿す12星獣のひとつを読み解く、占いのカルテのオリジナル占い。</p>
+        <p>生まれた日の「季節」と「月のリズム」から、あなたが宿す12星獣のひとつを読み解く、えみりのオリジナル占い。</p>
         <div class="tool-actions">
           <a class="tool-link primary" href="seiju/">星獣を調べる</a>
           <a class="tool-link" href="seiju/aisho/">星獣カルテの相性</a>
@@ -124,35 +194,18 @@
     </ul>
   </section>
 
-  <section class="section" aria-labelledby="aisho-title">
-    <p class="eyebrow">COMPATIBILITY</p>
-    <h2 id="aisho-title">相性占い</h2>
-    <p class="lead">ふたりの生年月日から、恋愛・結婚・価値観・仕事、そして親密さのペースまで読み解きます。</p>
-    <ul class="link-list">
-      <li><a href="suhijutsu/aisho/">数秘術の相性占い <span class="arrow" aria-hidden="true">→</span></a></li>
-      <li><a href="seiju/aisho/">星獣カルテの相性占い <span class="arrow" aria-hidden="true">→</span></a></li>
-      <li><a href="kyusei/aisho/">九星気学の相性占い <span class="arrow" aria-hidden="true">→</span></a></li>
-      <li><a href="aisho/">相性占いの一覧を見る <span class="arrow" aria-hidden="true">→</span></a></li>
-    </ul>
-  </section>
-
-  <section class="section" aria-labelledby="unsei-title">
-    <p class="eyebrow">FORTUNE</p>
-    <h2 id="unsei-title">運勢 <span class="soon-badge">準備中</span></h2>
-    <p class="lead">今日・今月・今年の運勢は準備中です。数秘術の鑑定結果では、今年と12ヶ月の流れを見ることができます。</p>
-  </section>
-
-  <section class="feature-box" aria-labelledby="karute-title">
-    <p class="eyebrow">ULTIMATE READING</p>
-    <h2 id="karute-title">総合占い</h2>
-    <p>ひとつの占術だけではなく、複数の占術に共通して表れる傾向をまとめて、一枚のカルテにする総合占いを準備しています。</p>
-    <span class="soon-badge">準備中</span>
+  <section class="feature-box premium-teaser" aria-labelledby="premium-title">
+    <p class="eyebrow">PREMIUM READING</p>
+    <h2 id="premium-title">本格占い｜あなただけの鑑定書</h2>
+    <p>数秘術・九星気学・星獣カルテを精密に計算し、性格・仕事・恋愛・これからの流れを一冊の鑑定書（PDF）にまとめる本格占いを準備しています。</p>
+    <p><span class="soon-badge">準備中</span></p>
+    <p><a class="btn btn-ghost premium-btn" href="premium/">本格占いについて見る</a></p>
   </section>
 
   <section class="section" aria-labelledby="learn-title">
-    <p class="eyebrow">LEARN</p>
-    <h2 id="learn-title">占いを知る</h2>
-    <p class="lead">結果に出てきた言葉の意味や、それぞれの占術が何を見ているのかを解説します。</p>
+    <p class="eyebrow">LEARN &amp; COLUMN</p>
+    <h2 id="learn-title">占いを知る・コラム</h2>
+    <p class="lead">結果に出てきた言葉の意味や、それぞれの占術が何を見ているのかを解説します。新月・満月や運勢のコラムは順次公開します。</p>
     <ul class="link-list">
       <li><a href="learn/suhijutsu/">数秘術を知る <span class="arrow" aria-hidden="true">→</span></a></li>
       <li><a href="learn/">占いを知る トップ <span class="arrow" aria-hidden="true">→</span></a></li>
@@ -165,15 +218,15 @@
     <nav aria-label="サイト内リンク">
       <ul>
         <li><a href="./">TOP</a></li>
-        <li><a href="suhijutsu/">数秘術</a></li>
-        <li><a href="suhijutsu/aisho/">数秘術の相性</a></li>
+        <li><a href="./#uranau">無料占い</a></li>
         <li><a href="aisho/">相性占い</a></li>
+        <li><a href="premium/">本格占い</a></li>
         <li><a href="learn/">占いを知る</a></li>
       </ul>
     </nav>
     <p class="footer-note">占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。</p>
-    <p class="footer-note">入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
-    <p class="copyright">© 占いのカルテ</p>
+    <p class="footer-note">無料占いで入力した生年月日はサーバーに送信しません。保存を選んだ場合だけ、この端末のブラウザ内に保存します。</p>
+    <p class="copyright">© えみり</p>
   </div>
 </footer>
 </body>

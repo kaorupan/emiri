@@ -46,7 +46,7 @@
         { element: v.partner.honmei.element, label: "お相手" }
       ]),
       R.tradition(v.total.tradition),
-      h("p", { class: "kyusei-source" }, "占いのカルテの読み解き"),
+      h("p", { class: "kyusei-source" }, "えみりの読み解き"),
       h("p", null, v.total.lead),
       h("p", null, v.total.direction),
       h("div", { class: "kyusei-factor" }, h("h3", null, "内面（月命星どうし）", h("span", { class: "kyusei-pill" }, v.total.inner.label)), h("p", null, v.total.inner.text)),

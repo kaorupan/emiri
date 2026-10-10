@@ -235,7 +235,7 @@ test("相性：分類は季節と月のリズムの関係だけで決まる（�
   assert.deepEqual([...seen].sort(), ["complement", "pace", "resonance", "stimulus"]);
 });
 
-test("相性の表示データ：点数を出さず、占いのカルテ独自と明記、直接的な表現を使わない", () => {
+test("相性の表示データ：点数を出さず、えみり独自と明記、直接的な表現を使わない", () => {
   const v = text.buildSeijuCompatibilityView(s.calculateSeijuCompatibility(A, B));
   const all = JSON.stringify(v);
   assert.ok(v.total.method.includes("独自"));

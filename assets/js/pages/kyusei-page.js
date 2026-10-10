@@ -58,7 +58,7 @@
       h("p", { class: "kyusei-category" }, h("span", { class: "kyusei-category-label" }, c.label)),
       R.elementCycle([{ element: v.honmei.element, label: "本命" }, { element: v.getsumei.element, label: "月命" }]),
       R.tradition(c.tradition),
-      h("p", { class: "kyusei-source" }, "占いのカルテの読み解き"),
+      h("p", { class: "kyusei-source" }, "えみりの読み解き"),
       h("p", null, c.text),
       R.traits([["この組み合わせの強み", c.strength], ["気をつけたいこと", c.caution]])
     ]));

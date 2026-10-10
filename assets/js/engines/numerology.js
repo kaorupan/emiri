@@ -4,7 +4,7 @@
  * 旧 numerology-v11.html と統合版 latest-4systems-fixed.html の計算式をそのまま移植。
  * 監査でA判定だった式（LP/BD/AT/PY/PM/マスターナンバー）は変更していない。
  * 相性（calculateCompatibility）は統合版で追加された compatibilityEngine() を正本とする。
- * これは「数秘術の唯一の公式」ではなく「占いのカルテ独自の相性分析」。
+ * これは「数秘術の唯一の公式」ではなく「えみり独自の相性分析」。
  *
  * ブラウザでは window.KaruteEngines.numerology、Node では module.exports で使える。
  */
@@ -124,7 +124,7 @@
     };
   }
 
-  // ---- 相性（占いのカルテ独自の分析） ----
+  // ---- 相性（えみり独自の分析） ----
 
   // 9×9 の相性基準表（対称）。旧 numerology-v11 から移植。
   var COMPATIBILITY_BASE = [
@@ -175,7 +175,7 @@
   }
 
   /**
-   * 二人の相性（占いのカルテ独自の相性分析）
+   * 二人の相性（えみり独自の相性分析）
    * 旧 compatibilityEngine(y1,m1,d1,y2,m2,d2) と同じ計算。
    */
   function calculateCompatibility(birth1, birth2, options) {

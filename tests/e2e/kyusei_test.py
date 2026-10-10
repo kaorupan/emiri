@@ -87,7 +87,7 @@ async def run(browser, base, label, viewport, mobile):
     check(f"[{label}] 個人鑑定の表示順（要約→本命星→月命星→…→成長→次）", ok, " / ".join(titles))
     check(f"[{label}] 通常の日は境界のお知らせなし", await page.locator("#kyusei-result .kyusei-boundary").count() == 0)
     trad = await page.locator("#kyusei-combination .kyusei-tradition").count()
-    own = await page.locator("#kyusei-combination .kyusei-source", has_text="占いのカルテの読み解き").count()
+    own = await page.locator("#kyusei-combination .kyusei-source", has_text="えみりの読み解き").count()
     check(f"[{label}] 組み合わせ：伝統的な位置づけとサイトの読み解きを分けて表示", trad == 1 and own == 1)
     mine = await page.evaluate("() => [...document.querySelectorAll('#kyusei-honmei .kyusei-nine-item.is-mine .kyusei-nine-name')].map(e => e.textContent)")
     check(f"[{label}] 九星と五行の一覧で本命星・月命星に印", mine == ["四緑木星", "九紫火星"], str(mine))

@@ -25,7 +25,7 @@ from urllib.parse import urljoin, urlparse
 from playwright.async_api import async_playwright
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-PAGES = ["", "suhijutsu/", "suhijutsu/aisho/", "aisho/", "learn/", "learn/suhijutsu/"]
+PAGES = ["", "premium/", "suhijutsu/", "suhijutsu/aisho/", "aisho/", "learn/", "learn/suhijutsu/"]
 SHOTS = sys.argv[sys.argv.index("--shots") + 1] if "--shots" in sys.argv else None
 
 results = []
@@ -148,7 +148,7 @@ async def compat_tests(page, base, label):
     check(f"[{label}] 総合相性が旧統合版と同じ値（82 / 100）", total.startswith("82"), total)
     text = await page.text_content("body")
     check(f"[{label}] 直接的な表現（セックス等）を使わない", "セックス" not in text and "身体の相性" not in text)
-    check(f"[{label}] 「占いのカルテ独自の相性分析」と明記", "独自の相性分析" in text)
+    check(f"[{label}] 「えみり独自の相性分析」と明記", "独自の相性分析" in text)
     if SHOTS:
         await page.screenshot(path=os.path.join(SHOTS, f"{label}-aisho-result.png"), full_page=True)
 
