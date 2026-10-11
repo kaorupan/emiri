@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>総合鑑定書の見本｜本格占い｜えみり</title>
-<meta name="description" content="えみりの本格占い「総合鑑定書」（980円）の見本です。数秘術・九星気学・星獣カルテの3つの占術から、あなたの軸、性格、仕事、恋愛、お金、これから3年の流れまでを一冊にまとめます。">
+<meta name="description" content="えみりの本格占い「総合鑑定書」の見本です。数秘術・九星気学・星獣カルテを土台に、四柱推命・マヤ暦・宿曜・西洋占星術・インド占星術・紫微斗数・姓名判断・干支・吉方位まで12の占術を重ねて、総合判断・性格・仕事・恋愛・これから3年・吉方位・相性を一冊にまとめます。">
 <link rel="canonical" href="https://emiri-uranai.com/premium/sample/">
 <meta property="og:url" content="https://emiri-uranai.com/premium/sample/">
 <link rel="alternate" type="application/rss+xml" title="えみり｜今日の運勢" href="../../feed.xml">
@@ -12,11 +12,13 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="総合鑑定書の見本｜えみり">
-<meta property="og:description" content="3つの占術であなたを読み解く、本格占い「総合鑑定書」の見本です。">
+<meta property="og:description" content="12の占術であなたを読み解く、本格占い「総合鑑定書」の見本です。">
 <link rel="stylesheet" href="../../assets/css/common.css">
 <link rel="stylesheet" href="../../assets/css/kantei.css">
 <script defer src="../../assets/js/core/dom.js"></script>
 <script defer src="../../assets/js/core/astro.js"></script>
+<script defer src="../../assets/js/core/kyureki.js"></script>
+<script defer src="../../assets/js/vendor/astronomy-engine-2.1.19.min.js"></script>
 <script defer src="../../assets/js/engines/numerology.js"></script>
 <script defer src="../../assets/js/content/numerology-text.js"></script>
 <script defer src="../../assets/js/content/kyusei-data.js"></script>
@@ -26,6 +28,27 @@
 <script defer src="../../assets/js/engines/seiju.js"></script>
 <script defer src="../../assets/js/content/seiju-text.js"></script>
 <script defer src="../../assets/js/engines/daily.js"></script>
+<script defer src="../../assets/js/engines/shichusuimei.js"></script>
+<script defer src="../../assets/js/content/shichusuimei-text.js"></script>
+<script defer src="../../assets/js/engines/maya.js"></script>
+<script defer src="../../assets/js/content/maya-text.js"></script>
+<script defer src="../../assets/js/engines/shukuyo.js"></script>
+<script defer src="../../assets/js/content/shukuyo-text.js"></script>
+<script defer src="../../assets/js/engines/horoscope.js"></script>
+<script defer src="../../assets/js/content/horoscope-text.js"></script>
+<script defer src="../../assets/js/engines/jyotish.js"></script>
+<script defer src="../../assets/js/content/jyotish-text.js"></script>
+<script defer src="../../assets/js/engines/shibi.js"></script>
+<script defer src="../../assets/js/content/shibi-text.js"></script>
+<script defer src="../../assets/js/content/seimei-strokes.js"></script>
+<script defer src="../../assets/js/content/seimei-numbers.js"></script>
+<script defer src="../../assets/js/content/seimei-text.js"></script>
+<script defer src="../../assets/js/engines/seimei.js"></script>
+<script defer src="../../assets/js/engines/houi.js"></script>
+<script defer src="../../assets/js/content/houi-text.js"></script>
+<script defer src="../../assets/js/engines/eto.js"></script>
+<script defer src="../../assets/js/content/eto-text.js"></script>
+<script defer src="../../assets/js/content/kantei-extra.js"></script>
 <script defer src="../../assets/js/content/kantei-text.js"></script>
 <script defer src="../../assets/js/pages/kantei-page.js"></script>
 </head>
@@ -58,17 +81,17 @@
   <section class="hero hero-compact kantei-intro">
     <p class="eyebrow">SAMPLE</p>
     <h1>総合鑑定書の見本</h1>
-    <p>1990年1月1日生まれ（架空の人物）の「サンプル」さんの総合鑑定書です。相性の相手には、1992年5月15日生まれ（架空の人物）の「ミライ」さんを設定しています。どんな鑑定書が届くのか、全体の構成と雰囲気をご覧ください。本文の大部分はぼかしています。実際の鑑定書は、あなたの生年月日からこの構成で作られ、すべての章を読めます。</p>
+    <p>1990年1月1日10時30分生まれ（架空の人物）の「星川あかり」さんの総合鑑定書です。お名前と出生時刻を入れ、相性の相手には1992年5月15日生まれ（架空の人物）の「月島ミライ」さんを設定しています。どんな鑑定書が届くのか、全体の構成と雰囲気をご覧ください。本文の大部分はぼかしています。実際の鑑定書は、あなたの生年月日からこの構成で作られ、すべての章を読めます。</p>
   </section>
 
-  <div id="kantei-root" data-sample data-person='{"name":"サンプル","year":1990,"month":1,"day":1}' data-partner='{"name":"ミライ","year":1992,"month":5,"day":15}'>
+  <div id="kantei-root" data-sample data-person='{"name":"あかり","sei":"星川","mei":"あかり","year":1990,"month":1,"day":1,"time":"10:30"}' data-partner='{"name":"ミライ","sei":"月島","mei":"ミライ","year":1992,"month":5,"day":15}'>
     <p class="notice kantei-noprint">鑑定書を読み込んでいます。表示されない場合は、JavaScriptを有効にしてください。</p>
   </div>
 
   <section class="kantei-buy" aria-labelledby="kantei-buy-title">
     <p class="eyebrow">PREMIUM READING</p>
     <h2 id="kantei-buy-title">あなたの総合鑑定書</h2>
-    <p>全13章。数秘術・九星気学・星獣カルテから、あなたの軸、性格、仕事、恋愛、お金、これから3年の流れ、そして気になるお相手1人との相性までを一冊に。購入後すぐに読めて、PDFで保存できます。</p>
+    <p>最大22章。数秘術・九星気学・星獣カルテを土台に、四柱推命・マヤ暦・宿曜占星術・西洋占星術・インド占星術・紫微斗数・姓名判断・干支・吉方位まで、12の占術を重ねて一冊に。総合判断、これから3年の流れ、今年と来年の吉方位、気になるお相手1人との相性まで。購入後すぐに読めて、PDFで保存できます。</p>
     <p class="premium-price">980円（税込）</p>
     <p><span class="soon-badge">準備中</span> 販売開始までもう少しお待ちください。</p>
     <p><a class="btn btn-ghost premium-btn" href="../">本格占いのページへ戻る</a></p>

@@ -2,6 +2,8 @@
  * 本格占い「総合鑑定書」の組み立て（計算結果 → 表示用データ。DOM操作なし）
  *
  *   - 数秘術・九星気学・星獣カルテの計算は、無料占いと同じエンジンを使う。
+ *   - それ以外の占術（四柱推命・マヤ暦・宿曜・西洋占星術・インド占星術・紫微斗数・姓名判断・干支・吉方位）の章と
+ *     「総合判断」は kantei-extra.js で組み立てて、ここで差し込む。姓名（sei・mei）と出生時刻は任意。
  *   - 文章は各占術の鑑定文（numerology-text / kyusei-text / seiju-data）を土台に、
  *     この鑑定書だけの「あなたの軸」（3占術の共通テーマ）と「これから3年の流れ」を加える。
  *   - AIや外部サービスは使わない。同じ入力からは、いつでも同じ鑑定書ができる。
@@ -25,7 +27,7 @@
       require("../engines/numerology.js"), require("./numerology-text.js"),
       require("../engines/kyusei.js"), require("./kyusei-text.js"), require("./kyusei-data.js"),
       require("../engines/seiju.js"), require("./seiju-data.js"), require("./seiju-text.js"),
-      require("../engines/daily.js")
+      require("../engines/daily.js"), require("./kantei-extra.js")
     );
   } else {
     root.KaruteContent = root.KaruteContent || {};
@@ -33,10 +35,10 @@
       root.KaruteEngines.numerology, root.KaruteContent.numerology,
       root.KaruteEngines.kyusei, root.KaruteContent.kyusei, root.KaruteContent.kyuseiData,
       root.KaruteEngines.seiju, root.KaruteContent.seijuData, root.KaruteContent.seiju,
-      root.KaruteEngines.daily
+      root.KaruteEngines.daily, root.KaruteContent.kanteiExtra
     );
   }
-})(typeof self !== "undefined" ? self : this, function (numEngine, numText, kyEngine, kyText, kyData, sjEngine, sjData, sjText, daily) {
+})(typeof self !== "undefined" ? self : this, function (numEngine, numText, kyEngine, kyText, kyData, sjEngine, sjData, sjText, daily, extra) {
   "use strict";
 
   var AXES = {
@@ -95,7 +97,8 @@
   function requireInput(p) {
     var y = Number(p.year), m = Number(p.month), d = Number(p.day);
     if (!Number.isInteger(y) || !Number.isInteger(m) || !Number.isInteger(d)) throw new Error("生年月日が正しくありません");
-    return { year: y, month: m, day: d, time: p.time || null, name: String(p.name || "").trim() };
+    var sei = String(p.sei || "").trim(), mei = String(p.mei || "").trim();
+    return { year: y, month: m, day: d, time: p.time || null, name: String(p.name || "").trim() || mei, sei: sei, mei: mei };
   }
 
   /*
@@ -195,6 +198,11 @@
       { axis: STAR_AXIS[ky.getsumei], w: 1, label: "月命星「" + getsumei.name + "」" },
       { axis: MOON_AXIS[sj.moonPhase], w: 1, label: "「" + moon.name + "」のリズム" }
     ];
+    var X = extra.build(p, q, today, {
+      who: who, honmei: honmei.name, getsumei: getsumei.name, honmeiNumber: ky.honmei, getsumeiNumber: ky.getsumei,
+      honmeiElement: honmei.element, lifePath: num.lifePath, kigakuYear: kyEngine.calculateKyusei({ year: today.year, month: today.month, day: today.day }).kigakuYear
+    });
+    X.axisVotes.forEach(function (v) { if (v.axis) votes.push(v); });
     var score = {};
     AXIS_ORDER.forEach(function (a) { score[a] = 0; });
     votes.forEach(function (v) { score[v.axis] += v.w; });
@@ -232,8 +240,8 @@
 
     var chapters = [
       { id: "intro", title: "はじめに", blocks: [
-        para(who + "の生年月日" + (p.time ? "と出生時刻" : "") + "から、数秘術・九星気学・星獣カルテの3つの占術で読み解いた、" + who + "だけの総合鑑定書です。"),
-        para("数秘術は生年月日の「数字」から、九星気学は生まれた年と月に巡っていた「星」から、星獣カルテは生まれた日の「季節と月のリズム」から、あなたを見ています。違う角度から見て同じことが表れている部分は、あなたの中でとくに強い性質です。"),
+        para(who + "の生年月日" + (p.time ? "と出生時刻" : "") + (X.nameResult ? "、そしてお名前" : "") + "から、" + (X.keywords.length + 3) + "の占術で読み解いた、" + who + "だけの総合鑑定書です。"),
+        para("土台にするのは、数秘術（生年月日の「数字」）、九星気学（生まれた年と月の「星」）、星獣カルテ（生まれた日の「季節と月のリズム」）の3つ。そこに、" + X.keywords.map(function (k) { return k[0]; }).join("・") + "を重ねて、" + who + "を多くの角度から見ていきます。違う角度から見て同じことが表れている部分は、あなたの中でとくに強い性質です。"),
         para("占いは未来を決めるものではなく、自分を知り、選ぶためのヒントです。心に響いたところから、気軽に読んでみてください。")
       ] },
       { id: "karute", title: "あなたのカルテ", blocks: [
@@ -243,7 +251,7 @@
           ["九星気学", "本命星 " + honmei.name + "（" + honmei.element + "）／月命星 " + getsumei.name + "（" + getsumei.element + "）"],
           ["星獣カルテ", beast.name + "（" + season.name + " × " + moon.name + "）"],
           ["あなたの軸", A.name + "（" + A.catch + "）"]
-        ]),
+        ].concat(X.karuteFacts)),
         kv.term && kv.term.boundary ? para("九星気学の補足：生まれた日が節入りの日にあたるため、生まれた時刻によって星が変わる可能性があります。" + (p.time ? "入力された出生時刻で判定しています。" : "出生時刻がわかる場合は、時刻を入れると確実に判定できます。")) : null
       ].filter(Boolean) },
       { id: "axis", title: "あなたの軸：" + A.name, blocks: [
@@ -255,6 +263,7 @@
         heading("軸を生かすために"),
         para(A.advice)
       ] },
+      { id: "synthesis", title: "総合判断：すべての占術が語るあなた", blocks: X.synthesisBlocks(mainAxis, subAxis, A.name, S.name) },
       { id: "personality", title: "基本の性格", blocks: [
         heading("数秘術：ライフパス" + num.lifePath + "「" + lpData.tag + "」"),
         para(lpData.summary + lpData.personality),
@@ -271,6 +280,8 @@
         para(sv.reason.join("")),
         facts(sv.season.traits)
       ] },
+      X.systemChapters,
+      X.nameChapter || null,
       { id: "strength", title: "強みと、つまずきやすいところ", blocks: [
         heading("あなたの強み"),
         list([numText.TRAITS[num.core.lifePath].gift + "（数秘術）"].concat(kv.strengths.map(function (s) { return s + "（九星気学）"; })).concat([beast.strength.split("。")[0] + "（星獣カルテ）"])),
@@ -290,7 +301,7 @@
         heading("生まれ持った才能：バースデー" + num.birthday),
         para(nv.birthday.text),
         nv.deep[2] ? para(nv.deep[2].text) : null
-      ].filter(Boolean) },
+      ].concat(X.add.work).filter(Boolean) },
       { id: "love", title: "恋愛・パートナーシップ", blocks: [
         para(lpData.love),
         para(kv.love),
@@ -301,7 +312,7 @@
         para(nv.deep[5].text),
         heading("安心できる関係のために"),
         para("あなたの星獣が求めるのは「" + beast.seeks + "」。そしてあなたが相手に贈れるのは「" + beast.offers + "」です。内面（月命星の" + getsumei.name + "）には「" + G.closeness + "」という一面もあります。")
-      ].filter(Boolean) },
+      ].concat(X.add.love).filter(Boolean) },
       { id: "relations", title: "人間関係", blocks: [
         para(H.relations),
         para(beast.relationships),
@@ -313,16 +324,18 @@
         nv.deep[3] ? para(nv.deep[3].text) : null
       ].filter(Boolean) },
       { id: "years", title: "これから3年の流れ", blocks: [
-        para("数秘術のパーソナルイヤー（1月1日で切り替わり）と、九星気学の年の星（その年の立春から翌年の立春の前まで）の2つから、これから3年の流れを読みます。"),
+        para("数秘術のパーソナルイヤー（1月1日で切り替わり）と、九星気学の年の星（その年の立春から翌年の立春の前まで）を軸に、四柱推命の年の干支、マヤ暦の誕生日のKIN、西洋占星術・インド占星術のいまの流れを重ねて、これから3年を読みます。"),
         { type: "years", items: years.map(function (y) {
           return { year: y.year, rows: [
             ["数秘術", "パーソナルイヤー " + y.personalYear + "「" + y.pyTheme + "」：" + y.pyText],
             ["九星気学", "年の星 " + y.yearStar + "、本命星は" + y.palace + "（" + y.palaceTheme + "）：" + y.palaceText]
-          ] };
+          ].concat(X.add.years[y.year] || []) };
         }) },
         heading(today.year + "年の12か月"),
         { type: "months", items: nv.months.map(function (m) { return { month: m.month, number: m.number, theme: m.theme, text: m.text }; }) }
       ] },
+      X.houiChapter,
+      X.etoChapter,
       { id: "luck", title: "開運と成長のヒント", blocks: [
         facts([
           ["ラッキーカラー", STAR_LUCKY[ky.honmei].colors.join("・") + "（本命星「" + honmei.name + "」の色）"],
@@ -338,13 +351,14 @@
         para(beast.growth),
         para(kv.growthExtra)
       ] },
-      q ? buildAishoChapter(p, q, q.name ? q.name + "さん" : "お相手", today) : null,
+      q ? (function () { var c = buildAishoChapter(p, q, q.name ? q.name + "さん" : "お相手", today); c.blocks = c.blocks.concat(X.add.aisho); return c; })() : null,
       { id: "closing", title: "おわりに", blocks: [
         para(who + "の中心にある「" + A.name + "」の力は、どの占術から見ても、あなたらしさの源です。うまくいかない時期も、その力を使う場所や方法を少し変えるだけで、流れは変わっていきます。"),
         para("この鑑定書は、いつでも読み返せるように保存しておいてください。年が変わったときや迷ったとき、もう一度ページを開くと、そのときのあなたに必要な言葉が見つかるかもしれません。"),
         para("※ 占いの結果は、自己理解やエンターテインメントとしてお楽しみください。医療・法律・お金などの大切な判断を占いだけで決めないでください。")
       ] }
-    ].filter(Boolean);
+    ];
+    chapters = [].concat.apply([], chapters).filter(Boolean);
 
     return {
       title: "総合鑑定書",
@@ -365,7 +379,7 @@
         "数秘術・九星気学・星獣カルテの計算は、えみりの無料占いと同じ方法で行っています（九星気学は立春・節入りの時刻で判定）。",
         "「あなたの軸」と「これから3年の流れ」は、3つの占術の結果をもとに、えみりが用意した読み方で組み立てています。",
         "鑑定文はAIを使わず、えみりが書いた文章を計算結果に合わせて組み合わせています。"
-      ].concat(q ? ["相性の章は、えみりの無料の相性占い（数秘術・九星気学・星獣カルテ）と同じ計算と文章をもとに、テーマごとにまとめ直したものです。"] : [])
+      ].concat(X.method).concat(q ? ["相性の章は、えみりの無料の相性占い（数秘術・九星気学・星獣カルテ）と同じ計算と文章をもとに、テーマごとにまとめ直したものです。"] : [])
     };
   }
 
