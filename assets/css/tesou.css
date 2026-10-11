@@ -1,0 +1,44 @@
+/* 手相（図はインラインSVG。tools/tesou/svg.mjs） */
+.th-reading { margin: -4px 0 4px; color: var(--muted); font-size: 13px; }
+.th-fig { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
+.th-fig.th-sm { max-width: 120px; flex: 0 0 120px; }
+.th-hand { fill: #2b2236; stroke: #7a6890; stroke-width: 2; stroke-linejoin: round; }
+.th-crease { fill: none; stroke: #4a3d5a; stroke-width: 1.4; stroke-linecap: round; }
+.th-base { fill: none; stroke: #6d5d82; stroke-width: 2.2; stroke-linecap: round; }
+.th-line { fill: none; stroke-width: 4.5; stroke-linecap: round; }
+.th-hl { fill: none; stroke: #f0cc5c; stroke-width: 5; stroke-linecap: round; }
+.th-dash { stroke-dasharray: 10 8; }
+.th-mark { fill: none; stroke: #f0cc5c; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.th-mark.th-fill { fill: #f0cc5c; }
+.th-label { fill: #f3eefb; font-size: 11px; font-weight: 700; paint-order: stroke; stroke: #1a1322; stroke-width: 3px; }
+.th-where-body { display: flex; gap: 18px; align-items: center; }
+.th-where-body .th-fig { flex: 0 0 46%; }
+.th-where-body p { margin: 0; }
+.th-variant { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-top: 1px solid #2f2440; }
+.th-variant:first-of-type { border-top: 0; }
+.th-variant h3 { margin: 4px 0 6px; font-size: 16px; color: var(--gold); }
+.th-variant p { margin: 0; }
+.th-icon { flex: 0 0 56px; width: 56px; height: 56px; border-radius: 12px; background: #0d0914; border: 1px solid #382943; }
+.th-mark-lg { stroke-width: 2.6; }
+.th-legend { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; flex: 1; }
+.th-legend a { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; }
+.th-legend a:hover, .th-legend a:focus-visible { color: var(--gold); }
+.th-swatch { width: 26px; height: 5px; border-radius: 3px; display: inline-block; }
+.th-list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.th-list a { display: flex; gap: 10px; align-items: center; height: 100%; padding: 10px; border-radius: 14px; border: 1px solid #382943; background: #0d0914; color: var(--text); text-decoration: none; }
+.th-list a:hover, .th-list a:focus-visible { border-color: var(--gold); }
+.th-thumb { flex: 0 0 64px; max-width: 64px; }
+.th-list b { display: block; color: var(--gold); }
+.th-list small { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.th-subhead { font-size: 14px; margin: 16px 0 0; color: var(--muted); }
+.th-tags { margin-top: 8px; }
+.th-fig-oka { max-width: 340px; }
+@media (max-width: 560px) {
+  .th-where-body { flex-direction: column; }
+  .th-where-body .th-fig { flex: none; max-width: 260px; }
+  .th-list { grid-template-columns: 1fr; }
+  .th-fig.th-sm { max-width: 96px; flex-basis: 96px; }
+}
+.th-tags { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.th-tags a { display: inline-block; padding: 6px 12px; border-radius: 999px; border: 1px solid #382943; background: #0d0914; color: var(--text); text-decoration: none; font-size: 14px; }
+.th-tags a:hover, .th-tags a:focus-visible { border-color: var(--gold); color: var(--gold); }
