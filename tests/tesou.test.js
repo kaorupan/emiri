@@ -10,7 +10,7 @@ test("手相：一覧・線ごとのページ・しるし・丘がそろい、�
   const idx = fs.readFileSync(path.join(ROOT, "tesou/index.html"), "utf8");
   const slugs = [...new Set([...idx.matchAll(/<li><a href="([a-z]+)\/">/g)].map((m) => m[1]))];
   assert.ok(slugs.length >= 25, String(slugs.length));
-  for (const s of slugs.concat(["oka", "shirushi", "renai", "kinun"])) {
+  for (const s of slugs.concat(["oka", "shirushi", "renai", "kinun", "shigoto", "kenkou", "seikaku"])) {
     const html = fs.readFileSync(path.join(ROOT, "tesou", s, "index.html"), "utf8");
     assert.ok(!/undefined|NaN/.test(html), s);
     assert.ok(/<svg class="th-(fig|icon)/.test(html), s + " 図");

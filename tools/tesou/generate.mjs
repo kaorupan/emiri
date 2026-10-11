@@ -14,7 +14,7 @@ import { GROUPS, ENTRIES, MARKS, MOUNDS } from "./data.mjs";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const bySlug = new Map(ENTRIES.map((e) => [e.slug, e]));
-const SPECIAL = { oka: { name: "手のひらの丘" }, shirushi: { name: "手相のしるし" }, renai: { name: "恋愛・結婚の手相" }, kinun: { name: "金運の手相" } };
+const SPECIAL = { oka: { name: "手のひらの丘" }, shirushi: { name: "手相のしるし" }, renai: { name: "恋愛・結婚の手相" }, kinun: { name: "金運の手相" }, shigoto: { name: "仕事運の手相" }, kenkou: { name: "健康・体質の手相" }, seikaku: { name: "性格・才能の手相" } };
 const nameOf = (s) => (bySlug.get(s) || SPECIAL[s]).name;
 for (const e of ENTRIES) for (const r of e.related) if (!bySlug.has(r) && !SPECIAL[r]) throw new Error(`${e.slug}: related ${r} がない`);
 
@@ -110,7 +110,11 @@ ${variants}
     <ul class="yume-tags th-tags">
 ${e.related.map((r) => `      <li><a href="../${r}/">${esc(nameOf(r))}</a></li>`).join("\n")}
     </ul>
-    <h3 class="th-subhead">${esc(group.name)}</h3>
+${HUBS.some((h) => h.list.includes(e.slug)) ? `    <h3 class="th-subhead">この線が出てくるテーマ</h3>
+    <ul class="th-tags">
+${HUBS.filter((h) => h.list.includes(e.slug)).map((h) => `      <li><a href="../${h.id}/">${esc(h.h1)}</a></li>`).join("\n")}
+    </ul>
+` : ""}    <h3 class="th-subhead">${esc(group.name)}</h3>
     <ul class="yume-tags th-tags">
 ${sameGroup.map((x) => `      <li><a href="../${x.slug}/">${esc(x.name)}</a></li>`).join("\n")}
       <li><a href="../">手相の見方トップ</a></li>
@@ -205,62 +209,92 @@ ${MOUNDS.map((m) => `    <h3 id="${m.id}">${esc(m.name)}（${esc(m.reading)}）<
 }
 
 
-function hubPage(id, title, h1, lead, desc, points) {
-  const rel = `tesou/${id}/`;
-  const ORDER = id === "renai"
-    ? ["kanjousen", "kekkonsen", "eikyousen", "tamanokoshisen", "nijuukanjousen", "kinseitai", "kodomosen", "ninkisen"]
-    : ["zaiunsen", "taiyousen", "fish", "kinunsankaku", "tekubisen", "masukakesen", "unmeisen", "koujousen", "tamanokoshisen", "ninkisen"];
-  const list = ENTRIES.filter((e) => (e.tags || []).includes(id === "renai" ? "love" : "money"))
-    .sort((a, b) => (ORDER.indexOf(a.slug) + 1 || 99) - (ORDER.indexOf(b.slug) + 1 || 99));
+const HUBS = [
+  { id: "renai", eyebrow: "LOVE", h1: "恋愛・結婚の手相", field: "love",
+    title: "恋愛・結婚の手相【図解】｜結婚線・感情線・影響線・玉の輿線の見方｜えみり",
+    lead: "恋のタイプ、出会いの時期、結婚のご縁は、手のひらのどこに表れるのでしょう。恋愛と結婚に関わる線を、図でまとめて紹介します。",
+    desc: "恋愛・結婚運がわかる手相を図で解説。感情線・結婚線・金星帯・影響線・玉の輿線・二重感情線・子供線など、恋愛と結婚に関わる線の見方を紹介します。",
+    points: ["感情線で、恋愛のタイプ（尽くす派・自分のペース派）を見る", "結婚線の長さと向きで、今の恋愛の状態を見る", "運命線に合流する影響線で、出会いの時期の目安を見る", "金星帯や人気線で、異性を惹きつける魅力を見る", "利き手と反対の手を比べて、生まれ持った恋愛観と今の変化を見る"],
+    list: ["kanjousen", "kekkonsen", "eikyousen", "tamanokoshisen", "nijuukanjousen", "kinseitai", "kodomosen", "ninkisen"] },
+  { id: "kinun", eyebrow: "MONEY", h1: "金運の手相", field: "work",
+    title: "金運の手相【図解】｜財運線・太陽線・フィッシュ・手首線の見方｜えみり",
+    lead: "お金を稼ぐ力、ためる力、思いがけない幸運。金運に関わる線としるしを、図でまとめて紹介します。",
+    desc: "金運・財運がわかる手相を図で解説。財運線・太陽線・運命線・ますかけ線・フィッシュ・手首線・金運の三角など、お金に関わる線としるしの見方を紹介します。",
+    points: ["小指の下の財運線で、お金を稼ぐ力と管理する力を見る", "薬指の下の太陽線で、才能が成功と収入につながる力を見る", "運命線で、仕事の安定と流れを見る", "フィッシュや金運の三角など、珍しいしるしがないか探す", "手首線で、財産を築く土台（健康と生活の安定）を見る"],
+    list: ["zaiunsen", "taiyousen", "fish", "kinunsankaku", "tekubisen", "masukakesen", "unmeisen", "koujousen", "tamanokoshisen", "ninkisen"] },
+  { id: "shigoto", eyebrow: "WORK", h1: "仕事運の手相", field: "work",
+    title: "仕事運の手相【図解】｜運命線・頭脳線・太陽線・ますかけ線で見る適職と成功｜えみり",
+    lead: "向いている仕事、成功の時期、リーダーの素質。仕事運に関わる線を、図でまとめて紹介します。",
+    desc: "仕事運・適職がわかる手相を図で解説。運命線・頭脳線・太陽線・ますかけ線・向上線・ソロモンの環・人気線・旅行線など、仕事に関わる線の見方を紹介します。",
+    points: ["頭脳線の向きで、向いている仕事のタイプ（実務型・発想型）を見る", "運命線の始まりと濃さで、仕事の流れと転機を見る", "太陽線で、才能が評価されて成功する力を見る", "向上線（開運線）で、努力が実る時期を見る", "ソロモンの環やますかけ線で、リーダーや専門家としての素質を見る"],
+    list: ["unmeisen", "zunousen", "taiyousen", "masukakesen", "koujousen", "solomon", "ninkisen", "ryokousen", "zaiunsen", "nijuuseimeisen"] },
+  { id: "kenkou", eyebrow: "HEALTH", h1: "健康・体質の手相", field: "advice",
+    title: "健康・体質の手相【図解】｜生命線・健康線・手首線・障害線の見方｜えみり",
+    lead: "体力、疲れやすさ、無理をしているサイン。体と心のコンディションに関わる線を、図でまとめて紹介します。",
+    desc: "健康・体質に関わる手相を図で解説。生命線・二重生命線・健康線・手首線・障害線、感情線の鎖など、体力や疲れやすさを表す線の見方を紹介します。手相は医学的な診断ではありません。",
+    points: ["生命線の太さとはっきりさで、体力とエネルギーを見る", "健康線の有無と形で、疲れのたまりやすさを見る", "障害線や島で、無理をしている時期のサインを見る", "手首線で、体の土台の丈夫さを見る", "気になる症状があるときは、手相ではなく医療機関に相談する"],
+    list: ["seimeisen", "nijuuseimeisen", "kenkousen", "tekubisen", "shougaisen", "kanjousen"] },
+  { id: "seikaku", eyebrow: "CHARACTER", h1: "性格・才能の手相", field: "advice",
+    title: "性格・才能の手相【図解】｜頭脳線・感情線・仏眼・神秘十字で見る本当の自分｜えみり",
+    lead: "考え方のくせ、感情の表し方、隠れた才能。性格と才能に関わる線としるしを、図でまとめて紹介します。",
+    desc: "性格・才能がわかる手相を図で解説。頭脳線・感情線・ますかけ線・仏眼・神秘十字・金星帯・ソロモンの環・二重感情線など、性格と才能に関わる線の見方を紹介します。",
+    points: ["頭脳線で、考え方と判断のスタイルを見る", "感情線で、感情の表し方と人との関わり方を見る", "仏眼や神秘十字で、直感力やひらめきを見る", "金星帯で、感受性と美的センスを見る", "ますかけ線で、集中力と決断力を見る"],
+    list: ["zunousen", "kanjousen", "masukakesen", "butsugan", "shinpijuuji", "kinseitai", "solomon", "nijuukanjousen"] }
+];
+
+function hubPage(h) {
+  const rel = `tesou/${h.id}/`;
+  const list = h.list.map((s) => bySlug.get(s));
+  const others = HUBS.filter((x) => x.id !== h.id);
   const body = `<main id="main" class="wrap-narrow">
   <nav class="breadcrumb" aria-label="パンくずリスト">
     <ol>
       <li><a href="../../">えみり</a></li>
       <li><a href="../">手相</a></li>
-      <li aria-current="page">${esc(h1)}</li>
+      <li aria-current="page">${esc(h.h1)}</li>
     </ol>
   </nav>
 
   <section class="hero">
-    <p class="eyebrow">PALMISTRY · ${id === "renai" ? "LOVE" : "MONEY"}</p>
-    <h1>${esc(h1)}【図解】</h1>
-    <p>${esc(lead)}</p>
+    <p class="eyebrow">PALMISTRY · ${h.eyebrow}</p>
+    <h1>${esc(h.h1)}【図解】</h1>
+    <p>${esc(h.lead)}</p>
   </section>
 
   <section class="card prose" aria-labelledby="th-hub-points">
     <h2 id="th-hub-points">チェックするポイント</h2>
     <ol>
-${points.map((p) => `      <li>${esc(p)}</li>`).join("\n")}
+${h.points.map((p) => `      <li>${esc(p)}</li>`).join("\n")}
     </ol>
   </section>
 
   <section class="card" aria-labelledby="th-hub-list">
-    <h2 id="th-hub-list">${esc(h1)}一覧（${list.length}）</h2>
+    <h2 id="th-hub-list">${esc(h.h1)}一覧（${list.length}）</h2>
 ${list.map((e) => `    <div class="th-variant">
       ${mainFig(e).replace('class="th-fig"', 'class="th-fig th-sm"')}
       <div>
         <h3><a href="../${e.slug}/">${esc(e.name)}</a></h3>
         <p>${esc(e.summary)}</p>
-        <p class="kyusei-meta">${esc(id === "renai" ? e.love : e.work)}</p>
+        <p class="kyusei-meta">${esc(e[h.field])}</p>
       </div>
     </div>`).join("\n")}
   </section>
 
   <section class="card" aria-labelledby="th-hub-more">
-    <h2 id="th-hub-more">あわせて見たい</h2>
+    <h2 id="th-hub-more">ほかのテーマの手相</h2>
     <ul class="th-tags">
-      <li><a href="../${id === "renai" ? "kinun" : "renai"}/">${id === "renai" ? "金運の手相" : "恋愛・結婚の手相"}</a></li>
+${others.map((x) => `      <li><a href="../${x.id}/">${esc(x.h1)}</a></li>`).join("\n")}
       <li><a href="../shirushi/">手相のしるし</a></li>
       <li><a href="../oka/">手のひらの丘</a></li>
       <li><a href="../">手相の見方トップ</a></li>
     </ul>
   </section>
 
-  <p class="notice">手相は、今の自分を見つめ直すヒントとして楽しむものです。線は生活や気持ちで変わると言われます。</p>
+  <p class="notice">手相は、今の自分を見つめ直すヒントとして楽しむものです。線は生活や気持ちで変わると言われます。${h.id === "kenkou" ? "体調についての判断は、必ず医療機関に相談してください。" : ""}</p>
 </main>
 
 `;
-  write(rel, head(rel, title, desc, `${h1}｜えみり`, lead, 2) + body + foot(2));
+  write(rel, head(rel, h.title, h.desc, `${h.h1}｜えみり`, h.lead, 2) + body + foot(2));
 }
 
 function indexPage() {
@@ -289,6 +323,13 @@ ${ENTRIES.filter((e) => e.group === g.id).map((e) => `      <li><a href="${e.slu
     <p>自分の手のひらを見ながら、線の意味を図で確かめられる手相の入門ページです。基本の8本の線から、ますかけ線・仏眼などの珍しい線、しるしや丘まで、${ENTRIES.length}の線としるしを紹介します。</p>
   </section>
 
+  <nav class="card" aria-labelledby="th-theme-title">
+    <h2 id="th-theme-title">テーマから探す</h2>
+    <ul class="th-tags">
+${HUBS.map((h) => `      <li><a href="${h.id}/">${esc(h.h1)}</a></li>`).join("\n")}
+    </ul>
+  </nav>
+
   <section class="card th-where" aria-labelledby="th-basic-map">
     <p class="eyebrow">BASIC LINES</p>
     <h2 id="th-basic-map">基本の8本の線</h2>
@@ -316,8 +357,7 @@ ${groups}
   <section class="card" aria-labelledby="th-more-title">
     <h2 id="th-more-title">テーマ別のまとめ・しるし・丘</h2>
     <ul class="link-list">
-      <li><a href="renai/"><span>恋愛・結婚の手相<br><small class="lead">感情線・結婚線・影響線・玉の輿線など、恋愛に関わる線のまとめ</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
-      <li><a href="kinun/"><span>金運の手相<br><small class="lead">財運線・太陽線・フィッシュ・手首線など、お金に関わる線のまとめ</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
+${HUBS.map((h) => `      <li><a href="${h.id}/"><span>${esc(h.h1)}<br><small class="lead">${h.list.slice(0, 4).map((x) => esc(bySlug.get(x).name)).join("・")}など${h.list.length}の線</small></span><span class="arrow" aria-hidden="true">→</span></a></li>`).join("\n")}
       <li><a href="shirushi/"><span>手相のしるし<br><small class="lead">スター・十字・三角・四角・島・鎖・格子の意味</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
       <li><a href="oka/"><span>手のひらの丘<br><small class="lead">金星丘・月丘・木星丘など9つのふくらみの意味</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
     </ul>
@@ -333,14 +373,7 @@ ${groups}
 }
 
 for (const e of ENTRIES) linePage(e);
-hubPage("renai", "恋愛・結婚の手相【図解】｜結婚線・感情線・影響線・玉の輿線の見方｜えみり", "恋愛・結婚の手相",
-  "恋のタイプ、出会いの時期、結婚のご縁は、手のひらのどこに表れるのでしょう。恋愛と結婚に関わる線を、図でまとめて紹介します。",
-  "恋愛・結婚運がわかる手相を図で解説。感情線・結婚線・金星帯・影響線・玉の輿線・二重感情線・子供線など、恋愛と結婚に関わる線の見方を紹介します。",
-  ["感情線で、恋愛のタイプ（尽くす派・自分のペース派）を見る", "結婚線の長さと向きで、今の恋愛の状態を見る", "運命線に合流する影響線で、出会いの時期の目安を見る", "金星帯や人気線で、異性を惹きつける魅力を見る", "利き手と反対の手を比べて、生まれ持った恋愛観と今の変化を見る"]);
-hubPage("kinun", "金運の手相【図解】｜財運線・太陽線・フィッシュ・手首線の見方｜えみり", "金運の手相",
-  "お金を稼ぐ力、ためる力、思いがけない幸運。金運に関わる線としるしを、図でまとめて紹介します。",
-  "金運・財運がわかる手相を図で解説。財運線・太陽線・運命線・ますかけ線・フィッシュ・手首線・金運の三角など、お金に関わる線としるしの見方を紹介します。",
-  ["小指の下の財運線で、お金を稼ぐ力と管理する力を見る", "薬指の下の太陽線で、才能が成功と収入につながる力を見る", "運命線で、仕事の安定と流れを見る", "フィッシュや金運の三角など、珍しいしるしがないか探す", "手首線で、財産を築く土台（健康と生活の安定）を見る"]);
+for (const h of HUBS) hubPage(h);
 marksPage();
 moundsPage();
 indexPage();
