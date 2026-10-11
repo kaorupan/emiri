@@ -26,6 +26,7 @@ export function mark(type, x, y, s = 7) {
     case "island": return `<ellipse class="th-mark" cx="${x}" cy="${y}" rx="${s * 1.3}" ry="${s * .6}"/>`;
     case "chain": return [0, 1, 2].map((i) => `<ellipse class="th-mark" cx="${x - s * 2 + i * s * 2}" cy="${y}" rx="${s}" ry="${s * .55}"/>`).join("");
     case "grid": return `<path class="th-mark" d="M${x - s},${y - s} L${x + s},${y + s} M${x - s},${y} L${x},${y + s} M${x},${y - s} L${x + s},${y} M${x + s},${y - s} L${x - s},${y + s} M${x},${y - s} L${x - s},${y} M${x + s},${y} L${x},${y + s}"/>`;
+    case "fish": return `<path class="th-mark" d="M${x - s * 1.2},${y} C${x - s * .4},${y - s * .9} ${x + s * .6},${y - s * .9} ${x + s * 1.1},${y} C${x + s * .6},${y + s * .9} ${x - s * .4},${y + s * .9} ${x - s * 1.2},${y} M${x + s * 1.1},${y} L${x + s * 1.8},${y - s * .7} M${x + s * 1.1},${y} L${x + s * 1.8},${y + s * .7}"/>`;
     case "dot": return `<circle class="th-mark th-fill" cx="${x}" cy="${y}" r="${s * .45}"/>`;
     case "eye": return `<path class="th-mark" d="M${x - s * 1.4},${y} C${x - s * .5},${y - s} ${x + s * .5},${y - s} ${x + s * 1.4},${y} C${x + s * .5},${y + s} ${x - s * .5},${y + s} ${x - s * 1.4},${y} Z"/>`;
     default: return "";

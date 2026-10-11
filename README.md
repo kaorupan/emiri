@@ -348,6 +348,6 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 
 ## 手相（tesou/）
 
-- `npm run tesou` で `tesou/`（見方・基本8本の図）、線ごとのページ18、`tesou/shirushi/`（しるし）、`tesou/oka/`（丘）を作る。
+- `npm run tesou` で `tesou/`（見方・基本8本の図）、線ごとのページ25、テーマ別まとめ `tesou/renai/`（恋愛・結婚）・`tesou/kinun/`（金運）、`tesou/shirushi/`（しるし）、`tesou/oka/`（丘）を作る。
 - 図は `tools/tesou/svg.mjs` のオリジナルのSVG（右手の手のひらを自分に向けた形）。線ごとの「形と意味」には、形ごとの小さな図をつける（基本の線）。
 - 文章は `tools/tesou/data.mjs`（えみりのオリジナル）。特定の手相家が名づけた独自の線の名前は使わず、一般的な名前の線だけを扱う。

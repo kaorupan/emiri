@@ -6,6 +6,8 @@ const without = (...keys) => Object.keys(L).filter((k) => !keys.includes(k));
 export const GROUPS = [
   { id: "basic", name: "基本の線", lead: "ほとんどの人の手にある、手相の土台となる線です。まずはこの線から見てみましょう。" },
   { id: "lucky", name: "幸運のしるし・珍しい線", lead: "持っている人が少ない、幸運や才能を表すとされる線やしるしです。" },
+  { id: "love", name: "恋愛・結婚の線", lead: "恋のチャンスや、パートナーとの出会い、結婚のご縁を表すとされる線です。" },
+  { id: "money", name: "金運・財運の線", lead: "お金を引き寄せる力や、財産を築く力を表すとされる線としるしです。" },
   { id: "caution", name: "注意のサイン", lead: "今の状態に気をつけるように、と教えてくれる線です。手相は変わるので、気づいたときがチャンスです。" }
 ];
 
@@ -47,7 +49,7 @@ export const ENTRIES = [
     advice: "自分の考え方のくせを知ると、迷ったときの決め方がわかります。",
     related: ["seimeisen", "kanjousen", "masukakesen"] },
 
-  { slug: "kanjousen", group: "basic", name: "感情線", reading: "かんじょうせん", key: "kanjou",
+  { slug: "kanjousen", tags: ["love"], group: "basic", name: "感情線", reading: "かんじょうせん", key: "kanjou",
     summary: "感情の表し方・愛情・人との関わり方を表す線。",
     where: "小指の下、手のひらの端から始まり、人差し指や中指のほうへ向かって伸びる線です。",
     meaning: "感情線は、その人の感情の表し方や、愛情の深さ、人との関わり方を表します。恋愛のタイプを見るときに、いちばん大切にされる線です。長さ、カーブ、線の先の向きで、気持ちの伝え方が変わります。",
@@ -64,7 +66,7 @@ export const ENTRIES = [
     advice: "自分の感情の伝え方を知ると、人間関係がもっとスムーズになります。",
     related: ["kekkonsen", "zunousen", "kinseitai"] },
 
-  { slug: "unmeisen", group: "basic", name: "運命線", reading: "うんめいせん", key: "unmei",
+  { slug: "unmeisen", tags: ["money"], group: "basic", name: "運命線", reading: "うんめいせん", key: "unmei",
     summary: "人生の流れ・仕事運・社会での役割を表す線。",
     where: "手首のあたりから、中指のつけ根に向かって縦に伸びる線です。ない人や、途中から始まる人も多い線です。",
     meaning: "運命線は、人生の流れや、仕事・社会での役割、自分の力で道を切りひらく力を表します。はっきりした運命線は、目標に向かって進む意志の強さの表れ。運命線がない人も珍しくなく、その場合は環境に合わせて柔軟に生きられるタイプとされます。",
@@ -82,7 +84,7 @@ export const ENTRIES = [
     advice: "運命線は、目標を持つと濃くなると言われます。やりたいことを書き出してみましょう。",
     related: ["taiyousen", "ninkisen", "seimeisen"] },
 
-  { slug: "taiyousen", group: "basic", name: "太陽線", reading: "たいようせん", key: "taiyou",
+  { slug: "taiyousen", tags: ["money"], group: "basic", name: "太陽線", reading: "たいようせん", key: "taiyou",
     summary: "成功・人気・幸福感を表す線。",
     where: "薬指のつけ根に向かって縦に伸びる線です。短い線だけの人や、ない人もいます。",
     meaning: "太陽線は、成功や名声、人気、そして心が満たされる幸福感を表す線です。お金や地位だけでなく、「自分は幸せだ」と感じられる力の表れでもあります。長くはっきりしているほど、才能が世の中に認められやすいとされます。",
@@ -98,7 +100,7 @@ export const ENTRIES = [
     advice: "好きなことに夢中になると、太陽線は伸びると言われます。",
     related: ["unmeisen", "zaiunsen", "ninkisen"] },
 
-  { slug: "zaiunsen", group: "basic", name: "財運線", reading: "ざいうんせん", key: "zaiun",
+  { slug: "zaiunsen", tags: ["money"], group: "basic", name: "財運線", reading: "ざいうんせん", key: "zaiun",
     summary: "金運・お金を稼ぐ力とためる力を表す線。金運線とも呼ばれる。",
     where: "小指のつけ根に向かって縦に伸びる線です。",
     meaning: "財運線は、お金を稼ぐ力や、お金を上手に回す力を表します。商売の才覚やコミュニケーション力とも関係があるとされます。1本はっきりしている人は、お金のやりくりが上手なタイプです。",
@@ -114,7 +116,7 @@ export const ENTRIES = [
     advice: "お財布の中を整えると、財運線も整うと言われます。",
     related: ["taiyousen", "kekkonsen", "unmeisen"] },
 
-  { slug: "kekkonsen", group: "basic", name: "結婚線", reading: "けっこんせん", key: "kekkon",
+  { slug: "kekkonsen", tags: ["love"], group: "basic", name: "結婚線", reading: "けっこんせん", key: "kekkon",
     summary: "恋愛・結婚・パートナーとの関係を表す線。",
     where: "小指のつけ根と感情線のあいだ、手のひらの側面に横に入る短い線です。",
     meaning: "結婚線は、恋愛や結婚、パートナーとの関係を表す線です。本数は結婚の回数ではなく、心に残る恋愛やご縁の数を表すとされます。長さ、向き、先の形で、恋愛のスタイルや今の関係の状態がわかります。",
@@ -147,7 +149,7 @@ export const ENTRIES = [
     related: ["seimeisen", "shougaisen", "shirushi"] },
 
   // ---------------- 幸運のしるし・珍しい線 ----------------
-  { slug: "masukakesen", group: "lucky", name: "ますかけ線", reading: "ますかけせん", custom: true,
+  { slug: "masukakesen", tags: ["money"], group: "lucky", name: "ますかけ線", reading: "ますかけせん", custom: true,
     summary: "頭脳線と感情線が1本につながった、強運の相。",
     where: "頭脳線と感情線が1本の線になり、手のひらを横一直線に横切っている形です。",
     meaning: "ますかけ線は、「枡（ます）を掛けて取るように、富をつかむ」という意味から名づけられた、強運の相として知られています。持っている人は少なく、決断力と集中力に優れ、ひとつのことを極めて大きな成果をあげるタイプとされます。",
@@ -223,7 +225,7 @@ export const ENTRIES = [
     advice: "人の話をよく聞くことが、あなたの才能をさらに伸ばします。",
     related: ["oka", "butsugan", "taiyousen"] },
 
-  { slug: "kinseitai", group: "lucky", name: "金星帯", reading: "きんせいたい", custom: true,
+  { slug: "kinseitai", tags: ["love"], group: "lucky", name: "金星帯", reading: "きんせいたい", custom: true,
     summary: "感情線の上の弧。感受性と美的センスの相。",
     where: "感情線の上、人差し指と中指のあいだあたりから、薬指と小指のあいだあたりまで、弧を描く線です。",
     meaning: "金星帯は、感受性の豊かさや、美しいものへのセンス、異性を惹きつける魅力を表すとされる線です。芸術的な才能に恵まれる一方、感情の起伏が大きくなりやすい面もあります。",
@@ -238,7 +240,7 @@ export const ENTRIES = [
     advice: "感情の波を感じたら、好きなことで気分転換をしましょう。",
     related: ["kanjousen", "kekkonsen", "ninkisen"] },
 
-  { slug: "koujousen", group: "lucky", name: "向上線（開運線）", reading: "こうじょうせん（かいうんせん）", custom: true,
+  { slug: "koujousen", tags: ["money"], group: "lucky", name: "向上線（開運線）", reading: "こうじょうせん（かいうんせん）", custom: true,
     summary: "生命線から上へ伸びる枝。努力が実る相。",
     where: "生命線の途中から、人差し指や中指の方向へ、上向きに伸びる短い線です。",
     meaning: "向上線（開運線）は、努力が実り、運気が上向く時期を表すとされる線です。生命線のどのあたりから出ているかで、その時期の目安がわかると言われます。目標に向かってがんばっているときに、くっきり現れやすい線です。",
@@ -268,7 +270,7 @@ export const ENTRIES = [
     advice: "行ったことのない場所に出かけると、新しい運が巡ってきます。",
     related: ["seimeisen", "ninkisen", "oka"] },
 
-  { slug: "ninkisen", group: "lucky", name: "人気線", reading: "にんきせん", custom: true,
+  { slug: "ninkisen", tags: ["love", "money"], group: "lucky", name: "人気線", reading: "にんきせん", custom: true,
     summary: "月丘から手のひらの中央へ伸びる線。人に好かれる相。",
     where: "小指側の手首の上（月丘）から、手のひらの中央や運命線のほうへ向かって伸びる線です。",
     meaning: "人気線は、人から好かれ、引き立てを受けやすいことを表す線です。人に支えられて運が開けるタイプで、人前に出る仕事や、人と関わる仕事で輝くとされます。",
@@ -282,6 +284,117 @@ export const ENTRIES = [
     work: "接客・営業・発信など、人と関わる仕事で力を発揮します。",
     advice: "人からの誘いには、なるべく顔を出してみましょう。",
     related: ["unmeisen", "taiyousen", "ryokousen"] },
+
+  // ---------------- 恋愛・結婚の線 ----------------
+  { slug: "eikyousen", group: "love", tags: ["love"], name: "影響線", reading: "えいきょうせん", custom: true,
+    summary: "運命線に寄り添い、合流する線。結婚や大切な人との出会いの相。",
+    where: "小指側の手首の上（月丘）のほうから伸びてきて、運命線に寄り添ったり、合流したりする線です。",
+    meaning: "影響線は、あなたの人生に大きな影響を与える人の存在を表すとされる線です。とくに運命線に合流する影響線は、結婚やパートナーとの出会いを表す代表的な相。合流する位置が、出会いの時期の目安になると言われます。",
+    fig: { hl: ["M84,334 C108,304 134,276 154,252"], base: Object.keys(L) },
+    variants: [
+      { title: "運命線に合流する影響線", text: "結婚や、人生をともにするパートナーとの出会いを表すとされます。", fig: { hl: [L.unmei, "M84,334 C108,304 134,276 154,252"], base: without("unmei") } },
+      { title: "運命線に寄り添って伸びる影響線", text: "あなたを支えてくれる人が、そばにいることを表します。家族や恩人の場合も。", fig: { hl: [L.unmei, "M138,372 C140,330 143,290 146,252"], base: without("unmei") } },
+      { title: "運命線を横切る影響線", text: "まわりの人の影響で、人生の流れが変わる時期を表します。良い縁かどうか、よく見極めて。", fig: { hl: [L.unmei, "M100,300 C130,290 170,278 200,268"], base: without("unmei") } },
+      { title: "金星丘にある影響線", text: "生命線の内側に寄り添う細い線は、家族や身近な人からの強い愛情を表すとされます。", fig: { hl: [L.seimei, "M210,240 C196,262 194,300 204,340"], base: without("seimei") } }
+    ],
+    love: "合流する影響線がはっきりしているときは、出会いや結婚のチャンスが近いサインとされます。",
+    work: "仕事でも、人生を変える恩人や協力者との出会いを表すことがあります。",
+    advice: "人の紹介や集まりには、なるべく顔を出してみましょう。",
+    related: ["unmeisen", "kekkonsen", "ninkisen"] },
+
+  { slug: "tamanokoshisen", group: "love", tags: ["love", "money"], name: "玉の輿線", reading: "たまのこしせん", custom: true,
+    summary: "結婚線が薬指の下まで伸びる線。結婚で幸運をつかむ相。",
+    where: "小指の下の結婚線が長く伸び、薬指の下の太陽線に届いている（または交わっている）形です。",
+    meaning: "玉の輿線は、結婚によって社会的な成功や経済的な豊かさを手にするとされる相です。女性だけでなく男性にも現れ、パートナーとの結びつきが人生を大きく押し上げることを表します。",
+    fig: { hl: ["M67,192 C90,190 106,186 118,184", L.taiyou], base: without("kekkon", "taiyou") },
+    variants: [
+      { title: "太陽線に届く結婚線", text: "結婚によって、名誉や豊かさに恵まれる典型的な玉の輿の相です。" },
+      { title: "太陽線と交わって先に伸びる結婚線", text: "パートナーの成功を支えることで、ふたりで豊かになれる相とされます。" },
+      { title: "太陽線の手前で止まる長い結婚線", text: "良縁に恵まれる相。あと一歩の努力で、さらに幸運が広がります。" },
+      { title: "結婚線の先が上向きに伸びる", text: "結婚後に運気が上がっていくことを表すとされます。" }
+    ],
+    love: "理想の相手と出会いやすい相。自分を磨くことで、良い縁を引き寄せます。",
+    work: "パートナーや協力者の力を得て、仕事でも成功しやすい相です。",
+    advice: "相手に頼るだけでなく、ふたりで高め合う気持ちが幸運を長続きさせます。",
+    related: ["kekkonsen", "taiyousen", "eikyousen"] },
+
+  { slug: "nijuukanjousen", group: "love", tags: ["love"], name: "二重感情線", reading: "にじゅうかんじょうせん", custom: true,
+    summary: "感情線が2本平行に並ぶ線。愛情深さと情熱の相。",
+    where: "感情線のすぐ下（または上）に、もう1本の線が平行に伸びている形です。",
+    meaning: "二重感情線は、人の倍の愛情と情熱を持つとされる相です。感受性が豊かで、大切な人のためなら全力を尽くせるタイプ。その一方で、気持ちが強すぎて相手に依存しやすい面もあるとされます。",
+    fig: { hl: [L.kanjou, "M70,226 C112,220 160,216 200,194"], base: without("kanjou") },
+    variants: [
+      { title: "長くはっきりした二重感情線", text: "愛情も情熱も人一倍。一途な恋をするタイプです。" },
+      { title: "一部だけ二重になっている", text: "ある時期に、とくに情熱的な恋をすることを表すとされます。" },
+      { title: "2本が離れている", text: "恋愛と仕事など、ふたつのことに情熱を注げるタイプです。" }
+    ],
+    love: "情熱的で一途。相手を思う気持ちが強いぶん、自分の時間も大切にすると長続きします。",
+    work: "情熱を傾けられる仕事で、大きな力を発揮します。",
+    advice: "愛情の強さは長所。相手のペースも尊重すると、関係がもっと深まります。",
+    related: ["kanjousen", "kinseitai", "kekkonsen"] },
+
+  { slug: "kodomosen", group: "love", tags: ["love"], name: "子供線（子宝線）", reading: "こどもせん（こだからせん）", custom: true,
+    summary: "結婚線の上に入る短い縦線。子どもとの縁や、育てる力を表す。",
+    where: "小指のつけ根と結婚線のあいだに入る、短い縦の線です。結婚線から上へ伸びることもあります。",
+    meaning: "子供線は、子どもとのご縁や、人や物事を育てる力を表すとされる線です。実際の子どもの人数を決めるものではなく、愛情を注いで何かを育てる力の表れとして見るのがおすすめです。後輩や部下、作品やペットなど、育てる対象との縁も含めて読みます。",
+    fig: { hl: ["M74,190 L74,176", "M80,190 L80,178"], base: Object.keys(L) },
+    variants: [
+      { title: "はっきりした縦線がある", text: "子どもや、育てるものとの縁が深い相。面倒見がよく、人を育てる力があります。" },
+      { title: "結婚線から上に伸びる", text: "結婚後に、子どもや家族との縁が深まることを表すとされます。" },
+      { title: "細い線がたくさんある", text: "人をかわいがり、まわりから慕われるタイプです。" },
+      { title: "子供線がない・薄い", text: "子どもとの縁がないという意味ではありません。自分の時間や仕事に力を注げるタイプです。" }
+    ],
+    love: "家族を大切にし、温かい家庭を築けるタイプとされます。",
+    work: "後輩の指導や、教育・保育など人を育てる仕事に向いています。",
+    advice: "手相は可能性のひとつ。気にしすぎず、今の縁を大切に。",
+    related: ["kekkonsen", "eikyousen", "kanjousen"] },
+
+  // ---------------- 金運・財運の線 ----------------
+  { slug: "fish", group: "money", tags: ["money"], name: "フィッシュ（幸運の魚）", reading: "ふぃっしゅ", custom: true,
+    summary: "手首の近くに現れる魚の形のしるし。財運と幸運の相。",
+    where: "手首の近く、運命線や生命線の始まりのあたりに、魚のような形（楕円に尾がついた形）のしるしが現れるものです。",
+    meaning: "フィッシュは、晩年にかけて財産や幸運に恵まれるとされる、珍しい吉相です。魚はたくさんの卵を産むことから豊かさの象徴とされ、地道に積み上げたものが大きな実りになることを表します。",
+    fig: { hl: [], marks: [["fish", 152, 358, 9]] },
+    variants: [
+      { title: "運命線の始まりにあるフィッシュ", text: "人生の後半に、大きな財産や幸運を手にする相とされます。" },
+      { title: "生命線の下にあるフィッシュ", text: "家族や家庭から豊かさを受け取る相とされます。" },
+      { title: "はっきりした大きなフィッシュ", text: "とくに強い財運を表すとされます。" }
+    ],
+    love: "穏やかで豊かな家庭を築ける相とされます。",
+    work: "長く続けてきたことが、大きな財産になる相です。",
+    advice: "焦らず続けることが、フィッシュの幸運を育てます。",
+    related: ["zaiunsen", "tekubisen", "unmeisen"] },
+
+  { slug: "tekubisen", group: "money", tags: ["money"], name: "手首線", reading: "てくびせん", custom: true,
+    summary: "手首に横に入る線。健康と財運の土台を表す。",
+    where: "手のひらと手首の境目あたりに、横に入っている線です。ブレスレットのように見えることから「ラセット」とも呼ばれます。",
+    meaning: "手首線は、体の丈夫さや、生活の安定、財産を築く土台を表すとされる線です。くっきりした線が多いほど、健康で豊かな人生を送れるとされます。",
+    fig: { hl: ["M98,382 C130,376 172,376 206,382", "M102,372 C132,366 170,366 202,372"], base: Object.keys(L) },
+    variants: [
+      { title: "3本くっきりした手首線", text: "健康運・財運ともに恵まれる、とても良い相とされます。" },
+      { title: "1本目が手のひら側にカーブしている", text: "疲れやすいサインとも言われます。体を冷やさないように。" },
+      { title: "途切れ途切れの手首線", text: "生活のリズムが乱れているサイン。睡眠や食事を見直して。" },
+      { title: "手首線から上へ伸びる線", text: "手首から伸びる線は、努力で運を切りひらく力を表します。" }
+    ],
+    love: "生活の土台が安定している人は、恋愛でも安心感を与えられます。",
+    work: "地道な努力が財産につながる相です。",
+    advice: "体を整えることが、金運のいちばんの土台です。",
+    related: ["fish", "seimeisen", "zaiunsen"] },
+
+  { slug: "kinunsankaku", group: "money", tags: ["money"], name: "金運の三角（三角紋）", reading: "きんうんのさんかく", custom: true,
+    summary: "手のひらの中にできる三角形のしるし。お金をためる力の相。",
+    where: "手のひらの中央や小指の下のあたりで、線どうしが三角形を作っているしるしです。",
+    meaning: "金運の三角は、入ってきたお金をしっかり守り、ためていく力を表すとされるしるしです。三角形が大きく、くっきりしているほど、財産を築く力が強いとされます。",
+    fig: { hl: [], marks: [["triangle", 104, 234, 11]] },
+    variants: [
+      { title: "小指の下の三角", text: "商才があり、お金を回して増やす力があるとされます。" },
+      { title: "手のひらの中央の大きな三角", text: "生活が安定し、財産を築いていける相です。" },
+      { title: "三角が閉じていない", text: "お金が出ていきやすいサイン。使い道を見直すと良いでしょう。" }
+    ],
+    love: "堅実な金銭感覚が、安定した家庭づくりにつながります。",
+    work: "お金の管理や、商売で力を発揮する相です。",
+    advice: "毎月の小さな貯金が、三角の力を強めます。",
+    related: ["zaiunsen", "shirushi", "taiyousen"] },
 
   // ---------------- 注意のサイン ----------------
   { slug: "shougaisen", group: "caution", name: "障害線", reading: "しょうがいせん", custom: true,
