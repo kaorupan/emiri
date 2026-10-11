@@ -12,13 +12,20 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 // カテゴリの並び順。data/<id>.mjs がカテゴリ本体。
 // data/*-more.mjs は既存カテゴリへの追加（addTo）と、既存の語への追記（upgrade：心理・恋愛・仕事・場面の追加）。
-const CATS = ["animal", "insect", "people", "action", "body", "nature", "place", "thing", "supernatural"];
+const CATS = ["animal", "insect", "people", "emotion", "action", "body", "nature", "place", "vehicle", "thing", "food", "fashion", "hobby", "event", "supernatural"];
 const MORE = fs.readdirSync(path.join(ROOT, "tools/yume/data")).filter((f) => /-more\.mjs$/.test(f)).sort();
 const LUCK = { good: "吉夢", mixed: "状況しだい", caution: "注意のサイン" };
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const cats = [];
 for (const c of CATS) cats.push((await import(path.join(ROOT, "tools/yume/data", c + ".mjs"))).default);
+// take：ほかのカテゴリから語を移す（URLは変わらない）
+for (const c of cats) for (const slug of c.take || []) {
+  const from = cats.find((x) => x !== c && x.entries.some((e) => e.slug === slug));
+  if (!from) throw new Error(`${c.id}: take の ${slug} がない`);
+  const i = from.entries.findIndex((e) => e.slug === slug);
+  c.entries.push(from.entries.splice(i, 1)[0]);
+}
 for (const f of MORE) {
   const m = (await import(path.join(ROOT, "tools/yume/data", f))).default;
   if (m.addTo) {
@@ -190,7 +197,7 @@ ${c.entries.map((e) => `      <li data-words="${esc(e.word + " " + e.reading + "
   <section class="hero">
     <p class="eyebrow">DREAM DICTIONARY</p>
     <h1>夢占い辞典</h1>
-    <p>見た夢のキーワードから、夢が伝えるメッセージを読み解きます。動物・虫・人物・行動・体・自然・場所・お金や物・不思議な存在の${all.length}のキーワードを、${all.reduce((t, e) => t + e.variants.length, 0)}の場面別の意味とアドバイスつきで解説しています。</p>
+    <p>見た夢のキーワードから、夢が伝えるメッセージを読み解きます。${cats.map((c) => c.name.replace(/の夢$/, "")).join("・")}の${all.length}のキーワードを、${all.reduce((t, e) => t + e.variants.length, 0)}の場面別の意味とアドバイスつきで解説しています。</p>
   </section>
 
   <form class="card yume-search" role="search" onsubmit="return false">
