@@ -1,0 +1,39 @@
+/* 吉方位・干支（kyusei.css の部品を使う） */
+.kp-chart { margin: 12px auto; max-width: 420px; }
+.kp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.kp-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 92px; padding: 8px 4px; border-radius: 12px; background: #0d0914; border: 1px solid #382943; text-align: center; min-width: 0; }
+.kp-cell b { font-family: var(--serif); font-size: 20px; }
+.kp-dir { font-size: 12px; color: var(--muted); }
+.kp-mark { margin-top: 4px; font-size: 11px; line-height: 1.35; word-break: keep-all; overflow-wrap: anywhere; }
+.kp-center { background: rgba(211, 174, 81, .08); border-color: #6b5a3a; }
+.kp-cell.is-best { border-color: #f0cc5c; background: rgba(240, 204, 92, .14); }
+.kp-cell.is-best .kp-mark { color: #f0cc5c; font-weight: 700; }
+.kp-cell.is-good { border-color: #9fd99a; background: rgba(159, 217, 154, .10); }
+.kp-cell.is-good .kp-mark { color: #9fd99a; font-weight: 700; }
+.kp-cell.is-bad { border-color: #b9707a; background: rgba(229, 160, 168, .06); }
+.kp-cell.is-bad .kp-mark { color: #e5a0a8; }
+.kp-chart figcaption { margin-top: 8px; font-size: 12px; color: var(--muted); text-align: center; }
+.kp-legend { list-style: none; padding: 0; margin: 12px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; font-size: 14px; }
+.kp-table-wrap { overflow-x: auto; }
+.kp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.kp-table th, .kp-table td { padding: 10px 8px; border-bottom: 1px solid #2f2440; text-align: left; vertical-align: top; }
+.kp-table thead th { font-size: 12px; color: var(--muted); font-weight: 400; white-space: nowrap; }
+.kp-table tbody th { white-space: nowrap; }
+.kp-effect h3 { font-size: 15px; margin: 14px 0 4px; color: var(--gold); }
+.kp-effect p { margin: 0; }
+.kp-tags { margin-bottom: 8px; }
+
+/* 干支 */
+.eto-badge { text-align: center; margin: 12px 0; }
+.eto-badge b { display: block; font-family: var(--serif); font-size: 44px; line-height: 1.1; color: var(--gold); }
+.eto-badge span { color: var(--muted); font-size: 14px; }
+.eto-grid { list-style: none; padding: 0; margin: 12px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.eto-grid a { display: block; padding: 10px 12px; border-radius: 12px; background: #0d0914; border: 1px solid #382943; text-decoration: none; color: var(--text); }
+.eto-grid a:hover, .eto-grid a:focus-visible { border-color: var(--gold); }
+.eto-grid b { font-family: var(--serif); font-size: 20px; margin-right: 6px; color: var(--gold); }
+.eto-grid small { display: block; color: var(--muted); font-size: 12px; }
+.eto-years { font-size: 14px; line-height: 1.9; }
+.eto-form-row { display: flex; gap: 10px; align-items: end; }
+.eto-form-row .bd-cell { flex: 1; }
+.eto-form-row .btn { width: auto; margin-top: 0; padding-left: 24px; padding-right: 24px; }
+@media (max-width: 420px) { .kp-cell { min-height: 84px; } .kp-cell b { font-size: 18px; } .kp-legend { grid-template-columns: 1fr; } }
