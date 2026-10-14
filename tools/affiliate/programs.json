@@ -1,3 +1,14 @@
 {
-  "programs": []
+  "programs": [
+    {
+      "name": "電話占い【ミラー】",
+      "lead": "新規会員登録で3,000円無料クーポンプレゼント中",
+      "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
+      "pixel": "https://www13.a8.net/0.gif?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
+      "themes": ["love", "general"],
+      "asp": "A8.net",
+      "advertiser": "株式会社ラップス",
+      "active": true
+    }
+  ]
 }
