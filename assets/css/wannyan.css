@@ -29,3 +29,17 @@
   .wn-lg { width: 180px; height: 180px; }
   .wn-grid { grid-template-columns: repeat(3, 1fr); }
 }
+.wn-pair { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 14px; }
+.wn-pair-card { flex: 1 1 0; text-align: center; min-width: 0; }
+.wn-pair-card .eyebrow { margin-bottom: 6px; }
+.wn-md { width: 120px; height: 120px; margin: 0 auto; border: 2px solid rgba(231, 197, 104, .45); }
+.wn-md .wn-ph-emoji { font-size: 48px; }
+.wn-pair-name { font-weight: 800; margin: 8px 0 2px !important; font-size: 14px; }
+.wn-pair-x { font-size: 28px; color: var(--gold); flex: none; }
+.wn-reading { margin-top: 16px; }
+.wn-reading h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.wn-pill { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(231, 197, 104, .55); color: var(--gold); }
+.wn-tip { font-size: 14px; color: var(--muted); }
+.wn-partner-field { margin-top: 16px; }
+.wn-aisho-link { text-align: center; margin: 4px 0 16px !important; }
+@media (max-width: 480px) { .wn-md { width: 96px; height: 96px; } }

@@ -44,7 +44,8 @@
       h("div", { class: "wn-actions" },
         h("a", { class: "btn", href: "https://line.me/R/share?text=" + encodeURIComponent(share), target: "_blank", rel: "noopener" }, "LINEで結果を送る"),
         h("a", { class: "btn btn-ghost", href: "https://x.com/intent/post?text=" + encodeURIComponent(share), target: "_blank", rel: "noopener" }, "Xでシェア"),
-        h("a", { class: "btn btn-ghost", href: t.slug + "/" }, "このタイプをくわしく見る")),
+        h("a", { class: "btn btn-ghost", href: t.slug + "/" }, "このタイプをくわしく見る"),
+        h("a", { class: "btn btn-ghost", href: "aisho/" }, "気になる人との相性を見る")),
       h("h3", { class: "wn-subhead" }, t.group.name + "のなかま"),
       h("ul", { class: "wn-grid" }, mates.map(function (x) {
         return h("li", null, h("a", { href: x.slug + "/" },

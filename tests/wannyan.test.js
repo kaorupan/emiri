@@ -52,3 +52,27 @@ test("ページ：TOPと96ページ、リンク切れなし、TOPからリンク
   }
   assert.ok(fs.readFileSync(path.join(ROOT, "index.html"), "utf8").includes('href="wannyan/"'));
 });
+
+const aisho = require("../assets/js/content/wannyan-aisho.js");
+const seijuTypes = require("../assets/js/content/seiju-types.js");
+test("わんにゃん相性：組み合わせごとに読み解きがそろう", () => {
+  const W = require("../assets/js/engines/wannyan.js");
+  const pairs = [["1991", "8", "20", "1983", "9", "6"], ["2000", "1", "1", "2000", "1", "1"], ["1985", "3", "10", "1990", "12", "25"], ["1970", "6", "1", "2010", "11", "30"]];
+  for (const [y1, m1, d1, y2, m2, d2] of pairs) {
+    const r1 = W.calculateWannyan({ year: y1, month: m1, day: d1 });
+    const r2 = W.calculateWannyan({ year: y2, month: m2, day: d2 });
+    const a = aisho.build(r1, r2, seijuTypes.PERIODS);
+    for (const k of ["kind", "moon", "period", "element"]) {
+      assert.ok(a[k] && a[k].label && a[k].text && a[k].text.length >= 30, k);
+      assert.ok(!/undefined|NaN/.test(a[k].text), k + " text");
+    }
+  }
+  const same = W.calculateWannyan({ year: 2000, month: 1, day: 1 });
+  assert.equal(aisho.build(same, same, seijuTypes.PERIODS).notes.length, 1);
+  for (let s = 0; s <= 6; s++) assert.ok(aisho.moonRelation({ n: 0 }, { n: s }));
+});
+test("わんにゃん相性ページがある", () => {
+  const html = require("node:fs").readFileSync(require("node:path").join(__dirname, "../wannyan/aisho/index.html"), "utf8");
+  assert.match(html, /id="wannyan-aisho-form"/);
+  assert.match(html, /wannyan-aisho-page\.js/);
+});

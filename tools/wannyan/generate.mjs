@@ -100,6 +100,7 @@ function typePage(t) {
     <h3>月の形：${esc(t.moon.name)}（${esc(t.moon.reading)}）</h3>
     <p>${esc(t.moon.trait)}</p>
     <p class="wn-cta"><a class="btn" href="../">自分のタイプを生年月日で調べる</a></p>
+    <p><a href="../aisho/">気になる人との相性を占う →</a></p>
   </section>
 
   <section class="card" aria-labelledby="wn-team-title">
@@ -155,6 +156,7 @@ function indexPage() {
     <div data-birthdate="wannyan"></div>
     <button type="submit" class="btn">わたしのタイプを見る</button>
   </form>
+  <p class="wn-aisho-link"><a href="aisho/">ふたりの相性を占う（わんこ×にゃんこ相性）→</a></p>
 
   <div id="wannyan-result" class="wn-result" hidden data-images="${esc(images)}"></div>
 
@@ -208,7 +210,62 @@ function promptsFile() {
   fs.writeFileSync(path.join(ROOT, "tools/wannyan/image-prompts.md"), lines.join("\n") + "\n");
 }
 
+function aishoPage() {
+  const rel = "wannyan/aisho/";
+  const scripts = ["core/date.js", "core/dom.js", "core/profile.js", "core/birthdate-field.js", "core/astro.js", "engines/seiju.js", "content/seiju-data.js", "content/seiju-text.js", "content/seiju-types.js", "content/wannyan-data.js", "engines/wannyan.js", "content/wannyan-aisho.js", "pages/wannyan-aisho-page.js"]
+    .map((s) => `<script defer src="../../assets/js/${s}"></script>`).join("\n");
+  const images = W.TYPES.filter((t) => hasImg(t.slug)).map((t) => t.slug).join(",");
+  const body = `<main id="main" class="wrap-narrow">
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../../">えみり</a></li>
+      <li><a href="../">${NAME}</a></li>
+      <li aria-current="page">相性</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">STAR PETS · COMPATIBILITY</p>
+    <h1>${NAME}の相性｜わんこ×にゃんこで見るふたりの関係</h1>
+    <p>ふたりの生年月日から、それぞれの犬・猫タイプを出して、「わんこ×にゃんこの組み合わせ」「月の形」「生まれた時期」「元素」「チームどうし」の5つで相性を読み解きます。恋人・友だち・家族・職場の人、誰とでも占えます。</p>
+    <ul class="badges" aria-label="特徴">
+      <li class="badge">完全無料</li>
+      <li class="badge">生年月日だけ</li>
+      <li class="badge">誰とでも</li>
+    </ul>
+  </section>
+
+  <form id="wannyan-aisho-form" class="card" novalidate>
+    <div data-birthdate="wn-self"></div>
+    <div data-birthdate="wn-partner" class="wn-partner-field"></div>
+    <button type="submit" class="btn">ふたりの相性を見る</button>
+  </form>
+
+  <div id="wannyan-aisho-result" class="wn-result" hidden data-images="${esc(images)}"></div>
+
+  <section class="card prose" aria-labelledby="wn-ah-how">
+    <h2 id="wn-ah-how">相性の見方</h2>
+    <ul>
+      <li><strong>わんこ×にゃんこ</strong>：わんこどうし、にゃんこどうし、わんことにゃんこ。3つの組み合わせで、ふたりの距離感がわかります。</li>
+      <li><strong>月の形</strong>：12の月の形がどれだけ離れているか。同じ月、となりの月、向かい合う月など。</li>
+      <li><strong>生まれた時期</strong>：8つの時期の関係。同じ季節の前と後、向かい合う季節など。</li>
+      <li><strong>元素</strong>：木・火・土・金・水の、育て合う関係（相生）と引き締め合う関係（相剋）。</li>
+      <li><strong>チームどうし</strong>：えみりの「<a href="../../seiju/aisho/">星獣カルテの相性</a>」で、恋愛・会話・仕事・すれ違いやすいポイントまで。</li>
+    </ul>
+    <p><a href="../">自分ひとりのタイプを見る</a>・<a href="../#wn-all">96タイプの一覧</a></p>
+  </section>
+
+  <p class="notice">${NAME}は、えみりのオリジナル占いです。入力した生年月日はサーバーに送信しません。</p>
+</main>
+
+`;
+  write(rel, head(rel, `${NAME}の相性｜生年月日でわかる、わんこ×にゃんこの相性診断【無料】｜えみり`,
+    `${NAME}の相性診断。ふたりの生年月日から犬・猫タイプを出して、わんこ×にゃんこの組み合わせ・月の形・生まれた時期・元素・チームどうしの5つで相性を読み解きます。無料・登録不要。`,
+    `${NAME}の相性｜えみり`, "ふたりの生年月日から、わんこ×にゃんこで相性を読み解きます。", 2, scripts) + body + foot(2));
+}
+
 for (const t of W.TYPES) typePage(t);
+aishoPage();
 indexPage();
 promptsFile();
 console.log(`wannyan：96タイプ（画像あり ${W.TYPES.filter((t) => hasImg(t.slug)).length}）`);
