@@ -1,11 +1,27 @@
 {
   "programs": [
     {
+      "name": "チャット占い【ブリランテ】",
+      "lead": "チャットで、占い師に悩みを相談できるサービスです",
+      "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EJXH4I+5SGG+5YJRM",
+      "pixel": "https://www16.a8.net/0.gif?a8mat=4BEGDB+EJXH4I+5SGG+5YJRM",
+      "themes": [
+        "love",
+        "general"
+      ],
+      "asp": "A8.net",
+      "advertiser": "デジタル通信株式会社",
+      "active": true
+    },
+    {
       "name": "電話占い【ミラー】",
       "lead": "新規会員登録で3,000円無料クーポンプレゼント中",
       "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
       "pixel": "https://www13.a8.net/0.gif?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
-      "themes": ["love", "general"],
+      "themes": [
+        "love",
+        "general"
+      ],
       "asp": "A8.net",
       "advertiser": "株式会社ラップス",
       "active": true
