@@ -404,3 +404,11 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - `site.config.json` の `premiumVisible`（今は false＝非表示）。`node tools/premium/visibility.mjs` で反映（毎日のワークフローでも実行）。
 - 非表示のとき：メニュー・フッターの「本格占い」、TOP の切り替えタブ、各ページの案内（premium-upsell / premium-teaser）を `<!--premium-hidden:base64-->` にしまう。premium/ 以下は noindex でサイトマップから外れる（ページ自体は残る）。
 - 戻すとき：`premiumVisible` を true にして同じスクリプトを実行するだけで、元の HTML に完全に戻る（テストで確認）。
+
+## LINE で受け取る無料の総合鑑定書（line/）
+
+- `line/`：入力フォーム（LIFF で開く）。`line/kantei/?d=…`：鑑定書の表示。どちらも noindex でサイトマップ外。
+- 入力内容はサーバーに送らない。`assets/js/core/kantei-link.js` で入力と作成日を `?d=`（base64url の JSON）にして、LINE の中なら `liff.sendMessages` でそのリンクをトークに送ってから開く。無料版では有料の追加相性の案内は出さない。
+- `site.config.json` の `liffId`（LINE Developers の LINE ログインチャネルで作った LIFF ID。公開値）を入れて `node tools/line/generate.mjs`。空の間は準備中。
+- LIFF の設定：サイズ Full、エンドポイント `https://emiri-uranai.com/line/`、Scope `openid` `chat_message.write`、友だち追加オプション On (Aggressive)。リッチメニューの上段は `https://liff.line.me/<LIFF ID>`。
+- テスト：tests/line.test.js、tests/e2e/line_test.py（偽の LIFF）。

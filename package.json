@@ -15,8 +15,9 @@
     "eto": "node tools/eto/generate.mjs",
     "tesou": "node tools/tesou/generate.mjs",
     "legal": "node tools/legal/generate.mjs",
+    "line": "node tools/line/generate.mjs",
     "premium": "node tools/premium/generate.mjs",
     "affiliate": "node tools/affiliate/inject.mjs",
-    "e2e": "python3 tests/e2e/browser_test.py && python3 tests/e2e/tarot_test.py && python3 tests/e2e/seiju_test.py && python3 tests/e2e/kyusei_test.py && python3 tests/e2e/shichusuimei_test.py && python3 tests/e2e/maya_test.py && python3 tests/e2e/shukuyo_test.py && python3 tests/e2e/compat_test.py && python3 tests/e2e/horoscope_test.py && python3 tests/e2e/shibi_test.py && python3 tests/e2e/jyotish_test.py && python3 tests/e2e/seimei_test.py && python3 tests/e2e/kippoui_test.py && python3 tests/e2e/premium_order_test.py"
+    "e2e": "python3 tests/e2e/browser_test.py && python3 tests/e2e/tarot_test.py && python3 tests/e2e/seiju_test.py && python3 tests/e2e/kyusei_test.py && python3 tests/e2e/shichusuimei_test.py && python3 tests/e2e/maya_test.py && python3 tests/e2e/shukuyo_test.py && python3 tests/e2e/compat_test.py && python3 tests/e2e/horoscope_test.py && python3 tests/e2e/shibi_test.py && python3 tests/e2e/jyotish_test.py && python3 tests/e2e/seimei_test.py && python3 tests/e2e/kippoui_test.py && python3 tests/e2e/premium_order_test.py && python3 tests/e2e/line_test.py"
   }
 }

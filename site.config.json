@@ -7,5 +7,6 @@
   "adsenseClient": "ca-pub-6316201021688599",
   "salesApiUrl": "",
   "salesOpen": false,
-  "premiumVisible": false
+  "premiumVisible": false,
+  "liffId": ""
 }
