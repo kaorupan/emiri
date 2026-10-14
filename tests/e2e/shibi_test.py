@@ -5,6 +5,7 @@
     python3 tests/e2e/shibi_test.py --shots DIR # スクリーンショットも保存
 """
 import asyncio
+import json
 import functools
 import http.server
 import os
@@ -91,6 +92,8 @@ async def run(browser, base, label, viewport, mobile):
     await page.click("#shibi-aisho-form button[type=submit]")
     text = await page.inner_text("#shibi-aisho-result")
     order = ["あなたの命宮", "お相手の命宮", "ふたりの命盤の縁", "ふたりの四化", "ふたりの相性を、もっとくわしく"]
+    if json.load(open(os.path.join(ROOT, "site.config.json"), encoding="utf-8")).get("premiumVisible", True) is False:
+        order = order[:-1]  # 本格占いの導線を隠しているときは、案内の見出しはない
     pos = [text.find(s) for s in order]
     check("相性：見出しの順番", all(p >= 0 for p in pos) and pos == sorted(pos), pos)
     check("相性：化禄の飛び先", "お相手の化禄" in text and "あなたの化禄" in text)

@@ -398,3 +398,9 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - `node tools/affiliate/inject.mjs` で各ページの `</main>` 直前に `<!--aff-->` 枠を入れる（案件0件なら枠なし）。毎日のワークフローでも実行。ページを生成し直したら、このスクリプトも実行する。
 - 恋愛・相性のページは love、ほかの占いページは general。運営者情報・規約・本格占いのページには入れない。
 - 枠には必ず「PR」と、広告であることの説明を出す（ステマ規制）。プライバシーポリシーに「アフィリエイトプログラムについて」（#affiliate）。
+
+## 本格占いの導線の表示／非表示
+
+- `site.config.json` の `premiumVisible`（今は false＝非表示）。`node tools/premium/visibility.mjs` で反映（毎日のワークフローでも実行）。
+- 非表示のとき：メニュー・フッターの「本格占い」、TOP の切り替えタブ、各ページの案内（premium-upsell / premium-teaser）を `<!--premium-hidden:base64-->` にしまう。premium/ 以下は noindex でサイトマップから外れる（ページ自体は残る）。
+- 戻すとき：`premiumVisible` を true にして同じスクリプトを実行するだけで、元の HTML に完全に戻る（テストで確認）。

@@ -6,5 +6,6 @@
   "googleSiteVerification": "",
   "adsenseClient": "ca-pub-6316201021688599",
   "salesApiUrl": "",
-  "salesOpen": false
+  "salesOpen": false,
+  "premiumVisible": false
 }

@@ -36,6 +36,7 @@ jobs:
           node tools/kippoui/generate.mjs
           node tools/eto/generate.mjs
           node tools/affiliate/inject.mjs
+          node tools/premium/visibility.mjs
           node tools/seo/seo.mjs
       - name: テストと静的チェック
         run: |

@@ -9,12 +9,14 @@ import functools
 import http.server
 import os
 import socketserver
+import json
 import sys
 import threading
 
 from playwright.async_api import async_playwright
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+PREMIUM_VISIBLE = json.load(open(os.path.join(ROOT, "site.config.json"), encoding="utf-8")).get("premiumVisible", True) is not False
 SHOTS = sys.argv[sys.argv.index("--shots") + 1] if "--shots" in sys.argv else None
 results = []
 
@@ -65,6 +67,8 @@ async def run(browser, base, label, viewport, mobile):
         await page.reload()
         await fill(page, prefix, ("1990", "1", "1"), ("1992", "5", "15"))
         text = await page.inner_text(f"#{prefix}-result")
+        if not PREMIUM_VISIBLE:  # 本格占いの導線を隠しているときは、案内の見出しはない
+            order = [s for s in order if s != "ふたりの相性を、もっとくわしく"]
         pos = [text.find(s) for s in order]
         check(f"{path} 見出しの順番", all(p >= 0 for p in pos) and pos == sorted(pos), pos)
         for m in musts:
