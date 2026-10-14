@@ -50,6 +50,21 @@
         "love": 2,
         "general": 1
       }
+    },
+    {
+      "name": "ココナラでお悩み相談・カウンセリング",
+      "lead": "占い師やカウンセラーに、メールで悩みを相談できます",
+      "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
+      "pixel": "https://www14.a8.net/0.gif?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
+      "themes": [
+        "love"
+      ],
+      "rank": {
+        "love": 3
+      },
+      "asp": "A8.net",
+      "advertiser": "株式会社ココナラ",
+      "active": true
     }
   ]
 }
