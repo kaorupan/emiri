@@ -1,0 +1,9 @@
+name = "emiri-api"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+[vars]
+SITE_ORIGIN = "https://emiri-uranai.com"
+PRICE_JPY = "1980"
+
+# STRIPE_SECRET_KEY はシークレット。ここには書かない（Cloudflare の管理画面で運営者本人が設定する）

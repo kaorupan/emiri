@@ -10,7 +10,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const SKIP_DIRS = new Set([".git", "node_modules", "tests", "tools"]);
+const SKIP_DIRS = new Set([".git", "node_modules", "tests", "tools", "worker"]);
 const problems = [];
 const note = (file, msg) => problems.push(`${path.relative(ROOT, file) || file}: ${msg}`);
 

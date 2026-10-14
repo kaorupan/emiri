@@ -197,6 +197,7 @@ async def main():
                             ("SP375", {"viewport": {"width": 375, "height": 740}, "is_mobile": True, "has_touch": True})]:
             print(f"== {label}")
             ctx = await browser.new_context(**opts)
+            await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # 広告は読み込まない
             page = await ctx.new_page()
             console_errors = []
             page.on("console", lambda m: m.type == "error" and console_errors.append(m.text))

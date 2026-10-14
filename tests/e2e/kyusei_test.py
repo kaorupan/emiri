@@ -67,6 +67,7 @@ async def stars(page, root="#kyusei-summary"):
 async def run(browser, base, label, viewport, mobile):
     print(f"== {label}")
     ctx = await browser.new_context(viewport=viewport, is_mobile=mobile, has_touch=mobile)
+    await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # 広告は読み込まない
     page = await ctx.new_page()
     errors, dialogs = [], []
     page.on("console", lambda m: m.type == "error" and errors.append(m.text))
@@ -219,7 +220,8 @@ async def run(browser, base, label, viewport, mobile):
     for p in ["kyusei/", "kyusei/aisho/"]:
         await page.goto(base + p)
         check(f"[{label}] /{p} H1 が1つ・canonical あり", await page.locator("h1").count() == 1 and await page.locator("link[rel=canonical]").count() == 1)
-        txt = await page.text_content("body")
+        # 吉方位は専用ページ（/kippoui/）で出す。ここでは案内リンクだけ
+        txt = await page.evaluate("() => { const b = document.body.cloneNode(true); b.querySelectorAll('a[href$=\"kippoui/\"]').forEach(a => a.remove()); return b.textContent; }")
         check(f"[{label}] /{p} 傾斜宮・吉方位・運勢スコアを出さない", "傾斜" not in txt and "吉方位" not in txt and "今後追加" not in txt)
     dup = await page.evaluate("() => { const c={}; document.querySelectorAll('[id]').forEach(e=>c[e.id]=(c[e.id]||0)+1); return Object.keys(c).filter(k=>c[k]>1); }")
     check(f"[{label}] 重複ID 0", not dup, str(dup))
@@ -256,7 +258,7 @@ async def run(browser, base, label, viewport, mobile):
     await page.goto(base + "aisho/")
     check(f"[{label}] 相性TOPから九星気学の相性へリンク", await page.locator("a[href='../kyusei/aisho/']").count() == 1)
     await page.goto(base + "learn/")
-    check(f"[{label}] 占いを知るTOPから九星気学の説明へリンク", await page.locator("a[href='../kyusei/#kyusei-about']").count() == 1)
+    check(f"[{label}] 占いを知るTOPから九星気学の説明へリンク", await page.locator("a[href='kyusei/']").count() == 1)
 
     check(f"[{label}] console error 0", not errors, " | ".join(errors[:3]))
     check(f"[{label}] alert() が出ない", not dialogs, " | ".join(dialogs))

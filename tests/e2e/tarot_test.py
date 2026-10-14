@@ -78,6 +78,7 @@ async def choose_theme(page, value):
 async def run_viewport(browser, base, label, viewport, mobile):
     print(f"== {label}")
     ctx = await browser.new_context(viewport=viewport, is_mobile=mobile, has_touch=mobile, timezone_id="America/Los_Angeles")
+    await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # 広告は読み込まない
     page = await ctx.new_page()
     errors, dialogs = [], []
     page.on("console", lambda m: m.type == "error" and errors.append(m.text))
@@ -252,6 +253,7 @@ async def run_viewport(browser, base, label, viewport, mobile):
 async def run_blocked_storage(browser, base):
     print("== localStorage が使えない環境")
     ctx = await browser.new_context(viewport={"width": 375, "height": 740}, is_mobile=True)
+    await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # 広告は読み込まない
     await ctx.add_init_script("""Object.defineProperty(window, 'localStorage', { configurable: true, get() { throw new DOMException('denied', 'SecurityError'); } });""")
     page = await ctx.new_page()
     errors = []

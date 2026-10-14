@@ -1,0 +1,6 @@
+{
+  "name": "emiri-api",
+  "private": true,
+  "type": "module",
+  "description": "えみり 本格占いの支払い確認API（Cloudflare Workers）"
+}

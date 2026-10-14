@@ -1,0 +1,29 @@
+# 支払い確認API（worker/）を Cloudflare Workers に公開する
+# 必要な GitHub のシークレット（Settings → Secrets and variables → Actions）：
+#   CLOUDFLARE_API_TOKEN   Cloudflare の API トークン（テンプレート「Cloudflare Workers を編集する」）
+#   CLOUDFLARE_ACCOUNT_ID  Cloudflare のアカウントID
+# Stripe のシークレットキーはここでは扱わない（Cloudflare の管理画面で設定する）
+name: deploy-worker
+on:
+  push:
+    branches: [main]
+    paths: ["worker/**", ".github/workflows/worker.yml"]
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: シークレットの確認
+        id: ready
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN が未設定のため公開を飛ばします"; echo "ok=false" >> "$GITHUB_OUTPUT"; else echo "ok=true" >> "$GITHUB_OUTPUT"; fi
+      - name: 公開
+        if: steps.ready.outputs.ok == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: worker

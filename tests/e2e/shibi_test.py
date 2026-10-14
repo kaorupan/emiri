@@ -47,6 +47,7 @@ async def fill(page, y, m, d, hour="", minute=""):
 async def run(browser, base, label, viewport, mobile):
     print(f"== {label}")
     ctx = await browser.new_context(viewport=viewport, is_mobile=mobile, has_touch=mobile)
+    await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # 広告は読み込まない
     page = await ctx.new_page()
     errors = []
     page.on("console", lambda m: m.type == "error" and errors.append(m.text))

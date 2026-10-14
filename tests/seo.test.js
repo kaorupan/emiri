@@ -28,10 +28,11 @@ test("全ページ：canonical と og:url が baseUrl＋ページの場所、RSS
   }
 });
 
-test("sitemap.xml：全ページを1回ずつ載せ、運勢の記事には lastmod", () => {
+test("sitemap.xml：検索に出す全ページを1回ずつ載せ、運勢の記事には lastmod", () => {
   const xml = read("sitemap.xml");
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-  assert.deepEqual([...locs].sort(), pages().map(urlOf).sort());
+  const indexable = pages().filter((rel) => !read(rel).includes('<meta name="robots" content="noindex">'));
+  assert.deepEqual([...locs].sort(), indexable.map(urlOf).sort());
   assert.equal(new Set(locs).size, locs.length);
   for (const m of xml.matchAll(/<loc>[^<]*unsei\/(\d{4}-\d{2}-\d{2})\/<\/loc><lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/g)) assert.equal(m[1], m[2]);
 });

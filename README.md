@@ -374,3 +374,14 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
   - `contactFormUrl`：お問い合わせのGoogleフォームのURL。空ならフォームのボタンを出さず「準備中」と表示。
   - `googleSiteVerification`：Search Console の「HTMLタグ」で確認するときの content の値。TOPの head に入る。
   - `adsenseClient`：AdSense のサイト運営者ID（ca-pub-…）。全ページの head に広告コードが入り、`ads.txt` も作られる。
+
+## 本格占いの販売（Stripe ＋ Cloudflare Workers）
+
+- 流れ：`premium/order/`（入力・確認・同意）→ `worker/` の `POST /api/checkout` が Stripe Checkout（1,980円）を作る → 支払い → `premium/kantei/?sid=…` → `GET /api/kantei` が支払い済みを確かめて入力内容を返す → ブラウザで鑑定書を描く（作成日＝購入日）。
+- 入力内容は Stripe の注文情報（metadata）に保存。当方にデータベースはない。sid（URL）が読み返しの鍵。この端末で開いた鑑定書は注文ページに一覧表示（localStorage）。
+- `premium/kantei/` は noindex でサイトマップから外す。
+- 生成：`node tools/premium/generate.mjs`（注文ページ・鑑定書ページ、premium/ と premium/sample/ の `<!--buy-->` 部分）。
+- site.config.json：`salesApiUrl`（Worker のURL）、`salesOpen`（true で販売開始）。
+- Worker の公開：`.github/workflows/worker.yml`（GitHub シークレット CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID）。Stripe のシークレットキーは Cloudflare の管理画面で `STRIPE_SECRET_KEY` として運営者本人が設定する。リポジトリには書かない（テストで確認）。
+- 注意：鑑定文の組み立ては公開されている JavaScript で行うため、技術的には支払いなしで再現できる。価格帯から許容しているが、気になる場合は Worker 側で鑑定書を組み立てる形に移す。
+- テスト：tests/premium-sales.test.js（Worker を偽の Stripe で検査）、tests/e2e/premium_order_test.py（偽APIで注文〜鑑定書表示）。

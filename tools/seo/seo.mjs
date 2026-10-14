@@ -10,7 +10,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
-const SKIP = new Set([".git", ".github", "node_modules", "tests", "tools", "_site"]);
+const SKIP = new Set([".git", ".github", "node_modules", "tests", "tools", "_site", "worker"]);
 const DAILY_RE = /^unsei\/(\d{4}-\d{2}-\d{2})\/index\.html$/;
 
 export function loadConfig(root = ROOT) {
@@ -121,7 +121,9 @@ export function run(root = ROOT) {
     const file = path.join(root, rel);
     if (writeIfChanged(file, applyHead(fs.readFileSync(file, "utf8"), config, rel))) changed.push(rel);
   }
-  if (writeIfChanged(path.join(root, "sitemap.xml"), sitemap(config, pages))) changed.push("sitemap.xml");
+  // 検索に出さないページ（<meta name="robots" content="noindex">。購入者専用の鑑定書ページなど）はサイトマップに入れない
+  const indexable = pages.filter((rel) => !/<meta name="robots" content="noindex">/.test(fs.readFileSync(path.join(root, rel), "utf8")));
+  if (writeIfChanged(path.join(root, "sitemap.xml"), sitemap(config, indexable))) changed.push("sitemap.xml");
   if (writeIfChanged(path.join(root, "feed.xml"), feed(config, root, pages))) changed.push("feed.xml");
   const robots = `User-agent: *\nAllow: /\n\nSitemap: ${config.baseUrl}/sitemap.xml\n`;
   const ads = (config.adsenseClient || "").trim();
