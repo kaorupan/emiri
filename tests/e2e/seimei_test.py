@@ -1,3 +1,4 @@
+import re
 """姓名判断のブラウザ動作確認（Playwright / Chromium）
 
 使い方（リポジトリのルートで）:
@@ -43,6 +44,7 @@ async def run(browser, base, label, viewport, mobile):
     print(f"== {label}")
     ctx = await browser.new_context(viewport=viewport, is_mobile=mobile, has_touch=mobile)
     await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # 広告は読み込まない
+    await ctx.route(re.compile(r"^https://[^/]*a8\.net/"), lambda r: r.fulfill(status=200, content_type="image/gif", body=b"GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\xff\xff\xff!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"))  # アフィリエイトの画像も読み込まない
     page = await ctx.new_page()
     errors = []
     page.on("console", lambda m: m.type == "error" and errors.append(m.text))

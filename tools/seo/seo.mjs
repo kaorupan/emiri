@@ -4,10 +4,16 @@
 //  - 全ページの <head> に RSS（feed.xml）の案内を入れる
 //  - TOP に WebSite の構造化データを入れる（運勢の記事の構造化データは tools/daily/generate.mjs が書く）
 //  - sitemap.xml・feed.xml・robots.txt を作る
+//  - OGP画像（assets/img/ogp/。python3 tools/seo/ogp.py で作る）と twitter:card を全ページに入れる
+//  - パンくず（nav.breadcrumb）から BreadcrumbList の構造化データを作る
+//  - 「次はこの占いも」の関連リンク（tools/seo/sections.json）を本文の最後に入れる
+//  - sitemap.xml の lastmod：ページの中身が変わった日（tools/seo/lastmod.json に記録）
 // 何度実行しても同じ結果になる。独自ドメインに移るときは site.config.json の baseUrl を変えて実行するだけ。
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import crypto from "node:crypto";
+import { execSync } from "node:child_process";
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const SKIP = new Set([".git", ".github", "node_modules", "tests", "tools", "_site", "worker"]);
@@ -19,6 +25,60 @@ export function loadConfig(root = ROOT) {
 }
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+export const SECTIONS = JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "seo", "sections.json"), "utf8"));
+
+// ページに使うOGP画像（サイト内の場所）。タイプ別の画像 → 占いごとの画像 → 共通の画像
+export function ogpImageOf(rel, root = ROOT) {
+  const parts = rel.split("/");
+  const cands = [];
+  if (parts.length === 3) cands.push(`assets/img/ogp/${parts[0]}-${parts[1]}.jpg`);
+  if (parts.length > 1) cands.push(`assets/img/ogp/${parts[0]}.jpg`);
+  cands.push("assets/img/ogp/default.jpg");
+  return cands.find((c) => fs.existsSync(path.join(root, c))) || null;
+}
+
+const stripTags = (s) => s.replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').trim();
+
+// パンくず（<nav class="breadcrumb">）→ BreadcrumbList
+export function breadcrumbLd(html, pageUrl) {
+  const nav = html.match(/<nav class="breadcrumb"[^>]*>\s*<ol>([\s\S]*?)<\/ol>/);
+  if (!nav) return null;
+  const items = [...nav[1].matchAll(/<li([^>]*)>([\s\S]*?)<\/li>/g)].map((m) => {
+    const a = m[2].match(/<a href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/);
+    return a ? { name: stripTags(a[2]), item: new URL(a[1], pageUrl).href } : { name: stripTags(m[2]), item: pageUrl };
+  });
+  if (items.length < 2) return null;
+  return { "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: items.map((x, i) => ({ "@type": "ListItem", position: i + 1, name: x.name, item: x.item })) };
+}
+
+// 「次はこの占いも」：同じ占いの中のページには、その占いの関連先を4つ
+const RELATED_RE = /\n?<!--related-->[\s\S]*?<!--\/related-->\n?/;
+export function applyRelated(html, rel) {
+  let out = html.replace(RELATED_RE, "\n");
+  const top = rel.split("/")[0];
+  const sec = SECTIONS.sections[top];
+  if (rel === "index.html" || !sec || /<meta name="robots" content="noindex">/.test(out)) return out;
+  const up = "../".repeat(rel.split("/").length - 1);
+  const items = sec.related.map((k) => {
+    const r = SECTIONS.sections[k];
+    return `      <li><a href="${up}${k}/"><span>${r.emoji} ${esc(r.name)}<br><small class="lead">${esc(r.lead)}</small></span><span class="arrow" aria-hidden="true">→</span></a></li>`;
+  }).join("\n");
+  const block = `<!--related-->
+  <section class="section related-next" aria-labelledby="related-next-title">
+    <h2 id="related-next-title">次はこの占いも</h2>
+    <ul class="link-list">
+${items}
+    </ul>
+  </section>
+<!--/related-->`;
+  for (const anchor of ["<!--line-cta-->", "<!--aff-->", "</main>"]) {
+    const i = out.indexOf(anchor);
+    if (i >= 0) return out.slice(0, i) + block + "\n" + out.slice(i);
+  }
+  return out;
+}
 
 // サイト内の場所（"suhijutsu/index.html"）→ 正式URL
 export function urlOf(config, rel) {
@@ -51,6 +111,21 @@ export function applyHead(html, config, rel) {
     out = setOrInsertAfter(out, /<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]*" crossorigin="anonymous"><\/script>/,
       `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(ads)}" crossorigin="anonymous"></script>`, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/);
   }
+  // OGP画像と twitter:card
+  const img = ogpImageOf(rel);
+  if (img) {
+    out = setOrInsertAfter(out, /<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${esc(config.baseUrl + "/" + img)}">`, /<meta property="og:url" content="[^"]*">/);
+    out = setOrInsertAfter(out, /<meta property="og:image:width" content="[^"]*">\n<meta property="og:image:height" content="[^"]*">/,
+      `<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">`, /<meta property="og:image" content="[^"]*">/);
+    out = setOrInsertAfter(out, /<meta name="twitter:card" content="[^"]*">/, `<meta name="twitter:card" content="summary_large_image">`, /<meta property="og:image:height" content="[^"]*">/);
+  }
+  // パンくずの構造化データ（自前で BreadcrumbList を書いているページはそのまま）
+  const LD_BC = /\n?<script type="application\/ld\+json" id="ld-breadcrumb">[\s\S]*?<\/script>/;
+  const withoutBc = out.replace(LD_BC, "");
+  const bc = /BreadcrumbList/.test(withoutBc) ? null : breadcrumbLd(out, url);
+  if (bc) out = setOrInsertAfter(out, /<script type="application\/ld\+json" id="ld-breadcrumb">[\s\S]*?<\/script>/,
+    `<script type="application/ld+json" id="ld-breadcrumb">${JSON.stringify(bc)}</script>`, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/);
+  else out = withoutBc;
   if (rel === "index.html") {
     const ld = `<script type="application/ld+json" id="ld-website">${JSON.stringify({
       "@context": "https://schema.org", "@type": "WebSite", name: config.siteName, url: `${config.baseUrl}/`,
@@ -77,10 +152,11 @@ function writeIfChanged(file, content) {
 
 const meta = (html, re) => ((html.match(re) || [])[1] || "").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 
-export function sitemap(config, pages) {
+export function sitemap(config, pages, lastmod = {}) {
   const rows = pages.map((rel) => {
     const m = DAILY_RE.exec(rel);
-    return `  <url><loc>${esc(urlOf(config, rel))}</loc>${m ? `<lastmod>${m[1]}</lastmod>` : ""}</url>`;
+    const d = m ? m[1] : lastmod[rel];
+    return `  <url><loc>${esc(urlOf(config, rel))}</loc>${d ? `<lastmod>${d}</lastmod>` : ""}</url>`;
   });
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows.join("\n")}\n</urlset>\n`;
 }
@@ -113,17 +189,50 @@ ${last ? `    <lastBuildDate>${last}</lastBuildDate>\n` : ""}${items.join("\n")}
 `;
 }
 
+// ページの中身が変わった日を記録する（tools/seo/lastmod.json：{ 場所: [中身のハッシュ, 日付] }）
+const todayJst = () => new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10);
+function gitDates(root) {
+  const dates = {};
+  try {
+    const log = execSync("git log --format=@%cs --name-only -- '*.html'", { cwd: root, encoding: "utf8", maxBuffer: 256 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] });
+    let d = null;
+    for (const line of log.split("\n")) {
+      if (line.startsWith("@")) d = line.slice(1);
+      else if (line && d && !dates[line]) dates[line] = d;
+    }
+  } catch { /* git がなければ今日の日付 */ }
+  return dates;
+}
+export function updateLastmod(root, pages) {
+  const file = path.join(root, "tools", "seo", "lastmod.json");
+  const old = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : {};
+  const today = todayJst();
+  let git = null;
+  const next = {};
+  for (const rel of pages) {
+    const hash = crypto.createHash("sha1").update(fs.readFileSync(path.join(root, rel))).digest("hex").slice(0, 12);
+    if (old[rel] && old[rel][0] === hash) next[rel] = old[rel];
+    else if (old[rel]) next[rel] = [hash, today];
+    else { git = git || gitDates(root); next[rel] = [hash, git[rel] || today]; }
+  }
+  const body = JSON.stringify(next, null, 0).replace(/\],"/g, '],\n"') + "\n";
+  const changed = writeIfChanged(file, body);
+  return { dates: Object.fromEntries(Object.entries(next).map(([k, v]) => [k, v[1]])), changed };
+}
+
 export function run(root = ROOT) {
   const config = loadConfig(root);
   const pages = walk(root, root).sort((a, b) => (a === "index.html" ? -1 : b === "index.html" ? 1 : a.localeCompare(b)));
   const changed = [];
   for (const rel of pages) {
     const file = path.join(root, rel);
-    if (writeIfChanged(file, applyHead(fs.readFileSync(file, "utf8"), config, rel))) changed.push(rel);
+    if (writeIfChanged(file, applyHead(applyRelated(fs.readFileSync(file, "utf8"), rel), config, rel))) changed.push(rel);
   }
   // 検索に出さないページ（<meta name="robots" content="noindex">。購入者専用の鑑定書ページなど）はサイトマップに入れない
   const indexable = pages.filter((rel) => !/<meta name="robots" content="noindex">/.test(fs.readFileSync(path.join(root, rel), "utf8")));
-  if (writeIfChanged(path.join(root, "sitemap.xml"), sitemap(config, indexable))) changed.push("sitemap.xml");
+  const lm = updateLastmod(root, indexable);
+  if (lm.changed) changed.push("tools/seo/lastmod.json");
+  if (writeIfChanged(path.join(root, "sitemap.xml"), sitemap(config, indexable, lm.dates))) changed.push("sitemap.xml");
   if (writeIfChanged(path.join(root, "feed.xml"), feed(config, root, pages))) changed.push("feed.xml");
   const robots = `User-agent: *\nAllow: /\n\nSitemap: ${config.baseUrl}/sitemap.xml\n`;
   const ads = (config.adsenseClient || "").trim();

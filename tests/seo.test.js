@@ -64,3 +64,49 @@ test("構造化データ：TOP は WebSite、運勢の記事は BlogPosting と 
     assert.equal(crumbs.itemListElement.at(-1).item, urlOf(rel));
   }
 });
+
+test("OGP画像：全ページに og:image（実在する画像）と twitter:card", () => {
+  for (const rel of pages()) {
+    const html = read(rel);
+    const m = html.match(/<meta property="og:image" content="([^"]+)">/);
+    assert.ok(m, `${rel} og:image`);
+    assert.ok(m[1].startsWith(`${base}/assets/img/ogp/`), rel);
+    assert.ok(fs.existsSync(path.join(ROOT, m[1].slice(base.length + 1))), `${rel} の画像がある`);
+    assert.ok(html.includes('<meta name="twitter:card" content="summary_large_image">'), rel);
+  }
+});
+
+test("パンくずの構造化データ：パンくずのあるページは BreadcrumbList がちょうど1つ、最後はそのページ", () => {
+  for (const rel of pages()) {
+    const html = read(rel);
+    if (!html.includes('<nav class="breadcrumb"')) continue;
+    const lds = [...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+    const bcs = lds.filter((x) => x["@type"] === "BreadcrumbList");
+    assert.equal(bcs.length, 1, rel);
+    assert.equal(bcs[0].itemListElement[0].item, `${base}/`, rel);
+    assert.equal(bcs[0].itemListElement.at(-1).item, urlOf(rel), rel);
+  }
+});
+
+test("「次はこの占いも」：占いのページに関連リンクが4つ、行き先は実在する", () => {
+  const S = JSON.parse(read("tools/seo/sections.json"));
+  for (const [k, s] of Object.entries(S.sections)) {
+    assert.ok(fs.existsSync(path.join(ROOT, k, "index.html")), k);
+    assert.equal(s.related.length, 4, k);
+    assert.ok(!s.related.includes(k), k);
+    for (const r of s.related) assert.ok(S.sections[r], `${k}→${r}`);
+  }
+  for (const rel of pages()) {
+    const html = read(rel);
+    const want = rel !== "index.html" && S.sections[rel.split("/")[0]] && !html.includes('<meta name="robots" content="noindex">');
+    const block = html.match(/<!--related-->([\s\S]*?)<!--\/related-->/);
+    assert.equal(Boolean(block), Boolean(want), rel);
+    if (block) assert.equal((block[1].match(/<li>/g) || []).length, 4, rel);
+  }
+});
+
+test("sitemap.xml：すべてのURLに lastmod（日付の形）", () => {
+  const xml = read("sitemap.xml");
+  const urls = xml.match(/<url>.*<\/url>/g);
+  for (const u of urls) assert.match(u, /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/, u);
+});

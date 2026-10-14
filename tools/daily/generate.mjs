@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 const require = createRequire(import.meta.url);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const daily = require(path.join(ROOT, "assets/js/engines/daily.js"));
-const { applyHead, loadConfig, urlOf, run: runSeo } = await import(path.join(ROOT, "tools/seo/seo.mjs"));
+const { applyHead, applyRelated, loadConfig, urlOf, run: runSeo } = await import(path.join(ROOT, "tools/seo/seo.mjs"));
 const config = loadConfig(ROOT);
 const text = require(path.join(ROOT, "assets/js/content/daily-text.js"));
 const kyureki = require(path.join(ROOT, "assets/js/core/kyureki.js"));
@@ -89,7 +89,7 @@ function breadcrumb(items) {
 
 function page({ prefix, rel, title, description, ogTitle, body, css = [], ld = [] }) {
   const { header, footer } = chrome(prefix, "unsei/");
-  return applyHead(`<!doctype html>
+  return applyHead(applyRelated(`<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -117,7 +117,7 @@ ${body}
 ${footer}
 </body>
 </html>
-`, config, rel);
+`, rel), config, rel);
 }
 
 function rankList(items, listId, labelOf) {

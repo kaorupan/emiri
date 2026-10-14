@@ -1,3 +1,4 @@
+import re
 """星獣カルテのブラウザ動作確認（Playwright / Chromium）
 
 使い方（リポジトリのルートで）:
@@ -50,6 +51,7 @@ async def run(browser, base, label, viewport, mobile):
     print(f"== {label}")
     ctx = await browser.new_context(viewport=viewport, is_mobile=mobile, has_touch=mobile)
     await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # 広告は読み込まない
+    await ctx.route(re.compile(r"^https://[^/]*a8\.net/"), lambda r: r.fulfill(status=200, content_type="image/gif", body=b"GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\xff\xff\xff!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"))  # アフィリエイトの画像も読み込まない
     page = await ctx.new_page()
     errors, dialogs = [], []
     page.on("console", lambda m: m.type == "error" and errors.append(m.text))
@@ -138,7 +140,6 @@ async def run(browser, base, label, viewport, mobile):
     label_text = await page.text_content("#seiju-aisho-total .seiju-category-label")
     check(f"[{label}] 総合相性は言葉で表示（共鳴しやすい／補い合いやすい／刺激を与え合う／ペース調整が必要）", label_text in ["共鳴しやすい", "補い合いやすい", "刺激を与え合う", "ペース調整が必要"], label_text)
     body = await page.text_content("#seiju-aisho-result")
-    import re
     check(f"[{label}] 直接的な表現・点数を使わない", "セックス" not in body and not re.search(r"\d+\s*点|/\s*100", body), "")
     check(f"[{label}] 独自のエンターテインメント占いと明記", "独自のエンターテインメント占い" in body)
     raw2 = await page.evaluate("() => localStorage.getItem('uranai-karute:profile')")
