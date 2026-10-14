@@ -77,7 +77,7 @@
       button.textContent = "鑑定書を作っています…";
       ready.then(function (ok) {
         if (ok && liff && liff.isInClient()) {
-          var text = "【えみり】" + me.name + "さんの総合鑑定書ができました。\nこのリンクから、いつでも読み返せます。\n" + url;
+          var text = "【えみり】" + me.name + "さんの総合鑑定書ができました。\nこのリンクから、いつでも読み返せます（いつものブラウザで開くので、PDFで保存もできます）。\n" + url + "&openExternalBrowser=1";
           return liff.sendMessages([{ type: "text", text: text }]).catch(function () { /* 送れなくても鑑定書は開く */ });
         }
       }).then(function () { root.location.href = url; });

@@ -24,7 +24,17 @@
     report.upsell = null; // 無料版では有料の追加相性の案内は出さない
     root.KaruteKanteiPage.render(container, report, {});
     var btn = document.getElementById("kantei-print");
-    if (btn) { btn.hidden = false; btn.addEventListener("click", function () { root.print(); }); }
+    if (!btn) return;
+    btn.hidden = false;
+    if (/ Line\//i.test(root.navigator.userAgent || "")) {
+      // LINE の中のブラウザでは印刷（PDF保存）が使えない。いつものブラウザで開き直してもらう
+      var href = root.location.href.replace(/[?&]openExternalBrowser=1/, "") + "&openExternalBrowser=1";
+      var a = h("a", { class: "btn", id: "kantei-open-browser", href: href }, "ブラウザで開いてPDF保存");
+      btn.parentNode.replaceChild(a, btn);
+      a.parentNode.parentNode.insertBefore(h("p", { class: "kyusei-meta" }, "LINEの中ではPDF保存ができません。ボタンを押すと、いつものブラウザ（SafariやChromeなど）で開きます。そこで「PDFで保存・印刷」を押してください。"), a.parentNode.nextSibling);
+      return;
+    }
+    btn.addEventListener("click", function () { root.print(); });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

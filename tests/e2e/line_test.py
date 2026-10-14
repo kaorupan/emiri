@@ -89,7 +89,7 @@ async def run(browser, base, label, viewport, mobile):
         await page.click("#line-submit")
     check("鑑定書のページへ移動", "/line/kantei/?d=" in page.url, page.url)
     sent = json.loads(await page.evaluate("() => sessionStorage.getItem('sent') || 'null'") or "null")
-    check("LINEのトークに鑑定書のリンクを送る", sent and "あかりさんの総合鑑定書" in sent[0]["text"] and "/line/kantei/?d=" in sent[0]["text"], sent)
+    check("LINEのトークに鑑定書のリンクを送る（いつものブラウザで開く指定つき）", sent and "あかりさんの総合鑑定書" in sent[0]["text"] and "/line/kantei/?d=" in sent[0]["text"] and sent[0]["text"].endswith("&openExternalBrowser=1"), sent)
     await page.wait_for_selector("#kantei-aisho", timeout=20000)
     text = await page.inner_text("#kantei-root")
     check("鑑定書が全文表示（名前の章・相性の章）", "名前が持つ力" in text and "ミライさん" in text and await page.locator(".kantei-mask").count() == 0)
@@ -105,12 +105,31 @@ async def run(browser, base, label, viewport, mobile):
     await ctx.close()
 
 
+async def run_in_line(browser, base):
+    print("== LINEの中のブラウザ")
+    ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/14.16.0 LIFF"
+    ctx = await browser.new_context(viewport={"width": 375, "height": 740}, is_mobile=True, has_touch=True, user_agent=ua)
+    await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))
+    page = await ctx.new_page()
+    import subprocess
+    d = subprocess.run(["node", "-e", "const l=require('./assets/js/core/kantei-link.js');process.stdout.write(l.encode({p:{name:'あかり',year:1990,month:1,day:1},m:[2026,10,14]}))"], capture_output=True, text=True, cwd=ROOT).stdout
+    await page.goto(base + "line/kantei/?d=" + d)
+    await page.wait_for_selector("#kantei-open-browser", timeout=20000)
+    href = await page.get_attribute("#kantei-open-browser", "href")
+    check("LINEの中では「ブラウザで開いてPDF保存」に切り替わる", href.endswith("&openExternalBrowser=1") and "d=" + d in href, href)
+    await page.goto(href)
+    await page.wait_for_selector("#kantei-open-browser", timeout=20000)
+    check("開き直しても鑑定書が表示され、指定は重ならない", (await page.get_attribute("#kantei-open-browser", "href")).count("openExternalBrowser") == 1 and "総合鑑定書" in await page.inner_text("body"))
+    await ctx.close()
+
+
 async def main():
     httpd, base = serve()
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         await run(browser, base, "desktop", {"width": 1280, "height": 900}, False)
         await run(browser, base, "mobile", {"width": 375, "height": 740}, True)
+        await run_in_line(browser, base)
         await browser.close()
     httpd.shutdown()
     ng = [n for n, ok in results if not ok]
