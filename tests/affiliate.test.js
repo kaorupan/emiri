@@ -50,3 +50,15 @@ test("今のサイト：案件の設定と枠の状態が一致し、プライ�
   const privacy = fs.readFileSync(path.join(ROOT, "privacy/index.html"), "utf8");
   assert.ok(privacy.includes('id="affiliate"') && privacy.includes("PR"));
 });
+
+test("並び順：rank の小さい順。テーマごとに変えられる", async () => {
+  const { apply } = await load();
+  const P = [
+    { name: "A", url: "https://a.example/", themes: ["love", "general"], rank: { love: 2, general: 1 } },
+    { name: "B", url: "https://b.example/", themes: ["love", "general"], rank: { love: 1, general: 2 } },
+    { name: "C", url: "https://c.example/", themes: ["love", "general"] }
+  ];
+  const names = (h) => [...h.matchAll(/noopener">([^<]+)<\/a>/g)].map((m) => m[1]);
+  assert.deepEqual(names(apply(PAGE, "aisho/index.html", P)), ["B", "A", "C"]);
+  assert.deepEqual(names(apply(PAGE, "yume/hebi/index.html", P)), ["A", "B", "C"]);
+});

@@ -10,6 +10,7 @@
  *       "pixel": "https://www…a8.net/0.gif?…（あれば。表示計測用の1×1画像）",
  *       "lead": "ひとことの紹介文（事実だけ。誇張しない）",
  *       "themes": ["love", "general"],      // love＝恋愛・相性のページ、general＝そのほかの占いページ
+ *       "rank": { "love": 1, "general": 2 },  // 並び順（小さいほど上。なければ書いた順の後ろ）
  *       "active": true
  *   } ] }
  * 案件が1つもなければ、枠は出さない（何度実行しても同じ結果になる）。
@@ -47,7 +48,9 @@ const HEAD = {
 };
 
 export function box(theme, programs, depth) {
-  const list = programs.filter((p) => !p.themes || p.themes.includes(theme)).slice(0, 3);
+  const rank = (p) => (p.rank && Number.isFinite(p.rank[theme]) ? p.rank[theme] : 99);
+  const list = programs.filter((p) => !p.themes || p.themes.includes(theme))
+    .map((p, i) => [p, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map((x) => x[0]).slice(0, 3);
   if (!list.length) return "";
   const items = list.map((p) => `      <li><a href="${esc(p.url)}" target="_blank" rel="nofollow sponsored noopener">${esc(p.name)}</a>${p.lead ? `<span class="aff-lead">${esc(p.lead)}</span>` : ""}${p.pixel ? `<img class="aff-pixel" src="${esc(p.pixel)}" width="1" height="1" alt="" loading="lazy">` : ""}</li>`).join("\n");
   const h = HEAD[theme];
