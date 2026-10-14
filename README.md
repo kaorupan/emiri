@@ -420,3 +420,10 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - 図は `tools/hokuro/svg.mjs`（オリジナルの顔・体の図、向かって見た位置）、文章は `tools/hokuro/data.mjs`（オリジナル）。各ページに「変化があるほくろは皮膚科へ」の案内を入れる。
 - 生成し直したら、`node tools/line/cta.mjs && node tools/affiliate/inject.mjs && node tools/premium/visibility.mjs && node tools/seo/seo.mjs` も実行する（毎日のワークフローでも実行される）。
 - 恋愛系（hokuro/renai・mejiri・namida・kuchibiru）は紹介枠の love テーマ。
+
+## 星のわんにゃん占い（wannyan/・オリジナル）
+
+- 星獣カルテと同じ天体計算で96タイプ（犬48・猫48）。時期8（季節の前半・後半、太陽黄経）× 月の形12（月齢12等分）。星獣1つにつき8タイプ。月の形の前半2つ＝犬、後半2つ＝猫。
+- `assets/js/content/seiju-types.js`（時期・月の形・元素の文章）、`assets/js/content/wannyan-data.js`（96タイプの文章・チーム名）、`assets/js/engines/wannyan.js`（判定。元素＝日干の五行）、`assets/js/pages/wannyan-page.js`（診断）。
+- `node tools/wannyan/generate.mjs`：wannyan/（診断・96タイプ一覧）と wannyan/<slug>/（96ページ）。画像は `assets/img/wannyan/<slug>.webp` を置いて実行し直すと差し替わる（なければ絵文字のカード）。画像の指示書は `tools/wannyan/image-prompts.md`。
+- 生成し直したら cta / affiliate / visibility / seo も実行する。
