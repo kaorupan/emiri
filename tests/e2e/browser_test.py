@@ -78,9 +78,18 @@ async def personal_tests(page, base, label):
         check(f"[{label}] 個人鑑定 {y}-{m}-{d} → ライフパス{lp}", got == lp, f"got {got}")
 
     order = await page.evaluate("""() => [...document.querySelectorAll('#suhijutsu-result section h2')].map(h => h.textContent.trim())""")
-    expected_prefix = ["あなたの数秘カルテ", "ライフパスナンバー", "バースデーナンバー", "アティチュードナンバー"]
-    ok = order[:4] == expected_prefix and "パーソナルイヤー" in order[4] and order[5] == "詳細鑑定" and "12ヶ月の流れ" in order[6] and order[7] == "次にできること"
-    check(f"[{label}] 個人鑑定の表示順（要約→LP→BD→AT→PY→詳細→12ヶ月→次）", ok, " / ".join(order))
+    expected_prefix = ["鑑定結果の要約", "あなたの数秘カルテ", "ライフパスナンバー", "バースデーナンバー", "アティチュードナンバー"]
+    ok = order[:5] == expected_prefix and "パーソナルイヤー" in order[5] and order[6] == "詳細鑑定" and "12ヶ月の流れ" in order[7] and order[8] == "次にできること"
+    check(f"[{label}] 個人鑑定の表示順（要約→数秘カルテ→LP→BD→AT→PY→詳細→12ヶ月→次）", ok, " / ".join(order))
+    # 要約：結果を出すと要約の見出しにフォーカスが移る（キーボード・読み上げで気づける）
+    focused = await page.evaluate("() => document.activeElement && document.activeElement.id")
+    check(f"[{label}] 結果を出すと要約の見出しにフォーカス", focused == "num-result-heading", str(focused))
+    # 今月が強調され、目次から閉じた詳細（恋愛）へ飛ぶと開く
+    now = await page.evaluate("() => { const el = document.getElementById('num-month-now'); return el ? el.textContent : ''; }")
+    check(f"[{label}] 12ヶ月の流れで今月がわかる", "今月" in now, now[:20])
+    await page.click(".result-toc a[href='#num-deep-love']")
+    opened = await page.evaluate("() => document.getElementById('num-deep-love').open")
+    check(f"[{label}] 目次の「恋愛」で詳細が開く", opened is True, str(opened))
     months = await page.locator("#num-months .num-month").count()
     check(f"[{label}] 12ヶ月の流れが12件", months == 12, str(months))
     body = await page.text_content("#suhijutsu-result")

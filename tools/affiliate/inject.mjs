@@ -15,7 +15,7 @@
  *   } ] }
  * 案件が1つもなければ、枠は出さない（何度実行しても同じ結果になる）。
  *
- * 枠は </main> の直前に <!--aff-->…<!--/aff--> で入れる。「PR」を必ず表示する（ステルスマーケティング規制）。
+ * 枠は LINE の案内（<!--line-cta-->）の前、なければ </main> の直前に <!--aff-->…<!--/aff--> で入れる。「PR」を必ず表示する（ステルスマーケティング規制）。
  * 運営者情報・規約・本格占いのページ（有料の鑑定書）には入れない。
  */
 import fs from "node:fs";
@@ -24,7 +24,7 @@ import { fileURLToPath } from "node:url";
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const SKIP_DIRS = new Set([".git", ".github", "node_modules", "tests", "tools", "worker", "assets"]);
-const NO_ADS = /^(about|privacy|contact|tokushoho|premium)\//;
+const NO_ADS = /^(about|privacy|contact|tokushoho|premium|line)\//;  // line/ は LINE の中で開くフォーム（LINE内の広告掲載は案件ごとの条件を確認してから）
 const LOVE = /(^|\/)aisho\/|^tesou\/(renai|kekkonsen|tamanokoshisen|ninkisen)\/|^yume\/(koi|koibito|sukinahito|motokare|kisu|uwaki|kekkon|kokuhaku|shitto)\/|^hokuro\/(renai|mejiri|namida|kuchibiru)\//;
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -43,26 +43,50 @@ export function themeOf(rel) {
 }
 
 const HEAD = {
-  love: { title: "ふたりのこと、プロの占い師に相談してみる", text: "相性や気持ちのすれ違いなど、ひとりで抱えている恋の悩みは、電話やチャットでプロの占い師に直接相談することもできます。" },
-  general: { title: "もっと詳しく知りたいときは", text: "占いの結果について詳しく聞きたいときや、自分の状況に合わせて読んでほしいときは、電話やチャットでプロの占い師に相談することもできます。" }
+  love: { title: "恋の悩みを、占い師に相談するなら", text: "相性や気持ちのすれ違いなど、ひとりで抱えている悩みは、占い師に直接相談することもできます。話しやすい相談のしかたで選んでください。" },
+  general: { title: "結果をもっと詳しく聞きたいときは", text: "えみりの無料占いは、生年月日などから計算した結果を読むものです。自分の状況を話して読んでほしいときは、占い師に相談できるサービスもあります。相談のしかたで選べます。" }
 };
+
+// 相談の形式ごとの説明（サービスの優劣ではなく、形式の違い）
+const FORMAT = {
+  phone: { label: "電話で相談", fit: "声で話しながら、その場で質問を重ねたい人", check: "料金が時間（分）ごとかどうかと、通話時間の目安" },
+  chat: { label: "チャットで相談", fit: "文字のほうが落ち着いて話せる人、声を出せない場所から相談したい人", check: "料金が時間ごとか、文字数・回数ごとか" },
+  message: { label: "メッセージで相談", fit: "時間を気にせず、文章でじっくり相談したい人", check: "返事が届くまでの目安と、1回あたりの料金" }
+};
+
+// 公式サイトと提携条件で確認できた情報だけ（確認日つき）
+function verifiedRows(p) {
+  const v = p.verified || {};
+  if (!v.checkedOn) return [];
+  return [["通常料金", v.price], ["料金の例", v.priceExample], ["初回特典", v.firstOffer], ["特典の条件", v.offerConditions], ["情報の確認日", v.checkedOn]].filter((r) => r[1]);
+}
 
 export function box(theme, programs, depth) {
   const rank = (p) => (p.rank && Number.isFinite(p.rank[theme]) ? p.rank[theme] : 99);
   const list = programs.filter((p) => !p.themes || p.themes.includes(theme))
     .map((p, i) => [p, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map((x) => x[0]).slice(0, 3);
   if (!list.length) return "";
-  const items = list.map((p) => `      <li><a href="${esc(p.url)}" target="_blank" rel="nofollow sponsored noopener">${esc(p.name)}</a>${p.lead ? `<span class="aff-lead">${esc(p.lead)}</span>` : ""}${p.pixel ? `<img class="aff-pixel" src="${esc(p.pixel)}" width="1" height="1" alt="" loading="lazy">` : ""}</li>`).join("\n");
+  const items = list.map((p) => {
+    const f = FORMAT[p.format] || null;
+    const rows = (f ? [["向いている人", f.fit], ["利用前に確認", f.check]] : []).concat(verifiedRows(p));
+    return `      <li class="consult-item">
+        ${f ? `<p class="consult-format">${f.label}</p>` : ""}
+        <p class="consult-name">${esc(p.name)}</p>
+        ${rows.length ? `<dl class="consult-facts">${rows.map((r) => `<div class="consult-fact"><dt>${esc(r[0])}</dt><dd>${esc(r[1])}</dd></div>`).join("")}</dl>` : ""}
+        <a class="btn btn-ghost consult-btn" href="${esc(p.url)}" target="_blank" rel="nofollow sponsored noopener" data-track="aff_click" data-service="${esc(p.id || "")}" data-position="page-end" data-theme="${theme}">公式サイトで料金・特典条件を確認する</a>${p.pixel ? `<img class="aff-pixel" src="${esc(p.pixel)}" width="1" height="1" alt="" loading="lazy">` : ""}
+      </li>`;
+  }).join("\n");
   const h = HEAD[theme];
   return `<!--aff-->
-  <aside class="card aff-box" aria-label="広告（PR）">
-    <p class="aff-pr">PR</p>
-    <p class="aff-title">${h.title}</p>
+  <aside class="card aff-box consult" id="consult" aria-labelledby="consult-title">
+    <p class="aff-pr">PR・広告</p>
+    <h2 class="aff-title" id="consult-title">${h.title}</h2>
     <p class="aff-text">${h.text}</p>
-    <ul class="aff-list">
+    <ul class="consult-list">
 ${items}
     </ul>
-    <p class="aff-note">※ この枠は広告です。リンク先のサービスのご利用で、当サイトに紹介料が支払われることがあります。<a href="${"../".repeat(depth)}privacy/#affiliate">詳しくはこちら</a></p>
+    <p class="aff-note">料金や初回特典は変わることがあるため、確認できていないものは載せていません。申し込む前に、公式サイトで最新の料金と条件を確かめてください。ここでの説明は相談の形式の違いをまとめたもので、サービスの優劣を示すものではありません。</p>
+    <p class="aff-note aff-disclosure">この枠は広告です。リンク先のサービスを利用されると、えみりに紹介料が支払われることがあります。<a href="${"../".repeat(depth)}privacy/#affiliate">広告と紹介料について</a></p>
   </aside>
 <!--/aff-->`;
 }
@@ -73,6 +97,9 @@ export function apply(html, rel, programs) {
   if (!theme) return out;
   const b = box(theme, programs, rel.split("/").length - 1);
   if (!b || !out.includes("</main>")) return out;
+  // LINE の案内（<!--line-cta-->）があれば、その前に入れる（相談の案内 → LINE の順）
+  const i = out.indexOf("<!--line-cta-->");
+  if (i >= 0) return out.slice(0, i) + b + "\n" + out.slice(i);
   return out.replace("\n</main>", "\n" + b + "\n</main>");
 }
 

@@ -23,6 +23,11 @@
     var report = root.KaruteContent.kantei.buildKantei(data.p, data.made, data.q || undefined);
     report.upsell = null; // 無料版では有料の追加相性の案内は出さない
     root.KaruteKanteiPage.render(container, report, {});
+    if (/[?&]sample=1(&|$)/.test(root.location.search)) {
+      // 見本（line/guide/ から開く）：架空の人物の鑑定書であることを先頭に出す
+      container.insertBefore(h("p", { class: "notice kantei-sample-note", role: "note" },
+        "これは見本です。架空の人物「" + data.p.name + "」さんの情報で作った鑑定書です。実際の鑑定書は、あなたが入力した呼び名と生年月日で作られます。"), container.firstChild);
+    }
     var btn = document.getElementById("kantei-print");
     if (!btn) return;
     btn.hidden = false;
