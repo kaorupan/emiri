@@ -40,6 +40,17 @@ export function applyHead(html, config, rel) {
   out = setOrInsertAfter(out, /<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${esc(url)}">`, /<link rel="canonical" href="[^"]*">/);
   out = setOrInsertAfter(out, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/,
     `<link rel="alternate" type="application/rss+xml" title="${esc(config.siteName)}｜今日の運勢" href="${feedHref}">`, /<meta property="og:url" content="[^"]*">/);
+  // Search Console の所有権確認（site.config.json の googleSiteVerification。TOPだけ）
+  const gsv = (config.googleSiteVerification || "").trim();
+  if (rel === "index.html" && gsv) {
+    out = setOrInsertAfter(out, /<meta name="google-site-verification" content="[^"]*">/, `<meta name="google-site-verification" content="${esc(gsv)}">`, /<meta name="viewport"[^>]*>/);
+  }
+  // Google アドセンス（site.config.json の adsenseClient＝ca-pub-…。全ページ）
+  const ads = (config.adsenseClient || "").trim();
+  if (ads) {
+    out = setOrInsertAfter(out, /<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]*" crossorigin="anonymous"><\/script>/,
+      `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(ads)}" crossorigin="anonymous"></script>`, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/);
+  }
   if (rel === "index.html") {
     const ld = `<script type="application/ld+json" id="ld-website">${JSON.stringify({
       "@context": "https://schema.org", "@type": "WebSite", name: config.siteName, url: `${config.baseUrl}/`,
@@ -113,6 +124,8 @@ export function run(root = ROOT) {
   if (writeIfChanged(path.join(root, "sitemap.xml"), sitemap(config, pages))) changed.push("sitemap.xml");
   if (writeIfChanged(path.join(root, "feed.xml"), feed(config, root, pages))) changed.push("feed.xml");
   const robots = `User-agent: *\nAllow: /\n\nSitemap: ${config.baseUrl}/sitemap.xml\n`;
+  const ads = (config.adsenseClient || "").trim();
+  if (ads && writeIfChanged(path.join(root, "ads.txt"), `google.com, ${ads.replace(/^ca-/, "")}, DIRECT, f08c47fec0942fa0\n`)) changed.push("ads.txt");
   if (writeIfChanged(path.join(root, "robots.txt"), robots)) changed.push("robots.txt");
   return changed;
 }

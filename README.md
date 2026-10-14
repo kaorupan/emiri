@@ -365,3 +365,12 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - 「名前が持つ力」の章：五格・三才配置に加え、人格の五行×本命星の五行、総格の数の根×ライフパスの重ね読み。
 - 「これから3年」は数秘術・九星気学・四柱推命・マヤ暦・西洋占星術・インド占星術の6視点。相性の章にも四柱推命・マヤ暦・宿曜・西洋占星術・インド占星術・名前の相性を加える。
 - A4のPDFで約33ページ（生年月日のみ）、姓名・出生時刻・相性の相手をすべて入れると約45ページ（見本で計測）。
+
+## 運営者情報・プライバシーポリシー・お問い合わせ・特商法、Search Console・AdSense
+
+- `npm run legal` で `about/`・`privacy/`・`contact/`・`tokushoho/` を作る（文面は tools/legal/generate.mjs）。全ページのフッターからリンク（tests/legal.test.js で確認）。
+- 特商法：販売事業者「えみり（個人事業）」。運営責任者・所在地・電話番号は「請求があった場合には遅滞なく開示」。開示の請求はお問い合わせフォームで受け、メールで回答する。
+- site.config.json の設定（入れたら `npm run legal` と `npm run seo` を実行）
+  - `contactFormUrl`：お問い合わせのGoogleフォームのURL。空ならフォームのボタンを出さず「準備中」と表示。
+  - `googleSiteVerification`：Search Console の「HTMLタグ」で確認するときの content の値。TOPの head に入る。
+  - `adsenseClient`：AdSense のサイト運営者ID（ca-pub-…）。全ページの head に広告コードが入り、`ads.txt` も作られる。

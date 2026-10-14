@@ -268,3 +268,10 @@ img { max-width: 100%; }
 .learn-dl dd { margin: 4px 0 0; font-size: 14px; color: var(--text); }
 .learn-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
 .learn-group-title { margin-top: 28px; }
+
+/* ---- 運営者情報・特商法の表 ---- */
+.legal-table { margin: 0; }
+.legal-table > div { display: grid; grid-template-columns: 11em 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid #2f2440; }
+.legal-table dt { font-weight: 700; color: var(--gold); }
+.legal-table dd { margin: 0; }
+@media (max-width: 560px) { .legal-table > div { grid-template-columns: 1fr; gap: 4px; } }

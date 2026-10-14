@@ -1,5 +1,8 @@
 {
   "baseUrl": "https://emiri-uranai.com",
   "siteName": "えみり",
-  "description": "無料占いと本格占いの総合占いサイト。九星気学・12星座の今日の運勢を毎日更新。"
+  "description": "無料占いと本格占いの総合占いサイト。九星気学・12星座の今日の運勢を毎日更新。",
+  "contactFormUrl": "",
+  "googleSiteVerification": "",
+  "adsenseClient": ""
 }
