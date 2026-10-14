@@ -43,3 +43,23 @@ test("ページ：検索に出さない・サイトマップに入れない・LI
   const privacy = fs.readFileSync(path.join(ROOT, "privacy/index.html"), "utf8");
   assert.ok(privacy.includes('id="line"') && privacy.includes("保存したり"));
 });
+
+test("LINEの案内：TOPは紹介の下・ほかは本文の最後（紹介枠の上）、運営・本格占い・LINEのページには出さない、何度でも同じ", async () => {
+  const { apply } = await import(path.join(ROOT, "tools/line/cta.mjs"));
+  const page = "<main>\n  <p>x</p>\n<!--aff-->\n  <aside>PR</aside>\n<!--/aff-->\n</main>";
+  const a = apply(page, "yume/hebi/index.html", "2012021804-poeicnay");
+  assert.ok(a.indexOf("<!--line-cta-->") < a.indexOf("<!--aff-->"));
+  assert.ok(a.includes('href="https://liff.line.me/2012021804-poeicnay"') && a.includes('src="../../assets/img/line-qr.svg"'));
+  assert.equal(apply(a, "yume/hebi/index.html", "2012021804-poeicnay"), a);
+  assert.equal(apply(a, "yume/hebi/index.html", ""), page);
+  for (const r of ["about/index.html", "privacy/index.html", "premium/index.html", "line/index.html", "tokushoho/index.html"]) assert.equal(apply(page, r, "2012021804-poeicnay"), page, r);
+  const top = '<main>\n  <section class="hero">h</section>\n\n  <section>s</section>\n</main>';
+  const t = apply(top, "index.html", "2012021804-poeicnay");
+  assert.ok(t.indexOf("line-cta") > t.indexOf("hero") && t.indexOf("line-cta") < t.indexOf("<section>s"));
+  assert.equal(apply(t, "index.html", ""), top);
+  // 今のサイトの状態が設定と一致
+  const config = JSON.parse(fs.readFileSync(path.join(ROOT, "site.config.json"), "utf8"));
+  const real = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+  assert.equal(real.includes("<!--line-cta-->"), Boolean(config.liffId));
+  assert.ok(fs.existsSync(path.join(ROOT, "assets/img/line-qr.svg")));
+});

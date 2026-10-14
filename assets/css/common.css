@@ -286,3 +286,16 @@ img { max-width: 100%; }
 .aff-lead { display: block; font-size: 13px; color: var(--muted); }
 .aff-pixel { position: absolute; width: 1px; height: 1px; border: 0; }
 .aff-note { font-size: 11px; color: var(--muted); margin: 8px 0 0 !important; }
+
+/* LINEで無料の鑑定書を受け取る案内（tools/line/cta.mjs） */
+.line-cta { display: flex; gap: 20px; align-items: center; margin-top: 24px; border: 1px solid rgba(231, 197, 104, .45); background: linear-gradient(135deg, #1c1427 0%, #120c1a 100%); }
+.line-cta-body { flex: 1; min-width: 0; }
+.line-cta-eyebrow { display: inline-block; margin: 0 0 8px !important; font-size: 11px; font-weight: 800; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: #06c755; color: #fff; }
+.line-cta-title { font-family: var(--serif); font-size: 21px; font-weight: 800; line-height: 1.5; color: var(--gold) !important; margin: 0 0 8px !important; }
+.line-cta-text { font-size: 14px; color: var(--muted); }
+.line-cta-btn { background: #06c755 !important; border-color: #06c755 !important; color: #fff !important; max-width: 340px; }
+.line-cta-note { font-size: 12px; color: var(--muted); margin: 8px 0 0 !important; }
+.line-cta-qr { margin: 0; text-align: center; flex: none; }
+.line-cta-qr img { display: block; width: 132px; height: 132px; border-radius: 10px; background: #fff; padding: 6px; }
+.line-cta-qr figcaption { font-size: 11px; color: var(--muted); margin-top: 6px; max-width: 132px; }
+@media (max-width: 720px) { .line-cta-qr { display: none; } }

@@ -412,3 +412,4 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - `site.config.json` の `liffId`（LINE Developers の LINE ログインチャネルで作った LIFF ID。公開値）を入れて `node tools/line/generate.mjs`。空の間は準備中。
 - LIFF の設定：サイズ Full、エンドポイント `https://emiri-uranai.com/line/`、Scope `openid` `chat_message.write`、友だち追加オプション On (Aggressive)。リッチメニューの上段は `https://liff.line.me/<LIFF ID>`。
 - テスト：tests/line.test.js、tests/e2e/line_test.py（偽の LIFF）。
+- サイト内の案内：`node tools/line/cta.mjs`（liffId があるときだけ。TOP は紹介の下、ほかの占いページは本文の最後＝紹介枠の上。運営・規約・本格占い・LINE のページには入れない。毎日のワークフローでも実行）。QR コードは `assets/img/line-qr.svg`（LIFF の URL）。
