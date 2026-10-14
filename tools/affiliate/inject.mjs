@@ -25,7 +25,7 @@ import { fileURLToPath } from "node:url";
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const SKIP_DIRS = new Set([".git", ".github", "node_modules", "tests", "tools", "worker", "assets"]);
 const NO_ADS = /^(about|privacy|contact|tokushoho|premium)\//;
-const LOVE = /(^|\/)aisho\/|^tesou\/(renai|kekkonsen|tamanokoshisen|ninkisen)\/|^yume\/(koi|koibito|sukinahito|motokare|kisu|uwaki|kekkon|kokuhaku|shitto)\//;
+const LOVE = /(^|\/)aisho\/|^tesou\/(renai|kekkonsen|tamanokoshisen|ninkisen)\/|^yume\/(koi|koibito|sukinahito|motokare|kisu|uwaki|kekkon|kokuhaku|shitto)\/|^hokuro\/(renai|mejiri|namida|kuchibiru)\//;
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const MARK = /\n?<!--aff-->[\s\S]*?<!--\/aff-->\n?/;

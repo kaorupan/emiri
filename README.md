@@ -413,3 +413,10 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - LIFF の設定：サイズ Full、エンドポイント `https://emiri-uranai.com/line/`、Scope `openid` `chat_message.write`、友だち追加オプション On (Aggressive)。リッチメニューの上段は `https://liff.line.me/<LIFF ID>`。
 - テスト：tests/line.test.js、tests/e2e/line_test.py（偽の LIFF）。
 - サイト内の案内：`node tools/line/cta.mjs`（liffId があるときだけ。TOP は紹介の下、ほかの占いページは本文の最後＝紹介枠の上。運営・規約・本格占い・LINE のページには入れない。毎日のワークフローでも実行）。QR コードは `assets/img/line-qr.svg`（LIFF の URL）。
+
+## ほくろ占い（hokuro/）
+
+- `node tools/hokuro/generate.mjs`：トップ（顔・体の図から探す）、場所ごとのページ（26か所）、テーマ別（renai / kinun / ninki / seikaku）。
+- 図は `tools/hokuro/svg.mjs`（オリジナルの顔・体の図、向かって見た位置）、文章は `tools/hokuro/data.mjs`（オリジナル）。各ページに「変化があるほくろは皮膚科へ」の案内を入れる。
+- 生成し直したら、`node tools/line/cta.mjs && node tools/affiliate/inject.mjs && node tools/premium/visibility.mjs && node tools/seo/seo.mjs` も実行する（毎日のワークフローでも実行される）。
+- 恋愛系（hokuro/renai・mejiri・namida・kuchibiru）は紹介枠の love テーマ。

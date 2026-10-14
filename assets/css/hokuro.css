@@ -1,0 +1,32 @@
+/* ほくろ占い（接頭辞 hk-） */
+.hk-keyword { margin: -4px 0 4px; color: var(--gold); font-size: 14px; font-weight: 700; }
+.hk-fig { display: block; width: 100%; max-width: 300px; height: auto; margin: 8px auto; }
+.hk-skin { fill: #2b2236; stroke: #7a6890; stroke-width: 2; stroke-linejoin: round; }
+.hk-hair { fill: #1a1222; stroke: #7a6890; stroke-width: 2; }
+.hk-line { fill: none; stroke: #8e7aa6; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.hk-cap { fill: var(--muted); font-size: 12px; }
+.hk-glow { fill: rgba(240, 204, 92, .22); stroke: #f0cc5c; stroke-width: 2; }
+.hk-mole { fill: #120c18; stroke: #f0cc5c; stroke-width: 1.5; }
+.hk-hit { fill: transparent; }
+.hk-dot { fill: #f0cc5c; stroke: #07050c; stroke-width: 1.5; }
+.hk-num { fill: #07050c; font-size: 9px; font-weight: 800; pointer-events: none; }
+a:hover .hk-dot, a:focus-visible .hk-dot { fill: #fff; }
+.hk-where-body { display: flex; gap: 18px; align-items: center; }
+.hk-where-body .hk-fig { flex: 0 0 44%; margin: 0; }
+.hk-where-body p { margin: 0; }
+.hk-list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.hk-list a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid #382943; background: #0d0914; color: var(--text); text-decoration: none; }
+.hk-list a:hover, .hk-list a:focus-visible { border-color: var(--gold); }
+.hk-list b { display: block; font-size: 15px; }
+.hk-list small { display: block; color: var(--muted); font-size: 12px; }
+.hk-list .arrow { margin-left: auto; color: var(--gold); }
+.hk-n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: #f0cc5c; color: #07050c; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
+.hk-subhead { font-size: 14px; margin: 16px 0 0; color: var(--muted); }
+.hk-tags { list-style: none; padding: 0; margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
+.hk-tags a { display: inline-block; padding: 6px 12px; border-radius: 999px; border: 1px solid #382943; background: #0d0914; color: var(--text); text-decoration: none; font-size: 14px; }
+.hk-tags a:hover, .hk-tags a:focus-visible { border-color: var(--gold); color: var(--gold); }
+.hk-tags-lg a { font-size: 15px; padding: 8px 14px; }
+@media (max-width: 640px) {
+  .hk-where-body { flex-direction: column; }
+  .hk-where-body .hk-fig { flex: none; max-width: 240px; }
+}
