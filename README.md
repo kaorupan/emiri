@@ -385,3 +385,16 @@ python3 tests/e2e/kyusei_test.py    # ブラウザ操作テスト：九星気学
 - Worker の公開：`.github/workflows/worker.yml`（GitHub シークレット CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID）。Stripe のシークレットキーは Cloudflare の管理画面で `STRIPE_SECRET_KEY` として運営者本人が設定する。リポジトリには書かない（テストで確認）。
 - 注意：鑑定文の組み立ては公開されている JavaScript で行うため、技術的には支払いなしで再現できる。価格帯から許容しているが、気になる場合は Worker 側で鑑定書を組み立てる形に移す。
 - テスト：tests/premium-sales.test.js（Worker を偽の Stripe で検査）、tests/e2e/premium_order_test.py（偽APIで注文〜鑑定書表示）。
+
+## Stripe の代理販売（Managed Payments）
+
+- `worker/wrangler.toml` の `MANAGED_PAYMENTS = "true"` で、Stripe の代理販売で売る（販売者は Stripe の Link。購入者の明細は `LINK.COM* …`）。税コード `txcd_10503004`（デジタル文書・閲覧・買い切り）、税込。`PRICE_ID` を入れると管理画面で作った価格を使う。
+- 運営者が Stripe の管理画面で Managed Payments を有効にし、規約に同意しておく必要がある（Settings → Managed Payments）。
+- 特商法のページの「販売事業者」をどう書くかは、Stripe に確認してから変える（未変更）。
+
+## アフィリエイト（紹介）枠
+
+- 案件は `tools/affiliate/programs.json`。ASP でもらったリンク（url）と表示計測用画像（pixel）、紹介文、テーマ（love / general）を書く。
+- `node tools/affiliate/inject.mjs` で各ページの `</main>` 直前に `<!--aff-->` 枠を入れる（案件0件なら枠なし）。毎日のワークフローでも実行。ページを生成し直したら、このスクリプトも実行する。
+- 恋愛・相性のページは love、ほかの占いページは general。運営者情報・規約・本格占いのページには入れない。
+- 枠には必ず「PR」と、広告であることの説明を出す（ステマ規制）。プライバシーポリシーに「アフィリエイトプログラムについて」（#affiliate）。

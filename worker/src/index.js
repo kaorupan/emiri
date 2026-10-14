@@ -11,6 +11,8 @@
  *   STRIPE_SECRET_KEY  シークレット。Stripe の「シークレットキー」（sk_test_… / sk_live_…）。運営者本人が入力する
  *   SITE_ORIGIN        wrangler.toml の vars。https://emiri-uranai.com
  *   PRICE_JPY          wrangler.toml の vars。1980
+ *   MANAGED_PAYMENTS   wrangler.toml の vars。"true" で Stripe の代理販売（Managed Payments）
+ *   PRICE_ID           wrangler.toml の vars。Stripe の管理画面で作った価格のID（任意）
  */
 
 const PRODUCT_NAME = "えみり 本格占い 総合鑑定書";
@@ -72,7 +74,7 @@ async function stripe(env, method, pathname, params) {
     headers: {
       Authorization: "Bearer " + env.STRIPE_SECRET_KEY,
       "Content-Type": "application/x-www-form-urlencoded",
-      "Stripe-Version": "2024-06-20"
+      "Stripe-Version": env.MANAGED_PAYMENTS === "true" ? "2025-03-31.basil" : "2024-06-20"
     },
     body: params ? form(params) : undefined
   });
@@ -99,6 +101,37 @@ function json(env, req, status, data) {
   });
 }
 
+/*
+ * 支払いページの設定
+ *   MANAGED_PAYMENTS = "true" のとき、Stripe の代理販売（Managed Payments。販売者は Stripe の Link）で売る。
+ *     デジタル商品の税コードが必要。PRICE_ID（Stripe の管理画面で作った価格。税コード付き・税込）があればそれを使い、
+ *     なければここで税コード付きの商品をその場で指定する。
+ *   それ以外は、通常の Stripe 決済（販売者は運営者本人）。
+ */
+export const TAX_CODE = "txcd_10503004"; // デジタル文書・閲覧のみ・買い切り・永続
+export function sessionParams(env, site, price, metadata) {
+  const managed = env.MANAGED_PAYMENTS === "true";
+  const priceId = String(env.PRICE_ID || "").trim();
+  const item = priceId
+    ? { quantity: 1, price: priceId }
+    : { quantity: 1, price_data: { currency: "jpy", unit_amount: price, tax_behavior: managed ? "inclusive" : undefined, product_data: { name: PRODUCT_NAME, tax_code: managed ? TAX_CODE : undefined } } };
+  const base = {
+    mode: "payment",
+    locale: "ja",
+    success_url: site + "/premium/kantei/?sid={CHECKOUT_SESSION_ID}",
+    cancel_url: site + "/premium/order/?canceled=1",
+    line_items: { 0: item },
+    metadata
+  };
+  if (managed) return { ...base, managed_payments: { enabled: "true" } };
+  return {
+    ...base,
+    payment_intent_data: { metadata, description: PRODUCT_NAME },
+    customer_creation: "if_required",
+    custom_text: { submit: { message: "お支払い後すぐに鑑定書のページが開きます。そのページのURLが、あとから読み返すための鍵になります。" } }
+  };
+}
+
 export async function checkout(env, req) {
   let body;
   try { body = await req.json(); } catch (e) { return json(env, req, 400, { error: "入力内容が読み取れません" }); }
@@ -108,17 +141,7 @@ export async function checkout(env, req) {
   const price = Number(env.PRICE_JPY || 1980);
   const metadata = { kind: "kantei", v: "1", p: JSON.stringify(order.person) };
   if (order.partner) metadata.q = JSON.stringify(order.partner);
-  const session = await stripe(env, "POST", "/checkout/sessions", {
-    mode: "payment",
-    locale: "ja",
-    success_url: site + "/premium/kantei/?sid={CHECKOUT_SESSION_ID}",
-    cancel_url: site + "/premium/order/?canceled=1",
-    line_items: { 0: { quantity: 1, price_data: { currency: "jpy", unit_amount: price, product_data: { name: PRODUCT_NAME } } } },
-    metadata,
-    payment_intent_data: { metadata, description: PRODUCT_NAME },
-    customer_creation: "if_required",
-    custom_text: { submit: { message: "お支払い後すぐに鑑定書のページが開きます。そのページのURLが、あとから読み返すための鍵になります。" } }
-  });
+  const session = await stripe(env, "POST", "/checkout/sessions", sessionParams(env, site, price, metadata));
   return json(env, req, 200, { url: session.url });
 }
 

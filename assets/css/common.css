@@ -275,3 +275,14 @@ img { max-width: 100%; }
 .legal-table dt { font-weight: 700; color: var(--gold); }
 .legal-table dd { margin: 0; }
 @media (max-width: 560px) { .legal-table > div { grid-template-columns: 1fr; gap: 4px; } }
+
+/* アフィリエイト枠（tools/affiliate/inject.mjs。必ず「PR」を表示） */
+.aff-box { position: relative; margin-top: 24px; }
+.aff-pr { position: absolute; top: 12px; right: 12px; margin: 0 !important; font-size: 10px; line-height: 1; padding: 4px 6px; border-radius: 4px; border: 1px solid #8a7a9a; color: #cfc4dc; letter-spacing: .05em; }
+.aff-title { font-weight: 800; font-size: 16px; margin: 0 48px 6px 0 !important; }
+.aff-text { font-size: 14px; color: var(--muted); }
+.aff-list { list-style: none; padding: 0; margin: 10px 0; display: grid; gap: 8px; }
+.aff-list a { font-weight: 700; }
+.aff-lead { display: block; font-size: 13px; color: var(--muted); }
+.aff-pixel { position: absolute; width: 1px; height: 1px; border: 0; }
+.aff-note { font-size: 11px; color: var(--muted); margin: 8px 0 0 !important; }

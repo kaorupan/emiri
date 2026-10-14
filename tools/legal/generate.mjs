@@ -100,6 +100,9 @@ page("privacy", "プライバシーポリシー｜えみり", "無料占いサ�
     <p>当サイトは、第三者配信の広告サービス「Google アドセンス」を利用することがあります。Google などの第三者配信事業者は、Cookie を使用して、利用者が当サイトや他のウェブサイトに過去にアクセスした際の情報にもとづいて広告を配信します。</p>
     <p>Google が広告 Cookie を使用することにより、利用者が当サイトや他のサイトにアクセスした際の情報にもとづいて、Google やそのパートナーが適切な広告を表示できます。利用者は、<a href="https://adssettings.google.com/" target="_blank" rel="noopener">Google の広告設定</a>で、パーソナライズ広告を無効にできます。また、<a href="https://www.aboutads.info/" target="_blank" rel="noopener">www.aboutads.info</a> にアクセスすると、第三者配信事業者の Cookie を無効にできます。Google による情報の扱いは、<a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noopener">Google の広告に関するポリシー</a>をご覧ください。</p>
 
+    <h2 id="affiliate">アフィリエイトプログラムについて</h2>
+    <p>当サイトは、電話占い・チャット占いなどのサービスを紹介するアフィリエイトプログラムに参加することがあります。紹介の枠には「PR」と表示し、広告であることがわかるようにしています。リンク先のサービスを利用された場合、当サイトにサービス提供会社から紹介料が支払われることがあります。紹介料の有無によって、占いの結果や文章の内容を変えることはありません。リンク先のサービスの内容・料金・契約については、各サービスの案内をご確認ください。</p>
+
     <h2>5. アクセス解析について</h2>
     <p>当サイトは、サイトの改善のために、Google アナリティクスなどのアクセス解析ツールを利用することがあります。アクセス解析ツールは Cookie を使ってトラフィックデータを収集しますが、個人を特定する情報は含まれません。くわしくは<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Google のポリシーと規約</a>をご覧ください。</p>
 

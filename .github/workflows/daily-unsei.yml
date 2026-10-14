@@ -31,10 +31,11 @@ jobs:
           node-version: 22
       - name: 今日の運勢を生成
         run: node tools/daily/generate.mjs
-      - name: 吉方位・干支の年ごとのページを更新（立春・元日で翌年分が増える）
+      - name: 吉方位・干支の年ごとのページを更新（立春・元日で翌年分が増える）・紹介枠
         run: |
           node tools/kippoui/generate.mjs
           node tools/eto/generate.mjs
+          node tools/affiliate/inject.mjs
           node tools/seo/seo.mjs
       - name: テストと静的チェック
         run: |

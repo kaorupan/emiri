@@ -59,6 +59,26 @@ test("checkout：1,980円の支払いページを作り、入力内容を注文�
   assert.equal(bad.status, 400);
 });
 
+test("代理販売（Managed Payments）：有効化・税コード・税込、通常決済用の項目は付けない", async () => {
+  const worker = (await load()).default;
+  const m = mockFetch(async () => new Response(JSON.stringify({ url: "https://checkout.stripe.com/x" }), { status: 200 }));
+  try {
+    const env = { ...ENV, MANAGED_PAYMENTS: "true" };
+    await worker.fetch(req("POST", "https://api.example/api/checkout", { agree: true, person: { name: "あかり", year: 1990, month: 1, day: 1 } }), env);
+    let body = decodeURIComponent(m.calls[0].init.body);
+    assert.equal(m.calls[0].init.headers["Stripe-Version"], "2025-03-31.basil");
+    assert.ok(body.includes("managed_payments[enabled]=true"));
+    assert.ok(body.includes("line_items[0][price_data][product_data][tax_code]=txcd_10503004"));
+    assert.ok(body.includes("line_items[0][price_data][tax_behavior]=inclusive"));
+    assert.ok(!body.includes("payment_intent_data") && !body.includes("customer_creation"));
+    await worker.fetch(req("POST", "https://api.example/api/checkout", { agree: true, person: { name: "あかり", year: 1990, month: 1, day: 1 } }), { ...env, PRICE_ID: "price_123" });
+    body = decodeURIComponent(m.calls[1].init.body);
+    assert.ok(body.includes("line_items[0][price]=price_123") && !body.includes("price_data"));
+  } finally { m.restore(); }
+  const toml = fs.readFileSync(path.join(ROOT, "worker/wrangler.toml"), "utf8");
+  assert.match(toml, /MANAGED_PAYMENTS = "true"/);
+});
+
 test("kantei：支払い済みのときだけ入力内容を返す。作成日は購入日（日本時間）", async () => {
   const worker = (await load()).default;
   const session = (status, kind = "kantei") => ({
