@@ -114,7 +114,7 @@
       "advertiser": "アイオイクス株式会社",
       "active": true,
       "rank": {
-        "stone": 1
+        "stone": 3
       },
       "id": "hariqua",
       "format": "shop",
@@ -127,6 +127,81 @@
         "firstOffer": "",
         "offerConditions": ""
       }
+    },
+    {
+      "asp": "A8.net",
+      "active": true,
+      "format": "shop",
+      "verified": {
+        "checkedOn": "",
+        "price": "",
+        "priceExample": "",
+        "firstOffer": "",
+        "offerConditions": ""
+      },
+      "name": "パワーストーン｜ヒラオカ宝石",
+      "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5FA776+2V84+5YJRM",
+      "pixel": "https://www11.a8.net/0.gif?a8mat=4BEH5E+5FA776+2V84+5YJRM",
+      "themes": [
+        "stone"
+      ],
+      "advertiser": "ヒラオカ宝石",
+      "rank": {
+        "stone": 1
+      },
+      "id": "hiraoka",
+      "about": "パワーストーンのブレスレットを扱う専門店で、ウェブ上でデザインを作るオーダーメイドにも対応しています（広告主の紹介より）。",
+      "memo": "A8 素材ID 001（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】。「1万人超」「TVや雑誌で人気」などの広告主の表現は確認できないため使わない"
+    },
+    {
+      "asp": "A8.net",
+      "active": true,
+      "format": "shop",
+      "verified": {
+        "checkedOn": "",
+        "price": "",
+        "priceExample": "",
+        "firstOffer": "",
+        "offerConditions": ""
+      },
+      "name": "パワーストーンや誕生石のブレスレット専門通販サイト Pascle（パスクル）",
+      "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5E3BZM+2KAI+2TD9GI",
+      "pixel": "https://www15.a8.net/0.gif?a8mat=4BEH5E+5E3BZM+2KAI+2TD9GI",
+      "themes": [
+        "stone"
+      ],
+      "advertiser": "株式会社リーフワークス",
+      "rank": {
+        "stone": 2
+      },
+      "id": "pascle",
+      "about": "パワーストーンや誕生石のブレスレットを扱う通販サイトです（広告主の紹介より）。",
+      "memo": "A8 素材ID 026（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】"
+    },
+    {
+      "asp": "A8.net",
+      "active": true,
+      "format": "goods",
+      "verified": {
+        "checkedOn": "",
+        "price": "",
+        "priceExample": "",
+        "firstOffer": "",
+        "offerConditions": ""
+      },
+      "name": "開運グッズのラッキーショップ",
+      "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5TKLPU+1JT6+5YJRM",
+      "pixel": "https://www18.a8.net/0.gif?a8mat=4BEH5E+5TKLPU+1JT6+5YJRM",
+      "themes": [
+        "fusui"
+      ],
+      "advertiser": "ラッキーショップ",
+      "rank": {
+        "fusui": 1
+      },
+      "id": "luckyshop",
+      "about": "風水鏡など、開運グッズを扱う通販ショップです（広告主の紹介より）。",
+      "memo": "A8 素材ID 001（自由テキスト・トップページ）。掲載サイト：えみり｜無料占い【アピールサイト】"
     }
   ]
 }

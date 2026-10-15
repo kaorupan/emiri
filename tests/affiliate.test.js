@@ -104,3 +104,21 @@ test("パワーストーンのページ：ショップの案件があればシ�
   assert.ok(withShop.includes("公式ショップで商品と条件を見る") && withShop.includes("天然石のショップ"));
   assert.ok(!apply(PAGE, "yume/hebi/index.html", consult.concat(shop)).includes("天然石ショップB"), "ほかのページにはショップを出さない");
 });
+
+test("風水のページ：開運グッズのショップ（案件がなければ相談の案内）", async () => {
+  const { apply, themeOf } = await load();
+  assert.equal(themeOf("fusui/genkan/index.html"), "fusui");
+  const consult = [{ name: "電話占いA", id: "a", format: "phone", url: "https://px.a8.net/svt/ejp?a8mat=A", themes: ["general"] }];
+  const goods = [{ name: "開運グッズC", id: "c", format: "goods", url: "https://px.a8.net/svt/ejp?a8mat=C", themes: ["fusui"] }];
+  assert.ok(apply(PAGE, "fusui/genkan/index.html", consult).includes("電話占いA"));
+  const g = apply(PAGE, "fusui/genkan/index.html", consult.concat(goods));
+  assert.ok(g.includes("開運グッズC") && g.includes("開運グッズのショップ") && !g.includes("電話占いA"));
+});
+
+test("今のサイト：ショップの広告リンクは、えみりで提携したもの（4BEH5E）をそのまま使う", async () => {
+  const { loadPrograms } = await load();
+  for (const p of loadPrograms(ROOT).filter((x) => ["shop", "goods"].includes(x.format))) {
+    assert.match(p.url, /^https:\/\/px\.a8\.net\/svt\/ejp\?a8mat=4BEH5E\+/, p.name);
+    assert.ok(p.pixel.endsWith(p.url.split("a8mat=")[1]), `${p.name} の計測画像`);
+  }
+});
