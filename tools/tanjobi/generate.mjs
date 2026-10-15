@@ -43,6 +43,10 @@ const BIRTHSTONE = {
   8: "ペリドット・サードオニックス・スピネル", 9: "サファイア・クンツァイト", 10: "オパール・トルマリン", 11: "トパーズ・シトリン",
   12: "トルコ石・ラピスラズリ・タンザナイト・ジルコン"
 };
+// 誕生石の名前 → パワーストーンの解説ページ
+const STONE_PAGE = { "ガーネット": "garnet", "アメシスト": "amethyst", "アクアマリン": "aquamarine", "アイオライト": "iolite", "モルガナイト": "morganite",
+  "ヒスイ": "hisui", "ムーンストーン": "moonstone", "ペリドット": "peridot", "オパール": "opal", "トルマリン": "tourmaline", "シトリン": "citrine",
+  "トルコ石": "turquoise", "ラピスラズリ": "lapis" };
 const DAYS_IN = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 function seasonOf(term) {
@@ -162,7 +166,7 @@ function dayPage(me) {
       <div><dt>星座の中の区切り</dt><dd>${esc(decName)}（${esc(dec.sub === mainSign ? `${mainSign}らしさがいちばん濃い区切り` : `${dec.sub}の色が加わる区切り`)}）</dd></div>
       <div><dt>生まれた季節</dt><dd>${esc(season)}・二十四節気の「${esc(term.name)}（${esc(term.reading)}）」のころ</dd></div>
       <div><dt>七十二候</dt><dd>「${esc(kou[0])}（${esc(kou[1])}）」のころ</dd></div>
-      <div><dt>誕生石（${m}月）</dt><dd>${esc(BIRTHSTONE[m])}</dd></div>
+      <div><dt>誕生石（${m}月）</dt><dd>${BIRTHSTONE[m].split("・").map((x) => (STONE_PAGE[x] ? `<a href="../../powerstone/${STONE_PAGE[x]}/">${esc(x)}</a>` : esc(x))).join("・")}</dd></div>
       <div><dt>1年の中で</dt><dd>${m === 2 && d === 29 ? "4年に一度だけめぐってくる日" : `${me.idx + 1 - (m > 2 ? 1 : 0)}日目（うるう年は${me.idx + 1}日目）`}</dd></div>
     </dl>
   </section>
