@@ -299,3 +299,68 @@ img { max-width: 100%; }
 .line-cta-qr img { display: block; width: 132px; height: 132px; border-radius: 10px; background: #fff; padding: 6px; }
 .line-cta-qr figcaption { font-size: 11px; color: var(--muted); margin-top: 6px; max-width: 132px; }
 @media (max-width: 720px) { .line-cta-qr { display: none; } }
+
+/* ---- TOP：最初の画面のボタン ---- */
+.hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 22px auto 0; max-width: 560px; }
+.hero-actions .btn { flex: 1 1 220px; min-height: 52px; margin-top: 0; }
+.hero-note { margin-top: 12px !important; font-size: 13px; color: var(--muted); }
+
+/* ---- TOP：目的から選ぶ（はじめての方へ） ---- */
+.guide-list { list-style: none; padding: 0; margin: 0 0 22px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.guide-list a { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; min-height: 64px; padding: 14px 16px; border: 1px solid rgba(231, 197, 104, .4); border-radius: var(--radius-sm); background: #140d1c; color: var(--text); text-decoration: none; }
+.guide-list a:hover { border-color: var(--gold); color: var(--text); }
+.guide-q { flex: 1 0 100%; font-size: 13px; color: var(--muted); }
+.guide-a { flex: 1; font-weight: 800; font-size: 16px; color: var(--gold); }
+.guide-a small { display: block; font-weight: 400; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.guide-list .arrow { color: var(--gold); }
+.nayami-sub { font-size: 16px; margin: 6px 0 12px; }
+@media (max-width: 600px) { .guide-list { grid-template-columns: 1fr; } }
+
+/* ---- 鑑定結果：要約・目次・折りたたみ・今月 ---- */
+.result-overview { border: 1px solid rgba(231, 197, 104, .55); background: linear-gradient(160deg, rgba(231, 197, 104, .08), rgba(23, 16, 32, .95)); }
+.result-overview h2:focus { outline: none; }
+.result-overview h2:focus-visible { outline: 2px solid var(--gold); }
+.result-headline { font-family: var(--serif); font-size: 21px; font-weight: 800; color: var(--gold); margin: 0 0 8px !important; line-height: 1.5; }
+.result-points { margin: 14px 0 0; display: grid; gap: 8px; }
+.result-points > div { display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; padding: 10px 12px; border-radius: 12px; background: #0d0914; border: 1px solid #382943; }
+.result-points dt { color: var(--gold); font-weight: 700; font-size: 14px; }
+.result-points dd { margin: 0; font-size: 14px; }
+@media (max-width: 420px) { .result-points > div { grid-template-columns: 1fr; gap: 2px; } }
+.result-toc { margin: 16px 0 0; }
+.result-toc ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.result-toc a { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 14px; border-radius: 999px; border: 1px solid #5b456e; background: rgba(255, 255, 255, .04); color: var(--text); font-size: 14px; text-decoration: none; }
+.result-toc a:hover { border-color: var(--gold); color: var(--text); }
+.fold { border-top: 1px solid #2f2440; }
+.fold:first-of-type { border-top: 0; }
+.fold > summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 48px; padding: 10px 0; }
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary h3 { margin: 0; font-size: 17px; }
+.fold > summary::after { content: "＋"; color: var(--gold); font-weight: 700; flex: none; }
+.fold[open] > summary::after { content: "－"; }
+.fold-body { padding-bottom: 14px; }
+.is-now { border-color: var(--gold) !important; box-shadow: 0 0 0 1px var(--gold) inset; }
+.now-badge { display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: var(--gold); color: #1a1022; font-size: 11px; font-weight: 800; vertical-align: middle; }
+.result-next .btn { max-width: 420px; }
+.result-next .link-list { margin-top: 12px; }
+.result-consult { font-size: 14px; color: var(--muted); margin-top: 14px !important; }
+
+/* ---- 相談サービスの案内（広告） ---- */
+.consult .aff-pr { font-size: 12px; padding: 5px 8px; color: var(--text); border-color: #b9a8c9; background: rgba(255, 255, 255, .06); }
+.consult .aff-title { font-family: var(--sans); font-size: 18px; margin: 0 84px 6px 0 !important; }
+.consult-list { list-style: none; padding: 0; margin: 14px 0 6px; display: grid; gap: 12px; }
+.consult-item { position: relative; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #110c18; }
+.consult-format { display: inline-block; margin: 0 0 6px !important; padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(231, 197, 104, .55); color: var(--gold); font-size: 12px; font-weight: 700; }
+.consult-name { font-weight: 800; font-size: 16px; margin: 0 0 8px !important; }
+.consult-facts { margin: 0; display: grid; gap: 6px; }
+.consult-facts > div { display: grid; grid-template-columns: 7.5em 1fr; gap: 8px; font-size: 14px; }
+.consult-facts dt { color: var(--muted); }
+.consult-facts dd { margin: 0; }
+.consult-btn { margin-top: 12px; min-height: 48px; font-size: 15px; }
+.consult .aff-note { font-size: 13px; color: #d9cfe4; line-height: 1.7; }
+@media (max-width: 420px) { .consult-facts > div { grid-template-columns: 1fr; gap: 0; } }
+
+/* ---- LINE の案内ページ ---- */
+.line-guide-start { text-align: center; border-color: rgba(6, 199, 85, .55); }
+.line-guide-start .btn { max-width: 380px; }
+.line-guide-qr { background: #fff; padding: 6px; border-radius: 10px; }
+.kantei-sample-note { border-color: var(--gold); }

@@ -270,7 +270,7 @@
         h("ul", { class: "link-list" },
           h("li", null, otherTheme),
           h("li", null, h("a", { href: "../suhijutsu/" }, "生年月日から数秘術でも見る ", h("span", { class: "arrow", "aria-hidden": "true" }, "→"))),
-          h("li", null, h("span", { class: "soon-item" }, "タロットについて知る ", h("span", { class: "soon-badge" }, "準備中")))
+          h("li", null, h("a", { href: "../learn/tarot/" }, "タロットについて知る ", h("span", { class: "arrow", "aria-hidden": "true" }, "→")))
         ),
         todayButtons.length ? h("p", { class: "tarot-meta" }, "今日占った結果をもう一度見る") : null,
         todayButtons.length ? h("p", { class: "tarot-today" }, todayButtons) : null,

@@ -27,7 +27,10 @@ test("ページの種類：恋愛・相性は love、運営・本格占いには
 test("枠：PR表示・nofollow sponsored・テーマで絞り込み・何度実行しても同じ", async () => {
   const { apply } = await load();
   const love = apply(PAGE, "kyusei/aisho/index.html", PROGRAMS);
-  assert.ok(love.includes('<p class="aff-pr">PR</p>'));
+  assert.ok(love.includes('<p class="aff-pr">PR・広告</p>'));
+  assert.ok(love.includes("この枠は広告です") && love.includes("紹介料"));
+  assert.ok(love.includes("公式サイトで料金・特典条件を確認する"));
+  assert.ok(!love.includes("初回の特典あり"), "確認できていない紹介文（lead）は出さない");
   assert.ok(love.includes('rel="nofollow sponsored noopener"'));
   assert.ok(love.includes("電話占いA") && !love.includes("チャット占いB"));
   assert.ok(love.includes('href="../../privacy/#affiliate"'));
@@ -58,7 +61,33 @@ test("並び順：rank の小さい順。テーマごとに変えられる", asy
     { name: "B", url: "https://b.example/", themes: ["love", "general"], rank: { love: 1, general: 2 } },
     { name: "C", url: "https://c.example/", themes: ["love", "general"] }
   ];
-  const names = (h) => [...h.matchAll(/noopener">([^<]+)<\/a>/g)].map((m) => m[1]);
+  const names = (h) => [...h.matchAll(/<p class="consult-name">([^<]+)<\/p>/g)].map((m) => m[1]);
   assert.deepEqual(names(apply(PAGE, "aisho/index.html", P)), ["B", "A", "C"]);
   assert.deepEqual(names(apply(PAGE, "yume/hebi/index.html", P)), ["A", "B", "C"]);
+});
+
+test("相談の案内：確認日のある情報だけを出す・LINEの案内の前に入れる・計測の印", async () => {
+  const { apply } = await load();
+  const P = [{ name: "電話占いA", id: "a", format: "phone", url: "https://px.a8.net/svt/ejp?a8mat=TEST", themes: ["general"],
+    verified: { checkedOn: "", price: "1分100円" } }];
+  const noDate = apply(PAGE, "yume/hebi/index.html", P);
+  assert.ok(!noDate.includes("1分100円"), "確認日がなければ料金は出さない");
+  assert.ok(noDate.includes("電話で相談") && noDate.includes("向いている人"));
+  assert.ok(noDate.includes('data-track="aff_click" data-service="a"'));
+  assert.ok(noDate.includes('href="https://px.a8.net/svt/ejp?a8mat=TEST"'), "広告リンクはそのまま");
+  P[0].verified.checkedOn = "2026-10-15";
+  const dated = apply(PAGE, "yume/hebi/index.html", P);
+  assert.ok(dated.includes("1分100円") && dated.includes("情報の確認日"));
+  const withLine = "<main>\n  <p>x</p>\n<!--line-cta-->\n  <aside>LINE</aside>\n<!--/line-cta-->\n</main>";
+  const o = apply(withLine, "yume/hebi/index.html", P);
+  assert.ok(o.indexOf("<!--aff-->") < o.indexOf("<!--line-cta-->"));
+  assert.equal(apply(o, "yume/hebi/index.html", P), o);
+  assert.equal(apply(PAGE, "line/index.html", P), PAGE, "LINEの中で開くページには出さない");
+});
+
+test("今のサイト：表示中の広告リンク（a8mat）が設定と一致し、確認日のない料金・特典は出ていない", async () => {
+  const { loadPrograms } = await load();
+  const top = fs.readFileSync(path.join(ROOT, "suhijutsu/index.html"), "utf8");
+  for (const p of loadPrograms(ROOT).filter((x) => x.themes.includes("general"))) assert.ok(top.includes(p.url.replace(/&/g, "&amp;")), p.name);
+  assert.ok(!top.includes("3,000円"));
 });

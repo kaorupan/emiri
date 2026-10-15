@@ -38,7 +38,8 @@ for (const f of htmlFiles) {
 }
 
 function resolveTarget(fromFile, href) {
-  const [p, frag] = href.split("#");
+  const [withQuery, frag] = href.split("#");
+  const p = withQuery.split("?")[0]; // ?d=… などのクエリはファイルの場所に関係しない
   let target = fromFile;
   if (p) {
     target = path.resolve(path.dirname(fromFile), p);

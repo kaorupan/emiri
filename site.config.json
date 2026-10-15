@@ -8,5 +8,6 @@
   "salesApiUrl": "",
   "salesOpen": false,
   "premiumVisible": false,
+  "ga4MeasurementId": "",
   "liffId": "2012021804-poeicnay"
 }

@@ -1,8 +1,8 @@
 {
+  "_": "id＝計測用の名前（英数字）。format＝phone/chat/message。料金・特典は公式サイトと提携条件で確認できたものだけ verified に書く（checkedOn＝確認日）。確認できないものは書かない。",
   "programs": [
     {
       "name": "チャット占い【ブリランテ】",
-      "lead": "チャットで、占い師に悩みを相談できるサービスです",
       "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EJXH4I+5SGG+5YJRM",
       "pixel": "https://www16.a8.net/0.gif?a8mat=4BEGDB+EJXH4I+5SGG+5YJRM",
       "themes": [
@@ -15,11 +15,20 @@
       "rank": {
         "love": 1,
         "general": 2
+      },
+      "id": "brillante",
+      "format": "chat",
+      "memo": "未確認（サイトには表示しない）：チャットで、占い師に悩みを相談できるサービスです",
+      "verified": {
+        "checkedOn": "",
+        "price": "",
+        "priceExample": "",
+        "firstOffer": "",
+        "offerConditions": ""
       }
     },
     {
       "name": "電話占い【ミラー】",
-      "lead": "新規会員登録で3,000円無料クーポンプレゼント中",
       "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
       "pixel": "https://www13.a8.net/0.gif?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
       "themes": [
@@ -32,11 +41,20 @@
       "rank": {
         "love": 4,
         "general": 3
+      },
+      "id": "miror",
+      "format": "phone",
+      "memo": "未確認（サイトには表示しない）：新規会員登録で3,000円無料クーポンプレゼント中",
+      "verified": {
+        "checkedOn": "",
+        "price": "",
+        "priceExample": "",
+        "firstOffer": "",
+        "offerConditions": ""
       }
     },
     {
       "name": "電話占い【ココナラ】",
-      "lead": "新規会員登録で3,000円無料クーポンプレゼント中",
       "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ECS9V6+2PEO+C3BAQ",
       "pixel": "https://www18.a8.net/0.gif?a8mat=4BEGDB+ECS9V6+2PEO+C3BAQ",
       "themes": [
@@ -49,11 +67,20 @@
       "rank": {
         "love": 2,
         "general": 1
+      },
+      "id": "coconala-phone",
+      "format": "phone",
+      "memo": "未確認（サイトには表示しない）：新規会員登録で3,000円無料クーポンプレゼント中",
+      "verified": {
+        "checkedOn": "",
+        "price": "",
+        "priceExample": "",
+        "firstOffer": "",
+        "offerConditions": ""
       }
     },
     {
       "name": "ココナラでお悩み相談・カウンセリング",
-      "lead": "占い師やカウンセラーに、メールで悩みを相談できます",
       "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
       "pixel": "https://www14.a8.net/0.gif?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
       "themes": [
@@ -64,7 +91,17 @@
       },
       "asp": "A8.net",
       "advertiser": "株式会社ココナラ",
-      "active": true
+      "active": true,
+      "id": "coconala-message",
+      "format": "message",
+      "memo": "未確認（サイトには表示しない）：占い師やカウンセラーに、メールで悩みを相談できます",
+      "verified": {
+        "checkedOn": "",
+        "price": "",
+        "priceExample": "",
+        "firstOffer": "",
+        "offerConditions": ""
+      }
     }
   ]
 }

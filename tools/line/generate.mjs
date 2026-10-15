@@ -6,7 +6,9 @@
  *   node tools/line/generate.mjs
  *
  * site.config.json の liffId（LINE Developers の LIFF ID。公開される値）が空の間は、フォームは「準備中」になる。
- * 入力内容はサーバーに送らない。フォームの中で鑑定書の URL を作り、LINE のトークに送って開く。
+ *   line/guide/    登録の前に読む案内（見本・受け取り方・入力項目・配信・情報の扱い）
+ * 入力内容はえみりのサーバー（データベース）には送らない。フォームの中で鑑定書の URL を作り、LINE のトークに送って開く。
+ * そのため URL（入力内容を含む）は LINE のトークに残り、運営者も LINE 公式アカウントの管理画面で見られる。案内ではそのとおりに書く。
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -76,7 +78,7 @@ ${timeField("line-self")}
 
     <details class="order-partner" id="line-partner">
       <summary>相性を見たいお相手を1人追加する（任意）</summary>
-${nameFields("line-partner", "お相手のお名前", "姓と名の両方を入れると、名前の相性も読み解きます。お相手の情報は鑑定書を作るためだけに使い、保存しません。")}
+${nameFields("line-partner", "お相手のお名前", "姓と名の両方を入れると、名前の相性も読み解きます。お相手の情報は鑑定書を作るためだけに使い、配信やご案内には使いません。")}
       <div data-birthdate="line-partner"></div>
 ${timeField("line-partner")}
     </details>
@@ -84,7 +86,7 @@ ${timeField("line-partner")}
     <label class="order-agree"><input type="checkbox" id="line-agree"> <span><a href="../privacy/#line" target="_blank" rel="noopener">プライバシーポリシー</a>を確認しました</span></label>
     <p class="bd-error" id="line-error" role="alert" hidden></p>
     <button type="submit" class="btn" id="line-submit"${LIFF ? "" : " disabled"}>${LIFF ? "鑑定書を受け取る（無料）" : "準備中"}</button>
-    <p class="kyusei-meta">入力内容は当サイトのサーバーには送りません。鑑定書は、あなたのLINEのトークに届くリンクから、いつでも読み返せます。</p>
+    <p class="kyusei-meta">入力内容は、鑑定書のリンクの中に入れて、あなたのLINEのトークに送られます（えみりのサイトのデータベースには保存しません）。このトークは、えみりの運営者もLINE公式アカウントの管理画面で見ることができます。<a href="guide/#data">くわしく</a></p>
   </form>
 `;
 write("line", head("line/", 1, "LINEで受け取る無料の総合鑑定書｜えみり",
@@ -109,5 +111,82 @@ const kanteiBody = `  <section class="hero hero-compact kantei-intro kantei-nopr
 write("line/kantei", head("line/kantei/", 2, "あなたの総合鑑定書｜えみり",
   "えみりの総合鑑定書をLINEで受け取った方のためのページです。12の占術で読み解いたあなたの鑑定書を、いつでも読み返し、PDFで保存できます。",
   `<link rel="stylesheet" href="../../assets/css/kantei.css">\n${kanteiScripts}`) + `<main id="main" class="wrap">\n${kanteiBody}</main>\n\n` + foot(2));
+
+// ---------- 登録の前に読む案内 ----------
+const kl = (await import(path.join(ROOT, "assets/js/core/kantei-link.js"))).default;
+const SAMPLE = { p: { name: "見本はなこ", sei: "見本", mei: "はなこ", year: 1995, month: 4, day: 12 }, m: [2026, 10, 1] };
+const sampleHref = `../kantei/?d=${kl.encode(SAMPLE)}&sample=1`;
+const guideBody = `  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="../../">えみり</a></li>
+      <li aria-current="page">LINEで受け取る鑑定書</li>
+    </ol>
+  </nav>
+
+  <section class="hero hero-compact">
+    <p class="eyebrow">FREE READING · LINE</p>
+    <h1>LINEで受け取る、無料の総合鑑定書</h1>
+    <p>数秘術・九星気学・四柱推命・西洋占星術など12の占術で、性格・仕事・恋愛・お金・これから3年の流れを1冊にまとめた鑑定書です。友だち追加の前に、内容と受け取り方を確認できます。</p>
+  </section>
+
+  <section class="card prose" aria-labelledby="g-sample">
+    <h2 id="g-sample">鑑定書の見本</h2>
+    <p>架空の人物「見本はなこ」さん（1995年4月12日生まれ）の情報で作った見本です。実際の鑑定書と同じ形で表示されます。</p>
+    <p><a class="btn btn-ghost" href="${sampleHref}" data-track="related_click" data-target="line-sample" data-position="line-guide">見本の鑑定書を見る</a></p>
+  </section>
+
+  <section class="card prose" aria-labelledby="g-steps">
+    <h2 id="g-steps">受け取り方</h2>
+    <ol>
+      <li>下のボタンから、えみりのLINE公式アカウントを友だち追加します。</li>
+      <li>LINEの中で入力フォームが開くので、呼び名と生年月日を入れます。</li>
+      <li>「鑑定書を受け取る」を押すと、鑑定書のリンクがあなたのLINEのトークに届き、そのまま鑑定書が開きます。</li>
+      <li>あとから読み返すときは、トークのリンクを開きます。いつものブラウザで開けば、PDFで保存や印刷もできます。</li>
+    </ol>
+    <p><strong>所要時間の目安：</strong>入力は1〜2分ほどです（任意の項目を入れる場合は少し長くなります）。</p>
+  </section>
+
+  <section class="card prose" aria-labelledby="g-fields">
+    <h2 id="g-fields">入力する項目</h2>
+    <ul>
+      <li><strong>必須：</strong>呼び名、生年月日</li>
+      <li><strong>任意：</strong>姓と名（入れると姓名判断の章が加わります）、出生時刻（入れると紫微斗数の章が加わります）</li>
+      <li><strong>任意：</strong>相性を見たいお相手1人の呼び名・生年月日（姓名・出生時刻も任意）</li>
+    </ul>
+  </section>
+
+  <section class="card prose" aria-labelledby="g-msg">
+    <h2 id="g-msg">LINEで届くもの</h2>
+    <ul>
+      <li>鑑定書のリンク（入力したときに1回）</li>
+      <li>友だち追加のあいさつと、えみりの占いの情報や、おすすめのサービスのご案内をお送りすることがあります。</li>
+    </ul>
+    <p>配信が不要になったときは、LINEでブロックすれば届かなくなります。</p>
+  </section>
+
+  <section class="card prose" aria-labelledby="data">
+    <h2 id="data">入力した情報の扱い</h2>
+    <h3>えみりのサイトで占うとき</h3>
+    <p>サイトの無料占いは、生年月日をあなたの端末（スマホやパソコン）の中で計算します。生年月日をえみりのサーバーに送る仕組みはありません。</p>
+    <h3>LINEで鑑定書を受け取るとき</h3>
+    <ul>
+      <li>入力した内容は、鑑定書のリンクの中に入れて、あなたのLINEのトークに、あなたから送られたメッセージとして届きます。</li>
+      <li>このトークはLINEのサービス上に残り、えみりの運営者もLINE公式アカウントの管理画面で見ることができます。</li>
+      <li>えみりのサイトに、入力内容を保存するデータベースはありません。鑑定書は、リンクの中の情報からあなたの端末で作られます。</li>
+      <li>リンクには入力内容が含まれるため、ほかの人には共有しないでください。</li>
+      <li>お相手の情報は鑑定書を作るためだけに使い、配信やご案内には使いません。</li>
+    </ul>
+    <p>くわしくは<a href="../../privacy/#line">プライバシーポリシー</a>をご覧ください。</p>
+  </section>
+
+  <section class="card line-guide-start" aria-labelledby="g-start">
+    <h2 id="g-start">受け取る</h2>
+    <p><a class="btn line-cta-btn" href="https://liff.line.me/${esc(LIFF)}" target="_blank" rel="noopener" data-track="line_click" data-target="liff" data-position="line-guide">LINEで友だち追加して受け取る</a></p>
+    <p class="kyusei-meta">パソコンで見ている方は、スマホのカメラで読み取ってください。</p>
+    <p><img src="../../assets/img/line-qr.svg" width="132" height="132" alt="LINEで鑑定書を受け取るQRコード" loading="lazy" class="line-guide-qr"></p>
+  </section>
+`;
+if (LIFF) write("line/guide", head("line/guide/", 2, "LINEで受け取る無料の総合鑑定書｜見本と受け取り方｜えみり",
+  "えみりの無料の総合鑑定書を、LINEで受け取る前に。見本、受け取り方、所要時間、入力する項目、届くメッセージ、入力した情報の扱いをまとめました。", "") + `<main id="main" class="wrap-narrow">\n${guideBody}</main>\n\n` + foot(2));
 
 console.log(`line/・line/kantei/ を作成（LIFF：${LIFF ? LIFF : "未設定＝準備中"}）`);

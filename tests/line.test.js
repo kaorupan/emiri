@@ -44,22 +44,39 @@ test("ページ：検索に出さない・サイトマップに入れない・LI
   assert.ok(privacy.includes('id="line"') && privacy.includes("保存したり"));
 });
 
-test("LINEの案内：TOPは紹介の下・ほかは本文の最後（紹介枠の上）、運営・本格占い・LINEのページには出さない、何度でも同じ", async () => {
+test("LINEの案内：どのページも本文の最後（相談の案内の下）、運営・本格占い・LINEのページには出さない、何度でも同じ", async () => {
   const { apply } = await import(path.join(ROOT, "tools/line/cta.mjs"));
   const page = "<main>\n  <p>x</p>\n<!--aff-->\n  <aside>PR</aside>\n<!--/aff-->\n</main>";
   const a = apply(page, "yume/hebi/index.html", "2012021804-poeicnay");
-  assert.ok(a.indexOf("<!--line-cta-->") < a.indexOf("<!--aff-->"));
+  assert.ok(a.indexOf("<!--line-cta-->") > a.indexOf("<!--/aff-->"));
   assert.ok(a.includes('href="https://liff.line.me/2012021804-poeicnay"') && a.includes('src="../../assets/img/line-qr.svg"'));
+  assert.ok(a.includes('href="../../line/guide/"'), "登録の前に読む案内へ");
   assert.equal(apply(a, "yume/hebi/index.html", "2012021804-poeicnay"), a);
   assert.equal(apply(a, "yume/hebi/index.html", ""), page);
   for (const r of ["about/index.html", "privacy/index.html", "premium/index.html", "line/index.html", "tokushoho/index.html"]) assert.equal(apply(page, r, "2012021804-poeicnay"), page, r);
   const top = '<main>\n  <section class="hero">h</section>\n\n  <section>s</section>\n</main>';
   const t = apply(top, "index.html", "2012021804-poeicnay");
-  assert.ok(t.indexOf("line-cta") > t.indexOf("hero") && t.indexOf("line-cta") < t.indexOf("<section>s"));
+  assert.ok(t.indexOf("line-cta") > t.indexOf("<section>s"), "TOPでも無料占いより後ろ");
   assert.equal(apply(t, "index.html", ""), top);
   // 今のサイトの状態が設定と一致
   const config = JSON.parse(fs.readFileSync(path.join(ROOT, "site.config.json"), "utf8"));
   const real = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
   assert.equal(real.includes("<!--line-cta-->"), Boolean(config.liffId));
   assert.ok(fs.existsSync(path.join(ROOT, "assets/img/line-qr.svg")));
+});
+
+test("LINEの案内ページ：見本（架空の人物）・手順・所要時間・入力項目・配信・情報の扱い", () => {
+  const html = fs.readFileSync(path.join(ROOT, "line/guide/index.html"), "utf8");
+  for (const w of ["見本", "架空の人物", "受け取り方", "所要時間", "入力する項目", "LINEで届くもの", "入力した情報の扱い", "管理画面"]) assert.ok(html.includes(w), w);
+  const m = html.match(/href="\.\.\/kantei\/\?d=([^"&]+)&amp;sample=1"|href="\.\.\/kantei\/\?d=([^"&]+)&sample=1"/);
+  assert.ok(m, "見本へのリンク");
+  const kl = require(path.join(ROOT, "assets/js/core/kantei-link.js"));
+  const d = kl.decode(m[1] || m[2]);
+  assert.ok(d && d.p.name.includes("見本"));
+  // LINEのページには広告スクリプトを入れない（URLに入力内容が入るため）
+  for (const r of ["line/index.html", "line/kantei/index.html", "line/guide/index.html"]) {
+    assert.ok(!fs.readFileSync(path.join(ROOT, r), "utf8").includes("pagead2.googlesyndication.com"), r);
+  }
+  const form = fs.readFileSync(path.join(ROOT, "line/index.html"), "utf8");
+  assert.ok(!form.includes("サーバーには送りません"), "実態と違う言い切りをしない");
 });

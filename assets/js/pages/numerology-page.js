@@ -79,39 +79,73 @@
     ]);
   }
 
+  // 詳細鑑定の見出し → ページ内リンク用のID
+  var DEEP_IDS = { "あなたの本質": "num-deep-core", "仕事・適職・働き方": "num-deep-work", "恋愛で本当に求めるもの": "num-deep-love", "金運・お金との付き合い方": "num-deep-money" };
+
   function renderDeep(items) {
-    return section("num-deep", "DEEP READING", "詳細鑑定", items.map(function (it) {
-      return h("div", { class: "num-reading" },
-        h("h3", null, it.title),
-        it.lead ? h("p", { class: "num-lead-strong" }, it.lead) : null,
-        h("p", null, it.text),
-        it.points ? traitList(it.points) : null);
-    }));
+    return section("num-deep", "DEEP READING", "詳細鑑定", [
+      h("p", { class: "num-note" }, "見出しを押すと開閉できます。"),
+      items.map(function (it, i) {
+        return h("details", { class: "fold num-reading", id: DEEP_IDS[it.title] || null, open: i === 0 ? "" : null },
+          h("summary", null, h("h3", null, it.title)),
+          h("div", { class: "fold-body" },
+            it.lead ? h("p", { class: "num-lead-strong" }, it.lead) : null,
+            h("p", null, it.text),
+            it.points ? traitList(it.points) : null));
+      })
+    ]);
   }
 
-  function renderMonths(year, months) {
+  // 冒頭の要約：計算結果から出した文章だけを使う（新しい鑑定文は足さない）
+  //   行動のヒント＝今年（パーソナルイヤー）の文章のうち、テーマの説明のあとの一文
+  function yearHint(py) {
+    var parts = (String(py.text || "").match(/[^。]+。?/g) || []).map(function (x) { return x.trim(); }).filter(Boolean);
+    var rest = parts.filter(function (x) { return !/パーソナルイヤーは|テーマは「/.test(x); });
+    return "テーマは「" + py.theme + "」。" + (rest.join("") || "");
+  }
+  function renderOverview(view, nowMonth) {
+    var month = view.months.filter(function (m) { return m.month === nowMonth; })[0];
+    var points = [["特徴", view.summary.copy], ["強み", view.summary.strength], ["注意点", view.summary.risk],
+      ["行動のヒント（" + view.personalYear.year + "年）", yearHint(view.personalYear)]];
+    if (month) points.push(["今月（" + month.month + "月）", month.theme]);
+    var toc = [["#num-deep-love", "恋愛"], ["#num-deep-work", "仕事"], ["#num-year", "今年の流れ"]];
+    if (month) toc.push(["#num-month-now", "今月"]);
+    toc.push(["#num-deep", "詳細鑑定"], ["#num-summary", "数字の一覧"]);
+    return h("section", { class: "card num-block result-overview", "aria-labelledby": "num-result-heading" },
+      h("p", { class: "eyebrow" }, "SUMMARY"),
+      h("h2", { id: "num-result-heading", tabindex: "-1" }, "鑑定結果の要約"),
+      h("p", { class: "result-headline" }, view.summary.headline),
+      h("dl", { class: "result-points" }, points.map(function (p) {
+        return h("div", null, h("dt", null, p[0]), h("dd", null, p[1]));
+      })),
+      h("nav", { class: "result-toc", "aria-label": "鑑定結果の目次" },
+        h("ul", null, toc.map(function (t) { return h("li", null, h("a", { href: t[0] }, t[1])); }))));
+  }
+
+  function renderMonths(year, months, nowMonth) {
     return section("num-months", "12 MONTHS", year + "年 12ヶ月の流れ", [
       h("p", { class: "num-note" }, "パーソナルイヤーと月から出す「パーソナルマンス」で、月ごとのテーマを見ます。"),
       h("ol", { class: "num-months" }, months.map(function (m) {
-        return h("li", { class: "num-month" },
-          h("p", { class: "num-month-head" }, h("span", null, m.month + "月"), h("span", { class: "num-month-num" }, "PM " + m.number)),
+        var now = m.month === nowMonth;
+        return h("li", { class: "num-month" + (now ? " is-now" : ""), id: now ? "num-month-now" : null, "aria-current": now ? "date" : null },
+          h("p", { class: "num-month-head" }, h("span", null, m.month + "月", now ? h("span", { class: "now-badge" }, "今月") : null), h("span", { class: "num-month-num" }, "PM " + m.number)),
           h("p", { class: "num-month-theme" }, m.theme),
           h("p", { class: "num-month-text" }, m.text));
       }))
     ]);
   }
 
-  function render(container, view) {
+  function render(container, view, nowMonth) {
     Karute.dom.clear(container);
-    container.appendChild(h("h2", { class: "visually-hidden", tabindex: "-1", id: "num-result-heading" }, "鑑定結果"));
     [
+      renderOverview(view, nowMonth),
       renderSummary(view.summary),
       renderLifePath(view.lifePath),
       renderNumberBlock("num-birthday", "BIRTHDAY NUMBER", "バースデーナンバー", view.birthday),
       renderNumberBlock("num-attitude", "ATTITUDE NUMBER", "アティチュードナンバー", view.attitude),
       renderPersonalYear(view.personalYear),
       renderDeep(view.deep),
-      renderMonths(view.personalYear.year, view.months)
+      renderMonths(view.personalYear.year, view.months, nowMonth)
     ].forEach(function (el) { container.appendChild(el); });
   }
 
@@ -131,15 +165,23 @@
       if (!input.ok) return;
       field.commit(input.value);
 
-      var targetYear = Karute.date.todayInJapan().year;
-      var result = engine.calculateNumerology(input.value, { targetYear: targetYear });
-      render(output, content.buildPersonal(result));
+      var today = Karute.date.todayInJapan();
+      var result = engine.calculateNumerology(input.value, { targetYear: today.year });
+      render(output, content.buildPersonal(result), today.month);
       resultWrap.hidden = false;
       Karute.dom.scrollTo(resultWrap);
       var heading = document.getElementById("num-result-heading");
       if (heading) heading.focus({ preventScroll: true });
     });
   }
+
+  // 目次から閉じた詳細鑑定へ飛んだときは開く
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest(".result-toc a");
+    if (!a) return;
+    var el = document.getElementById(a.getAttribute("href").slice(1));
+    if (el && el.tagName === "DETAILS") el.open = true;
+  });
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();

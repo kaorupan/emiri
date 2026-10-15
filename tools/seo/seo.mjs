@@ -63,7 +63,7 @@ export function applyRelated(html, rel) {
   const up = "../".repeat(rel.split("/").length - 1);
   const items = sec.related.map((k) => {
     const r = SECTIONS.sections[k];
-    return `      <li><a href="${up}${k}/"><span>${r.emoji} ${esc(r.name)}<br><small class="lead">${esc(r.lead)}</small></span><span class="arrow" aria-hidden="true">→</span></a></li>`;
+    return `      <li><a href="${up}${k}/" data-track="related_click" data-target="${k}" data-position="related"><span>${r.emoji} ${esc(r.name)}<br><small class="lead">${esc(r.lead)}</small></span><span class="arrow" aria-hidden="true">→</span></a></li>`;
   }).join("\n");
   const block = `<!--related-->
   <section class="section related-next" aria-labelledby="related-next-title">
@@ -73,7 +73,7 @@ ${items}
     </ul>
   </section>
 <!--/related-->`;
-  for (const anchor of ["<!--line-cta-->", "<!--aff-->", "</main>"]) {
+  for (const anchor of ["<!--aff-->", "<!--line-cta-->", "</main>"]) {
     const i = out.indexOf(anchor);
     if (i >= 0) return out.slice(0, i) + block + "\n" + out.slice(i);
   }
@@ -107,7 +107,9 @@ export function applyHead(html, config, rel) {
   }
   // Google アドセンス（site.config.json の adsenseClient＝ca-pub-…。全ページ）
   const ads = (config.adsenseClient || "").trim();
-  if (ads) {
+  // LINE の鑑定書まわり（URL に入力内容が入る）には広告を出さない
+  if (/^line\//.test(rel)) out = out.replace(/\n?<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]*" crossorigin="anonymous"><\/script>/, "");
+  else if (ads) {
     out = setOrInsertAfter(out, /<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]*" crossorigin="anonymous"><\/script>/,
       `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(ads)}" crossorigin="anonymous"></script>`, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/);
   }
@@ -126,6 +128,19 @@ export function applyHead(html, config, rel) {
   if (bc) out = setOrInsertAfter(out, /<script type="application\/ld\+json" id="ld-breadcrumb">[\s\S]*?<\/script>/,
     `<script type="application/ld+json" id="ld-breadcrumb">${JSON.stringify(bc)}</script>`, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/);
   else out = withoutBc;
+  // サイト共通のスクリプト（計測・結果へのフォーカス）
+  const siteJs = `<script defer src="${"../".repeat(depth)}assets/js/core/site.js" id="site-js"></script>`;
+  out = setOrInsertAfter(out, /<script defer src="[^"]*assets\/js\/core\/site\.js" id="site-js"><\/script>/, siteJs, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/);
+  // アクセス解析（GA4）：site.config.json の ga4MeasurementId（G-…）があるときだけ。
+  // URLのクエリ（鑑定書の ?d= など、個人の情報が入りうる）は送らないよう、page_location と page_referrer を上書きする。
+  const GA_RE = /\n?<!--ga4-->[\s\S]*?<!--\/ga4-->/;
+  const ga = (config.ga4MeasurementId || "").trim();
+  out = out.replace(GA_RE, "");
+  if (/^G-[A-Z0-9]+$/.test(ga)) {
+    const tag = `<!--ga4--><script async src="https://www.googletagmanager.com/gtag/js?id=${ga}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","${ga}",{page_location:location.origin+location.pathname,page_referrer:document.referrer.replace(/[?#].*$/,"")});</script><!--/ga4-->`;
+    out = out.replace(/(<script defer src="[^"]*assets\/js\/core\/site\.js" id="site-js"><\/script>)/, `${tag}\n$1`);
+  }
   if (rel === "index.html") {
     const ld = `<script type="application/ld+json" id="ld-website">${JSON.stringify({
       "@context": "https://schema.org", "@type": "WebSite", name: config.siteName, url: `${config.baseUrl}/`,
