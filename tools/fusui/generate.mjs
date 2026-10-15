@@ -98,7 +98,7 @@ ${crumb([["えみり", "../../"], ["風水", "../"], [`本命卦「${g.name}」`
       <div><dt>凶方位</dt><dd>${g.bad.map((x) => `${x.name}（${x.star.name}）`).join("・")}</dd></div>
       <div><dt>寝るときの頭の向き</dt><dd>${g.good[1].name}（天医：健康）か${g.good[2].name}（延年：人間関係・恋愛）</dd></div>
       <div><dt>机で向く方位</dt><dd>${g.good[0].name}（生気：発展・やる気）</dd></div>
-      <div><dt>五行・ラッキーカラー</dt><dd>${g.element}・${t.colors.join("・")}</dd></div>
+      <div><dt>五行・ラッキーカラー</dt><dd>${g.element}・${t.colors.join("・")}　<a href="../../powerstone/#ps-color">この色のパワーストーン</a></dd></div>
     </dl>
   </section>
 

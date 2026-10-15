@@ -46,6 +46,7 @@
         h("a", { class: "btn btn-ghost", href: "https://x.com/intent/post?text=" + encodeURIComponent(share), target: "_blank", rel: "noopener" }, "Xでシェア"),
         h("a", { class: "btn btn-ghost", href: t.slug + "/" }, "このタイプをくわしく見る"),
         h("a", { class: "btn btn-ghost", href: "aisho/" }, "気になる人との相性を見る")),
+      h("p", { class: "wn-more" }, h("a", { href: "../powerstone/", "data-track": "related_click", "data-target": "powerstone", "data-position": "result" }, "同じ生年月日で、あなたの守護石（パワーストーン）も見る →")),
       h("h3", { class: "wn-subhead" }, t.group.name + "のなかま"),
       h("ul", { class: "wn-grid" }, mates.map(function (x) {
         return h("li", null, h("a", { href: x.slug + "/" },
