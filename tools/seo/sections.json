@@ -271,10 +271,22 @@
       "catch": "本命卦で調べる、あなたの吉方位と部屋づくり",
       "lead": "生まれ年の本命卦から、吉方位・寝る向き・机の向きがわかる",
       "related": [
+        "powerstone",
         "kippoui",
         "kyusei",
-        "koyomi",
-        "eto"
+        "koyomi"
+      ]
+    },
+    "powerstone": {
+      "name": "パワーストーン",
+      "emoji": "💎",
+      "catch": "生年月日でわかる守護石と、30種類の石の意味",
+      "lead": "生年月日でわかる守護石と、願い・色から選ぶ石の意味",
+      "related": [
+        "fusui",
+        "tanjobi",
+        "hokuro",
+        "wannyan"
       ]
     }
   },

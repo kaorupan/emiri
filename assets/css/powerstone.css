@@ -1,0 +1,30 @@
+/* パワーストーン */
+.ps-dot { display: inline-block; flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .35); box-shadow: inset -3px -4px 6px rgba(0, 0, 0, .35), inset 2px 2px 4px rgba(255, 255, 255, .45); vertical-align: middle; }
+.ps-white { background: radial-gradient(circle at 35% 30%, #fff, #d8dde6 60%, #aab3c2); }
+.ps-pink { background: radial-gradient(circle at 35% 30%, #ffe1ea, #f2a7bf 60%, #c96e8f); }
+.ps-red { background: radial-gradient(circle at 35% 30%, #ffc2a0, #e0603a 60%, #9c2f1f); }
+.ps-yellow { background: radial-gradient(circle at 35% 30%, #fff1b8, #e3b64a 60%, #9c6f1c); }
+.ps-green { background: radial-gradient(circle at 35% 30%, #d6f5d0, #5fb36a 60%, #2b6b3a); }
+.ps-blue { background: radial-gradient(circle at 35% 30%, #d9f0ff, #4f8fd6 60%, #1f3f8a); }
+.ps-purple { background: radial-gradient(circle at 35% 30%, #efdcff, #a274db 60%, #5a2f8f); }
+.ps-black { background: radial-gradient(circle at 35% 30%, #9a9aa6, #34333d 60%, #111018); }
+.ps-cards { list-style: none; padding: 0; margin: 10px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.ps-cards a { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #110c18; color: var(--text); text-decoration: none; height: 100%; }
+.ps-cards a:hover { border-color: var(--gold); color: var(--text); }
+.ps-cards .arrow { color: var(--gold); margin-left: auto; }
+.ps-card-body { display: flex; flex-direction: column; min-width: 0; }
+.ps-card-body b { font-size: 16px; }
+.ps-card-body small { font-size: 12px; color: var(--muted); }
+.ps-why { font-size: 12px; color: var(--gold); margin-top: 2px; }
+@media (max-width: 600px) { .ps-cards { grid-template-columns: 1fr; } }
+.ps-result-card { margin-top: 16px; border-color: rgba(231, 197, 104, .55); }
+.ps-result-card h2:focus { outline: none; }
+.ps-main { font-size: 17px; font-weight: 700; }
+.ps-note { font-size: 13px; color: var(--muted); }
+.ps-color-h { display: flex; align-items: center; gap: 8px; font-size: 16px; margin: 18px 0 0; }
+.ps-wish-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.ps-wish-list li { padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #110c18; }
+.ps-wish-list h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 18px; }
+.ps-wish-list p { margin: 4px 0 0; font-size: 14px; }
+.ps-words { color: var(--gold); }
+.ps-other { margin-top: 14px; font-size: 14px; }
