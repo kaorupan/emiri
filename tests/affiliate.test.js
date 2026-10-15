@@ -91,3 +91,16 @@ test("今のサイト：表示中の広告リンク（a8mat）が設定と一致
   for (const p of loadPrograms(ROOT).filter((x) => x.themes.includes("general"))) assert.ok(top.includes(p.url.replace(/&/g, "&amp;")), p.name);
   assert.ok(!top.includes("3,000円"));
 });
+
+test("パワーストーンのページ：ショップの案件があればショップの案内、なければふだんの相談の案内", async () => {
+  const { apply, themeOf } = await load();
+  assert.equal(themeOf("powerstone/amethyst/index.html"), "stone");
+  const consult = [{ name: "電話占いA", id: "a", format: "phone", url: "https://px.a8.net/svt/ejp?a8mat=A", themes: ["general"] }];
+  const shop = [{ name: "天然石ショップB", id: "b", format: "shop", url: "https://px.a8.net/svt/ejp?a8mat=B", themes: ["stone"] }];
+  const noShop = apply(PAGE, "powerstone/amethyst/index.html", consult);
+  assert.ok(noShop.includes("電話占いA") && noShop.includes('data-theme="general"'));
+  const withShop = apply(PAGE, "powerstone/amethyst/index.html", consult.concat(shop));
+  assert.ok(withShop.includes("天然石ショップB") && !withShop.includes("電話占いA"));
+  assert.ok(withShop.includes("公式ショップで商品と条件を見る") && withShop.includes("天然石のショップ"));
+  assert.ok(!apply(PAGE, "yume/hebi/index.html", consult.concat(shop)).includes("天然石ショップB"), "ほかのページにはショップを出さない");
+});
