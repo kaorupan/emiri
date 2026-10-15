@@ -13,3 +13,5 @@
 .tj-tools a { display: block; padding: 10px 4px; border-radius: 12px; border: 1px solid #8b6c32; color: var(--gold); text-decoration: none; font-size: 13px; }
 .tj-pager { display: flex; justify-content: space-between; gap: 8px; margin: 24px 0 8px; font-size: 14px; }
 @media (max-width: 420px) { .tj-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tj-days { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tj-sub { display: block; font-size: 12px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.tj-note { font-size: 13px; color: var(--muted); }

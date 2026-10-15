@@ -40,3 +40,34 @@ test("代表的な日の中身", () => {
   const idx = fs.readFileSync(path.join(ROOT, "tanjobi/index.html"), "utf8");
   assert.equal((idx.match(/<li><a href="\d\d-\d\d\/">/g) || []).length, 366);
 });
+
+test("七十二候とデーカン：すべての日にあり、72候・36区切りをすべて使い、二十四節気と食い違わない", async () => {
+  const { KOU, DECAN } = await import(require("node:path").join(__dirname, "../tools/tanjobi/data.mjs"));
+  const fs = require("node:fs"), path = require("node:path");
+  assert.equal(KOU.length, 72);
+  assert.equal(Object.keys(DECAN).length, 12);
+  const usedKou = new Set(), usedDec = new Set();
+  const TERM_OF_KOU = ["立春","雨水","啓蟄","春分","清明","穀雨","立夏","小満","芒種","夏至","小暑","大暑","立秋","処暑","白露","秋分","寒露","霜降","立冬","小雪","大雪","冬至","小寒","大寒"];
+  for (const dir of fs.readdirSync(path.join(__dirname, "../tanjobi")).filter((x) => /^\d\d-\d\d$/.test(x))) {
+    const html = fs.readFileSync(path.join(__dirname, "../tanjobi", dir, "index.html"), "utf8");
+    const k = html.match(/<dt>七十二候<\/dt><dd>「([^（]+)（/);
+    const dc = html.match(/<dt>星座の中の区切り<\/dt><dd>([^（]+)/);
+    const term = html.match(/二十四節気の「([^（]+)（/);
+    assert.ok(k && dc && term, dir);
+    const i = KOU.findIndex((x) => x[0] === k[1]);
+    assert.ok(i >= 0, dir);
+    assert.equal(TERM_OF_KOU[Math.floor(i / 3)], term[1], `${dir}：節気と七十二候が食い違う`);
+    usedKou.add(i); usedDec.add(dc[1]);
+  }
+  assert.equal(usedKou.size, 72);
+  assert.equal(usedDec.size, 36);
+});
+
+test("誕生日ページ：よく知られた日付の七十二候", () => {
+  const fs = require("node:fs"), path = require("node:path");
+  const kouOf = (d) => fs.readFileSync(path.join(__dirname, "../tanjobi", d, "index.html"), "utf8").match(/<dt>七十二候<\/dt><dd>「([^（]+)（/)[1];
+  assert.equal(kouOf("04-10"), "鴻雁北");
+  assert.equal(kouOf("07-02"), "半夏生");
+  assert.equal(kouOf("12-22"), "乃東生");
+  assert.equal(kouOf("10-10"), "鴻雁来");
+});
