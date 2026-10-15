@@ -76,7 +76,7 @@ export function box(theme, programs, depth) {
   if (!list.length) return "";
   const items = list.map((p) => {
     const f = FORMAT[p.format] || null;
-    const rows = (f ? [["向いている人", f.fit], ["利用前に確認", f.check]] : []).concat(verifiedRows(p));
+    const rows = (p.about ? [["ショップの特徴", p.about]] : []).concat(f ? [["向いている人", f.fit], ["利用前に確認", f.check]] : []).concat(verifiedRows(p));
     return `      <li class="consult-item">
         ${f ? `<p class="consult-format">${f.label}</p>` : ""}
         <p class="consult-name">${esc(p.name)}</p>

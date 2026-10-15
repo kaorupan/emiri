@@ -102,6 +102,31 @@
         "firstOffer": "",
         "offerConditions": ""
       }
+    },
+    {
+      "name": "パワーストーン＆スピリチュアルジュエリー Hariqua（ハリックァ）",
+      "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5SDQIA+5N7K+5YJRM",
+      "pixel": "https://www14.a8.net/0.gif?a8mat=4BEH5E+5SDQIA+5N7K+5YJRM",
+      "themes": [
+        "stone"
+      ],
+      "asp": "A8.net",
+      "advertiser": "アイオイクス株式会社",
+      "active": true,
+      "rank": {
+        "stone": 1
+      },
+      "id": "hariqua",
+      "format": "shop",
+      "about": "世界各地から集めた天然石を、18金・10金・シルバーと組み合わせたジュエリーのショップです（広告主の紹介より）。",
+      "memo": "A8 素材ID 001（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】。2026-10-16 提携",
+      "verified": {
+        "checkedOn": "",
+        "price": "",
+        "priceExample": "",
+        "firstOffer": "",
+        "offerConditions": ""
+      }
     }
   ]
 }
