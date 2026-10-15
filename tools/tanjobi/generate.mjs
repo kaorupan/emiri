@@ -6,10 +6,13 @@
  * 生まれた年によらず「月日」だけで決まるものから組み立てる。
  *   - 太陽星座（1950〜2025年の各年の正午で判定。年によって変わる日は両方を示す：engines/daily.js と同じ）
  *   - 数秘術のバースデーナンバー・アティチュードナンバー（engines/numerology.js）
- *   - 季節と二十四節気（2026年の暦で、その日が入る節気。年によって1日ほど前後するため「ごろ」と書く）
+ *   - 季節と二十四節気（七十二候と同じく、1960〜2030年でいちばん多い節気。年によって1日ほど前後するため「ごろ」と書く）
  *   - 誕生石（全国宝石卸商協同組合の2021年改訂版）
  *   - 相性のよい誕生日（太陽星座のエレメントが同じか補い合い、バースデーナンバーが同じ日）
- * 文章は、星座・数字ごとの既存の鑑定文（content/）と、このファイルのエレメント別の文章を組み合わせる。
+ *   - 七十二候（約5日ごとの季節）と、太陽星座の中の区切り（デーカン：約10日ごと）。tools/tanjobi/data.mjs
+ *     どちらも 1960〜2030年の各年の正午の太陽の位置で求め、いちばん多い答えを使う（年によって1日ほど前後するため「ごろ」と書く）
+ * 文章は、星座・数字ごとの既存の鑑定文（content/）と、data.mjs の七十二候・デーカンの文章を組み合わせる。
+ * 同じ文章を多くの日付で使い回さない（日付ごとのページが量産ページに見えないように）。
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -24,6 +27,8 @@ const horo = R("assets/js/content/horoscope-text.js");
 const numText = R("assets/js/content/numerology-text.js");
 const dailyText = R("assets/js/content/daily-text.js");
 const astro = R("assets/js/core/astro.js");
+const { KOU, DECAN } = await import(path.join(ROOT, "tools/tanjobi/data.mjs"));
+if (KOU.length !== 72) throw new Error("七十二候は72個");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const pad2 = (n) => (n < 10 ? "0" : "") + n;
@@ -31,12 +36,6 @@ const core = (n) => (n === 11 ? 2 : n === 22 ? 4 : n === 33 ? 6 : n);
 
 const SIGN_ELEMENT = ["火", "地", "風", "水", "火", "地", "風", "水", "火", "地", "風", "水"];
 const SIGN_NAMES = ["牡羊座", "牡牛座", "双子座", "蟹座", "獅子座", "乙女座", "天秤座", "蠍座", "射手座", "山羊座", "水瓶座", "魚座"];
-const ELEMENT_LIFE = {
-  "火": { love: "恋愛では、好きになったら自分から動く情熱派。駆け引きより、まっすぐな気持ちを伝えることで心が通い合います。", work: "仕事では、新しいことを始める場面や、人を引っぱる場面で輝きます。スピード感のある環境が向いています。", tip: "勢いのあるときこそ、ひと呼吸おいて周りの声を聞くと、運がさらに開けます。" },
-  "地": { love: "恋愛では、時間をかけて信頼を育てる誠実派。一緒に過ごす日常の中で、愛情を形にしていきます。", work: "仕事では、こつこつ積み上げ、確かな成果を出すことが得意。専門性や技術を磨くほど評価されます。", tip: "慎重さはあなたの強み。ときには小さな冒険をして、新しい風を取り入れてみて。" },
-  "風": { love: "恋愛では、会話と知的な刺激を大切にする軽やかさ。友だちのように話せる相手と長続きします。", work: "仕事では、情報や人をつなぐ役割で力を発揮します。企画・広報・交渉など、ことばを使う場が向いています。", tip: "考えを言葉にするのが得意なぶん、ときには心の声にも耳を傾けると、迷いが晴れます。" },
-  "水": { love: "恋愛では、相手の気持ちに深く寄り添う愛情派。心から安心できる相手に、惜しみない愛を注ぎます。", work: "仕事では、人の心を感じとる力が生きる分野で輝きます。ケア・接客・表現の仕事に向いています。", tip: "人の気持ちを受け取りすぎて疲れたら、ひとりで心を整える時間をとりましょう。" }
-};
 const ELEMENT_HARMONY = { "火": ["火", "風"], "風": ["風", "火"], "地": ["地", "水"], "水": ["水", "地"] };
 const BIRTHSTONE = {
   1: "ガーネット", 2: "アメシスト・クリソベリル・キャッツ・アイ", 3: "アクアマリン・サンゴ・ブラッドストーン・アイオライト",
@@ -46,20 +45,6 @@ const BIRTHSTONE = {
 };
 const DAYS_IN = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-// 2026年の二十四節気（日本時間の日付）から、その月日が入る節気を求める
-const TERMS = [];
-for (const y of [2025, 2026]) for (const t of daily.SOLAR_TERMS) {
-  const jd = astro.solarLongitudeTime(y, t.lon);
-  const d = astro.jstDateFromJulianDay(jd);
-  TERMS.push({ name: t.name, reading: t.reading, y: d.year, m: d.month, d: d.day });
-}
-TERMS.sort((a, b) => a.y - b.y || a.m - b.m || a.d - b.d);
-function termOf(m, d) {
-  const key = 2026 * 10000 + (m === 2 && d === 29 ? 228 : m * 100 + d);
-  let cur = null;
-  for (const t of TERMS) if (t.y * 10000 + t.m * 100 + t.d <= key) cur = t;
-  return cur;
-}
 function seasonOf(term) {
   const order = daily.SOLAR_TERMS.map((t) => t.name);
   const i = order.indexOf(term.name); // 0＝春分
@@ -79,6 +64,23 @@ ALL.forEach(({ m, d }, idx) => {
   const signs = r.signs.map((s) => s.sign);
   info.set(`${m}-${d}`, { m, d, idx, birthday: r.birthday, attitude: r.attitude, signs, share: r.signs });
 });
+
+// 七十二候・デーカン：1960〜2030年の各年の正午の太陽の黄経から、いちばん多い答え
+function mode(arr) {
+  const c = new Map();
+  for (const x of arr) c.set(x, (c.get(x) || 0) + 1);
+  return [...c.entries()].sort((a, b) => b[1] - a[1])[0][0];
+}
+for (const me of info.values()) {
+  const lons = [];
+  for (let y = 1960; y <= 2030; y++) {
+    if (me.m === 2 && me.d === 29 && !(y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0))) continue;
+    lons.push(astro.sunLongitude(astro.julianDayJst(y, me.m, me.d, 12)));
+  }
+  me.kou = mode(lons.map((l) => Math.floor((((l - 315) % 360) + 360) % 360 / 5)));
+  const main = me.signs[0];
+  me.decan = mode(lons.filter((l) => Math.floor(l / 30) === main).map((l) => Math.floor((l % 30) / 10)));
+}
 
 const keyOf = (m, d) => `${pad2(m)}-${pad2(d)}`;
 const label = (m, d) => `${m}月${d}日`;
@@ -116,14 +118,17 @@ function dayPage(me) {
   const mainSign = SIGN_NAMES[me.signs[0]];
   const sunMain = horo.SUN[mainSign];
   const el = SIGN_ELEMENT[me.signs[0]];
-  const life = ELEMENT_LIFE[el];
+  const kou = KOU[me.kou], dec = DECAN[mainSign][me.decan];
+  const decName = `${mainSign}の第${me.decan + 1}デーカン`;
   const bT = numText.TRAITS[core(me.birthday)], aT = numText.TRAITS[core(me.attitude)];
-  const term = termOf(m, d), season = seasonOf(term);
+  // 二十四節気は七十二候と同じ計算（3候で1節気）にそろえ、同じページの中で食い違わないようにする
+  const tLon = (315 + Math.floor(me.kou / 3) * 15) % 360;
+  const term = daily.SOLAR_TERMS.find((t) => t.lon === tLon), season = seasonOf(term);
   const kw = sunMain.keyword.split("・");
   const signText = me.signs.length === 1
     ? `${name}生まれの太陽星座は${mainSign}です。`
     : `${name}は星座の境目にあたる日で、生まれた年によって${me.signs.map((s) => SIGN_NAMES[s]).join("または")}になります（このページでは多い方の${mainSign}を中心に読んでいます）。`;
-  const lead = `${name}生まれの人は、${mainSign}の「${kw[0]}」と、数秘術のバースデーナンバー${me.birthday}（${numText.label(me.birthday)}）が持つ「${bT.gift}」をあわせ持つ人。第一印象では「${aT.gift}」が伝わりやすく、${season}の${term.name}のころに生まれた、${kw[kw.length - 1]}を大切にするタイプです。`;
+  const lead = `${name}生まれの人は、${mainSign}の「${kw[0]}」と、数秘術のバースデーナンバー${me.birthday}（${numText.label(me.birthday)}）が持つ「${bT.gift}」をあわせ持つ人。第一印象では「${aT.gift}」が伝わりやすく、七十二候の「${kou[0]}」のころに生まれた、${kw[kw.length - 1]}を大切にするタイプです。`;
   const prev = ALL[(me.idx + ALL.length - 1) % ALL.length], next = ALL[(me.idx + 1) % ALL.length];
   const pts = partners(me);
   const title = `${name}生まれの性格と恋愛・仕事｜誕生日占い｜えみり`;
@@ -131,7 +136,7 @@ function dayPage(me) {
   const rel = `tanjobi/${k}/`;
   const signsBlock = me.signs.length > 1
     ? me.signs.map((s) => `    <h3>${esc(SIGN_NAMES[s])}の場合</h3>\n    <p>${esc(horo.SUN[SIGN_NAMES[s]].body)}</p>`).join("\n")
-    : `    <p>${esc(sunMain.body)}</p>`;
+    : `    <p>${esc(`${mainSign}のキーワードは「${sunMain.keyword}」。`)}</p>`;
   const body = `<main id="main" class="wrap-narrow">
   <nav class="breadcrumb" aria-label="パンくずリスト">
     <ol>
@@ -154,7 +159,9 @@ function dayPage(me) {
       <div><dt>太陽星座</dt><dd>${esc(me.signs.map((s) => SIGN_NAMES[s]).join("・"))}${me.signs.length > 1 ? "（生まれた年による）" : ""}</dd></div>
       <div><dt>バースデーナンバー</dt><dd>${me.birthday}（${esc(numText.label(me.birthday))}）</dd></div>
       <div><dt>アティチュードナンバー</dt><dd>${me.attitude}（${esc(numText.label(me.attitude))}）</dd></div>
+      <div><dt>星座の中の区切り</dt><dd>${esc(decName)}（${esc(dec.sub === mainSign ? `${mainSign}らしさがいちばん濃い区切り` : `${dec.sub}の色が加わる区切り`)}）</dd></div>
       <div><dt>生まれた季節</dt><dd>${esc(season)}・二十四節気の「${esc(term.name)}（${esc(term.reading)}）」のころ</dd></div>
+      <div><dt>七十二候</dt><dd>「${esc(kou[0])}（${esc(kou[1])}）」のころ</dd></div>
       <div><dt>誕生石（${m}月）</dt><dd>${esc(BIRTHSTONE[m])}</dd></div>
       <div><dt>1年の中で</dt><dd>${m === 2 && d === 29 ? "4年に一度だけめぐってくる日" : `${me.idx + 1 - (m > 2 ? 1 : 0)}日目（うるう年は${me.idx + 1}日目）`}</dd></div>
     </dl>
@@ -165,39 +172,44 @@ function dayPage(me) {
     <h2 id="tj-sign-title">星座から見る性格</h2>
     <p>${esc(signText)}</p>
 ${signsBlock}
+    <h3>${esc(decName)}<small class="tj-sub">星座を10°ずつ3つに分けた区切り</small></h3>
+    <p>${esc(`${name}生まれは${decName}。${dec.trait}`)}</p>
   </section>
 
   <section class="card prose" aria-labelledby="tj-num-title">
     <p class="eyebrow">NUMEROLOGY</p>
     <h2 id="tj-num-title">数秘術から見る持ち味と第一印象</h2>
     <h3>バースデーナンバー${me.birthday}：${esc(bT.gift)}</h3>
-    <p>${esc(`生まれた日から出すバースデーナンバーは、自然に発揮しやすい持ち味を表します。${name}生まれの人のバースデーナンバーは${me.birthday}。「${bT.key}」をテーマに、${bT.gift}を生かせる人です。心が満たされるのは「${bT.need}」を感じられるとき。一方で、${bT.risk}ところには気をつけて。`)}</p>
+    <p>${esc(`${name}生まれのバースデーナンバー（自然に出る持ち味）は${me.birthday}。「${bT.key}」をテーマに、${bT.gift}を生かせる人です。心が満たされるのは「${bT.need}」を感じられるとき。一方で、${bT.risk}ところには気をつけて。`)}</p>
     <h3>アティチュードナンバー${me.attitude}：${esc(aT.gift)}</h3>
-    <p>${esc(`誕生月と誕生日から出すアティチュードナンバーは、初対面の人に伝わりやすい印象を表します。${name}生まれの人は、まわりから「${aT.gift}」を持った人として見られやすいでしょう。`)}</p>
+    <p>${esc(`初対面では「${aT.gift}」が先に伝わり、${aT.key}の人として覚えられやすいでしょう。${bT.gift}との組み合わせが、${name}生まれならではの個性です。`)}</p>
   </section>
 
   <section class="card prose" aria-labelledby="tj-life-title">
     <p class="eyebrow">LOVE & WORK</p>
     <h2 id="tj-life-title">恋愛と仕事</h2>
     <h3>恋愛</h3>
-    <p>${esc(life.love + `バースデーナンバー${me.birthday}のあなたは、相手に「${bT.need}」を求めやすいので、それを言葉にして伝えると関係が安定します。`)}</p>
+    <p>${esc(dec.love + `バースデーナンバー${me.birthday}のあなたは、相手に「${bT.need}」を求めやすいので、それを言葉にして伝えると関係が安定します。`)}</p>
     <h3>仕事</h3>
-    <p>${esc(life.work + `${bT.gift}を生かせる役割を選ぶと、${name}生まれらしい力が発揮されます。`)}</p>
+    <p>${esc(dec.work + `${bT.gift}を生かせる役割を選ぶと、${name}生まれらしい力が発揮されます。`)}</p>
     <h3>開運のヒント</h3>
-    <p>${esc(life.tip + `誕生石の${BIRTHSTONE[m].split("・")[0]}を身につけるのもおすすめです。`)}</p>
+    <p>${esc(`${bT.risk}と感じたときは、ひと呼吸おいて。第一印象の「${aT.gift}」を意識すると、人との縁が広がります。誕生石の${BIRTHSTONE[m].split("・")[0]}をお守りにするのもおすすめです。`)}</p>
   </section>
 
   <section class="card prose" aria-labelledby="tj-season-title">
     <p class="eyebrow">SEASON</p>
     <h2 id="tj-season-title">生まれた季節：${esc(term.name)}のころ</h2>
     <p>${esc(dailyText.TERM_TEXT[term.name])}</p>
-    <p>${esc(`${name}は${season}の季節。二十四節気の日付は年によって1日ほど前後するため、生まれた年によっては前後の節気になることもあります。`)}</p>
+    <h3>七十二候「${esc(kou[0])}（${esc(kou[1])}）」<small class="tj-sub">約5日ごとの季節</small></h3>
+    <p>${esc(`${name}ごろは「${kou[0]}」。${kou[2]}`)}</p>
+    <p>${esc(kou[3])}</p>
+    <p class="tj-note">${esc(`季節の区切りは年によって1日ほど前後します。`)}</p>
   </section>
 
   <section class="card" aria-labelledby="tj-match-title">
     <p class="eyebrow">COMPATIBILITY</p>
     <h2 id="tj-match-title">相性のよい誕生日</h2>
-    <p class="lead">${esc(`星座のエレメント（${el}）が調和し、バースデーナンバーの性質が同じ誕生日です。`)}</p>
+    <p class="lead">${esc(`${name}生まれ（${mainSign}・${el}のエレメント）と星座のエレメントが調和し、バースデーナンバー${core(me.birthday)}の性質が同じ誕生日です。`)}</p>
     <ul class="tj-days">
 ${pts.map((x) => `      <li><a href="../${keyOf(x.m, x.d)}/">${esc(label(x.m, x.d))}<small>${esc(SIGN_NAMES[x.signs[0]])}</small></a></li>`).join("\n")}
     </ul>
