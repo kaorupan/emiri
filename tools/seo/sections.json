@@ -1,28 +1,289 @@
 {
   "_": "占いごとの名前・OGP画像の文言・「次はこの占いも」の行き先。key はサイトのいちばん上のフォルダ名。",
   "sections": {
-    "unsei":        { "name": "今日の運勢", "emoji": "🌅", "catch": "九星気学と12星座のランキングを毎日更新", "lead": "九星気学・12星座の今日のランキングを毎日更新", "related": ["koyomi", "kippoui", "tarot", "tanjobi"] },
-    "aisho":        { "name": "相性占い", "emoji": "💞", "catch": "ふたりの関係を、いろいろな占術で見る", "lead": "生年月日や名前から、ふたりの相性を8つの占術で", "related": ["wannyan", "seimei", "tanjobi", "shukuyo"] },
-    "wannyan":      { "name": "星のわんにゃん占い", "emoji": "🐶", "catch": "生年月日で96タイプの犬・猫にたとえる", "lead": "生年月日で、あなたを96タイプの犬・猫にたとえる（相性も）", "related": ["seiju", "tanjobi", "aisho", "maya"] },
-    "seiju":        { "name": "星獣カルテ", "emoji": "🌗", "catch": "生まれた日の季節と月のリズムで決まる12の星獣", "lead": "生まれた日の季節と月のリズムで決まる12の星獣", "related": ["wannyan", "horoscope", "maya", "aisho"] },
-    "tanjobi":      { "name": "誕生日占い", "emoji": "🎂", "catch": "366日の誕生日別に、性格・恋愛・相性", "lead": "366日の誕生日別に、性格・恋愛・相性を見る", "related": ["wannyan", "suhijutsu", "horoscope", "aisho"] },
-    "yume":         { "name": "夢占い辞典", "emoji": "💭", "catch": "見た夢の意味を、キーワードで調べる", "lead": "見た夢の意味を、キーワードで調べる", "related": ["tarot", "hokuro", "tesou", "unsei"] },
-    "tesou":        { "name": "手相の見方", "emoji": "✋", "catch": "生命線・感情線など、線の意味を図解で", "lead": "生命線・感情線など、手のひらの線の意味を図解で", "related": ["hokuro", "yume", "seimei", "tarot"] },
-    "hokuro":       { "name": "ほくろ占い", "emoji": "🔍", "catch": "顔と体のほくろの位置と意味を図解で", "lead": "顔と体のほくろの位置と意味を図解で", "related": ["tesou", "yume", "seimei", "tanjobi"] },
-    "tarot":        { "name": "タロット占い", "emoji": "🃏", "catch": "3枚引きで、過去・現在・未来を見る", "lead": "3枚引きで、過去・現在・未来を見る", "related": ["unsei", "yume", "wannyan", "aisho"] },
-    "seimei":       { "name": "姓名判断", "emoji": "✍️", "catch": "名前の画数で、五格と運勢を見る", "lead": "名前の画数で、五格（天格・人格・地格・外格・総格）を見る", "related": ["aisho", "suhijutsu", "tesou", "kyusei"] },
-    "kyusei":       { "name": "九星気学", "emoji": "🧭", "catch": "本命星・月命星で、性格と運気の流れ", "lead": "本命星・月命星から、性格と運気の流れを見る", "related": ["kippoui", "unsei", "shichusuimei", "eto"] },
-    "kippoui":      { "name": "吉方位", "emoji": "🗺️", "catch": "生年月日で、今年と来年の吉方位", "lead": "生年月日から、今年と来年の吉方位を調べる", "related": ["kyusei", "koyomi", "eto", "unsei"] },
-    "koyomi":       { "name": "吉日カレンダー", "emoji": "📅", "catch": "一粒万倍日・天赦日・寅の日をひと目で", "lead": "一粒万倍日・天赦日・寅の日・巳の日をひと目で", "related": ["kippoui", "unsei", "eto", "kyusei"] },
-    "eto":          { "name": "干支（えと）", "emoji": "🐎", "catch": "十二支別の性格と、年ごとの運勢", "lead": "十二支別の性格と、年ごとの干支の早見表", "related": ["kyusei", "koyomi", "tanjobi", "shichusuimei"] },
-    "shichusuimei": { "name": "四柱推命", "emoji": "☯️", "catch": "命式・日干・通変星・五行で読み解く", "lead": "命式・日干・通変星・五行で性格と運勢を読み解く", "related": ["kyusei", "shibi", "suhijutsu", "aisho"] },
-    "suhijutsu":    { "name": "数秘術", "emoji": "🔢", "catch": "ライフパス・ナンバーと今年の運勢", "lead": "ライフパス・ナンバーと今年の運勢を見る", "related": ["tanjobi", "seimei", "maya", "aisho"] },
-    "maya":         { "name": "マヤ暦", "emoji": "🗿", "catch": "KIN・太陽の紋章・銀河の音", "lead": "KIN・太陽の紋章・銀河の音で、あなたの役割を見る", "related": ["seiju", "suhijutsu", "shukuyo", "aisho"] },
-    "shukuyo":      { "name": "宿曜占星術", "emoji": "🌙", "catch": "本命宿と27宿の相性を、旧暦から", "lead": "本命宿と27宿の相性を、旧暦から見る", "related": ["jyotish", "maya", "aisho", "shibi"] },
-    "shibi":        { "name": "紫微斗数", "emoji": "✨", "catch": "命盤と14主星で、性格・恋愛・仕事", "lead": "命盤と14主星で、性格・恋愛・仕事を見る", "related": ["shichusuimei", "horoscope", "shukuyo", "kyusei"] },
-    "horoscope":    { "name": "ホロスコープ", "emoji": "🪐", "catch": "太陽・月・惑星10天体の星座を計算", "lead": "太陽・月・惑星10天体の星座を計算して読む", "related": ["jyotish", "seiju", "shibi", "tanjobi"] },
-    "jyotish":      { "name": "インド占星術", "emoji": "🕉️", "catch": "月のナクシャトラとダシャー", "lead": "月のナクシャトラとダシャーで、人生の流れを見る", "related": ["horoscope", "shukuyo", "shibi", "maya"] },
-    "learn":        { "name": "占いを知る", "emoji": "📚", "catch": "占術のしくみと用語をやさしく解説", "lead": "占術のしくみと用語をやさしく解説", "related": ["kyusei", "shichusuimei", "tesou", "horoscope"] }
+    "unsei": {
+      "name": "今日の運勢",
+      "emoji": "🌅",
+      "catch": "九星気学と12星座のランキングを毎日更新",
+      "lead": "九星気学・12星座の今日のランキングを毎日更新",
+      "related": [
+        "koyomi",
+        "kippoui",
+        "tarot",
+        "tanjobi"
+      ]
+    },
+    "aisho": {
+      "name": "相性占い",
+      "emoji": "💞",
+      "catch": "ふたりの関係を、いろいろな占術で見る",
+      "lead": "生年月日や名前から、ふたりの相性を8つの占術で",
+      "related": [
+        "wannyan",
+        "seimei",
+        "tanjobi",
+        "shukuyo"
+      ]
+    },
+    "wannyan": {
+      "name": "星のわんにゃん占い",
+      "emoji": "🐶",
+      "catch": "生年月日で96タイプの犬・猫にたとえる",
+      "lead": "生年月日で、あなたを96タイプの犬・猫にたとえる（相性も）",
+      "related": [
+        "seiju",
+        "tanjobi",
+        "aisho",
+        "maya"
+      ]
+    },
+    "seiju": {
+      "name": "星獣カルテ",
+      "emoji": "🌗",
+      "catch": "生まれた日の季節と月のリズムで決まる12の星獣",
+      "lead": "生まれた日の季節と月のリズムで決まる12の星獣",
+      "related": [
+        "wannyan",
+        "horoscope",
+        "maya",
+        "aisho"
+      ]
+    },
+    "tanjobi": {
+      "name": "誕生日占い",
+      "emoji": "🎂",
+      "catch": "366日の誕生日別に、性格・恋愛・相性",
+      "lead": "366日の誕生日別に、性格・恋愛・相性を見る",
+      "related": [
+        "wannyan",
+        "suhijutsu",
+        "horoscope",
+        "aisho"
+      ]
+    },
+    "yume": {
+      "name": "夢占い辞典",
+      "emoji": "💭",
+      "catch": "見た夢の意味を、キーワードで調べる",
+      "lead": "見た夢の意味を、キーワードで調べる",
+      "related": [
+        "tarot",
+        "hokuro",
+        "tesou",
+        "unsei"
+      ]
+    },
+    "tesou": {
+      "name": "手相の見方",
+      "emoji": "✋",
+      "catch": "生命線・感情線など、線の意味を図解で",
+      "lead": "生命線・感情線など、手のひらの線の意味を図解で",
+      "related": [
+        "hokuro",
+        "yume",
+        "seimei",
+        "tarot"
+      ]
+    },
+    "hokuro": {
+      "name": "ほくろ占い",
+      "emoji": "🔍",
+      "catch": "顔と体のほくろの位置と意味を図解で",
+      "lead": "顔と体のほくろの位置と意味を図解で",
+      "related": [
+        "tesou",
+        "yume",
+        "seimei",
+        "tanjobi"
+      ]
+    },
+    "tarot": {
+      "name": "タロット占い",
+      "emoji": "🃏",
+      "catch": "3枚引きで、過去・現在・未来を見る",
+      "lead": "3枚引きで、過去・現在・未来を見る",
+      "related": [
+        "unsei",
+        "yume",
+        "wannyan",
+        "aisho"
+      ]
+    },
+    "seimei": {
+      "name": "姓名判断",
+      "emoji": "✍️",
+      "catch": "名前の画数で、五格と運勢を見る",
+      "lead": "名前の画数で、五格（天格・人格・地格・外格・総格）を見る",
+      "related": [
+        "aisho",
+        "suhijutsu",
+        "tesou",
+        "kyusei"
+      ]
+    },
+    "kyusei": {
+      "name": "九星気学",
+      "emoji": "🧭",
+      "catch": "本命星・月命星で、性格と運気の流れ",
+      "lead": "本命星・月命星から、性格と運気の流れを見る",
+      "related": [
+        "kippoui",
+        "unsei",
+        "shichusuimei",
+        "eto"
+      ]
+    },
+    "kippoui": {
+      "name": "吉方位",
+      "emoji": "🗺️",
+      "catch": "生年月日で、今年と来年の吉方位",
+      "lead": "生年月日から、今年と来年の吉方位を調べる",
+      "related": [
+        "fusui",
+        "kyusei",
+        "koyomi",
+        "unsei"
+      ]
+    },
+    "koyomi": {
+      "name": "吉日カレンダー",
+      "emoji": "📅",
+      "catch": "一粒万倍日・天赦日・寅の日をひと目で",
+      "lead": "一粒万倍日・天赦日・寅の日・巳の日をひと目で",
+      "related": [
+        "kippoui",
+        "unsei",
+        "eto",
+        "kyusei"
+      ]
+    },
+    "eto": {
+      "name": "干支（えと）",
+      "emoji": "🐎",
+      "catch": "十二支別の性格と、年ごとの運勢",
+      "lead": "十二支別の性格と、年ごとの干支の早見表",
+      "related": [
+        "kyusei",
+        "koyomi",
+        "tanjobi",
+        "shichusuimei"
+      ]
+    },
+    "shichusuimei": {
+      "name": "四柱推命",
+      "emoji": "☯️",
+      "catch": "命式・日干・通変星・五行で読み解く",
+      "lead": "命式・日干・通変星・五行で性格と運勢を読み解く",
+      "related": [
+        "kyusei",
+        "shibi",
+        "suhijutsu",
+        "aisho"
+      ]
+    },
+    "suhijutsu": {
+      "name": "数秘術",
+      "emoji": "🔢",
+      "catch": "ライフパス・ナンバーと今年の運勢",
+      "lead": "ライフパス・ナンバーと今年の運勢を見る",
+      "related": [
+        "tanjobi",
+        "seimei",
+        "maya",
+        "aisho"
+      ]
+    },
+    "maya": {
+      "name": "マヤ暦",
+      "emoji": "🗿",
+      "catch": "KIN・太陽の紋章・銀河の音",
+      "lead": "KIN・太陽の紋章・銀河の音で、あなたの役割を見る",
+      "related": [
+        "seiju",
+        "suhijutsu",
+        "shukuyo",
+        "aisho"
+      ]
+    },
+    "shukuyo": {
+      "name": "宿曜占星術",
+      "emoji": "🌙",
+      "catch": "本命宿と27宿の相性を、旧暦から",
+      "lead": "本命宿と27宿の相性を、旧暦から見る",
+      "related": [
+        "jyotish",
+        "maya",
+        "aisho",
+        "shibi"
+      ]
+    },
+    "shibi": {
+      "name": "紫微斗数",
+      "emoji": "✨",
+      "catch": "命盤と14主星で、性格・恋愛・仕事",
+      "lead": "命盤と14主星で、性格・恋愛・仕事を見る",
+      "related": [
+        "shichusuimei",
+        "horoscope",
+        "shukuyo",
+        "kyusei"
+      ]
+    },
+    "horoscope": {
+      "name": "ホロスコープ",
+      "emoji": "🪐",
+      "catch": "太陽・月・惑星10天体の星座を計算",
+      "lead": "太陽・月・惑星10天体の星座を計算して読む",
+      "related": [
+        "jyotish",
+        "seiju",
+        "shibi",
+        "tanjobi"
+      ]
+    },
+    "jyotish": {
+      "name": "インド占星術",
+      "emoji": "🕉️",
+      "catch": "月のナクシャトラとダシャー",
+      "lead": "月のナクシャトラとダシャーで、人生の流れを見る",
+      "related": [
+        "horoscope",
+        "shukuyo",
+        "shibi",
+        "maya"
+      ]
+    },
+    "learn": {
+      "name": "占いを知る",
+      "emoji": "📚",
+      "catch": "占術のしくみと用語をやさしく解説",
+      "lead": "占術のしくみと用語をやさしく解説",
+      "related": [
+        "kyusei",
+        "shichusuimei",
+        "tesou",
+        "horoscope"
+      ]
+    },
+    "fusui": {
+      "name": "風水",
+      "emoji": "🏠",
+      "catch": "本命卦で調べる、あなたの吉方位と部屋づくり",
+      "lead": "生まれ年の本命卦から、吉方位・寝る向き・机の向きがわかる",
+      "related": [
+        "kippoui",
+        "kyusei",
+        "koyomi",
+        "eto"
+      ]
+    }
   },
-  "noRelated": ["about", "privacy", "contact", "tokushoho", "premium", "line"]
+  "noRelated": [
+    "about",
+    "privacy",
+    "contact",
+    "tokushoho",
+    "premium",
+    "line"
+  ]
 }
