@@ -364,3 +364,7 @@ img { max-width: 100%; }
 .line-guide-start .btn { max-width: 380px; }
 .line-guide-qr { background: #fff; padding: 6px; border-radius: 10px; }
 .kantei-sample-note { border-color: var(--gold); }
+
+/* ページの最初に出す広告の表示 */
+.pr-notice { margin: 12px 0 0; font-size: 12px; color: #d9cfe4; text-align: right; }
+.pr-notice a { margin-left: 6px; }

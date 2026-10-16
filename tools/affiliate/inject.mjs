@@ -29,6 +29,9 @@ const LOVE = /(^|\/)aisho\/|^tesou\/(renai|kekkonsen|tamanokoshisen|ninkisen)\/|
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const MARK = /\n?<!--aff-->[\s\S]*?<!--\/aff-->\n?/;
+// ページの最初（ファーストビュー）に出す広告の表示（ステマ規制・ASPの掲載ルール）
+const PR_MARK = /\n?<!--pr-notice-->[\s\S]*?<!--\/pr-notice-->/;
+const prNotice = (depth) => `\n<!--pr-notice--><p class="pr-notice">このページには広告（PR）を含みます。<a href="${"../".repeat(depth)}privacy/#affiliate">広告について</a></p><!--/pr-notice-->`;
 
 export function loadPrograms(root = ROOT) {
   const file = path.join(root, "tools/affiliate/programs.json");
@@ -108,11 +111,13 @@ ${items}
 }
 
 export function apply(html, rel, programs) {
-  let out = html.replace(MARK, "\n");
+  let out = html.replace(MARK, "\n").replace(PR_MARK, "");
   const theme = themeOf(rel);
   if (!theme) return out;
-  const b = box(theme, programs, rel.split("/").length - 1);
+  const depth = rel.split("/").length - 1;
+  const b = box(theme, programs, depth);
   if (!b || !out.includes("</main>")) return out;
+  out = out.replace(/(<main[^>]*>)/, `$1${prNotice(depth)}`);
   // LINE の案内（<!--line-cta-->）があれば、その前に入れる（相談の案内 → LINE の順）
   const i = out.indexOf("<!--line-cta-->");
   if (i >= 0) return out.slice(0, i) + b + "\n" + out.slice(i);

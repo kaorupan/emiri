@@ -122,3 +122,13 @@ test("今のサイト：ショップの広告リンクは、えみりで提携�
     assert.ok(p.pixel.endsWith(p.url.split("a8mat=")[1]), `${p.name} の計測画像`);
   }
 });
+
+test("広告の表示：広告枠のあるページは、ページの最初にも「広告（PR）を含みます」を出す。枠がなければ出さない", async () => {
+  const { apply } = await load();
+  const o = apply(PAGE, "yume/hebi/index.html", PROGRAMS);
+  assert.ok(o.indexOf("<!--pr-notice-->") > o.indexOf("<main") && o.indexOf("<!--pr-notice-->") < o.indexOf("<p>結果</p>"));
+  assert.ok(o.includes('href="../../privacy/#affiliate"'));
+  assert.equal(apply(o, "yume/hebi/index.html", PROGRAMS), o, "2回目で変わらない");
+  assert.equal(apply(o, "yume/hebi/index.html", []), PAGE);
+  assert.ok(!apply(PAGE, "about/index.html", PROGRAMS).includes("pr-notice"));
+});

@@ -55,6 +55,7 @@ async def run(browser, base, label, viewport, mobile):
     print(f"== {label}")
     ctx = await browser.new_context(viewport=viewport, is_mobile=mobile, has_touch=mobile)
     await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # 広告は読み込まない
+    await ctx.route("https://www.googletagmanager.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # アクセス解析も読み込まない
     await ctx.route(re.compile(r"^https://[^/]*a8\.net/"), lambda r: r.fulfill(status=200, content_type="image/gif", body=b"GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\xff\xff\xff!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"))  # アフィリエイトの画像も読み込まない
     page = await ctx.new_page()
     errors = []
@@ -112,6 +113,7 @@ async def run_in_line(browser, base):
     ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/14.16.0 LIFF"
     ctx = await browser.new_context(viewport={"width": 375, "height": 740}, is_mobile=True, has_touch=True, user_agent=ua)
     await ctx.route("https://pagead2.googlesyndication.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))
+    await ctx.route("https://www.googletagmanager.com/**", lambda r: r.fulfill(status=200, content_type="application/javascript", body=""))  # アクセス解析も読み込まない
     await ctx.route(re.compile(r"^https://[^/]*a8\.net/"), lambda r: r.fulfill(status=200, content_type="image/gif", body=b"GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\xff\xff\xff!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"))  # アフィリエイトの画像も読み込まない
     page = await ctx.new_page()
     import subprocess
