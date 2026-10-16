@@ -136,7 +136,8 @@ export function applyHead(html, config, rel) {
   const GA_RE = /\n?<!--ga4-->[\s\S]*?<!--\/ga4-->/;
   const ga = (config.ga4MeasurementId || "").trim();
   out = out.replace(GA_RE, "");
-  if (/^G-[A-Z0-9]+$/.test(ga)) {
+  // LINE の鑑定書まわり（URL に入力内容が入る）には、アクセス解析も入れない
+  if (/^G-[A-Z0-9]+$/.test(ga) && !/^line\//.test(rel)) {
     const tag = `<!--ga4--><script async src="https://www.googletagmanager.com/gtag/js?id=${ga}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","${ga}",{page_location:location.origin+location.pathname,page_referrer:document.referrer.replace(/[?#].*$/,"")});</script><!--/ga4-->`;
     out = out.replace(/(<script defer src="[^"]*assets\/js\/core\/site\.js" id="site-js"><\/script>)/, `${tag}\n$1`);

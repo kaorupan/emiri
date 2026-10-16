@@ -110,3 +110,14 @@ test("sitemap.xml：すべてのURLに lastmod（日付の形）", () => {
   const urls = xml.match(/<url>.*<\/url>/g);
   for (const u of urls) assert.match(u, /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/, u);
 });
+
+test("アクセス解析（GA4）：設定したIDで全ページに1回だけ。LINEのページには入れず、URLのクエリは送らない", () => {
+  const id = (config.ga4MeasurementId || "").trim();
+  if (!id) return;
+  for (const rel of pages()) {
+    const html = read(rel);
+    const n = (html.match(new RegExp(`gtag/js\\?id=${id}`, "g")) || []).length;
+    assert.equal(n, rel.startsWith("line/") ? 0 : 1, rel);
+    if (n) assert.ok(html.includes("page_location:location.origin+location.pathname"), rel);
+  }
+});
