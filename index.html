@@ -58,35 +58,44 @@
 
 
 
-  <section class="section" id="nayami" aria-labelledby="nayami-title">
-    <p class="eyebrow">BY CONCERN</p>
-    <h2 id="nayami-title">悩みから選ぶ</h2>
-    <p class="lead">占いの名前を知らなくても大丈夫。知りたいことから選べます。</p>
+  <section class="section picker" id="uranau" aria-labelledby="uranau-title">
+    <p class="eyebrow">FREE FORTUNE</p>
+    <h2 id="uranau-title">無料占いを選ぶ</h2>
+    <p class="lead">どれも登録不要・何度でも無料。知りたいことからでも、占術からでも選べます。</p>
+    <div class="tabs" data-tabs>
+      <div class="tab-list" role="tablist" aria-label="占いの選び方">
+        <button type="button" class="tab" role="tab" id="tab-nayami" aria-controls="nayami" aria-selected="true">悩みから探す</button>
+        <button type="button" class="tab" role="tab" id="tab-senjutsu" aria-controls="senjutsu" aria-selected="false">占術から探す</button>
+        <button type="button" class="tab" role="tab" id="tab-kaiun" aria-controls="kaiun" aria-selected="false">開運・暮らし</button>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="nayami" aria-labelledby="tab-nayami">
+        <h3 class="panel-title">はじめての方へ｜知りたいことから選ぶ</h3>
     <ul class="guide-list" aria-label="はじめての方へ：目的に合う占い">
       <li><a href="suhijutsu/" data-track="start_click" data-target="suhijutsu" data-position="guide"><span class="guide-q">性格・才能を知りたい</span><span class="guide-a">数秘術<small>生年月日の数字から、本質・強み・今年の流れを読む</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
       <li><a href="aisho/" data-track="start_click" data-target="aisho" data-position="guide"><span class="guide-q">気になる人との関係を知りたい</span><span class="guide-a">相性占い<small>ふたりの生年月日や名前から、関係の傾向を読む</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
       <li><a href="tarot/" data-track="start_click" data-target="tarot" data-position="guide"><span class="guide-q">今日のヒントが欲しい</span><span class="guide-a">タロット・今日の運勢<small>3枚のカードや、毎日更新のランキングで今日を見る</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
       <li><a href="wannyan/" data-track="start_click" data-target="wannyan" data-position="guide"><span class="guide-q">気軽に楽しみたい</span><span class="guide-a">星のわんにゃん占い<small>あなたを96タイプの犬・猫にたとえる、えみりのオリジナル占い</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
     </ul>
-    <h3 class="nayami-sub">悩みごとに選ぶ</h3>
+        <h3 class="panel-title">悩みごとに選ぶ</h3>
     <ul class="nayami-grid">
       <li class="nayami">
-        <h3><span aria-hidden="true">💗</span> 恋愛・片想い</h3>
+        <h3><svg class="nayami-icon" aria-hidden="true"><use href="assets/img/icons.svg#love"/></svg>恋愛・片想い</h3>
         <ul>
           <li><a href="tarot/">タロットで「恋愛」を占う</a></li>
           <li><a href="suhijutsu/aisho/">気になる人との相性（数秘術）</a></li>
         </ul>
       </li>
       <li class="nayami">
-        <h3><span aria-hidden="true">💞</span> ふたりの相性</h3>
+        <h3><svg class="nayami-icon" aria-hidden="true"><use href="assets/img/icons.svg#aisho"/></svg>ふたりの相性</h3>
         <ul>
           <li><a href="suhijutsu/aisho/">数秘術の相性</a></li>
           <li><a href="wannyan/aisho/">わんにゃん占いの相性</a></li>
+          <li><a href="seimei/aisho/">名前の相性（姓名判断）</a></li>
           <li><a href="aisho/">相性占いをすべて見る</a></li>
         </ul>
       </li>
       <li class="nayami">
-        <h3><span aria-hidden="true">💼</span> 仕事・才能</h3>
+        <h3><svg class="nayami-icon" aria-hidden="true"><use href="assets/img/icons.svg#tekishoku"/></svg>仕事・才能</h3>
         <ul>
           <li><a href="tekishoku/">適職占い（向いている仕事と転職の時期）</a></li>
           <li><a href="suhijutsu/">数秘術で才能と向く役割を見る</a></li>
@@ -95,7 +104,7 @@
         </ul>
       </li>
       <li class="nayami">
-        <h3><span aria-hidden="true">🪞</span> 性格・本当の自分</h3>
+        <h3><svg class="nayami-icon" aria-hidden="true"><use href="assets/img/icons.svg#mirror"/></svg>性格・本当の自分</h3>
         <ul>
           <li><a href="seiju/">あなたが宿す星獣を調べる</a></li>
           <li><a href="suhijutsu/">ライフパスナンバーで本質を見る</a></li>
@@ -103,14 +112,14 @@
         </ul>
       </li>
       <li class="nayami">
-        <h3><span aria-hidden="true">🤝</span> 人間関係</h3>
+        <h3><svg class="nayami-icon" aria-hidden="true"><use href="assets/img/icons.svg#ningen"/></svg>人間関係</h3>
         <ul>
           <li><a href="tarot/">タロットで「人間関係」を占う</a></li>
           <li><a href="kyusei/aisho/">五行で見る、あの人との関係</a></li>
         </ul>
       </li>
       <li class="nayami">
-        <h3><span aria-hidden="true">🪙</span> お金・これから</h3>
+        <h3><svg class="nayami-icon" aria-hidden="true"><use href="assets/img/icons.svg#money"/></svg>お金・これから</h3>
         <ul>
           <li><a href="tarot/">タロットで「お金」を占う</a></li>
           <li><a href="suhijutsu/">今年と12ヶ月の流れを見る</a></li>
@@ -119,6 +128,43 @@
         </ul>
       </li>
     </ul>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="senjutsu" aria-labelledby="tab-senjutsu">
+        <h3 class="panel-title">占術から探す（15）</h3>
+        <ul class="pick-grid">
+      <li><a class="pick" href="suhijutsu/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#suhijutsu"/></svg></span><span class="pick-body"><b>数秘術</b><small>生年月日の数字から、本質・才能・今年の流れ</small></span></a></li>
+      <li><a class="pick" href="shichusuimei/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#shichusuimei"/></svg></span><span class="pick-body"><b>四柱推命</b><small>命式から、本質と五行のバランス、これからの3年</small></span></a></li>
+      <li><a class="pick" href="kyusei/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#kyusei"/></svg></span><span class="pick-body"><b>九星気学</b><small>本命星・月命星で、性格と運気の流れ</small></span></a></li>
+      <li><a class="pick" href="tekishoku/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#tekishoku"/></svg></span><span class="pick-body"><b>適職占い<span class="pick-tag">NEW</span></b><small>向いている仕事と、転職に動きやすい時期</small></span></a></li>
+      <li><a class="pick" href="wannyan/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#wannyan"/></svg></span><span class="pick-body"><b>星のわんにゃん占い</b><small>あなたを96タイプの犬・猫にたとえるオリジナル占い</small></span></a></li>
+      <li><a class="pick" href="seiju/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#seiju"/></svg></span><span class="pick-body"><b>星獣カルテ</b><small>季節と月のリズムで決まる12の星獣</small></span></a></li>
+      <li><a class="pick" href="tarot/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#tarot"/></svg></span><span class="pick-body"><b>タロット占い</b><small>3枚のカードで、過去・現在・未来の流れ</small></span></a></li>
+      <li><a class="pick" href="aisho/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#aisho"/></svg></span><span class="pick-body"><b>相性占い</b><small>ふたりの生年月日や名前から、8つの占術で相性</small></span></a></li>
+      <li><a class="pick" href="seimei/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#seimei"/></svg></span><span class="pick-body"><b>姓名判断</b><small>名前の画数で、五格と三才配置を鑑定</small></span></a></li>
+      <li><a class="pick" href="tanjobi/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#tanjobi"/></svg></span><span class="pick-body"><b>誕生日占い</b><small>366日の誕生日別に、性格・恋愛・相性</small></span></a></li>
+      <li><a class="pick" href="maya/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#maya"/></svg></span><span class="pick-body"><b>マヤ暦</b><small>KIN・太陽の紋章・銀河の音で、本質と役割</small></span></a></li>
+      <li><a class="pick" href="horoscope/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#horoscope"/></svg></span><span class="pick-body"><b>ホロスコープ</b><small>10天体の星座を計算して、性格と今年の流れ</small></span></a></li>
+      <li><a class="pick" href="shukuyo/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#shukuyo"/></svg></span><span class="pick-body"><b>宿曜占星術</b><small>本命宿と27宿の相性を、旧暦から</small></span></a></li>
+      <li><a class="pick" href="shibi/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#shibi"/></svg></span><span class="pick-body"><b>紫微斗数</b><small>命盤と14主星で、性格・恋愛・お金・仕事</small></span></a></li>
+      <li><a class="pick" href="jyotish/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#jyotish"/></svg></span><span class="pick-body"><b>インド占星術</b><small>月のナクシャトラとダシャーで、人生の時期</small></span></a></li>
+        </ul>
+        <p class="pick-aisho"><b>相性も占える：</b><a href="suhijutsu/aisho/">数秘術</a>・<a href="kyusei/aisho/">九星気学</a>・<a href="shichusuimei/aisho/">四柱推命</a>・<a href="seiju/aisho/">星獣カルテ</a>・<a href="wannyan/aisho/">わんにゃん</a>・<a href="maya/aisho/">マヤ暦</a>・<a href="horoscope/aisho/">ホロスコープ</a>・<a href="shukuyo/aisho/">宿曜占星術</a>・<a href="shibi/aisho/">紫微斗数</a>・<a href="jyotish/aisho/">インド占星術</a>・<a href="seimei/aisho/">姓名判断</a></p>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="kaiun" aria-labelledby="tab-kaiun">
+        <h3 class="panel-title">開運・暮らしのヒント（9）</h3>
+        <ul class="pick-grid">
+      <li><a class="pick" href="unsei/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#unsei"/></svg></span><span class="pick-body"><b>今日の運勢</b><small>九星・12星座のランキングを毎日更新</small></span></a></li>
+      <li><a class="pick" href="fusui/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#fusui"/></svg></span><span class="pick-body"><b>風水<span class="pick-tag">NEW</span></b><small>本命卦で調べる吉方位と、部屋づくりのヒント</small></span></a></li>
+      <li><a class="pick" href="powerstone/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#powerstone"/></svg></span><span class="pick-body"><b>パワーストーン<span class="pick-tag">NEW</span></b><small>生年月日でわかる守護石と、30種類の石の意味</small></span></a></li>
+      <li><a class="pick" href="kippoui/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#kippoui"/></svg></span><span class="pick-body"><b>吉方位</b><small>今年と来年の吉方位・最大吉方を計算</small></span></a></li>
+      <li><a class="pick" href="koyomi/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#koyomi"/></svg></span><span class="pick-body"><b>吉日カレンダー</b><small>一粒万倍日・天赦日・寅の日をひと目で</small></span></a></li>
+      <li><a class="pick" href="eto/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#eto"/></svg></span><span class="pick-body"><b>干支（えと）</b><small>十二支別の性格と、干支の早見表</small></span></a></li>
+      <li><a class="pick" href="yume/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#yume"/></svg></span><span class="pick-body"><b>夢占い辞典</b><small>見た夢の意味を、キーワードで調べる</small></span></a></li>
+      <li><a class="pick" href="tesou/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#tesou"/></svg></span><span class="pick-body"><b>手相の見方</b><small>生命線・感情線など、線の意味を図解で</small></span></a></li>
+      <li><a class="pick" href="hokuro/"><span class="pick-icon"><svg aria-hidden="true"><use href="assets/img/icons.svg#hokuro"/></svg></span><span class="pick-body"><b>ほくろ占い</b><small>顔と体のほくろの位置と意味を図解で</small></span></a></li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- daily:start -->
@@ -139,212 +185,6 @@
   </section>
   <!-- daily:end -->
 
-  <section class="section" id="uranau" aria-labelledby="uranau-title">
-    <p class="eyebrow">FREE FORTUNE</p>
-    <h2 id="uranau-title">無料占い｜占術から選ぶ</h2>
-    <p class="lead">占術の名前から選びたい方はこちら。どれも登録不要で、何度でも占えます。</p>
-    <ul class="tool-grid">
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">💭</span>
-        <p class="tool-tag">DREAM</p>
-        <h3>夢占い辞典</h3>
-        <p>蛇・歯が抜ける・追いかけられる・元恋人など、よく見る夢の意味を、場面別にキーワードで探せる。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="yume/">夢の意味を探す</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🎂</span>
-        <p class="tool-tag">BIRTHDAY</p>
-        <h3>誕生日占い（366日）</h3>
-        <p>1月1日から12月31日まで、誕生日ごとの性格・恋愛・仕事・相性と誕生石。入力なしで、誕生日を選ぶだけ。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="tanjobi/">誕生日を選ぶ</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">✋</span>
-        <p class="tool-tag">PALMISTRY</p>
-        <h3>手相の見方【図解】</h3>
-        <p>生命線・頭脳線・感情線・運命線から、ますかけ線・仏眼などの珍しい線まで。自分の手と図を見比べながら読み解けます。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="tesou/">手相を見る</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🌑</span>
-        <p class="tool-tag">MOLE READING</p>
-        <h3>ほくろ占い【図解】</h3>
-        <p>目尻・涙ぼくろ・口元・あご・首・手のひら・足の裏など、顔と体の26か所のほくろの意味。恋愛運・金運の強いほくろも図でわかります。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="hokuro/">ほくろ占いを見る</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🧭</span>
-        <p class="tool-tag">LUCKY DIRECTIONS</p>
-        <h3>吉方位</h3>
-        <p>生年月日から、今年と来年のあなたの吉方位・最大吉方・凶方位を九星気学の年盤で計算。旅行や引っ越しの方角選びに。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="kippoui/">吉方位を調べる</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🏠</span>
-        <p class="tool-tag">FENG SHUI · NEW</p>
-        <h3>風水（本命卦）</h3>
-        <p>生まれ年から八宅風水の本命卦を出し、あなたの吉方位・凶方位を方位盤で。寝る向き・机の向きや、玄関・寝室など部屋別の風水も。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="fusui/">本命卦を調べる</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">💎</span>
-        <p class="tool-tag">POWER STONE · NEW</p>
-        <h3>パワーストーン</h3>
-        <p>生年月日から、あなたの守護石（誕生石・五行の石・ライフパスの石）を診断。恋愛・金運・お守りなど、願いや色から30種類の石の意味も探せます。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="powerstone/">守護石を調べる</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">💼</span>
-        <p class="tool-tag">CAREER · NEW</p>
-        <h3>適職占い</h3>
-        <p>数秘術・九星気学・四柱推命の3つの占術で、向いている仕事と働き方を。これからの3年と12か月で、転職に動きやすい時期の目安もわかります。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="tekishoku/">適職を占う</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🐉</span>
-        <p class="tool-tag">ETO</p>
-        <h3>干支（えと）</h3>
-        <p>生まれ年の干支と、十二支ごとの性格・相性・今年の運気。干支の早見表も。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="eto/">干支を調べる</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">✍️</span>
-        <p class="tool-tag">NAME</p>
-        <h3>姓名判断</h3>
-        <p>名前を入れるだけで、人格・総格など五格の画数と吉凶、三才配置を鑑定。名前の相性や、1〜81画の意味一覧も。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="seimei/">名前で占う</a>
-          <a class="tool-link" href="seimei/aisho/">名前の相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🔢</span>
-        <p class="tool-tag">NUMEROLOGY</p>
-        <h3>数秘術のカルテ</h3>
-        <p>生年月日の数字から、本質・才能・第一印象・今年と12ヶ月の流れを読む。相性占いも。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="suhijutsu/">数秘術で占う</a>
-          <a class="tool-link" href="suhijutsu/aisho/">数秘術の相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🃏</span>
-        <p class="tool-tag">TAROT</p>
-        <h3>タロットのカルテ</h3>
-        <p>いま抱えているテーマを、3枚のカードで過去・現在・未来の流れとして読む。同じテーマは1日1回。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="tarot/">タロットで占う</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🐶</span>
-        <p class="tool-tag">ORIGINAL · NEW</p>
-        <h3>星のわんにゃん占い</h3>
-        <p>生年月日から、あなたを「甘えん坊のゴールデンレトリバー」「プライドの高いペルシャ猫」など、犬48・猫48の96タイプに診断。えみりのオリジナル占い。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="wannyan/">わたしのタイプを見る</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🌗</span>
-        <p class="tool-tag">ORIGINAL</p>
-        <h3>星獣カルテ</h3>
-        <p>生まれた日の「季節」と「月のリズム」から、あなたが宿す12星獣のひとつを読み解く、えみりのオリジナル占い。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="seiju/">星獣を調べる</a>
-          <a class="tool-link" href="seiju/aisho/">星獣カルテの相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🧭</span>
-        <p class="tool-tag">NINE STAR KI</p>
-        <h3>九星気学のカルテ</h3>
-        <p>本命星・月命星から、性格・仕事・恋愛・相性を見る。年と月の区切りは、その年の立春・節入りの時刻で判定。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="kyusei/">九星気学で占う</a>
-          <a class="tool-link" href="kyusei/aisho/">九星気学の相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">☯️</span>
-        <p class="tool-tag">FOUR PILLARS</p>
-        <h3>四柱推命のカルテ</h3>
-        <p>命式から、日干・中心星・五行のバランス・天中殺と、これから3年の流れを読み解く。時刻を入れると時柱も。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="shichusuimei/">四柱推命で占う</a>
-          <a class="tool-link" href="shichusuimei/aisho/">四柱推命の相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🗿</span>
-        <p class="tool-tag">MAYAN CALENDAR</p>
-        <h3>マヤ暦のカルテ</h3>
-        <p>KINと太陽の紋章・銀河の音・ウェイブスペルから、本質と才能、縁の深い4つのKIN、これからの年回りを読み解く。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="maya/">マヤ暦で占う</a>
-          <a class="tool-link" href="maya/aisho/">マヤ暦の相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🌌</span>
-        <p class="tool-tag">WESTERN ASTROLOGY</p>
-        <h3>ホロスコープのカルテ</h3>
-        <p>太陽・月・惑星の10天体の星座を天文計算で求め、性格・愛し方・行動力と、今年の木星・土星の流れを読み解く。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="horoscope/">ホロスコープで占う</a>
-          <a class="tool-link" href="horoscope/aisho/">ホロスコープの相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🌙</span>
-        <p class="tool-tag">SUKUYO</p>
-        <h3>宿曜占星術のカルテ</h3>
-        <p>旧暦から本命宿を求め、性格・恋愛・仕事と、三九の秘法による27宿との相性、今日の巡りを読み解く。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="shukuyo/">宿曜占星術で占う</a>
-          <a class="tool-link" href="shukuyo/aisho/">宿曜占星術の相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">👑</span>
-        <p class="tool-tag">ZI WEI DOU SHU</p>
-        <h3>紫微斗数のカルテ</h3>
-        <p>生年月日と生まれた時刻から命盤を作り、14主星で性格・恋愛・お金・仕事と、四化が示す人生のテーマを読み解く。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="shibi/">紫微斗数で占う</a>
-          <a class="tool-link" href="shibi/aisho/">紫微斗数の相性</a>
-        </div>
-      </li>
-      <li class="tool is-ready">
-        <span class="tool-icon" aria-hidden="true">🪷</span>
-        <p class="tool-tag">VEDIC ASTROLOGY</p>
-        <h3>インド占星術のカルテ</h3>
-        <p>実際の星座の位置で星を読むインドの占星術。月のナクシャトラから本質を、ダシャーから人生の時期を読み解く。相性は36点満点。</p>
-        <div class="tool-actions">
-          <a class="tool-link primary" href="jyotish/">インド占星術で占う</a>
-          <a class="tool-link" href="jyotish/aisho/">インド占星術の相性</a>
-        </div>
-      </li>
-    </ul>
-  </section>
 
   <!--premium-hidden:PHNlY3Rpb24gY2xhc3M9ImZlYXR1cmUtYm94IHByZW1pdW0tdGVhc2VyIiBhcmlhLWxhYmVsbGVkYnk9InByZW1pdW0tdGl0bGUiPgogICAgPHAgY2xhc3M9ImV5ZWJyb3ciPlBSRU1JVU0gUkVBRElORzwvcD4KICAgIDxoMiBpZD0icHJlbWl1bS10aXRsZSI+5pys5qC85Y2g44GE772c44GC44Gq44Gf44Gg44GR44Gu6ZGR5a6a5pu4PC9oMj4KICAgIDxwPuaVsOenmOihk+ODu+S5neaYn+awl+WtpuODu+aYn+eNo+OCq+ODq+ODhuOCkueyvuWvhuOBq+ioiOeul+OBl+OAgeaAp+agvOODu+S7leS6i+ODu+aBi+aEm+ODu+OBk+OCjOOBi+OCieOBrua1geOCjOOCkuS4gOWGiuOBrumRkeWumuabuO+8iFBERu+8ieOBq+OBvuOBqOOCgeOCi+acrOagvOWNoOOBhOOCkua6luWCmeOBl+OBpuOBhOOBvuOBmeOAgjwvcD4KICAgIDxwPjxzcGFuIGNsYXNzPSJzb29uLWJhZGdlIj7mupblgpnkuK08L3NwYW4+PC9wPgogICAgPHA+PGEgY2xhc3M9ImJ0biBidG4tZ2hvc3QgcHJlbWl1bS1idG4iIGhyZWY9InByZW1pdW0vIj7mnKzmoLzljaDjgYTjgavjgaTjgYTjgabopovjgos8L2E+PC9wPgogIDwvc2VjdGlvbj4=-->
 

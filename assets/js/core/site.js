@@ -82,7 +82,41 @@
       }, 120);
     }).observe(el, { attributes: true, attributeFilter: ["hidden"], childList: true });
   }
+  // タブ（[data-tabs]）：role="tablist" の中の role="tab" と、aria-controls の tabpanel を切り替える。
+  // JavaScript が動かないときは、すべてのパネルがそのまま見える。URLの #（パネルの id）でも開ける。
+  function initTabs(box) {
+    var tabs = Array.from(box.querySelectorAll("[role='tab']"));
+    if (!tabs.length) return;
+    function select(tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+        var panel = doc.getElementById(t.getAttribute("aria-controls"));
+        if (panel) panel.hidden = !on;
+      });
+      if (focus) tab.focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { select(t, false); });
+      t.addEventListener("keydown", function (e) {
+        var n = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1 : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : null;
+        if (n === null) return;
+        e.preventDefault();
+        select(tabs[(n + tabs.length) % tabs.length], true);
+      });
+    });
+    function fromHash() {
+      var id = (root.location.hash || "").slice(1);
+      var hit = id && tabs.filter(function (t) { return t.getAttribute("aria-controls") === id; })[0];
+      select(hit || tabs.filter(function (t) { return t.getAttribute("aria-selected") === "true"; })[0] || tabs[0], false);
+    }
+    fromHash();
+    root.addEventListener("hashchange", fromHash);
+  }
+
   function init() {
+    doc.querySelectorAll("[data-tabs]").forEach(initTabs);
     doc.querySelectorAll("[id$='-result']").forEach(watch);
   }
   if (doc.readyState === "loading") doc.addEventListener("DOMContentLoaded", init);
