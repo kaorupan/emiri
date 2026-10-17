@@ -187,8 +187,8 @@
       "catch": "ライフパス・ナンバーと今年の運勢",
       "lead": "ライフパス・ナンバーと今年の運勢を見る",
       "related": [
+        "tekishoku",
         "tanjobi",
-        "seimei",
         "maya",
         "aisho"
       ]
@@ -287,6 +287,18 @@
         "tanjobi",
         "hokuro",
         "wannyan"
+      ]
+    },
+    "tekishoku": {
+      "name": "適職占い",
+      "emoji": "💼",
+      "catch": "向いている仕事と、転職に動きやすい時期",
+      "lead": "生年月日から、向いている仕事と転職に動きやすい時期がわかる",
+      "related": [
+        "suhijutsu",
+        "shichusuimei",
+        "kyusei",
+        "tesou"
       ]
     }
   },

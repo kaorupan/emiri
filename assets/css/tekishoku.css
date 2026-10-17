@@ -1,0 +1,28 @@
+/* 適職占い */
+.tk-block { margin-top: 16px; }
+.tk-view { padding: 14px 0; border-top: 1px solid #2f2440; }
+.tk-view:first-of-type { border-top: 0; }
+.tk-view h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 6px; }
+.tk-tag { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(231, 197, 104, .55); color: var(--gold); }
+.tk-strengths { font-size: 14px; color: var(--muted); }
+.tk-more { font-size: 14px; }
+.tk-note { font-size: 13px; color: var(--muted); }
+.tk-years { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 10px; }
+.tk-year { padding: 14px 16px; border-radius: var(--radius-sm); border: 1px solid var(--line); background: #110c18; }
+.tk-year p { margin: 6px 0 0; font-size: 14px; }
+.tk-year-head { display: flex; align-items: center; gap: 10px; margin: 0 !important; }
+.tk-year-head b { font-size: 18px; }
+.tk-badge { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+.tk-go { border-color: var(--gold); }
+.tk-go .tk-badge { background: var(--gold); color: #1a1022; }
+.tk-ready .tk-badge { border: 1px solid var(--gold); color: var(--gold); }
+.tk-stay .tk-badge { border: 1px solid #8a7a9a; color: #d9cfe4; }
+.tk-tip { color: var(--gold); }
+.tk-kuubou { color: #f0c9a0; }
+.tk-months { list-style: none; padding: 0; margin: 10px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tk-month { display: flex; flex-direction: column; gap: 2px; padding: 10px; border-radius: 12px; border: 1px solid #382943; background: #0d0914; font-size: 13px; }
+.tk-month b { font-size: 15px; }
+.tk-month span { color: var(--muted); }
+.tk-month.is-good { border-color: var(--gold); background: rgba(231, 197, 104, .08); }
+.tk-month.is-good b { color: var(--gold); }
+@media (max-width: 420px) { .tk-months { grid-template-columns: repeat(2, 1fr); } }
