@@ -110,12 +110,31 @@ ${items}
 <!--/aff-->`;
 }
 
+// TOP：相談サービスの短い案内（くわしい比較は soudan/ へ）
+export function compactBox(programs) {
+  const list = programs.filter((p) => !p.themes || p.themes.includes("general"))
+    .map((p, i) => [p, i]).sort((a, b) => ((a[0].rank && a[0].rank.general) || 99) - ((b[0].rank && b[0].rank.general) || 99) || a[1] - b[1]).map((x) => x[0]).slice(0, 3);
+  if (!list.length) return "";
+  return `<!--aff-->
+  <aside class="card aff-box aff-compact" id="consult" aria-labelledby="consult-title">
+    <p class="aff-pr">PR・広告</p>
+    <h2 class="aff-title" id="consult-title">占い師に相談したいときは</h2>
+    <p class="aff-text">電話・チャット・メッセージで、占い師に直接相談できるサービスがあります。</p>
+    <ul class="aff-compact-list">
+${list.map((p) => `      <li><a href="${esc(p.url)}" target="_blank" rel="nofollow sponsored noopener" data-track="aff_click" data-service="${esc(p.id || "")}" data-position="top" data-theme="general">${esc(p.name)}</a><span>${(FORMAT[p.format] || {}).label || ""}</span>${p.pixel ? `<img class="aff-pixel" src="${esc(p.pixel)}" width="1" height="1" alt="" loading="lazy">` : ""}</li>`).join("\n")}
+    </ul>
+    <p><a href="soudan/">相談のしかたの違いと選び方を見る ›</a></p>
+    <p class="aff-note aff-disclosure">この枠は広告です。リンク先のサービスを利用されると、えみりに紹介料が支払われることがあります。<a href="privacy/#affiliate">広告と紹介料について</a></p>
+  </aside>
+<!--/aff-->`;
+}
+
 export function apply(html, rel, programs) {
   let out = html.replace(MARK, "\n").replace(PR_MARK, "");
   const theme = themeOf(rel);
   if (!theme) return out;
   const depth = rel.split("/").length - 1;
-  const b = box(theme, programs, depth);
+  const b = rel === "index.html" ? compactBox(programs) : box(theme, programs, depth);
   if (!b || !out.includes("</main>")) return out;
   out = out.replace(/(<main[^>]*>)/, `$1${prNotice(depth)}`);
   // LINE の案内（<!--line-cta-->）があれば、その前に入れる（相談の案内 → LINE の順）

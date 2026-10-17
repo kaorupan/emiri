@@ -174,7 +174,7 @@ async def run(browser, base, label, viewport, mobile):
     check(f"[{label}] 全9ページ：横はみ出しなし", not overflow_pages, str(overflow_pages))
 
     await page.goto(base)
-    hrefs = await page.evaluate("() => [...document.querySelectorAll('#uranau a')].map(a => a.getAttribute('href'))")
+    hrefs = await page.evaluate("() => [...document.querySelectorAll('main a')].map(a => a.getAttribute('href'))")
     check(f"[{label}] TOPから星獣カルテ・星獣の相性へリンク", "seiju/" in hrefs and "seiju/aisho/" in hrefs, str(hrefs))
     await page.goto(base + "aisho/")
     check(f"[{label}] 相性TOPから星獣カルテの相性へリンク", await page.locator("a[href='../seiju/aisho/']").count() == 1)

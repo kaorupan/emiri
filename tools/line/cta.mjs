@@ -38,10 +38,21 @@ export function block(liffId, depth) {
 <!--/line-cta-->`;
 }
 
+// TOP：短い案内（見本と受け取り方は line/guide/ へ）
+export function compact(liffId) {
+  return `<!--line-cta-->
+  <aside class="card line-cta line-compact" aria-label="LINEで無料の鑑定書を受け取る">
+    <p class="line-cta-eyebrow">LINE限定・無料</p>
+    <p class="line-cta-title">12の占術で読み解く「あなただけの鑑定書」</p>
+    <p><a href="line/guide/" data-track="line_click" data-target="line-guide" data-position="top">鑑定書の見本を見る ›</a></p>
+  </aside>
+<!--/line-cta-->`;
+}
+
 export function apply(html, rel, liffId) {
   let out = html.replace(MARK, "\n");
   if (!liffId || NO_CTA.test(rel) || !out.includes("</main>")) return out;
-  const b = block(liffId, rel.split("/").length - 1);
+  const b = rel === "index.html" ? compact(liffId) : block(liffId, rel.split("/").length - 1);
   return out.replace("\n</main>", "\n" + b + "\n</main>");
 }
 

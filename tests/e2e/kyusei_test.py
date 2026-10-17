@@ -253,7 +253,7 @@ async def run(browser, base, label, viewport, mobile):
     check(f"[{label}] 結果表示後も横はみ出しなし", await page.evaluate("() => document.documentElement.scrollWidth - window.innerWidth") <= 0)
 
     await page.goto(base)
-    hrefs = await page.evaluate("() => [...document.querySelectorAll('#uranau a')].map(a => a.getAttribute('href'))")
+    hrefs = await page.evaluate("() => [...document.querySelectorAll('main a')].map(a => a.getAttribute('href'))")
     check(f"[{label}] TOPから九星気学・九星気学の相性へリンク", "kyusei/" in hrefs and "kyusei/aisho/" in hrefs, str(hrefs))
     soon = await page.evaluate("() => [...document.querySelectorAll('#uranau .tool.is-soon h3')].map(h => h.textContent)")
     check(f"[{label}] TOP：すべての占いが公開済み（準備中のカードなし）", soon == [], str(soon))

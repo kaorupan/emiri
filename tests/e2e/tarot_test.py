@@ -245,7 +245,7 @@ async def run_viewport(browser, base, label, viewport, mobile):
     check(f"[{label}] 全ページのリンク切れ 0", not broken, "; ".join(broken))
     top_link = await page.evaluate("() => null")
     await page.goto(base)
-    href = await page.get_attribute("#uranau a.pick[href='tarot/']", "href")
+    href = await page.get_attribute("#uranau a.tile[href='tarot/']", "href")
     check(f"[{label}] TOPのタロットカードが /tarot/ へリンク", href == "tarot/", str(href))
 
     check(f"[{label}] console error 0", not errors, " | ".join(errors[:3]))
