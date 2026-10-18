@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>無料の相性占い一覧｜えみり</title>
-<meta name="description" content="ふたりの生年月日から相性を読み解く、無料の相性占いの一覧です。いまは数秘術・星獣カルテ・九星気学の相性占いを公開しています。">
+<title>相性占い 無料｜生年月日で8つの占術から総合診断（恋愛・結婚・友達・仕事）｜えみり</title>
+<meta name="description" content="ふたりの生年月日を入れるだけの無料の相性占い。数秘術・九星気学・四柱推命・星座・宿曜・マヤ暦・インド占星術・算命学の宇宙盤の8つの占術で、恋愛・結婚・友達・家族・仕事の相性を総合診断します。名前の相性や12星座の相性一覧も。">
 <link rel="canonical" href="https://emiri-uranai.com/aisho/">
 <meta property="og:url" content="https://emiri-uranai.com/aisho/">
 <meta property="og:image" content="https://emiri-uranai.com/assets/img/ogp/aisho.jpg">
@@ -20,9 +20,28 @@
 <meta property="og:site_name" content="えみり">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="無料の相性占い一覧｜えみり">
-<meta property="og:description" content="ふたりの生年月日から相性を読み解く、無料の相性占いの一覧です。">
+<meta property="og:title" content="相性占い 無料｜8つの占術で総合診断｜えみり">
+<meta property="og:description" content="ふたりの生年月日から、8つの占術で相性をまとめて診断します。">
 <link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/sougou-aisho.css">
+<script defer src="../assets/js/core/date.js"></script>
+<script defer src="../assets/js/core/dom.js"></script>
+<script defer src="../assets/js/core/profile.js"></script>
+<script defer src="../assets/js/core/birthdate-field.js"></script>
+<script defer src="../assets/js/core/astro.js"></script>
+<script defer src="../assets/js/core/kyureki.js"></script>
+<script defer src="../assets/js/vendor/astronomy-engine-2.1.19.min.js"></script>
+<script defer src="../assets/js/content/kyusei-data.js"></script>
+<script defer src="../assets/js/engines/kyusei.js"></script>
+<script defer src="../assets/js/engines/shichusuimei.js"></script>
+<script defer src="../assets/js/engines/numerology.js"></script>
+<script defer src="../assets/js/engines/horoscope.js"></script>
+<script defer src="../assets/js/engines/jyotish.js"></script>
+<script defer src="../assets/js/engines/maya.js"></script>
+<script defer src="../assets/js/engines/shukuyo.js"></script>
+<script defer src="../assets/js/content/uchuban.js"></script>
+<script defer src="../assets/js/content/sougou-aisho.js"></script>
+<script defer src="../assets/js/pages/sougou-aisho-page.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">本文へスキップ</a>
@@ -52,12 +71,38 @@
 
   <section class="hero">
     <p class="eyebrow">COMPATIBILITY</p>
-    <h1>相性占い</h1>
-    <p>恋愛、結婚、価値観、仕事、距離感。占術によって見ている角度は違います。ふたりの関係を、ひとつの物差しで決めつけずに見てみましょう。</p>
+    <h1>相性占い（無料）｜生年月日で8つの占術から総合診断</h1>
+    <p>ふたりの生年月日を入れるだけで、数秘術・九星気学・四柱推命・星座・宿曜・マヤ暦・インド占星術・宇宙盤の8つの占術から、相性をまとめて診断します。恋人や夫婦だけでなく、友達・家族・仕事の相性も見られます。登録は必要ありません。</p>
+  </section>
+
+  <form id="sougou-form" class="card" novalidate aria-labelledby="sougou-title">
+    <h2 id="sougou-title">ふたりの相性を総合診断する</h2>
+    <div data-birthdate="self"></div>
+    <div data-birthdate="partner"></div>
+    <fieldset class="sg-relation">
+      <legend>ふたりの関係</legend>
+      <label><input type="radio" name="relation" value="love" checked> 恋人・片思い</label>
+      <label><input type="radio" name="relation" value="marriage"> 夫婦・結婚</label>
+      <label><input type="radio" name="relation" value="friend"> 友達・同性</label>
+      <label><input type="radio" name="relation" value="family"> 親子・きょうだい</label>
+      <label><input type="radio" name="relation" value="work"> 仕事・職場</label>
+    </fieldset>
+    <button type="submit" class="btn">8つの占術で相性を見る</button>
+  </form>
+
+  <div id="sougou-result" class="sg-result" hidden></div>
+
+  <section class="card" aria-labelledby="sg-other-title">
+    <h2 id="sg-other-title">生年月日がわからないときは</h2>
+    <ul class="link-list">
+      <li><a href="../suhijutsu/namae/"><span>🔤 名前の相性（ひらがな・ローマ字OK）<br><small class="lead">名前の文字を数字にして、母音（ソウルナンバー）と全体の数字で相性を見る</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
+      <li><a href="../horoscope/seiza-aisho/"><span>♈ 12星座の相性一覧<br><small class="lead">誕生日（月と日）だけでわかる。12星座どうしの相性ランキングと早見表</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
+      <li><a href="../seimei/aisho/"><span>✍️ 姓名判断の相性<br><small class="lead">漢字の画数から、ふたりの名前の相性を見る</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
+    </ul>
   </section>
 
   <section class="section" aria-labelledby="list-title">
-    <h2 id="list-title">占術を選ぶ</h2>
+    <h2 id="list-title">占術ごとに、くわしく見る</h2>
     <ul class="link-list">
       <li><a href="../seimei/aisho/"><span>✍️ 姓名判断の相性<br><small class="lead">ふたりの名前の画数から、人格（性格）と総格（人生の方向性）の五行の関係を見る。生年月日がわからない相手とも</small></span><span class="arrow" aria-hidden="true">→</span></a></li>
       <li><a href="../suhijutsu/aisho/"><span>🔢 数秘術の相性<br><small class="lead">ライフパスなど複数の数字から、恋愛・結婚・価値観・仕事・親密さを見る</small></span><span class="arrow" aria-hidden="true">→</span></a></li>

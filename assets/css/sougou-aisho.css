@@ -1,0 +1,43 @@
+/* 総合相性 */
+.sg-relation { border: 0; padding: 0; margin: 4px 0 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+.sg-relation legend { font-weight: 700; margin-bottom: 8px; }
+.sg-relation label { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: #110c18; cursor: pointer; font-size: 15px; }
+.sg-relation label:has(input:checked) { border-color: var(--gold); background: rgba(231, 197, 104, .1); }
+.sg-relation input { accent-color: #e7c568; }
+.sg-total { text-align: center; }
+.sg-total .result-points { text-align: left; }
+.sg-rel { color: var(--muted); font-size: 14px; margin: 0; }
+.sg-score { margin: 4px 0; }
+.sg-score b { font-size: 56px; line-height: 1; color: var(--gold); font-family: var(--serif); }
+.sg-score span { font-size: 18px; margin-left: 4px; }
+.sg-bar { display: block; height: 10px; border-radius: 999px; background: #2a2140; overflow: hidden; margin: 6px 0 10px; }
+.sg-bar span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #7459ff, #e7c568); }
+.sg-block { margin-top: 16px; }
+.sg-items { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.sg-items li { padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #110c18; }
+.sg-item-head { display: flex; justify-content: space-between; margin: 0; }
+.sg-item-head span { color: var(--gold); font-weight: 800; }
+.sg-reason { font-size: 14px; color: var(--muted); margin: 0 0 4px; }
+.sg-items a { font-size: 14px; }
+.sg-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
+/* 名前の相性 */
+.nm-field { display: grid; gap: 6px; margin-bottom: 14px; }
+.nm-field label { font-weight: 700; }
+.nm-field input { min-height: 48px; padding: 0 12px; font-size: 16px; border-radius: 10px; border: 1px solid var(--line); background: #110c18; color: var(--text); }
+.nm-table { border-collapse: collapse; margin: 8px 0 14px; }
+.nm-table caption { text-align: left; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+.nm-table th, .nm-table td { border: 1px solid var(--line); padding: 4px 14px; text-align: center; }
+/* 12星座の相性 */
+.sz-table-wrap { overflow-x: auto; margin: 8px 0 12px; }
+.sz-table { border-collapse: collapse; font-size: 13px; min-width: 560px; }
+.sz-table caption { text-align: left; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.sz-table th, .sz-table td { border: 1px solid var(--line); padding: 5px 6px; text-align: center; white-space: nowrap; }
+.sz-table thead th { font-weight: 700; }
+.sz-m1 { color: var(--gold); font-weight: 800; }
+.sz-m2 { color: #b79bff; }
+.sz-m3 { color: var(--muted); }
+.sz-legend { padding-left: 1.2em; font-size: 14px; }
+.sz-legend li { margin: 4px 0; }
+.sz-sign { margin-top: 16px; }
+.sz-rank { margin: 6px 0 10px; padding-left: 1.4em; }
+.sz-rank li { margin: 2px 0; }

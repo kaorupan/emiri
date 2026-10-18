@@ -77,7 +77,7 @@
     E("gamble", "ギャンブル運占い", "gamble/", "今日のギャンブル運と生まれ持った勝負運", "original", ["kinun", "kyou"], "ぎゃんぶる ギャンブル 勝負運 くじ運 宝くじ 競馬 競艇 競輪 パチンコ スロット 今日 ラッキーナンバー", "gamble", "2026-10-18"),
     E("learn", "占いを知る", "learn/", "占術のしくみと用語の解説", "kaiun", [], "まなぶ 解説 用語 用語集 しくみ", "learn", "2026-09-27", { top: false }),
     // 相性占い
-    E("aisho", "相性占い", "aisho/", "8つの占術でふたりの相性", "aisho", ["aisho", "renai", "ningen"], "あいしょう 相性 ふたり カップル 恋人", "aisho", "2026-09-27"),
+    E("aisho", "相性占い", "aisho/", "生年月日で8つの占術から総合診断", "aisho", ["aisho", "renai", "ningen"], "あいしょう 相性 ふたり カップル 恋人 総合 生年月日 無料 夫婦 結婚 友達 同性 親子 家族 きょうだい 仕事 職場", "aisho", "2026-10-18"),
     E("suhijutsu-aisho", "数秘術の相性", "suhijutsu/aisho/", "ライフパスで見るふたりの相性", "aisho", ["aisho", "renai"], "あいしょう 相性 数秘術", "aisho", "2026-09-27", { top: false }),
     E("seiju-aisho", "星獣カルテの相性", "seiju/aisho/", "星獣どうしの相性", "aisho", ["aisho"], "あいしょう 相性 星獣", "aisho", "2026-09-27", { top: false }),
     E("kyusei-aisho", "九星気学の相性", "kyusei/aisho/", "五行で見るふたりの関係", "aisho", ["aisho", "ningen"], "あいしょう 相性 九星", "aisho", "2026-09-30", { top: false }),
@@ -88,6 +88,8 @@
     E("shibi-aisho", "紫微斗数の相性", "shibi/aisho/", "命盤で見るふたりの相性", "aisho", ["aisho"], "あいしょう 相性 紫微斗数", "aisho", "2026-10-11", { top: false }),
     E("jyotish-aisho", "インド占星術の相性", "jyotish/aisho/", "36点満点の相性", "aisho", ["aisho", "renai"], "あいしょう 相性 インド占星術", "aisho", "2026-10-11", { top: false }),
     E("seimei-aisho", "名前の相性", "seimei/aisho/", "ふたりの名前の画数で見る相性", "aisho", ["aisho", "renai"], "あいしょう 相性 名前 姓名判断", "aisho", "2026-10-11", { top: false }),
+    E("namae-aisho", "名前の数秘術の相性", "suhijutsu/namae/", "ひらがな・ローマ字の名前で見る相性", "aisho", ["aisho", "renai", "ningen"], "あいしょう 相性 名前 ひらがな ローマ字 ニックネーム 母音 ソウルナンバー フルネーム 数字", "aisho", "2026-10-18", { top: false }),
+    E("seiza-aisho", "12星座の相性", "horoscope/seiza-aisho/", "誕生日だけでわかる星座の相性", "aisho", ["aisho", "renai"], "あいしょう 相性 星座 12星座 誕生日 月日 ランキング 早見表", "aisho", "2026-10-18", { top: false }),
     E("wannyan-aisho", "わんにゃん占いの相性", "wannyan/aisho/", "わんこ×にゃんこで見る相性", "aisho", ["aisho", "renai"], "あいしょう 相性 わんにゃん 犬 猫", "aisho", "2026-10-15", { top: false })
   ];
 
