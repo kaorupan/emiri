@@ -41,3 +41,14 @@
 .sz-sign { margin-top: 16px; }
 .sz-rank, .prose .sz-rank { list-style: none; margin: 6px 0 10px; padding-left: 0; }
 .sz-rank li { margin: 2px 0; }
+/* 電話番号占い */
+.dw-calc { color: var(--muted); font-size: 15px; margin: 0 0 6px; }
+.dw-calc b { color: var(--gold); font-size: 22px; }
+.dw-luck { display: inline-block; margin-right: 10px; padding: 2px 14px; border-radius: 999px; font-size: 18px; background: #2a2140; color: var(--text); vertical-align: 2px; }
+.dw-l1 .dw-luck, .dw-l2 .dw-luck { background: var(--gold); color: #1a1022; }
+.dw-l3 .dw-luck { border: 1px solid var(--gold); background: transparent; color: var(--gold); }
+.dw-block { margin-top: 16px; }
+.dw-great { font-size: 17px; font-weight: 700; color: var(--gold); letter-spacing: .02em; }
+.dw-table { width: 100%; font-size: 14px; }
+.dw-table td:nth-child(3) { text-align: left; }
+.dw-r-1 td:nth-child(2), .dw-r-2 td:nth-child(2) { color: var(--gold); font-weight: 700; }

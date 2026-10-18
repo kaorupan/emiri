@@ -32,4 +32,5 @@
 <symbol id="mirror" viewBox="0 0 24 24"><ellipse class="l" cx="12" cy="9.5" rx="6" ry="7"/><path class="l" d="M12 16.5V21M8.5 21h7M9.5 7.5c.6-1.2 1.6-2 2.8-2.3"/></symbol>
 <symbol id="gamble" viewBox="0 0 24 24"><rect class="l" x="3.5" y="7" width="11" height="11" rx="2" transform="rotate(-10 9 12.5)"/><path class="l" d="M14.6 6.2l4.6 1.4a1.8 1.8 0 0 1 1.2 2.2l-2.2 7.4a1.8 1.8 0 0 1-2.2 1.2l-1.6-.5"/><circle class="f" cx="6.9" cy="10.4" r="1.1"/><circle class="f" cx="9.3" cy="12.7" r="1.1"/><circle class="f" cx="11.6" cy="15" r="1.1"/><circle class="f" cx="18" cy="10.3" r="1"/></symbol>
 <symbol id="uchuban" viewBox="0 0 24 24"><circle class="l" cx="12" cy="12" r="9"/><path class="l" d="M12 3.5L19.2 15.8 6.4 17.6z"/><circle class="f" cx="12" cy="3.5" r="1.3"/><circle class="f" cx="19.2" cy="15.8" r="1.3"/><circle class="f" cx="6.4" cy="17.6" r="1.3"/></symbol>
+<symbol id="denwa" viewBox="0 0 24 24"><rect class="l" x="6.5" y="2.5" width="11" height="19" rx="2.2"/><path class="l" d="M10.5 18.5h3"/><path class="l" d="M9.5 7.5h1M11.5 7.5h1M13.5 7.5h1M9.5 10h1M11.5 10h1M13.5 10h1M9.5 12.5h1M11.5 12.5h1M13.5 12.5h1"/></symbol>
 </svg>
