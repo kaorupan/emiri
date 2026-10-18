@@ -73,6 +73,7 @@
     E("fusui", "風水", "fusui/", "本命卦で見る吉方位と部屋づくり", "kaiun", ["kinun"], "ふうすい 風水 本命卦 八宅 部屋 玄関 寝室 方位", "fusui", "2026-10-15", { rec: true }),
     E("powerstone", "パワーストーン", "powerstone/", "生年月日でわかる守護石", "kaiun", ["kinun", "renai"], "ぱわーすとーん 天然石 石 誕生石 守護石 ブレスレット お守り", "powerstone", "2026-10-15"),
     E("tekishoku", "適職占い", "tekishoku/", "向いている仕事と転職の時期", "original", ["shigoto"], "てきしょく 適職 天職 仕事 転職 キャリア 向いている", "tekishoku", "2026-10-17", { rec: true }),
+    E("gamble", "ギャンブル運占い", "gamble/", "今日のギャンブル運と生まれ持った勝負運", "original", ["kinun", "kyou"], "ぎゃんぶる ギャンブル 勝負運 くじ運 宝くじ 競馬 競艇 競輪 パチンコ スロット 今日 ラッキーナンバー", "gamble", "2026-10-18"),
     E("learn", "占いを知る", "learn/", "占術のしくみと用語の解説", "kaiun", [], "まなぶ 解説 用語 用語集 しくみ", "learn", "2026-09-27", { top: false }),
     // 相性占い
     E("aisho", "相性占い", "aisho/", "8つの占術でふたりの相性", "aisho", ["aisho", "renai", "ningen"], "あいしょう 相性 ふたり カップル 恋人", "aisho", "2026-09-27"),
@@ -90,7 +91,7 @@
   ];
 
   // 読みやすさのための並び順（TOPの「占術から探す」）
-  var TOP_ORDER = ["tarot", "suhijutsu", "seimei", "yume", "tesou", "tanjobi", "kyusei", "wannyan", "aisho", "shichusuimei", "tekishoku", "fusui",
+  var TOP_ORDER = ["tarot", "suhijutsu", "seimei", "yume", "tesou", "tanjobi", "kyusei", "wannyan", "aisho", "shichusuimei", "tekishoku", "gamble", "fusui",
     "powerstone", "horoscope", "maya", "seiju", "hokuro", "unsei", "kippoui", "koyomi", "eto", "shukuyo", "shibi", "jyotish"];
 
   var byId = {};

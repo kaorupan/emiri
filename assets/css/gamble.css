@@ -1,0 +1,32 @@
+/* ギャンブル運占い */
+.gb-block { margin-top: 16px; }
+.gb-stars { color: var(--gold); letter-spacing: 1px; white-space: nowrap; }
+.gb-stars-off { color: #4a3d58; }
+.gb-score { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 4px 0 8px; }
+.gb-score .gb-stars { font-size: 26px; }
+.gb-score b { font-size: 22px; color: var(--gold); }
+.gb-score span:last-child { font-weight: 700; }
+.gb-s1 .gb-score b { color: #c8bcd6; }
+.gb-kuubou { color: #f0c9a0; }
+.gb-lucky { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 12px 0; }
+.gb-lucky div { padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: #110c18; text-align: center; }
+.gb-lucky dt { font-size: 12px; color: var(--muted); }
+.gb-lucky dd { margin: 2px 0 0; font-size: 17px; font-weight: 800; color: var(--gold); }
+@media (max-width: 420px) { .gb-lucky dd { font-size: 15px; } }
+.gb-note { font-size: 13px; color: var(--muted); }
+.gb-week { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
+.gb-day { display: grid; grid-template-columns: 8.5em auto 1fr; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid #382943; border-radius: 12px; background: #0d0914; font-size: 14px; }
+.gb-day span:last-child { color: var(--muted); }
+.gb-day.gb-s4, .gb-day.gb-s5 { border-color: var(--gold); background: rgba(231, 197, 104, .08); }
+.gb-type { display: inline-block; margin: 4px 0 6px; padding: 4px 14px; border-radius: 999px; background: var(--gold); color: #1a1022; font-weight: 800; }
+.gb-powers { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 4px; }
+.gb-powers li { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px dashed #382943; font-size: 15px; }
+.gb-tip { color: var(--gold); }
+.gb-care { margin-top: 16px; }
+.gb-care li { margin: 4px 0; }
+@media (max-width: 480px) {
+  .gb-lucky { grid-template-columns: 1fr; gap: 6px; }
+  .gb-lucky div { display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 8px 12px; }
+  .gb-lucky dt { font-size: 13px; }
+  .gb-lucky dd { margin: 0; font-size: 16px; }
+}

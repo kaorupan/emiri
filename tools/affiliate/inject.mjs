@@ -42,11 +42,12 @@ export function loadPrograms(root = ROOT) {
 
 const STONE = /^powerstone\//;
 const FUSUI = /^fusui\//;
+const GAMBLE = /^gamble\//;
 const SHOP_THEMES = ["stone", "fusui"];
 
 export function themeOf(rel) {
   if (NO_ADS.test(rel)) return null;
-  if (STONE.test(rel)) return "stone";
+  if (STONE.test(rel) || GAMBLE.test(rel)) return "stone";
   if (FUSUI.test(rel)) return "fusui";
   return LOVE.test(rel) ? "love" : "general";
 }

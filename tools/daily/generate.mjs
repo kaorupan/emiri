@@ -482,6 +482,7 @@ function topSection(view) {
     <ul class="today-links">
       <li><a href="unsei/${view.iso}/"><span class="today-icon" aria-hidden="true">🌙</span><span><b>今日の運勢ランキングを見る</b><small>九星・12星座の全順位と、今日の暦</small></span></a></li>
       <li><a href="tarot/"><span class="today-icon" aria-hidden="true">🃏</span><span><b>今日のタロット</b><small>テーマを選んで3枚引き。同じテーマは1日1回</small></span></a></li>
+      <li><a href="gamble/"><span class="today-icon" aria-hidden="true">🎲</span><span><b>今日のギャンブル運</b><small>勝負運・ラッキーナンバー・ツキのある時間</small></span></a></li>
     </ul>
   </section>
   <!-- daily:end -->`;
