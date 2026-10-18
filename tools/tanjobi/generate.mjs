@@ -135,7 +135,8 @@ function dayPage(me) {
   const lead = `${name}生まれの人は、${mainSign}の「${kw[0]}」と、数秘術のバースデーナンバー${me.birthday}（${numText.label(me.birthday)}）が持つ「${bT.gift}」をあわせ持つ人。第一印象では「${aT.gift}」が伝わりやすく、七十二候の「${kou[0]}」のころに生まれた、${kw[kw.length - 1]}を大切にするタイプです。`;
   const prev = ALL[(me.idx + ALL.length - 1) % ALL.length], next = ALL[(me.idx + 1) % ALL.length];
   const pts = partners(me);
-  const title = `${name}生まれの性格と恋愛・仕事｜誕生日占い｜えみり`;
+  const signLabel = me.signs.map((s) => SIGN_NAMES[s]).join("か");
+  const title = `${name}生まれは何座？${signLabel}の性格と恋愛・仕事｜誕生日占い｜えみり`;
   const desc = `${name}生まれの人の性格・恋愛・仕事・相性を、星座（${mainSign}）と数秘術（バースデーナンバー${me.birthday}・アティチュードナンバー${me.attitude}）から読み解きます。誕生石、生まれた季節、相性のよい誕生日も紹介。`;
   const rel = `tanjobi/${k}/`;
   const signsBlock = me.signs.length > 1

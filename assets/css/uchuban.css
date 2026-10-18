@@ -1,0 +1,18 @@
+/* 宇宙盤（算命学） */
+.ub-form-note { font-size: 13px; color: var(--muted); }
+.ub-board { display: block; width: 100%; max-width: 440px; height: auto; margin: 8px auto 0; }
+.ub-legend { list-style: none; padding: 0; display: grid; gap: 4px; justify-content: center; font-size: 14px; margin: 6px 0 0; }
+.ub-key { font-weight: 700; margin-right: 8px; }
+.ub-key::before { content: ""; display: inline-block; width: 14px; height: 14px; margin-right: 6px; border-radius: 3px; vertical-align: -2px; }
+.ub-key-me::before { background: #e7c568; }
+.ub-key-you::before { background: #a27cff; }
+.ub-block { margin-top: 16px; }
+.ub-shape b { font-size: 20px; color: var(--gold); }
+.ub-shape span { font-size: 13px; color: var(--muted); margin-left: 6px; }
+.ub-tip { color: var(--gold); }
+.ub-areas-title { font-weight: 700; margin-bottom: 4px; }
+.ub-areas { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.ub-areas li { display: flex; flex-direction: column; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: #110c18; }
+.ub-areas b { color: var(--gold); }
+.ub-areas span { font-size: 14px; color: var(--muted); }
+.ub-note { font-size: 13px; color: var(--muted); }

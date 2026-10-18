@@ -391,3 +391,9 @@ img { max-width: 100%; }
 @media (max-width: 720px) { .pick-grid { grid-template-columns: 1fr; } .tab { font-size: 14px; } }
 .pick-aisho { margin: 14px 0 0; font-size: 14px; line-height: 2; color: var(--muted); }
 .pick-aisho b { color: var(--gold); }
+/* アティチュードナンバー */
+.at-fields { border: 0; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.at-fields legend { font-weight: 700; margin-bottom: 8px; }
+.at-fields select { min-height: 44px; padding: 0 10px; font-size: 16px; }
+.at-result { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.at-num { font-size: 18px; font-weight: 800; color: var(--gold); }

@@ -240,7 +240,7 @@ ${view.moonFeature.tip ? `      <p class="daily-advice"><b>ひとこと</b>${esc
       inLanguage: "ja", articleSection: "今日の運勢", url: urlOf(config, rel), mainEntityOfPage: urlOf(config, rel),
       author: org, publisher: org
     }, breadcrumb([[config.siteName, "index.html"], ["今日の運勢", "unsei/index.html"], [view.dateText, rel]])],
-    title: `${view.dateText}の運勢｜九星気学・12星座ランキング｜えみり`,
+    title: `${view.dateText}の運勢｜12星座ランキング・九星気学｜えみり`,
     description: `${view.dateText}の運勢。${view.lead}`,
     ogTitle: `${view.title}｜えみり`,
     body,
@@ -458,7 +458,7 @@ ${archive}
     prefix,
     rel: "unsei/index.html",
     ld: [breadcrumb([[config.siteName, "index.html"], ["今日の運勢", "unsei/index.html"]])],
-    title: "今日の運勢｜九星気学・12星座ランキング｜えみり",
+    title: "今日の運勢｜12星座ランキング・九星気学｜えみり",
     description: "九星気学と12星座の今日の運勢ランキングを毎日更新。日の九星・干支・月齢・月の星座などの暦と、今日誕生日の人の性格もあわせて紹介します。",
     ogTitle: "今日の運勢｜えみり",
     body,
