@@ -39,5 +39,5 @@
 .sz-legend { padding-left: 1.2em; font-size: 14px; }
 .sz-legend li { margin: 4px 0; }
 .sz-sign { margin-top: 16px; }
-.sz-rank { list-style: none; margin: 6px 0 10px; padding-left: 0; }
+.sz-rank, .prose .sz-rank { list-style: none; margin: 6px 0 10px; padding-left: 0; }
 .sz-rank li { margin: 2px 0; }
