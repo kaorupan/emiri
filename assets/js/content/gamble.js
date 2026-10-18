@@ -91,6 +91,25 @@
 
   // 日干の五行 → 財（我が剋す）の五行 → 金運の色
   var COLOR = { 0: "緑", 1: "赤", 2: "黄色", 3: "白・ゴールド", 4: "黒・紺" }; // 木 火 土 金 水
+  // 今日のラッキーカラー（五行ごとに2色。日の干支で入れかわる）
+  var DAY_COLOR = { 0: ["グリーン", "ミントグリーン"], 1: ["レッド", "オレンジ"], 2: ["イエロー", "ベージュ"], 3: ["ゴールド", "ホワイト"], 4: ["ネイビー", "ブラック"] };
+  // 五行ごとのラッキーアイテム（身近に持てるもの）
+  var ITEMS = {
+    0: ["緑のペン", "木製のキーホルダー", "葉っぱ模様のハンカチ", "ミントのガム", "新しいノート"],
+    1: ["赤いハンカチ", "三角形のモチーフの小物", "太陽モチーフのアクセサリー", "赤い小銭入れ", "あたたかい飲み物"],
+    2: ["黄色い小物", "陶器のマグカップ", "四角いカードケース", "はちみつのキャンディ", "ベージュのバッグ"],
+    3: ["ゴールドのアクセサリー", "腕時計", "丸い小銭入れ", "白いハンカチ", "金色のコイン"],
+    4: ["黒い財布", "ミネラルウォーター", "ガラスのアクセサリー", "紺色の帽子", "波模様のハンカチ"]
+  };
+  // 財の五行に合う、金運の石（えみりのパワーストーンのページ）
+  var STONE = {
+    0: { name: "アベンチュリン", url: "../powerstone/aventurine/" },
+    1: { name: "カーネリアン", url: "../powerstone/carnelian/" },
+    2: { name: "シトリン", url: "../powerstone/citrine/" },
+    3: { name: "ルチルクォーツ", url: "../powerstone/rutile/" },
+    4: { name: "ラピスラズリ", url: "../powerstone/lapis/" }
+  };
+  var ELEM = ["木", "火", "土", "金", "水"];
 
   // 今日の通変星：ギャンブル運の基本点（1〜5）と読み
   var DAY = {
@@ -156,6 +175,9 @@
       lifePath: lp,
       lpText: LP[lp] || LP[reduce(lp)],
       luckyColor: COLOR[wealth],
+      luckyItems: ITEMS[wealth].slice(0, 3),
+      luckyStone: STONE[wealth],
+      wealthElement: ELEM[wealth],
       luckyNumber: reduce(lp),
       hasHensai: stars.indexOf("偏財") >= 0,
       year: { year: thisYear.year, tsuhen: thisYear.tsuhen.name, kuubou: thisYear.isKuubou, text: (DAY[thisYear.tsuhen.name] || [0, ""])[1].replace("日。", "年。").replace(/日です。$/, "年です。").replace(/日に/g, "年に").replace("今日は", "今年は").replace(/日$/, "年") },
@@ -190,7 +212,11 @@
     return {
       date: date, name: S.STEMS.charAt(idx % 10) + S.BRANCHES.charAt(idx % 12),
       tsuhen: ts, juniun: ju, kuubou: kuubou, score: score, level: LEVELS[score],
-      text: DAY[ts][1], luckyTime: lucky
+      text: DAY[ts][1], luckyTime: lucky,
+      // 今日の干支の五行が生む五行を「流れを生む五行」として、ラッキーカラーとアイテムを選ぶ
+      luckyElement: ELEM[mod((idx % 10 >> 1) + 1, 5)],
+      luckyColor: DAY_COLOR[mod((idx % 10 >> 1) + 1, 5)][idx % 2],
+      luckyItem: ITEMS[mod((idx % 10 >> 1) + 1, 5)][idx % 5]
     };
   }
 
@@ -206,7 +232,6 @@
     var num = E.numerology.calculateNumerology(birth, { targetYear: today.year });
     var pm = (num.personalMonths.filter(function (x) { return x.month === today.month; })[0] || {}).personalMonth || 0;
     t.luckyNumber = reduce(reduce(pm) + today.day);
-    t.luckyColor = n.luckyColor;
     var week = [];
     for (var i = 0; i < 7; i++) week.push(dayLuck(n.sh, addDays(today, i), E2));
     delete n.sh;

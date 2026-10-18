@@ -34,7 +34,16 @@ test("今日のギャンブル運：★1〜5、7日分が今日から順に並�
       if (d.tsuhen === "劫財") assert.ok(d.score <= 2, "劫財の日は控えめ");
     }
     assert.ok(v.today.luckyNumber >= 1 && v.today.luckyNumber <= 9);
+    for (const d of v.week) assert.ok(d.luckyColor && d.luckyItem, "毎日のラッキーカラーとアイテム");
+    assert.equal(v.natal.luckyItems.length, 3);
+    assert.ok(fs.existsSync(path.join(__dirname, "..", v.natal.luckyStone.url.replace("../", ""), "index.html")), "金運の石のページがある");
   }
+});
+
+test("ラッキーカラー・アイテムは日によって変わる", () => {
+  const v = G.build({ year: 1980, month: 5, day: 3 }, TODAY, E);
+  assert.ok(new Set(v.week.map((d) => d.luckyItem)).size >= 3);
+  assert.ok(new Set(v.week.map((d) => d.luckyColor)).size >= 3);
 });
 
 test("同じ人・同じ日なら結果は同じ（毎回変わらない）", () => {

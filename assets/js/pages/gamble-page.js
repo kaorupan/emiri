@@ -26,6 +26,7 @@
       h("dl", { class: "gb-lucky" },
         h("div", null, h("dt", null, "ラッキーナンバー"), h("dd", null, String(t.luckyNumber))),
         h("div", null, h("dt", null, "ラッキーカラー"), h("dd", null, t.luckyColor)),
+        h("div", null, h("dt", null, "ラッキーアイテム"), h("dd", null, t.luckyItem)),
         h("div", null, h("dt", null, "ツキのある時間"), h("dd", null, t.luckyTime ? t.luckyTime.hours : "なし（今日はのんびりと）"))),
       h("p", { class: "gb-note" }, "今日の干支：" + t.name + "（あなたから見て" + t.tsuhen + "・" + t.juniun + "）"),
       h("nav", { class: "result-toc", "aria-label": "鑑定結果の目次" }, h("ul", null,
@@ -38,9 +39,10 @@
         return h("li", { class: "gb-day gb-s" + d.score },
           h("b", null, (i === 0 ? "今日 " : "") + d.date.month + "/" + d.date.day + "（" + wd(d.date) + "）"),
           stars(d.score),
-          h("span", null, d.level.label + (d.kuubou ? "・天中殺" : "")));
+          h("span", null, d.level.label + (d.kuubou ? "・天中殺" : "")),
+          h("span", { class: "gb-day-color" }, d.luckyColor));
       })),
-      h("p", { class: "gb-note" }, "★4以上が、運を味方にしやすい日の目安です。")));
+      h("p", { class: "gb-note" }, "★4以上が、運を味方にしやすい日の目安です。色の名前は、その日のラッキーカラーです。")));
 
     box.appendChild(h("section", { class: "card gb-block", id: "gb-natal", "aria-labelledby": "gb-natal-title" },
       h("h2", { id: "gb-natal-title" }, "生まれ持ったギャンブル運"),
@@ -54,7 +56,12 @@
         h("div", null, h("dt", null, "気をつけたいこと"), h("dd", null, n.type.care)),
         h("div", null, h("dt", null, "勝負のくせ（数秘術 " + n.lifePath + "）"), h("dd", null, n.lpText)),
         h("div", null, h("dt", null, n.year.year + "年のギャンブル運"), h("dd", null, n.year.tsuhen + "の年。" + n.year.text + (n.year.kuubou ? "（天中殺の年なので、大きな勝負は控えめに）" : ""))),
-        h("div", null, h("dt", null, "金運の色・数"), h("dd", null, n.luckyColor + "／" + n.luckyNumber))),
+        h("div", null, h("dt", null, "金運の色・数"), h("dd", null, n.luckyColor + "／" + n.luckyNumber)),
+        h("div", null, h("dt", null, "お守りにしたいアイテム"), h("dd", null, n.luckyItems.join("、")))),
+      h("div", { class: "gb-stone" },
+        h("p", null, "あなたの金運の石：", h("b", null, n.luckyStone.name)),
+        h("p", { class: "gb-note" }, "あなたの日干から見て「財」にあたる五行（" + n.wealthElement + "）の石です。勝負の日のお守りに。"),
+        h("p", { class: "tk-more" }, h("a", { href: n.luckyStone.url, "data-track": "related_click", "data-target": "stone", "data-position": "result" }, n.luckyStone.name + "の意味と選び方を見る →"))),
       n.hasHensai ? h("p", { class: "gb-tip" }, "命式に「偏財」があります。偏財は、思いがけないお金や臨時収入に縁がある星とされます。") : null,
       h("p", { class: "gb-note" }, "あなたの命式の星：" + n.stars.join("・") + "（日干 " + n.dayMaster.name + "）"),
       h("p", { class: "tk-more" }, h("a", { href: "../shichusuimei/", "data-track": "related_click", "data-target": "shichusuimei", "data-position": "result" }, "四柱推命で命式をくわしく見る →"))));
