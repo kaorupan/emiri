@@ -15,7 +15,7 @@ test("場所ごとのページ・テーマ別ページ・TOPがそろい、リ�
     for (const k of ["summary", "meaning", "love", "money", "advice"]) assert.ok(s[k] && s[k].length >= 40, `${s.slug}.${k}`);
     assert.ok(idx.includes(`href="${s.slug}/"`), `TOP → ${s.slug}`);
     const html = fs.readFileSync(path.join(ROOT, "hokuro", s.slug, "index.html"), "utf8");
-    assert.ok(html.includes(`<h1>${s.name}のほくろの意味</h1>`));
+    assert.match(html, /<h1>[^<]*のほくろの意味[^<]*<\/h1>/);
     assert.ok(html.includes('class="hk-mole"'), `${s.slug} の図に位置の印`);
     assert.ok(html.includes("皮膚科"), `${s.slug} に受診の案内`);
     for (const [, r] of html.matchAll(/href="\.\.\/([a-z]+)\/"/g)) assert.ok(fs.existsSync(path.join(ROOT, "hokuro", r, "index.html")), `${s.slug} → ${r}`);

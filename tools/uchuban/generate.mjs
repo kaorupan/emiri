@@ -14,7 +14,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", ".
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const TEMPLATE = fs.readFileSync(path.join(ROOT, "learn/suhijutsu/index.html"), "utf8");
 const rel = "uchuban/";
-const title = "宇宙盤（算命学）｜生年月日で行動領域と相性を無料で診断｜えみり";
+const title = "宇宙盤で相性診断（算命学・無料）｜行動領域の重なりでわかるふたりの関係｜えみり";
 const desc = "算命学の宇宙盤を、生年月日だけで無料で作れます。年・月・日の干支を60干支の円に置いて結んだ形（行動領域）から、あなたの行動範囲と得意な世界を読み、お相手の生年月日を入れるとふたりの形を重ねて相性もわかります。";
 const scripts = ["core/date.js", "core/dom.js", "core/profile.js", "core/birthdate-field.js", "core/astro.js", "content/kyusei-data.js", "engines/kyusei.js",
   "engines/shichusuimei.js", "content/uchuban.js", "pages/uchuban-page.js"]
@@ -39,7 +39,7 @@ const body = `<main id="main" class="wrap-narrow">
 
   <section class="hero">
     <p class="eyebrow">SANMEIGAKU</p>
-    <h1>宇宙盤（算命学）｜行動領域と、ふたりの相性</h1>
+    <h1>宇宙盤で相性診断（算命学）｜行動領域と重なりでわかるふたりの関係</h1>
     <p>算命学の宇宙盤は、生まれた年・月・日の干支を60干支の円の上に置き、3つの点を結んだ形で「行動領域」を見る占いです。生年月日を入れると盤を描いて、あなたの行動範囲と得意な世界を読みます。お相手の生年月日も入れると、ふたりの形を重ねて相性がわかります。</p>
     <ul class="badges" aria-label="特徴">
       <li class="badge">完全無料</li>
