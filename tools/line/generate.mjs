@@ -77,6 +77,7 @@ const formBody = `  <section class="hero hero-compact">
 
   <section id="line-gate" class="card line-gate" aria-live="polite" hidden>
     <h2 class="order-h" id="line-gate-title">LINEの友だち追加が必要です</h2>
+    <p class="bd-error" id="line-gate-status" role="alert" hidden></p>
     <p id="line-gate-text">総合鑑定書は、えみりのLINE公式アカウントを友だち追加した方へのプレゼントです。友だち追加をしてから、下の「友だち追加したので確認する」を押してください。</p>
     <p class="line-gate-actions">${ADD_URL ? `<a class="btn line-cta-btn" id="line-gate-add" href="${esc(ADD_URL)}" target="_blank" rel="noopener" data-track="line_click" data-target="add-friend" data-position="gate">LINEで友だち追加する</a>` : ""}<button type="button" class="btn btn-ghost" id="line-gate-recheck">友だち追加したので確認する</button></p>
     <p class="kyusei-meta" id="line-gate-open" hidden>LINEアプリの外で開いています。<a href="https://liff.line.me/${esc(LIFF)}">LINEアプリで開き直す</a>と、友だち追加と入力がスムーズです。</p>

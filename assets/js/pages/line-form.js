@@ -87,15 +87,24 @@
     if (!closed) {
       button.disabled = true;
       checkFriend().then(lock);
+      // 「確認する」：ページを読み込み直して、LINE にもう一度確かめる（押したことがはっきりわかるように）
+      var KEY = "emiri-line-recheck";
+      var rechecked = false;
+      try { rechecked = sessionStorage.getItem(KEY) === "1"; sessionStorage.removeItem(KEY); } catch (e) {}
+      checkFriend().then(function (st) {
+        var status = document.getElementById("line-gate-status");
+        if (rechecked && st !== true && status) {
+          status.textContent = st === null
+            ? "LINEと通信できませんでした。LINEアプリで開き直してから、もう一度お試しください。"
+            : "まだ友だち追加が確認できません。友だち追加（ブロックしている場合は、LINEの友だちリストで「ブロック解除」）をしてから、もう一度押してください。";
+          status.hidden = false;
+        }
+      });
       if (recheck) recheck.addEventListener("click", function () {
         recheck.disabled = true;
         recheck.textContent = "確認しています…";
-        checkFriend().then(function (st) {
-          recheck.disabled = false;
-          recheck.textContent = "友だち追加したので確認する";
-          lock(st);
-          if (st !== true && gateText) gateText.textContent = (st === null ? "LINEと通信できませんでした。LINEアプリで開き直してください。" : "まだ友だち追加が確認できません。追加してから、もう一度押してください。");
-        });
+        try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
+        root.location.reload();
       });
     }
 
