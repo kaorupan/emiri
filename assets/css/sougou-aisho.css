@@ -52,3 +52,8 @@
 .dw-table { width: 100%; font-size: 14px; }
 .dw-table td:nth-child(3) { text-align: left; }
 .dw-r-1 td:nth-child(2), .dw-r-2 td:nth-child(2) { color: var(--gold); font-weight: 700; }
+/* 復縁・片思い占い */
+.rn-q { margin-top: 10px; }
+.rn-en { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); text-align: left; }
+.rn-en-title { font-weight: 700; color: var(--gold); margin: 0; }
+.rn-steps { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
