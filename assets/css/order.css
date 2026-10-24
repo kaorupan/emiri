@@ -17,3 +17,7 @@
 .order-agree input { margin-top: 5px; flex: none; }
 .order-form .btn[disabled] { opacity: .5; cursor: not-allowed; }
 @media (max-width: 480px) { .order-row { grid-template-columns: 1fr; } }
+/* LINE：友だち追加の案内（友だちでないときはフォームの代わりに出す） */
+.line-gate { border: 1px solid #06c755; }
+.line-gate-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.line-gate-actions .btn { width: auto; flex: 1 1 220px; margin-top: 0; }

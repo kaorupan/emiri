@@ -1,7 +1,10 @@
 /*
  * LINE で受け取る無料の総合鑑定書：入力フォーム（/line/。LINE の LIFF で開く）
- *   1. LIFF を初期化（LINE の外のブラウザで開いたときは LINE ログイン → 友だち追加のおすすめ）
- *   2. 入力を確かめ、鑑定書の URL（/line/kantei/?d=…）を作る
+ *   1. LIFF を初期化（LINE の外のブラウザで開いたときは LINE ログイン）
+ *   2. えみりの LINE 公式アカウントを友だち追加しているか確かめる（liff.getFriendship）。
+ *      友だちでない・確かめられないときは、フォームを使えないようにして友だち追加を案内する
+ *      （LINE Developers で、LINE ログインのチャネルに公式アカウントをリンクしておく必要がある）
+ *   3. 入力を確かめ、鑑定書の URL（/line/kantei/?d=…）を作る。送信の直前にも、もう一度友だちか確かめる
  *   3. LINE の中なら、その URL をトークに送ってから鑑定書を開く（あとから読み返せるように）
  * 入力内容は当サイトのサーバーには送らない。
  */
@@ -42,13 +45,58 @@
     var button = document.getElementById("line-submit");
     var agree = document.getElementById("line-agree");
     var liff = root.liff;
+    var gate = document.getElementById("line-gate");
+    var gateTitle = document.getElementById("line-gate-title");
+    var gateText = document.getElementById("line-gate-text");
+    var gateOpen = document.getElementById("line-gate-open");
+    var recheck = document.getElementById("line-gate-recheck");
     var ready = Promise.resolve(false);
+    var isFriend = false;
+
+    // 友だちかどうか：true / false / null（確かめられなかった）
+    function checkFriend() {
+      return ready.then(function (ok) {
+        if (!ok) return null;
+        return liff.getFriendship().then(function (r) { return !!(r && r.friendFlag); }, function () { return null; });
+      });
+    }
+    function lock(state) {
+      isFriend = state === true;
+      button.disabled = !isFriend;
+      form.hidden = !isFriend;
+      if (!gate) return;
+      gate.hidden = isFriend;
+      if (isFriend) return;
+      if (state === null) {
+        gateTitle.textContent = "LINEで開いてください";
+        gateText.textContent = "総合鑑定書は、えみりのLINE公式アカウントを友だち追加した方へのプレゼントです。LINEアプリで開き、友だち追加をしてからご利用ください。";
+      } else {
+        gateTitle.textContent = "LINEの友だち追加が必要です";
+        gateText.textContent = "総合鑑定書は、えみりのLINE公式アカウントを友だち追加した方へのプレゼントです。友だち追加をしてから、「友だち追加したので確認する」を押してください。";
+      }
+      if (gateOpen) gateOpen.hidden = !!(liff && liff.isInClient && safeInClient());
+    }
+    function safeInClient() { try { return liff.isInClient(); } catch (e) { return false; } }
 
     if (!closed && liff) {
       ready = liff.init({ liffId: liffId }).then(function () {
         if (!liff.isInClient() && !liff.isLoggedIn()) { liff.login({ redirectUri: root.location.href }); return false; }
         return true;
       }).catch(function () { return false; });
+    }
+    if (!closed) {
+      button.disabled = true;
+      checkFriend().then(lock);
+      if (recheck) recheck.addEventListener("click", function () {
+        recheck.disabled = true;
+        recheck.textContent = "確認しています…";
+        checkFriend().then(function (st) {
+          recheck.disabled = false;
+          recheck.textContent = "友だち追加したので確認する";
+          lock(st);
+          if (st !== true && gateText) gateText.textContent = (st === null ? "LINEと通信できませんでした。LINEアプリで開き直してください。" : "まだ友だち追加が確認できません。追加してから、もう一度押してください。");
+        });
+      });
     }
 
     function fail(msg) {
@@ -75,12 +123,15 @@
       var url = root.location.origin + root.location.pathname.replace(/\/?$/, "/") + "kantei/?d=" + d;
       button.disabled = true;
       button.textContent = "鑑定書を作っています…";
-      ready.then(function (ok) {
+      checkFriend().then(function (st) {
+        if (st !== true) { button.textContent = "鑑定書を受け取る（無料）"; lock(st); throw new Error("not-friend"); }
+        return true;
+      }).then(function (ok) {
         if (ok && liff && liff.isInClient()) {
           var text = "【えみり】" + me.name + "さんの総合鑑定書ができました。\nこのリンクから、いつでも読み返せます（いつものブラウザで開くので、PDFで保存もできます）。\n" + url + "&openExternalBrowser=1";
           return liff.sendMessages([{ type: "text", text: text }]).catch(function () { /* 送れなくても鑑定書は開く */ });
         }
-      }).then(function () { root.location.href = url; });
+      }).then(function () { root.location.href = url; }, function () { if (gate) gate.scrollIntoView({ block: "center" }); });
     });
   }
 

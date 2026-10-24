@@ -25,7 +25,7 @@ results = []
 STUB = """<script>
 window.__sent = null;
 window.liff = { init: function () { return Promise.resolve(); }, isInClient: function () { return true; }, isLoggedIn: function () { return true; },
-  login: function () {}, sendMessages: function (m) { window.__sent = m; try { sessionStorage.setItem('sent', JSON.stringify(m)); } catch (e) {} return Promise.resolve(); } };
+  login: function () {}, getFriendship: function () { return Promise.resolve({ friendFlag: true }); }, sendMessages: function (m) { window.__sent = m; try { sessionStorage.setItem('sent', JSON.stringify(m)); } catch (e) {} return Promise.resolve(); } };
 </script>"""
 
 

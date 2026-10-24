@@ -17,6 +17,9 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const config = JSON.parse(fs.readFileSync(path.join(ROOT, "site.config.json"), "utf8"));
 const LIFF = String(config.liffId || "").trim();
+// LINE公式アカウントのベーシックID（@から始まる、公開されている値）。友だち追加ボタンに使う。空なら案内の文章だけ出す
+const OA = String(config.lineOaId || "").trim();
+if (OA && !/^@[0-9a-z._-]{3,20}$/i.test(OA)) throw new Error("lineOaId の形式が正しくありません: " + OA);
 if (LIFF && !/^\d{6,12}-[A-Za-z0-9]{6,16}$/.test(LIFF)) throw new Error("liffId の形式が正しくありません: " + LIFF);
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -68,6 +71,13 @@ const formBody = `  <section class="hero hero-compact">
   </section>
 
   ${LIFF ? "" : `<p class="notice"><span class="soon-badge">準備中</span> LINEでのお届けは、まもなく始まります。</p>`}
+
+  <section id="line-gate" class="card line-gate" aria-live="polite" hidden>
+    <h2 class="order-h" id="line-gate-title">LINEの友だち追加が必要です</h2>
+    <p id="line-gate-text">総合鑑定書は、えみりのLINE公式アカウントを友だち追加した方へのプレゼントです。友だち追加をしてから、下の「友だち追加したので確認する」を押してください。</p>
+    <p class="line-gate-actions">${OA ? `<a class="btn line-cta-btn" id="line-gate-add" href="https://line.me/R/ti/p/${encodeURIComponent(OA)}" target="_blank" rel="noopener" data-track="line_click" data-target="add-friend" data-position="gate">LINEで友だち追加する</a>` : ""}<button type="button" class="btn btn-ghost" id="line-gate-recheck">友だち追加したので確認する</button></p>
+    <p class="kyusei-meta" id="line-gate-open" hidden>LINEアプリの外で開いています。<a href="https://liff.line.me/${esc(LIFF)}">LINEアプリで開き直す</a>と、友だち追加と入力がスムーズです。</p>
+  </section>
 
   <form id="line-form" class="card order-form" novalidate data-liff="${esc(LIFF)}"${LIFF ? "" : " data-closed"}>
     <h2 class="order-h">あなたについて</h2>
