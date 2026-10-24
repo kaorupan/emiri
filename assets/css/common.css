@@ -397,3 +397,11 @@ img { max-width: 100%; }
 .at-fields select { min-height: 44px; padding: 0 10px; font-size: 16px; }
 .at-result { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
 .at-num { font-size: 18px; font-weight: 800; color: var(--gold); }
+/* 結果のシェア */
+.share-bar { margin-top: 16px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: rgba(255, 255, 255, .03); }
+.share-title { margin: 0 0 8px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.share-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.share-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 999px; font: 700 14px var(--sans); text-decoration: none; cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--text); flex: 1 1 120px; }
+.share-line { background: #06c755; border-color: #06c755; color: #fff !important; }
+.share-x { background: #000; border-color: #444; color: #fff !important; }
+.share-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }

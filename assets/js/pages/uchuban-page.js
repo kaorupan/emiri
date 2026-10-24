@@ -93,6 +93,7 @@
     if (other) box.appendChild(h("section", { class: "card ub-block", "aria-labelledby": "ub-you-title" },
       h("h2", { id: "ub-you-title" }, "お相手の行動領域"), personBlock(other, "お相手")));
     box.appendChild(h("p", { class: "notice" }, "宇宙盤は、生き方や人との距離感を考えるためのひとつの見方です。相性のよし悪しを決めつけるものではありません。"));
+    box.setAttribute("data-share", other ? "ふたりの相性は「" + U.compat(me, other).type.name + "」でした" : "わたしの行動領域は「" + me.size.label + "」タイプでした");
     box.hidden = false;
     Karute.dom.scrollTo(box);
     var hd = document.getElementById("ub-result-heading");

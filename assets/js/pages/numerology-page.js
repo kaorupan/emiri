@@ -168,6 +168,7 @@
       var today = Karute.date.todayInJapan();
       var result = engine.calculateNumerology(input.value, { targetYear: today.year });
       render(output, content.buildPersonal(result), today.month);
+      resultWrap.setAttribute("data-share", "わたしのライフパスナンバーは「" + result.lifePath + "」でした");
       resultWrap.hidden = false;
       Karute.dom.scrollTo(resultWrap);
       var heading = document.getElementById("num-result-heading");

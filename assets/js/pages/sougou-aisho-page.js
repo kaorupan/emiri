@@ -37,6 +37,7 @@
       h("p", { class: "sg-note" }, "点数は、それぞれの占術の判定（相生・干合・三九の秘法など）を、えみりの目安として100点満点に置きかえたものです。総合点は8つの平均をもとに、ちがいがわかりやすいように幅を広げて出しています。")));
 
     box.appendChild(h("p", { class: "notice" }, "相性占いは、ふたりの関係を考えるためのヒントです。点数で関係のよし悪しが決まるわけではありません。"));
+    box.setAttribute("data-share", v.relationLabel + "の相性は" + v.total + "点。" + v.headline + "でした");
     box.hidden = false;
     Karute.dom.scrollTo(box);
     var hd = document.getElementById("sg-result-heading");

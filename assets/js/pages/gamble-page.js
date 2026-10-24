@@ -67,6 +67,7 @@
       h("p", { class: "tk-more" }, h("a", { href: "../shichusuimei/", "data-track": "related_click", "data-target": "shichusuimei", "data-position": "result" }, "四柱推命で命式をくわしく見る →"))));
 
     box.appendChild(h("p", { class: "notice" }, "ギャンブル運占いは、遊びを楽しむための目安です。勝ちや当選を約束するものではありません。予算と時間を決めて、無理のない範囲で楽しんでください。"));
+    box.setAttribute("data-share", "今日のギャンブル運は「" + t.level.label + "」、生まれ持ったタイプは「" + n.type.name + "」でした");
     box.hidden = false;
     Karute.dom.scrollTo(box);
     var hd = document.getElementById("gb-result-heading");

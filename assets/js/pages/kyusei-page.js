@@ -107,7 +107,9 @@
       if (!t.ok) return;
       field.commit(input.value); // 保存するのは生年月日だけ（時刻は保存しない）
       var birth = { year: input.value.year, month: input.value.month, day: input.value.day, time: t.value };
-      render(output, content.buildKyuseiView(engine.calculateKyusei(birth)), useTime);
+      var kr = engine.calculateKyusei(birth);
+      render(output, content.buildKyuseiView(kr), useTime);
+      if (kr.honmeiStar) wrap.setAttribute("data-share", "わたしの本命星は「" + kr.honmeiStar.name + "」でした");
       wrap.hidden = false;
       Karute.dom.scrollTo(wrap);
       var heading = document.getElementById("kyusei-result-heading");

@@ -73,7 +73,9 @@
       root.clearTimeout(timer);
       timer = root.setTimeout(function () {
         if (el.hidden || !el.firstElementChild) return;
+        if (el.querySelector(".share-bar")) return; // シェアの欄を足したときの変化は数えない
         track("fortune_result", {});
+        addShare(el);
         if (el.contains(doc.activeElement)) return;
         var h = el.querySelector("h2, h3");
         if (!h) return;
@@ -82,6 +84,35 @@
       }, 120);
     }).observe(el, { attributes: true, attributeFilter: ["hidden"], childList: true });
   }
+  // 結果のシェア：LINE で送る／X でポスト／リンクをコピー
+  //   文章は data-share（あれば）か、結果の見出し。生年月日・名前は入れない（見出しに年月日があれば使わない）。
+  //   すでにシェアの案内があるページ（わんにゃん占い）や LINE・本格占いのページには出さない。
+  function addShare(el) {
+    if (el.hasAttribute("data-noshare") || el.querySelector("a[href*='line.me/R/share']")) return;
+    if (/^\/(line|premium)\//.test(root.location.pathname)) return;
+    var hd = el.querySelector("h2");
+    var said = el.getAttribute("data-share") || (hd ? hd.textContent.replace(/\s+/g, " ").trim() : "");
+    if (/\d{4}年\d{1,2}月\d{1,2}日|\d{4}[\/.-]\d{1,2}[\/.-]\d{1,2}/.test(said)) said = "";
+    if (!el.hasAttribute("data-share") && /鑑定結果|要約|結果$/.test(said)) said = "";
+    var name = (doc.title.split("｜")[0] || "えみり").replace(/（無料）/, "").trim();
+    var url = root.location.origin + root.location.pathname;
+    var text = "【えみり】" + name + (said ? "：" + said.slice(0, 60) : "で占ってみました") + " #えみり占い";
+    var bar = doc.createElement("div");
+    bar.className = "share-bar";
+    bar.innerHTML = '<p class="share-title">結果をシェアする</p><div class="share-btns">'
+      + '<a class="share-btn share-line" target="_blank" rel="noopener" data-track="share_click" data-target="line" data-position="result">LINEで送る</a>'
+      + '<a class="share-btn share-x" target="_blank" rel="noopener" data-track="share_click" data-target="x" data-position="result">Xでポスト</a>'
+      + '<button type="button" class="share-btn share-copy" data-track="share_click" data-target="copy" data-position="result">リンクをコピー</button></div>';
+    bar.querySelector(".share-line").href = "https://line.me/R/share?text=" + encodeURIComponent(text + "\n" + url);
+    bar.querySelector(".share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+    var copy = bar.querySelector(".share-copy");
+    copy.addEventListener("click", function () {
+      function done(ok) { copy.textContent = ok ? "コピーしました" : "コピーできませんでした"; root.setTimeout(function () { copy.textContent = "リンクをコピー"; }, 2000); }
+      try { root.navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); }); } catch (e) { done(false); }
+    });
+    el.appendChild(bar);
+  }
+
   // タブ（[data-tabs]）：role="tablist" の中の role="tab" と、aria-controls の tabpanel を切り替える。
   // JavaScript が動かないときは、すべてのパネルがそのまま見える。URLの #（パネルの id）でも開ける。
   function initTabs(box) {
