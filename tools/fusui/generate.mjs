@@ -20,6 +20,14 @@ const T = require(path.join(ROOT, "assets/js/content/fusui-text.js"));
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const TEMPLATE = fs.readFileSync(path.join(ROOT, "learn/suhijutsu/index.html"), "utf8");
+// 文の途中で切らない：max 文字以内で、最後の「。」までを返す（「。」がなければ先頭の1文）
+function upToSentence(text, max) {
+  const cut = text.slice(0, max), i = cut.lastIndexOf("。");
+  if (i >= 0) return cut.slice(0, i + 1);
+  const j = text.indexOf("。");
+  return j >= 0 ? text.slice(0, j + 1) : text;
+}
+
 function head(rel, title, desc, ogTitle, ogDesc, depth, scripts = "") {
   let h = TEMPLATE.slice(0, TEMPLATE.indexOf("<main"))
     .replace(/<title>.*?<\/title>/, `<title>${esc(title)}</title>`)
@@ -194,8 +202,8 @@ ${others.map((x) => `      <li><a href="../${x.slug}/"><span>${x.icon} ${esc(x.n
 </main>
 
 `;
-  write(rel, head(rel, `${r.title}｜えみり`, `${r.lead.slice(0, 70)}${r.name}の風水でやりたいこと・避けたいことと、本命卦（吉方位）との合わせ方を解説します。`,
-    `${r.name}の風水｜えみり`, r.lead.slice(0, 60), 2) + body + foot(2));
+  write(rel, head(rel, `${r.title}｜えみり`, `${upToSentence(r.lead, 90)}${r.name}の風水でやりたいこと・避けたいことと、本命卦（吉方位）との合わせ方を解説します。`,
+    `${r.name}の風水｜えみり`, upToSentence(r.lead, 80), 2) + body + foot(2));
 }
 
 function indexPage() {

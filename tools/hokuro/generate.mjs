@@ -6,6 +6,7 @@
  * 図は tools/hokuro/svg.mjs、文章は tools/hokuro/data.mjs（どちらも、えみりのオリジナル）。
  */
 import fs from "node:fs";
+import { EXTRA } from "./extra.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { figure } from "./svg.mjs";
@@ -50,6 +51,34 @@ ${items.map(([t, h]) => (h ? `      <li><a href="${h}">${esc(t)}</a></li>` : `  
 const HEALTH = `<p class="notice">ほくろ占いは、自分を見つめ直すヒントとして楽しむものです。ほくろが急に大きくなる、形や色が変わる、にじんだように広がる、出血するなどの変化があるときは、占いではなく皮膚科で相談してください。</p>`;
 const LR = "顔のほくろは、一般に「本人から見て左側は内面や家庭・身近な人との縁」「右側は社会や仕事・外の世界との縁」が強く出るといわれます。図は向かって見た位置なので、鏡で見るときと左右が同じになります。";
 
+// 「くわしくは○○のほくろのページ」をリンクにする
+const SEE = { "眉間": "miken", "目尻": "mejiri", "口元": "kuchimoto", "小鼻": "kobana", "背中": "senaka" };
+const linkSee = (t) => t.replace(/くわしくは(.+?)のほくろのページ/, (m, n) => (SEE[n] ? `くわしくは<a href="../${SEE[n]}/">${n}のほくろのページ</a>` : m));
+
+// 細かい位置ごとの意味（tools/hokuro/extra.mjs にある場所だけ）
+function partsSection(s) {
+  const ex = EXTRA[s.slug];
+  if (!ex) return "";
+  return `  <section class="card prose" aria-labelledby="hk-parts-title">
+    <p class="eyebrow">DETAIL</p>
+    <h2 id="hk-parts-title">${esc(ex.h1.split("のほくろ")[0])}のどこにある？位置でちがう意味</h2>
+${ex.parts.map(([n, t]) => `    <h3>${esc(n)}</h3>\n    <p>${linkSee(esc(t))}</p>`).join("\n")}
+${ex.spiritual ? `    <h3>スピリチュアルな意味</h3>\n    <p>${esc(ex.spiritual)}</p>\n` : ""}  </section>
+
+`;
+}
+function faqSection(s) {
+  const ex = EXTRA[s.slug];
+  if (!ex || !ex.faq) return "";
+  return `  <section class="card prose" aria-labelledby="hk-faq-title">
+    <p class="eyebrow">Q&amp;A</p>
+    <h2 id="hk-faq-title">${esc(ex.h1.split("のほくろ")[0])}のほくろ よくある質問</h2>
+${ex.faq.map(([q, a]) => `    <h3>${esc(q)}</h3>\n    <p>${esc(a)}</p>`).join("\n")}
+  </section>
+
+`;
+}
+
 function spotPage(s) {
   const rel = `hokuro/${s.slug}/`;
   const area = AREAS.find((a) => a.id === s.area);
@@ -59,7 +88,7 @@ ${crumb([["えみり", "../../"], ["ほくろ占い", "../"], [`${s.name}のほ�
 
   <section class="hero">
     <p class="eyebrow">MOLE READING · ${esc(area.name)}</p>
-    <h1>${esc(s.name)}のほくろの意味</h1>
+    <h1>${esc(EXTRA[s.slug] ? EXTRA[s.slug].h1 : `${s.name}のほくろの意味`)}</h1>
     <p class="hk-keyword">${esc(s.keyword)}</p>
     <p>${esc(s.summary)}</p>
   </section>
@@ -74,7 +103,7 @@ ${crumb([["えみり", "../../"], ["ほくろ占い", "../"], [`${s.name}のほ�
     <p class="kyusei-meta">図は、向かって見た位置です（鏡で見たときと同じ向き）。左右どちらにあっても、基本の意味は同じです。</p>
   </section>
 
-  <section class="card prose" aria-labelledby="hk-life-title">
+${partsSection(s)}  <section class="card prose" aria-labelledby="hk-life-title">
     <p class="eyebrow">LOVE &amp; MONEY</p>
     <h2 id="hk-life-title">恋愛・仕事・金運での意味</h2>
     <h3>恋愛</h3>
@@ -85,7 +114,7 @@ ${crumb([["えみり", "../../"], ["ほくろ占い", "../"], [`${s.name}のほ�
     <p>${esc(s.advice)}</p>
 ${s.area === "face" ? `    <h3>右と左で違う？</h3>\n    <p>${esc(LR)}</p>\n` : ""}  </section>
 
-  <section class="card" aria-labelledby="hk-rel-title">
+${faqSection(s)}  <section class="card" aria-labelledby="hk-rel-title">
     <p class="eyebrow">RELATED</p>
     <h2 id="hk-rel-title">あわせて見たいほくろ</h2>
     <ul class="yume-tags hk-tags">
@@ -106,7 +135,8 @@ ${same.map((x) => `      <li><a href="../${x.slug}/">${esc(x.name)}</a></li>`).j
 </main>
 
 `;
-  write(rel, head(rel, `${s.name}のほくろの意味【図解】｜${s.keyword}｜えみり`,
+  const ex = EXTRA[s.slug];
+  write(rel, head(rel, ex ? `${ex.title}｜${s.keyword}｜えみり` : `${s.name}のほくろの意味【図解】｜${s.keyword}｜えみり`,
     `${s.name}のほくろの意味を図で解説。${s.summary}恋愛・仕事・金運での意味と、運を生かすヒントも紹介します。`,
     `${s.name}のほくろの意味｜えみり`, s.summary, 2) + body + foot(2));
 }
