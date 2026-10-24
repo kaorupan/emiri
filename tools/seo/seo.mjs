@@ -61,7 +61,10 @@ export function applyRelated(html, rel) {
   const sec = SECTIONS.sections[top];
   if (rel === "index.html" || !sec || /<meta name="robots" content="noindex">/.test(out)) return out;
   const up = "../".repeat(rel.split("/").length - 1);
-  const items = sec.related.map((k) => {
+  // ページごとの関連先（sections.json の pages）があれば、そちらを使う。自分自身へのリンクはのぞく
+  const dir = rel.replace(/\/?index\.html$/, "");
+  const keys = ((SECTIONS.pages && SECTIONS.pages[dir]) || sec.related).filter((k) => k !== dir && SECTIONS.sections[k]).slice(0, 4);
+  const items = keys.map((k) => {
     const r = SECTIONS.sections[k];
     return `      <li><a href="${up}${k}/" data-track="related_click" data-target="${k}" data-position="related"><span>${r.emoji} ${esc(r.name)}<br><small class="lead">${esc(r.lead)}</small></span><span class="arrow" aria-hidden="true">→</span></a></li>`;
   }).join("\n");

@@ -92,9 +92,17 @@ test("「次はこの占いも」：占いのページに関連リンクが4つ�
   const S = JSON.parse(read("tools/seo/sections.json"));
   for (const [k, s] of Object.entries(S.sections)) {
     assert.ok(fs.existsSync(path.join(ROOT, k, "index.html")), k);
+    assert.ok(s.name && s.lead && s.emoji, k);
+    if (!s.related) { assert.ok(k.includes("/"), `${k}：占いのトップには関連先が必要`); continue; } // ページへのリンク先として使うだけの項目
     assert.equal(s.related.length, 4, k);
     assert.ok(!s.related.includes(k), k);
     for (const r of s.related) assert.ok(S.sections[r], `${k}→${r}`);
+  }
+  for (const [dir, list] of Object.entries(S.pages || {})) {
+    assert.ok(fs.existsSync(path.join(ROOT, dir, "index.html")), dir);
+    assert.equal(list.length, 4, dir);
+    assert.ok(!list.includes(dir), dir);
+    for (const r of list) assert.ok(S.sections[r], `${dir}→${r}`);
   }
   for (const rel of pages()) {
     const html = read(rel);
