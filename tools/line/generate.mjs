@@ -79,7 +79,18 @@ const formBody = `  <section class="hero hero-compact">
     <h2 class="order-h" id="line-gate-title">LINEの友だち追加が必要です</h2>
     <p class="bd-error" id="line-gate-status" role="alert" hidden></p>
     <p id="line-gate-text">総合鑑定書は、えみりのLINE公式アカウントを友だち追加した方へのプレゼントです。友だち追加をしてから、下の「友だち追加したので確認する」を押してください。</p>
-    <p class="line-gate-actions">${ADD_URL ? `<a class="btn line-cta-btn" id="line-gate-add" href="${esc(ADD_URL)}" target="_blank" rel="noopener" data-track="line_click" data-target="add-friend" data-position="gate">LINEで友だち追加する</a>` : ""}<button type="button" class="btn btn-ghost" id="line-gate-recheck">友だち追加したので確認する</button></p>
+    <div class="line-gate-pc" id="line-gate-pc" hidden>
+      <figure class="line-gate-qr">
+        <img src="../assets/img/line-qr.svg" width="160" height="160" alt="スマホのLINEで開くQRコード">
+        <figcaption>スマホのカメラで読み取ると、LINEで開きます</figcaption>
+      </figure>
+      <div class="line-gate-pc-actions">
+        <a class="btn line-cta-btn line-gate-app" href="https://liff.line.me/${esc(LIFF)}" data-track="line_click" data-target="liff" data-position="gate">LINEアプリで開く</a>
+        <button type="button" class="btn btn-ghost" id="line-gate-login">LINEにログインして、このまま受け取る</button>
+        <p class="kyusei-meta">パソコンでは、LINEのアカウント（メールアドレスとパスワード、またはスマホでのQRログイン）でログインすると受け取れます。</p>
+      </div>
+    </div>
+    <p class="line-gate-actions" id="line-gate-actions">${ADD_URL ? `<a class="btn line-cta-btn" id="line-gate-add" href="${esc(ADD_URL)}" target="_blank" rel="noopener" data-track="line_click" data-target="add-friend" data-position="gate">LINEで友だち追加する</a>` : ""}<button type="button" class="btn btn-ghost" id="line-gate-recheck">友だち追加したので確認する</button></p>
     <p class="kyusei-meta" id="line-gate-open" hidden>LINEアプリの外で開いています。<a href="https://liff.line.me/${esc(LIFF)}">LINEアプリで開き直す</a>と、友だち追加と入力がスムーズです。</p>
   </section>
 

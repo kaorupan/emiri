@@ -21,3 +21,12 @@
 .line-gate { border: 1px solid #06c755; }
 .line-gate-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
 .line-gate-actions .btn { width: auto; flex: 1 1 220px; margin-top: 0; }
+.line-gate-pc { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 12px; }
+.line-gate-qr { margin: 0; text-align: center; flex: none; }
+.line-gate-qr img { background: #fff; padding: 8px; border-radius: 10px; }
+.line-gate-qr figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; max-width: 176px; }
+.line-gate-pc-actions { flex: 1 1 240px; min-width: 0; display: grid; gap: 10px; }
+.line-gate-pc-actions .btn { margin-top: 0; }
+/* スマホ（狭い画面）では QR は出さず、LINEアプリで開くボタンを先に */
+@media (max-width: 700px) { .line-gate-qr { display: none; } }
+@media (min-width: 701px) { .line-gate-app { display: none; } }

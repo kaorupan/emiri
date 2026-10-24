@@ -56,7 +56,8 @@
     // 友だちかどうか：true / false / null（確かめられなかった）
     function checkFriend() {
       return ready.then(function (ok) {
-        if (!ok) return null;
+        if (ok === "login") return "login";
+        if (ok !== true) return null;
         return liff.getFriendship().then(function (r) { return !!(r && r.friendFlag); }, function () { return null; });
       });
     }
@@ -67,6 +68,15 @@
       if (!gate) return;
       gate.hidden = isFriend;
       if (isFriend) return;
+      var pc = document.getElementById("line-gate-pc"), acts = document.getElementById("line-gate-actions");
+      if (pc) pc.hidden = state !== "login";
+      if (acts) acts.hidden = state === "login";
+      if (state === "login") {
+        gateTitle.textContent = "LINEで受け取れます";
+        gateText.textContent = "総合鑑定書は、えみりのLINE公式アカウントを友だち追加した方へのプレゼントです。スマホのLINEで開くか、LINEにログインすると受け取れます。";
+        if (gateOpen) gateOpen.hidden = true;
+        return;
+      }
       if (state === null) {
         gateTitle.textContent = "LINEで開いてください";
         gateText.textContent = "総合鑑定書は、えみりのLINE公式アカウントを友だち追加した方へのプレゼントです。LINEアプリで開き、友だち追加をしてからご利用ください。";
@@ -80,7 +90,8 @@
 
     if (!closed && liff) {
       ready = liff.init({ liffId: liffId }).then(function () {
-        if (!liff.isInClient() && !liff.isLoggedIn()) { liff.login({ redirectUri: root.location.href }); return false; }
+        // LINE の外（パソコンやスマホのブラウザ）で未ログイン：すぐログイン画面に飛ばさず、QR コードとログインの案内を出す
+        if (!liff.isInClient() && !liff.isLoggedIn()) return "login";
         return true;
       }).catch(function () { return false; });
     }
@@ -93,12 +104,18 @@
       try { rechecked = sessionStorage.getItem(KEY) === "1"; sessionStorage.removeItem(KEY); } catch (e) {}
       checkFriend().then(function (st) {
         var status = document.getElementById("line-gate-status");
-        if (rechecked && st !== true && status) {
+        if (rechecked && st !== true && st !== "login" && status) {
           status.textContent = st === null
             ? "LINEと通信できませんでした。LINEアプリで開き直してから、もう一度お試しください。"
             : "まだ友だち追加が確認できません。友だち追加（ブロックしている場合は、LINEの友だちリストで「ブロック解除」）をしてから、もう一度押してください。";
           status.hidden = false;
         }
+      });
+      var loginBtn = document.getElementById("line-gate-login");
+      if (loginBtn) loginBtn.addEventListener("click", function () {
+        loginBtn.disabled = true;
+        loginBtn.textContent = "LINEのログイン画面を開いています…";
+        try { liff.login({ redirectUri: root.location.href }); } catch (e) { loginBtn.disabled = false; loginBtn.textContent = "LINEにログインして、このまま受け取る"; }
       });
       if (recheck) recheck.addEventListener("click", function () {
         recheck.disabled = true;
