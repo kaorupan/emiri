@@ -63,6 +63,10 @@
       }))
     ]));
 
+    if (document.getElementById("consult")) {
+      box.appendChild(h("p", { class: "result-consult" }, "転職に向けて具体的に動きたいときは、",
+        h("a", { href: "#consult", "data-track": "related_click", "data-target": "consult", "data-position": "result" }, "転職・キャリアの相談ができるサービス"), "もあります（広告）。"));
+    }
     box.appendChild(h("p", { class: "notice" }, "占いの結果は、自分を見つめ直すための目安です。転職するかどうかは、仕事の条件や暮らし、家族のことなども含めて、あなた自身で判断してください。"));
     box.hidden = false;
     Karute.dom.scrollTo(box);

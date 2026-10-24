@@ -1,207 +1,407 @@
 {
-  "_": "id＝計測用の名前（英数字）。format＝phone/chat/message。料金・特典は公式サイトと提携条件で確認できたものだけ verified に書く（checkedOn＝確認日）。確認できないものは書かない。",
-  "programs": [
-    {
-      "name": "チャット占い【ブリランテ】",
-      "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EJXH4I+5SGG+5YJRM",
-      "pixel": "https://www16.a8.net/0.gif?a8mat=4BEGDB+EJXH4I+5SGG+5YJRM",
-      "themes": [
-        "love",
-        "general"
-      ],
-      "asp": "A8.net",
-      "advertiser": "デジタル通信株式会社",
-      "active": true,
-      "rank": {
-        "love": 1,
-        "general": 2
-      },
-      "id": "brillante",
-      "format": "chat",
-      "memo": "未確認（サイトには表示しない）：チャットで、占い師に悩みを相談できるサービスです",
-      "verified": {
-        "checkedOn": "",
-        "price": "",
-        "priceExample": "",
-        "firstOffer": "",
-        "offerConditions": ""
-      }
-    },
-    {
-      "name": "電話占い【ミラー】",
-      "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
-      "pixel": "https://www13.a8.net/0.gif?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
-      "themes": [
-        "love",
-        "general"
-      ],
-      "asp": "A8.net",
-      "advertiser": "株式会社ラップス",
-      "active": true,
-      "rank": {
-        "love": 4,
-        "general": 3
-      },
-      "id": "miror",
-      "format": "phone",
-      "memo": "未確認（サイトには表示しない）：新規会員登録で3,000円無料クーポンプレゼント中",
-      "verified": {
-        "checkedOn": "",
-        "price": "",
-        "priceExample": "",
-        "firstOffer": "",
-        "offerConditions": ""
-      }
-    },
-    {
-      "name": "電話占い【ココナラ】",
-      "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ECS9V6+2PEO+C3BAQ",
-      "pixel": "https://www18.a8.net/0.gif?a8mat=4BEGDB+ECS9V6+2PEO+C3BAQ",
-      "themes": [
-        "love",
-        "general"
-      ],
-      "asp": "A8.net",
-      "advertiser": "株式会社ココナラ",
-      "active": true,
-      "rank": {
-        "love": 2,
-        "general": 1
-      },
-      "id": "coconala-phone",
-      "format": "phone",
-      "memo": "未確認（サイトには表示しない）：新規会員登録で3,000円無料クーポンプレゼント中",
-      "verified": {
-        "checkedOn": "",
-        "price": "",
-        "priceExample": "",
-        "firstOffer": "",
-        "offerConditions": ""
-      }
-    },
-    {
-      "name": "ココナラでお悩み相談・カウンセリング",
-      "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
-      "pixel": "https://www14.a8.net/0.gif?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
-      "themes": [
-        "love"
-      ],
-      "rank": {
-        "love": 3
-      },
-      "asp": "A8.net",
-      "advertiser": "株式会社ココナラ",
-      "active": true,
-      "id": "coconala-message",
-      "format": "message",
-      "memo": "未確認（サイトには表示しない）：占い師やカウンセラーに、メールで悩みを相談できます",
-      "verified": {
-        "checkedOn": "",
-        "price": "",
-        "priceExample": "",
-        "firstOffer": "",
-        "offerConditions": ""
-      }
-    },
-    {
-      "name": "パワーストーン＆スピリチュアルジュエリー Hariqua（ハリックァ）",
-      "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5SDQIA+5N7K+5YJRM",
-      "pixel": "https://www14.a8.net/0.gif?a8mat=4BEH5E+5SDQIA+5N7K+5YJRM",
-      "themes": [
-        "stone"
-      ],
-      "asp": "A8.net",
-      "advertiser": "アイオイクス株式会社",
-      "active": true,
-      "rank": {
-        "stone": 3
-      },
-      "id": "hariqua",
-      "format": "shop",
-      "about": "世界各地から集めた天然石を、18金・10金・シルバーと組み合わせたジュエリーのショップです（広告主の紹介より）。",
-      "memo": "A8 素材ID 001（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】。2026-10-16 提携",
-      "verified": {
-        "checkedOn": "",
-        "price": "",
-        "priceExample": "",
-        "firstOffer": "",
-        "offerConditions": ""
-      }
-    },
-    {
-      "asp": "A8.net",
-      "active": true,
-      "format": "shop",
-      "verified": {
-        "checkedOn": "",
-        "price": "",
-        "priceExample": "",
-        "firstOffer": "",
-        "offerConditions": ""
-      },
-      "name": "パワーストーン｜ヒラオカ宝石",
-      "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5FA776+2V84+5YJRM",
-      "pixel": "https://www11.a8.net/0.gif?a8mat=4BEH5E+5FA776+2V84+5YJRM",
-      "themes": [
-        "stone"
-      ],
-      "advertiser": "ヒラオカ宝石",
-      "rank": {
-        "stone": 1
-      },
-      "id": "hiraoka",
-      "about": "パワーストーンのブレスレットを扱う専門店で、ウェブ上でデザインを作るオーダーメイドにも対応しています（広告主の紹介より）。",
-      "memo": "A8 素材ID 001（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】。「1万人超」「TVや雑誌で人気」などの広告主の表現は確認できないため使わない"
-    },
-    {
-      "asp": "A8.net",
-      "active": true,
-      "format": "shop",
-      "verified": {
-        "checkedOn": "",
-        "price": "",
-        "priceExample": "",
-        "firstOffer": "",
-        "offerConditions": ""
-      },
-      "name": "パワーストーンや誕生石のブレスレット専門通販サイト Pascle（パスクル）",
-      "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5E3BZM+2KAI+2TD9GI",
-      "pixel": "https://www15.a8.net/0.gif?a8mat=4BEH5E+5E3BZM+2KAI+2TD9GI",
-      "themes": [
-        "stone"
-      ],
-      "advertiser": "株式会社リーフワークス",
-      "rank": {
-        "stone": 2
-      },
-      "id": "pascle",
-      "about": "パワーストーンや誕生石のブレスレットを扱う通販サイトです（広告主の紹介より）。",
-      "memo": "A8 素材ID 026（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】"
-    },
-    {
-      "asp": "A8.net",
-      "active": true,
-      "format": "goods",
-      "verified": {
-        "checkedOn": "",
-        "price": "",
-        "priceExample": "",
-        "firstOffer": "",
-        "offerConditions": ""
-      },
-      "name": "開運グッズのラッキーショップ",
-      "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5TKLPU+1JT6+5YJRM",
-      "pixel": "https://www18.a8.net/0.gif?a8mat=4BEH5E+5TKLPU+1JT6+5YJRM",
-      "themes": [
-        "fusui"
-      ],
-      "advertiser": "ラッキーショップ",
-      "rank": {
-        "fusui": 1
-      },
-      "id": "luckyshop",
-      "about": "風水鏡など、開運グッズを扱う通販ショップです（広告主の紹介より）。",
-      "memo": "A8 素材ID 001（自由テキスト・トップページ）。掲載サイト：えみり｜無料占い【アピールサイト】"
-    }
-  ]
+ "_": "id＝計測用の名前（英数字）。format＝phone/chat/message。料金・特典は公式サイトと提携条件で確認できたものだけ verified に書く（checkedOn＝確認日）。確認できないものは書かない。",
+ "programs": [
+  {
+   "name": "チャット占い【ブリランテ】",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EJXH4I+5SGG+5YJRM",
+   "pixel": "https://www16.a8.net/0.gif?a8mat=4BEGDB+EJXH4I+5SGG+5YJRM",
+   "themes": [
+    "love",
+    "general",
+    "aisho"
+   ],
+   "asp": "A8.net",
+   "advertiser": "デジタル通信株式会社",
+   "active": true,
+   "rank": {
+    "love": 1,
+    "general": 2,
+    "aisho": 1
+   },
+   "id": "brillante",
+   "format": "chat",
+   "memo": "未確認（サイトには表示しない）：チャットで、占い師に悩みを相談できるサービスです",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "電話占い【ミラー】",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
+   "pixel": "https://www13.a8.net/0.gif?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
+   "themes": [
+    "love",
+    "general"
+   ],
+   "asp": "A8.net",
+   "advertiser": "株式会社ラップス",
+   "active": true,
+   "rank": {
+    "love": 6,
+    "general": 5
+   },
+   "id": "miror",
+   "format": "phone",
+   "memo": "未確認（サイトには表示しない）：新規会員登録で3,000円無料クーポンプレゼント中",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "電話占い【ココナラ】",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ECS9V6+2PEO+C3BAQ",
+   "pixel": "https://www18.a8.net/0.gif?a8mat=4BEGDB+ECS9V6+2PEO+C3BAQ",
+   "themes": [
+    "love",
+    "general"
+   ],
+   "asp": "A8.net",
+   "advertiser": "株式会社ココナラ",
+   "active": true,
+   "rank": {
+    "love": 3,
+    "general": 1
+   },
+   "id": "coconala-phone",
+   "format": "phone",
+   "memo": "未確認（サイトには表示しない）：新規会員登録で3,000円無料クーポンプレゼント中",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "ココナラでお悩み相談・カウンセリング",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
+   "pixel": "https://www14.a8.net/0.gif?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
+   "themes": [
+    "love"
+   ],
+   "rank": {
+    "love": 4
+   },
+   "asp": "A8.net",
+   "advertiser": "株式会社ココナラ",
+   "active": true,
+   "id": "coconala-message",
+   "format": "message",
+   "memo": "未確認（サイトには表示しない）：占い師やカウンセラーに、メールで悩みを相談できます",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "パワーストーン＆スピリチュアルジュエリー Hariqua（ハリックァ）",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5SDQIA+5N7K+5YJRM",
+   "pixel": "https://www14.a8.net/0.gif?a8mat=4BEH5E+5SDQIA+5N7K+5YJRM",
+   "themes": [
+    "stone"
+   ],
+   "asp": "A8.net",
+   "advertiser": "アイオイクス株式会社",
+   "active": true,
+   "rank": {
+    "stone": 3
+   },
+   "id": "hariqua",
+   "format": "shop",
+   "about": "世界各地から集めた天然石を、18金・10金・シルバーと組み合わせたジュエリーのショップです（広告主の紹介より）。",
+   "memo": "A8 素材ID 001（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】。2026-10-16 提携",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "asp": "A8.net",
+   "active": true,
+   "format": "shop",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   },
+   "name": "パワーストーン｜ヒラオカ宝石",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5FA776+2V84+5YJRM",
+   "pixel": "https://www11.a8.net/0.gif?a8mat=4BEH5E+5FA776+2V84+5YJRM",
+   "themes": [
+    "stone"
+   ],
+   "advertiser": "ヒラオカ宝石",
+   "rank": {
+    "stone": 1
+   },
+   "id": "hiraoka",
+   "about": "パワーストーンのブレスレットを扱う専門店で、ウェブ上でデザインを作るオーダーメイドにも対応しています（広告主の紹介より）。",
+   "memo": "A8 素材ID 001（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】。「1万人超」「TVや雑誌で人気」などの広告主の表現は確認できないため使わない"
+  },
+  {
+   "asp": "A8.net",
+   "active": true,
+   "format": "shop",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   },
+   "name": "パワーストーンや誕生石のブレスレット専門通販サイト Pascle（パスクル）",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5E3BZM+2KAI+2TD9GI",
+   "pixel": "https://www15.a8.net/0.gif?a8mat=4BEH5E+5E3BZM+2KAI+2TD9GI",
+   "themes": [
+    "stone"
+   ],
+   "advertiser": "株式会社リーフワークス",
+   "rank": {
+    "stone": 2
+   },
+   "id": "pascle",
+   "about": "パワーストーンや誕生石のブレスレットを扱う通販サイトです（広告主の紹介より）。",
+   "memo": "A8 素材ID 026（テキスト）。掲載サイト：えみり｜無料占い【アピールサイト】"
+  },
+  {
+   "asp": "A8.net",
+   "active": true,
+   "format": "goods",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   },
+   "name": "開運グッズのラッキーショップ",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEH5E+5TKLPU+1JT6+5YJRM",
+   "pixel": "https://www18.a8.net/0.gif?a8mat=4BEH5E+5TKLPU+1JT6+5YJRM",
+   "themes": [
+    "fusui"
+   ],
+   "advertiser": "ラッキーショップ",
+   "rank": {
+    "fusui": 1
+   },
+   "id": "luckyshop",
+   "about": "風水鏡など、開運グッズを扱う通販ショップです（広告主の紹介より）。",
+   "memo": "A8 素材ID 001（自由テキスト・トップページ）。掲載サイト：えみり｜無料占い【アピールサイト】"
+  },
+  {
+   "name": "電話占いとメール占いの「絆」",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EF60AA+3QW4+64JTE",
+   "pixel": "https://www19.a8.net/0.gif?a8mat=4BEGDB+EF60AA+3QW4+64JTE",
+   "themes": [
+    "love",
+    "general",
+    "aisho"
+   ],
+   "asp": "A8.net",
+   "advertiser": "ビットアップ株式会社",
+   "active": true,
+   "id": "kizuna",
+   "format": "phone",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   },
+   "rank": {
+    "love": 5,
+    "general": 3,
+    "aisho": 5
+   }
+  },
+  {
+   "name": "電話占いウィル",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ETGESY+2QD4+C03K2",
+   "pixel": "https://www15.a8.net/0.gif?a8mat=4BEGDB+ETGESY+2QD4+C03K2",
+   "themes": [
+    "love",
+    "general"
+   ],
+   "asp": "A8.net",
+   "advertiser": "株式会社ウィル",
+   "active": true,
+   "id": "will",
+   "format": "phone",
+   "memo": "未確認（サイトには表示しない）：初回10000円分無料キャンペーン（広告文より）",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   },
+   "rank": {
+    "love": 2,
+    "general": 4
+   }
+  },
+  {
+   "name": "第二新卒エージェントneo",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEIPC+86PLZU+3Y6M+63OYA",
+   "pixel": "https://www11.a8.net/0.gif?a8mat=4BEIPC+86PLZU+3Y6M+63OYA",
+   "themes": [
+    "career"
+   ],
+   "rank": {
+    "career": 2
+   },
+   "asp": "A8.net",
+   "advertiser": "株式会社ネオキャリア",
+   "active": true,
+   "id": "neo",
+   "format": "agent",
+   "about": "第二新卒・既卒・フリーター・中退・高卒の方の就職・転職を支援するサービスです。",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "キャリナビ（キャリアコーチング）",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEHXE+BUVTIQ+5WEE+5YJRM",
+   "pixel": "https://www14.a8.net/0.gif?a8mat=4BEHXE+BUVTIQ+5WEE+5YJRM",
+   "themes": [
+    "career"
+   ],
+   "rank": {
+    "career": 1
+   },
+   "asp": "A8.net",
+   "advertiser": "株式会社Ａｓｓｈ",
+   "active": true,
+   "id": "carinavi",
+   "format": "coaching",
+   "about": "20代・30代向けに、やりたいことの整理から伴走するキャリアコーチングのサービスです。",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "20代の転職相談所",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEIPC+83QFYY+10SQ+BWVTE",
+   "pixel": "https://www10.a8.net/0.gif?a8mat=4BEIPC+83QFYY+10SQ+BWVTE",
+   "themes": [
+    "career"
+   ],
+   "rank": {
+    "career": 3
+   },
+   "asp": "A8.net",
+   "advertiser": "ブラッシュアップ・ジャパン株式会社",
+   "active": true,
+   "id": "20dai",
+   "format": "agent",
+   "about": "20代の、はじめての転職の相談に対応するサービスです。",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "Archers（アーチャーズ）",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEJHA+9OAMFU+5GRC+5YZ76",
+   "pixel": "https://www16.a8.net/0.gif?a8mat=4BEJHA+9OAMFU+5GRC+5YZ76",
+   "themes": [
+    "aisho"
+   ],
+   "rank": {
+    "aisho": 4
+   },
+   "asp": "A8.net",
+   "advertiser": "Ａｒｃｈｅｒｓ株式会社",
+   "active": true,
+   "id": "archers",
+   "format": "matching",
+   "about": "パートナーの紹介と恋愛相談を組み合わせた、紹介型のマッチングアプリです。",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "パートナーエージェント",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEJHA+9GJZKQ+17R0+64C3M",
+   "pixel": "https://www17.a8.net/0.gif?a8mat=4BEJHA+9GJZKQ+17R0+64C3M",
+   "themes": [
+    "aisho"
+   ],
+   "rank": {
+    "aisho": 2
+   },
+   "asp": "A8.net",
+   "advertiser": "タメニー株式会社",
+   "active": true,
+   "id": "partner-agent",
+   "format": "agency",
+   "about": "担当者に相談しながら婚活を進める、結婚相談所のサービスです。",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  },
+  {
+   "name": "結婚相談所比較ネット",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEJHA+9T23A2+1PJA+2BFH02",
+   "pixel": "https://www18.a8.net/0.gif?a8mat=4BEJHA+9T23A2+1PJA+2BFH02",
+   "themes": [
+    "aisho"
+   ],
+   "rank": {
+    "aisho": 3
+   },
+   "asp": "A8.net",
+   "advertiser": "株式会社じげん",
+   "active": true,
+   "id": "konkatsu-hikaku",
+   "format": "compare",
+   "about": "いくつかの結婚相談所の中から、自分に合うところを診断して資料を取り寄せられる比較サービスです。",
+   "memo": "未確認（サイトには表示しない）：先着で婚活支援金30,000円プレゼント（広告文より）",
+   "verified": {
+    "checkedOn": "",
+    "price": "",
+    "priceExample": "",
+    "firstOffer": "",
+    "offerConditions": ""
+   }
+  }
+ ]
 }

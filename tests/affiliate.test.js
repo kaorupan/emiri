@@ -13,10 +13,12 @@ const PROGRAMS = [
 ];
 const PAGE = "<html><body><main id=\"main\">\n  <p>結果</p>\n</main>\n<footer></footer></body></html>";
 
-test("ページの種類：恋愛・相性は love、運営・本格占いには出さない", async () => {
+test("ページの種類：恋愛は love、相性占いは aisho、適職占いは career、運営・本格占いには出さない", async () => {
   const { themeOf } = await load();
-  assert.equal(themeOf("aisho/index.html"), "love");
-  assert.equal(themeOf("kyusei/aisho/index.html"), "love");
+  assert.equal(themeOf("aisho/index.html"), "aisho");
+  assert.equal(themeOf("kyusei/aisho/index.html"), "aisho");
+  assert.equal(themeOf("uchuban/index.html"), "aisho");
+  assert.equal(themeOf("tekishoku/index.html"), "career");
   assert.equal(themeOf("yume/koibito/index.html"), "love");
   assert.equal(themeOf("tesou/renai/index.html"), "love");
   assert.equal(themeOf("yume/hebi/index.html"), "general");
@@ -26,7 +28,7 @@ test("ページの種類：恋愛・相性は love、運営・本格占いには
 
 test("枠：PR表示・nofollow sponsored・テーマで絞り込み・何度実行しても同じ", async () => {
   const { apply } = await load();
-  const love = apply(PAGE, "kyusei/aisho/index.html", PROGRAMS);
+  const love = apply(PAGE, "yume/koibito/index.html", PROGRAMS);
   assert.ok(love.includes('<p class="aff-pr">PR・広告</p>'));
   assert.ok(love.includes("この枠は広告です") && love.includes("紹介料"));
   assert.ok(love.includes("公式サイトで料金・特典条件を確認する"));
@@ -35,8 +37,8 @@ test("枠：PR表示・nofollow sponsored・テーマで絞り込み・何度実
   assert.ok(love.includes("電話占いA") && !love.includes("チャット占いB"));
   assert.ok(love.includes('href="../../privacy/#affiliate"'));
   assert.ok(love.indexOf("<!--aff-->") < love.indexOf("</main>"));
-  assert.equal(apply(love, "kyusei/aisho/index.html", PROGRAMS), love, "2回目で変わらない");
-  assert.equal(apply(love, "kyusei/aisho/index.html", []), PAGE, "案件がなくなれば枠も消える");
+  assert.equal(apply(love, "yume/koibito/index.html", PROGRAMS), love, "2回目で変わらない");
+  assert.equal(apply(love, "yume/koibito/index.html", []), PAGE, "案件がなくなれば枠も消える");
   const gen = apply(PAGE, "index.html", PROGRAMS);
   assert.ok(gen.includes("チャット占いB") && gen.includes('href="privacy/#affiliate"'));
   assert.equal(apply(PAGE, "premium/index.html", PROGRAMS), PAGE);
@@ -62,7 +64,7 @@ test("並び順：rank の小さい順。テーマごとに変えられる", asy
     { name: "C", url: "https://c.example/", themes: ["love", "general"] }
   ];
   const names = (h) => [...h.matchAll(/<p class="consult-name">([^<]+)<\/p>/g)].map((m) => m[1]);
-  assert.deepEqual(names(apply(PAGE, "aisho/index.html", P)), ["B", "A", "C"]);
+  assert.deepEqual(names(apply(PAGE, "yume/koibito/index.html", P)), ["B", "A", "C"]);
   assert.deepEqual(names(apply(PAGE, "yume/hebi/index.html", P)), ["A", "B", "C"]);
 });
 
@@ -88,7 +90,10 @@ test("相談の案内：確認日のある情報だけを出す・LINEの案内�
 test("今のサイト：表示中の広告リンク（a8mat）が設定と一致し、確認日のない料金・特典は出ていない", async () => {
   const { loadPrograms } = await load();
   const top = fs.readFileSync(path.join(ROOT, "suhijutsu/index.html"), "utf8");
-  for (const p of loadPrograms(ROOT).filter((x) => x.themes.includes("general"))) assert.ok(top.includes(p.url.replace(/&/g, "&amp;")), p.name);
+  // 各ページに出すのは rank の小さい順に3件まで
+  const r = (p) => (p.rank && Number.isFinite(p.rank.general) ? p.rank.general : 99);
+  const shown = loadPrograms(ROOT).filter((x) => x.themes.includes("general")).sort((a, b) => r(a) - r(b)).slice(0, 3);
+  for (const p of shown) assert.ok(top.includes(p.url.replace(/&/g, "&amp;")), p.name);
   assert.ok(!top.includes("3,000円"));
 });
 
@@ -131,4 +136,21 @@ test("広告の表示：広告枠のあるページは、ページの最初に�
   assert.equal(apply(o, "yume/hebi/index.html", PROGRAMS), o, "2回目で変わらない");
   assert.equal(apply(o, "yume/hebi/index.html", []), PAGE);
   assert.ok(!apply(PAGE, "about/index.html", PROGRAMS).includes("pr-notice"));
+});
+
+test("適職占い・相性占い：テーマに合う案件だけを出し、ボタンの文言も合わせる", async () => {
+  const { apply } = await load();
+  const P = [
+    { name: "電話占いA", id: "a", format: "phone", url: "https://a.example/", themes: ["love", "general", "aisho"] },
+    { name: "転職B", id: "b", format: "agent", url: "https://b.example/", themes: ["career"], about: "20代向けの転職支援" },
+    { name: "マッチングC", id: "c", format: "matching", url: "https://c.example/", themes: ["aisho"] }
+  ];
+  const career = apply(PAGE, "tekishoku/index.html", P);
+  assert.ok(career.includes("転職B") && !career.includes("電話占いA") && !career.includes("マッチングC"));
+  assert.ok(career.includes("転職エージェント") && career.includes("サービスの特徴") && career.includes("公式サイトでサービス内容と条件を確認する"));
+  assert.ok(career.includes('data-theme="career"'));
+  const aisho = apply(PAGE, "kyusei/aisho/index.html", P);
+  assert.ok(aisho.includes("電話占いA") && aisho.includes("マッチングC") && !aisho.includes("転職B"));
+  assert.ok(aisho.includes("ふたりの関係を進めたいときは"));
+  assert.ok(!apply(PAGE, "yume/hebi/index.html", P).includes("転職B"), "ほかのページには転職の案件を出さない");
 });
