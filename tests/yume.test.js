@@ -15,7 +15,9 @@ test("夢占い：一覧の語数とページがそろい、関連リンクが�
   for (const s of slugs) {
     const html = fs.readFileSync(path.join(ROOT, "yume", s, "index.html"), "utf8");
     assert.ok(!/undefined|NaN/.test(html), s);
-    assert.ok(/<h1>.+の夢の意味<\/h1>/.test(html), s);
+    assert.ok(/<h1>.+夢の意味<\/h1>/.test(html), s);
+    // 「噛まれるの夢」のような、動きの言葉に「の」がつく不自然な題名にしない
+    assert.ok(!/[るうくすつぬむぶぐ]の夢/.test(html.match(/<title>(.*?)<\/title>/)[1] + html.match(/<h1>(.*?)<\/h1>/)[1]), s + " 題名");
     assert.ok((html.match(/<h3[ >]/g) || []).length >= 2, s + " 場面別の意味");
     titles.add(html.match(/<title>(.*?)<\/title>/)[1]);
     for (const [, r] of html.matchAll(/href="\.\.\/([a-z]+)\/"/g)) assert.ok(slugs.includes(r), `${s} → ${r}`);

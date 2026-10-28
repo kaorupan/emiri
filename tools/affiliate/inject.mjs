@@ -49,8 +49,25 @@ const CAREER = /^tekishoku\//;
 const AISHO = /(^|\/)aisho\/|^uchuban\/|^suhijutsu\/namae\/|^horoscope\/seiza-aisho\//;
 const SHOP_THEMES = ["stone", "fusui"];
 
+// 悩みカテゴリ・一覧のページ：まだ結果を見ていない人向けに、そのページの読者に合う言葉で案内する
+//   inline は、一覧のすぐ下に出す短い案内（相談サービスの枠 #consult へ移動する。広告と明記）
+const CATEGORY = {
+  "nayami/renai/": { theme: "love", title: "恋愛の悩みを個別に相談したい方へ", text: "片思い・復縁・ふたりの関係など、自分の状況を話して占ってほしいときは、電話やチャットで占い師に相談できるサービスがあります。話しやすい相談のしかたで選んでください。", inline: "恋愛の悩みを個別に相談したい方へ｜電話・チャットで相談できるサービスを見る" },
+  "nayami/aisho/": { theme: "aisho", title: "ふたりの関係を相談したい方へ", text: "相性の気になる相手とのすれ違いを占い師に相談したり、これからの出会いを探したりできるサービスがあります。いまの状況に合うものを選んでください。", inline: "ふたりの関係を相談したい方へ｜相談・出会いのサービスを見る" },
+  "nayami/shigoto/": { theme: "career", title: "仕事や転職の悩みを相談したい方へ", text: "向いている仕事や転職の時期を、実際の一歩につなげたいときは、転職やキャリアの相談ができるサービスがあります。自分に合う相談のしかたで選んでください。", inline: "仕事や転職の悩みを相談したい方へ｜転職・キャリア相談のサービスを見る" },
+  "nayami/ningen/": { theme: "general", title: "人間関係の悩みを相談したい方へ", text: "家族・友人・職場の人との関係で悩んでいるときは、状況を話して占い師に相談できるサービスがあります。電話・チャット・メッセージから、話しやすい方法で選べます。", inline: "人間関係の悩みを相談したい方へ｜電話・チャットで相談できるサービスを見る" },
+  "nayami/seikaku/": { theme: "general", title: "自分のことを、もっと深く知りたい方へ", text: "占いで見えた性格や才能について、占い師と話しながら深めたいときは、電話やチャットで相談できるサービスがあります。", inline: "自分のことをもっと深く知りたい方へ｜占い師に相談できるサービスを見る" },
+  "nayami/kinun/": { theme: "general", title: "お金や運気の悩みを相談したい方へ", text: "お金の流れやこれからの運気について、自分の状況を話して占ってほしいときは、占い師に相談できるサービスがあります。", inline: "お金や運気の悩みを相談したい方へ｜占い師に相談できるサービスを見る" },
+  "nayami/kyou/": { theme: "general", title: "これからのことを個別に占ってほしい方へ", text: "今日や近い未来の流れについて、自分の状況を話して占ってほしいときは、電話やチャットで占い師に相談できるサービスがあります。", inline: "これからのことを個別に占ってほしい方へ｜電話・チャットで相談できるサービスを見る" },
+  "ichiran/": { theme: "general", title: "占い師に直接相談したい方へ", text: "えみりの無料占いは、生年月日などから計算した結果を読むものです。自分の状況を話して読んでほしいときは、電話・チャット・メッセージで占い師に相談できるサービスがあります。" },
+  "kensaku/": { theme: "general", title: "占い師に直接相談したい方へ", text: "えみりの無料占いは、生年月日などから計算した結果を読むものです。自分の状況を話して読んでほしいときは、電話・チャット・メッセージで占い師に相談できるサービスがあります。" }
+};
+const catOf = (rel) => CATEGORY[rel.replace(/index\.html$/, "")] || null;
+
 export function themeOf(rel) {
   if (NO_ADS.test(rel)) return null;
+  const cat = catOf(rel);
+  if (cat) return cat.theme;
   if (STONE.test(rel) || GAMBLE.test(rel)) return "stone";
   if (CAREER.test(rel)) return "career";
   if (AISHO.test(rel)) return "aisho";
@@ -89,7 +106,7 @@ function verifiedRows(p) {
   return [[shop ? "価格の目安" : "通常料金", v.price], [shop ? "商品の例" : "料金の例", v.priceExample], [shop ? "キャンペーン" : "初回特典", v.firstOffer], [shop ? "条件" : "特典の条件", v.offerConditions], ["情報の確認日", v.checkedOn]].filter((r) => r[1]);
 }
 
-export function box(theme, programs, depth) {
+export function box(theme, programs, depth, head = null, position = "page-end") {
   // パワーストーンのページ：ショップの案件がまだなければ、ふだんの相談の案内を出す
   // ショップ用のテーマ（パワーストーン・風水）：案件がまだなければ、ふだんの相談の案内を出す
   if (SHOP_THEMES.includes(theme) && !programs.some((p) => p.themes && p.themes.includes(theme))) theme = "general";
@@ -104,10 +121,10 @@ export function box(theme, programs, depth) {
         ${f ? `<p class="consult-format">${f.label}</p>` : ""}
         <p class="consult-name">${esc(p.name)}</p>
         ${rows.length ? `<dl class="consult-facts">${rows.map((r) => `<div class="consult-fact"><dt>${esc(r[0])}</dt><dd>${esc(r[1])}</dd></div>`).join("")}</dl>` : ""}
-        <a class="btn btn-ghost consult-btn" href="${esc(p.url)}" target="_blank" rel="nofollow sponsored noopener" data-track="aff_click" data-service="${esc(p.id || "")}" data-position="page-end" data-theme="${theme}">${p.format === "shop" || p.format === "goods" ? "公式ショップで商品と条件を見る" : theme === "career" || ["matching", "agency", "compare"].includes(p.format) ? "公式サイトでサービス内容と条件を確認する" : "公式サイトで料金・特典条件を確認する"}</a>${p.pixel ? `<img class="aff-pixel" src="${esc(p.pixel)}" width="1" height="1" alt="" loading="lazy">` : ""}
+        <a class="btn btn-ghost consult-btn" href="${esc(p.url)}" target="_blank" rel="nofollow sponsored noopener" data-track="aff_click" data-service="${esc(p.id || "")}" data-position="${position}" data-theme="${theme}">${p.format === "shop" || p.format === "goods" ? "公式ショップで商品と条件を見る" : theme === "career" || ["matching", "agency", "compare"].includes(p.format) ? "公式サイトでサービス内容と条件を確認する" : "公式サイトで料金・特典条件を確認する"}</a>${p.pixel ? `<img class="aff-pixel" src="${esc(p.pixel)}" width="1" height="1" alt="" loading="lazy">` : ""}
       </li>`;
   }).join("\n");
-  const h = HEAD[theme];
+  const h = head || HEAD[theme];
   return `<!--aff-->
   <aside class="card aff-box consult" id="consult" aria-labelledby="consult-title">
     <p class="aff-pr">PR・広告</p>
@@ -145,13 +162,16 @@ ${list.map((p) => `      <li><a href="${esc(p.url)}" target="_blank" rel="nofoll
 <!--/aff-->`;
 }
 
+const INLINE = /<!--aff-inline-->(?:[\s\S]*?<!--\/aff-inline-->)?/;
 export function apply(html, rel, programs) {
-  let out = html.replace(MARK, "\n").replace(PR_MARK, "");
+  let out = html.replace(MARK, "\n").replace(PR_MARK, "").replace(INLINE, "<!--aff-inline-->");
   const theme = themeOf(rel);
   if (!theme) return out;
   const depth = rel.split("/").length - 1;
-  const b = rel === "index.html" ? compactBox(programs) : box(theme, programs, depth);
+  const cat = catOf(rel);
+  const b = rel === "index.html" ? compactBox(programs) : cat ? box(theme, programs, depth, cat, "category") : box(theme, programs, depth);
   if (!b || !out.includes("</main>")) return out;
+  if (cat && cat.inline) out = out.replace(INLINE, `<!--aff-inline--><p class="aff-inline"><a href="#consult" data-track="aff_jump" data-position="category-top" data-theme="${theme}">${esc(cat.inline)}</a><span class="aff-inline-pr">広告</span></p><!--/aff-inline-->`);
   out = out.replace(/(<main[^>]*>)/, `$1${prNotice(depth)}`);
   // LINE の案内（<!--line-cta-->）があれば、その前に入れる（相談の案内 → LINE の順）
   const i = out.indexOf("<!--line-cta-->");

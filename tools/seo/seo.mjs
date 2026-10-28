@@ -94,12 +94,27 @@ function setOrInsertAfter(html, re, tag, anchorRe) {
   return html.replace(anchorRe, (m) => `${m}\n${tag}`);
 }
 
+// 検索結果の説明文：Google で途中で切れないよう、120字までにおさめる。文の途中では切らず「。」で終える
+//   （最初の1文だけで120字を超えるときは、120字以内の最後の「、」で切って「…」をつける）
+export const DESC_MAX = 120;
+export function fitDesc(text) {
+  const t = Array.from(String(text).replace(/\s+/g, " ").trim());
+  if (t.length <= DESC_MAX) return t.join("");
+  const head = t.slice(0, DESC_MAX).join("");
+  const end = head.lastIndexOf("。");
+  if (end >= 30) return head.slice(0, end + 1);
+  const comma = head.lastIndexOf("、");
+  return (comma >= 30 ? head.slice(0, comma) : Array.from(head).slice(0, DESC_MAX - 1).join("")) + "…";
+}
+const unescAttr = (s) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+
 // 1ページ分の <head> を整える（運勢の生成でも同じ関数を通す）
 export function applyHead(html, config, rel) {
   const url = urlOf(config, rel);
   const depth = rel.split("/").length - 1;
   const feedHref = `${"../".repeat(depth)}feed.xml`;
   let out = html.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${esc(url)}">`);
+  out = out.replace(/<meta (name="description"|property="og:description") content="([^"]*)">/g, (m, k, v) => `<meta ${k} content="${esc(fitDesc(unescAttr(v)))}">`);
   out = setOrInsertAfter(out, /<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${esc(url)}">`, /<link rel="canonical" href="[^"]*">/);
   out = setOrInsertAfter(out, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/,
     `<link rel="alternate" type="application/rss+xml" title="${esc(config.siteName)}｜今日の運勢" href="${feedHref}">`, /<meta property="og:url" content="[^"]*">/);

@@ -4,7 +4,7 @@
  *
  *   node tools/home/generate.mjs
  *
- *   index.html          TOP（紹介＋検索、占術／悩みのタブ、今日の占い、おすすめ、新着。PCは左にサイドメニュー）
+ *   index.html          TOP（紹介＋検索、占い一覧／悩みのタブ、今日の占い、おすすめ、新着。PCは左にサイドメニュー）
  *                       ※ <!-- daily:start --> 〜 <!-- daily:end -->（今日の運勢）は tools/daily/generate.mjs が書くので、そのまま残す
  *   ichiran/            すべての占い（分類ごと＋新着順）
  *   nayami/<id>/        悩みカテゴリごとの一覧
@@ -33,6 +33,10 @@ for (const x of C.ITEMS) {
   for (const n of x.nayami) if (!C.NAYAMI.some((g) => g.id === n)) throw new Error(`catalog: ${x.id} の悩み ${n}`);
 }
 for (const id of C.TOP_ORDER) if (!C.byId[id]) throw new Error(`TOP_ORDER: ${id}`);
+for (const [nid, ts] of Object.entries(C.THEMES)) for (const t of ts) {
+  if (t.id && !C.byId[t.id]) throw new Error(`THEMES ${nid}: ${t.id}`);
+  if (t.url && !fs.existsSync(path.join(ROOT, t.url, "index.html"))) throw new Error(`THEMES ${nid}: ${t.url} がない`);
+}
 
 const icon = (name, up) => `<svg aria-hidden="true"><use href="${up}assets/img/icons.svg#${name}"/></svg>`;
 const byPubDesc = (a, b) => (a.pub < b.pub ? 1 : a.pub > b.pub ? -1 : C.TOP_ORDER.indexOf(a.id) - C.TOP_ORDER.indexOf(b.id));
@@ -42,10 +46,12 @@ const order = (a, b) => {
 };
 const fmtDate = (d) => { const [y, m, dd] = d.split("-").map(Number); return `${y}年${m}月${dd}日`; };
 const nayamiItems = (id) => C.ITEMS.filter((x) => x.nayami.includes(id)).sort(order);
+// カテゴリの件数（テーマの欄にだけある占いのページもふくめる）
+const nayamiCount = (id) => nayamiItems(id).length + (C.THEMES[id] || []).filter((t) => !t.id).length;
 
-const tile = (x, up, pos) => `<li><a class="tile" href="${up}${x.url}" data-track="start_click" data-target="${x.id}" data-position="${pos}"><span class="tile-icon">${icon(x.icon, up)}</span><span class="tile-name">${esc(x.title)}</span></a></li>`;
+const tile = (x, up, pos) => `<li><a class="tile" href="${up}${x.url}" data-track="start_click" data-target="${x.id}" data-position="${pos}"><span class="tile-icon">${icon(x.icon, up)}</span><span class="tile-name">${esc(x.title)}${x.hint ? `<small>${esc(x.hint)}</small>` : ""}</span></a></li>`;
 const row = (x, up, pos, extra = "") => `<li><a class="row" href="${up}${x.url}" data-track="start_click" data-target="${x.id}" data-position="${pos}"><span class="row-icon">${icon(x.icon, up)}</span><span class="row-body"><b>${esc(x.title)}${extra}</b><small>${esc(x.desc)}</small></span><span class="row-arrow" aria-hidden="true">›</span></a></li>`;
-const nayamiTile = (n, up) => `<li><a class="tile tile-nayami" href="${up}nayami/${n.id}/" data-track="start_click" data-target="nayami-${n.id}" data-position="top-nayami"><span class="tile-icon">${icon(n.icon, up)}</span><span class="tile-name">${esc(n.name)}<small>${nayamiItems(n.id).length}件</small></span></a></li>`;
+const nayamiTile = (n, up) => `<li><a class="tile tile-nayami" href="${up}nayami/${n.id}/" data-track="start_click" data-target="nayami-${n.id}" data-position="top-nayami"><span class="tile-icon">${icon(n.icon, up)}</span><span class="tile-name">${esc(n.name)}<small>${nayamiCount(n.id)}件</small></span></a></li>`;
 const searchForm = (up, id, value = "") => `<form class="search" action="${up}kensaku/" method="get" role="search">
       <label for="${id}" class="search-label">占い・悩みを検索</label>
       <div class="search-row">
@@ -92,7 +98,7 @@ function side(up) {
   const top = C.TOP_ORDER.map((id) => C.byId[id]);
   const aisho = C.ITEMS.filter((x) => x.group === "aisho" && x.id !== "aisho");
   return `<aside class="home-side" aria-label="占いのメニュー">
-      <nav aria-labelledby="side-senjutsu"><h2 id="side-senjutsu" class="side-title">占術から探す</h2>
+      <nav aria-labelledby="side-senjutsu"><h2 id="side-senjutsu" class="side-title">占い一覧</h2>
         <ul class="side-list">
 ${top.map((x) => `          <li><a href="${up}${x.url}">${esc(x.title)}</a></li>`).join("\n")}
         </ul>
@@ -149,7 +155,7 @@ function home() {
         <h2 id="uranau-title" class="block-title">占いを探す</h2>
         <div class="tabs" data-tabs>
           <div class="tab-list" role="tablist" aria-label="占いの探し方">
-            <button type="button" class="tab" role="tab" id="tab-senjutsu" aria-controls="senjutsu" aria-selected="true">占術から探す</button>
+            <button type="button" class="tab" role="tab" id="tab-senjutsu" aria-controls="senjutsu" aria-selected="true">占い一覧</button>
             <button type="button" class="tab" role="tab" id="tab-nayami" aria-controls="nayami" aria-selected="false">悩みから探す</button>
           </div>
           <div class="tab-panel" role="tabpanel" id="senjutsu" aria-labelledby="tab-senjutsu">
@@ -229,22 +235,37 @@ ${news.map((x) => "        " + row(x, "../", "ichiran-new").replace("</small>", 
 
 // ---------- 悩みカテゴリ ----------
 function nayamiPage(n) {
-  const list = nayamiItems(n.id);
+  const themes = (C.THEMES[n.id] || []).map((t) => {
+    const x = t.id ? C.byId[t.id] : null;
+    return { id: t.id || t.track, title: t.title, desc: t.desc, url: x ? x.url : t.url, icon: t.icon || (x && x.icon) || n.icon };
+  });
+  const used = new Set(themes.map((t) => t.id));
+  const list = nayamiItems(n.id).filter((x) => !used.has(x.id));
   const others = C.NAYAMI.filter((x) => x !== n);
+  const themeBlock = themes.length ? `  <section class="home-block" aria-labelledby="theme-title">
+    <h2 id="theme-title" class="block-title">${esc(n.name)}の悩みから選ぶ</h2>
+    <ul class="rows rows-theme">
+${themes.map((x) => "      " + row(x, "../../", `nayami-${n.id}-theme`)).join("\n")}
+    </ul>
+  </section>
+<!--aff-inline-->
+
+` : "";
+  const total = list.length + themes.length;
   const body = `<main id="main" class="home-main wrap-narrow">
 ${crumb2("../../", "悩みから探す", "../../#nayami", n.name)}
   <section class="home-intro home-intro-sub">
     <h1>${esc(n.name)}の占い</h1>
-    <p class="home-lead">${esc(n.lead)}${list.length}種類の無料占いから選べます。</p>
+    <p class="home-lead">${esc(n.lead)}${total}種類の無料占いから選べます。</p>
   </section>
 
-  <section class="home-block" aria-labelledby="list-title">
-    <h2 id="list-title" class="block-title">${esc(n.name)}を占う（${list.length}）</h2>
+${themeBlock}  <section class="home-block" aria-labelledby="list-title">
+    <h2 id="list-title" class="block-title">${themes.length ? `占術を選んで${esc(n.name)}を占う（${list.length}）` : `${esc(n.name)}を占う（${list.length}）`}</h2>
     <ul class="rows">
 ${list.map((x) => "      " + row(x, "../../", `nayami-${n.id}`)).join("\n")}
     </ul>
   </section>
-
+${themes.length ? "" : "<!--aff-inline-->\n"}
   <section class="home-block" aria-labelledby="other-title">
     <h2 id="other-title" class="block-title">ほかの悩みから探す</h2>
     <ul class="tiles tiles-nayami">
@@ -254,7 +275,7 @@ ${others.map((x) => "      " + nayamiTile(x, "../../")).join("\n")}
 </main>
 
 `;
-  page(`nayami/${n.id}/`, 2, `${n.name}の占い｜無料で占える${list.length}種類｜えみり`, `${n.name}の悩みに合う無料占いの一覧です。${n.lead}${list.slice(0, 4).map((x) => x.title).join("・")}など、登録不要で占えます。`, body);
+  page(`nayami/${n.id}/`, 2, `${n.name}の占い｜無料で占える${total}種類｜えみり`, `${n.name}の悩みに合う無料占いの一覧です。${n.lead}${themes.map((x) => x.title).concat(list.map((x) => x.title)).slice(0, 4).join("・")}など、登録不要で占えます。`, body);
 }
 
 // ---------- 検索 ----------

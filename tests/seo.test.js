@@ -129,3 +129,12 @@ test("アクセス解析（GA4）：設定したIDで全ページに1回だけ�
     if (n) assert.ok(html.includes("page_location:location.origin+location.pathname"), rel);
   }
 });
+
+test("検索結果の説明文：120字以内で、文の途中で切れない", async () => {
+  const { fitDesc } = await import("../tools/seo/seo.mjs");
+  const long = "あ".repeat(70) + "。" + "い".repeat(70) + "。";
+  assert.equal(fitDesc(long), "あ".repeat(70) + "。");
+  assert.equal(fitDesc("短い説明です。"), "短い説明です。");
+  const noStop = "う".repeat(60) + "、" + "え".repeat(80);
+  assert.equal(fitDesc(noStop), "う".repeat(60) + "…");
+});

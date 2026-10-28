@@ -118,3 +118,11 @@ body.home .line-cta { border-color: rgba(6, 199, 85, .45); }
 .soudan-dl > div { padding: 12px 14px; background: var(--tile); border: 1px solid var(--line); border-radius: 8px; }
 .soudan-dl dt { font-weight: 800; color: var(--gold); }
 .soudan-dl dd { margin: 4px 0 0; font-size: 15px; }
+
+/* 悩みカテゴリ：悩みのテーマを先に（占術の一覧より目立たせる） */
+.rows-theme .row { border-color: color-mix(in srgb, var(--accent, #b79bff) 55%, transparent); }
+.rows-theme .row b { font-size: 17px; }
+/* 一覧のすぐ下の短い案内（相談サービスの枠へ移動。広告と明記） */
+.aff-inline { margin: 4px 0 20px; font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.aff-inline a { font-weight: 700; }
+.aff-inline-pr { font-size: 11px; padding: 0 6px; border: 1px solid currentColor; border-radius: 4px; color: var(--muted); }

@@ -43,6 +43,8 @@ for (const f of MORE) {
 }
 const all = [];
 cats.forEach((c) => c.entries.forEach((e) => all.push({ ...e, cat: c })));
+// 「噛まれる」「走る」など動きの言葉は「噛まれる夢」、「蛇」「海」などは「蛇の夢」にする
+const yumeName = (w) => (/[るうくすつぬむぶぐ]$/.test(w) ? `${w}夢` : `${w}の夢`);
 const bySlug = new Map(all.map((e) => [e.slug, e]));
 if (bySlug.size !== all.length) throw new Error("slug が重複している");
 for (const e of all) {
@@ -70,8 +72,8 @@ const foot = (depth) => (depth === 1 ? FOOT.replace(/"\.\.\/\.\.\//g, '"../') : 
 function entryPage(e) {
   const rel = `yume/${e.slug}/`;
   const word = e.word;
-  const title = `【夢占い】${word}の夢の意味｜${e.variants.slice(0, 2).map((v) => v[0].replace(/の夢$/, "")).join("・")}など｜えみり`;
-  const desc = `${word}の夢の意味を夢占いで解説。${e.summary}${e.variants.map((v) => v[0]).slice(0, 3).join("、")}など、${e.variants.length}の場面ごとの意味とアドバイスを紹介します。`;
+  const title = `【夢占い】${yumeName(word)}の意味｜${e.variants.slice(0, 2).map((v) => v[0]).join("・")}など｜えみり`;
+  const desc = `${yumeName(word)}の意味を夢占いで解説。${e.summary}${e.variants.map((v) => v[0]).slice(0, 3).join("、")}など、${e.variants.length}の場面ごとの意味とアドバイスを紹介します。`;
   const related = e.related.map((s) => bySlug.get(s)).filter((r) => r && r.slug !== e.parent);
   const parent = e.parent ? bySlug.get(e.parent) : null;
   const children = childrenOf(e.slug);
@@ -89,7 +91,7 @@ ${parent ? `      <li><a href="../${parent.slug}/">${esc(parent.word)}</a></li>\
 
   <section class="hero">
     <p class="eyebrow">DREAM DICTIONARY</p>
-    <h1>${esc(word)}の夢の意味</h1>
+    <h1>${esc(yumeName(word))}の意味</h1>
     <p class="yume-reading">${esc(e.reading)}</p>
     <p><span class="yume-luck yume-luck-${e.luck}">${LUCK[e.luck]}</span></p>
     <p>${esc(e.summary)}</p>
@@ -97,13 +99,13 @@ ${parent ? `      <li><a href="../${parent.slug}/">${esc(parent.word)}</a></li>\
 
   <section class="card prose" aria-labelledby="yume-meaning-title">
     <p class="eyebrow">MEANING</p>
-    <h2 id="yume-meaning-title">${esc(word)}の夢が表すもの</h2>
+    <h2 id="yume-meaning-title">${esc(yumeName(word))}が表すもの</h2>
     <p>${esc(e.meaning)}</p>
   </section>
 
 ${toc ? `  <nav class="card yume-toc" aria-labelledby="yume-toc-title">
     <p class="eyebrow">CONTENTS</p>
-    <h2 id="yume-toc-title">${esc(word)}の夢　場面から探す</h2>
+    <h2 id="yume-toc-title">${esc(yumeName(word))}　場面から探す</h2>
     <ol>
 ${e.variants.map((v, i) => `      <li><a href="#s${i + 1}">${esc(v[0])}</a></li>`).join("\n")}
     </ol>
@@ -111,15 +113,15 @@ ${e.variants.map((v, i) => `      <li><a href="#s${i + 1}">${esc(v[0])}</a></li>
 
 ` : ""}${children.length ? `  <section class="card" aria-labelledby="yume-kids-title">
     <p class="eyebrow">TYPES</p>
-    <h2 id="yume-kids-title">種類別の${esc(word)}の夢</h2>
+    <h2 id="yume-kids-title">種類別の${esc(yumeName(word))}</h2>
     <ul class="yume-tags">
-${children.map((c) => `      <li><a href="../${c.slug}/">${esc(c.word)}の夢</a></li>`).join("\n")}
+${children.map((c) => `      <li><a href="../${c.slug}/">${esc(yumeName(c.word))}</a></li>`).join("\n")}
     </ul>
   </section>
 
 ` : ""}${e.psych ? `  <section class="card prose" aria-labelledby="yume-psych-title">
     <p class="eyebrow">MIND</p>
-    <h2 id="yume-psych-title">${esc(word)}の夢を見るときの心理</h2>
+    <h2 id="yume-psych-title">${esc(yumeName(word))}を見るときの心理</h2>
     <p>${esc(e.psych)}</p>
   </section>
 
@@ -136,7 +138,7 @@ ${e.love ? `    <h3>恋愛</h3>\n    <p>${esc(e.love)}</p>` : ""}
 ${e.work ? `    <h3>仕事・人間関係</h3>\n    <p>${esc(e.work)}</p>` : ""}
   </section>
 ` : ""}${parent ? `
-  <p class="yume-parent"><a href="../${parent.slug}/">← ${esc(parent.word)}の夢 全体の意味を見る</a></p>
+  <p class="yume-parent"><a href="../${parent.slug}/">← ${esc(yumeName(parent.word))} 全体の意味を見る</a></p>
 ` : ""}
 
   <section class="card prose" aria-labelledby="yume-advice-title">
@@ -150,7 +152,7 @@ ${related.length ? `  <section class="card" aria-labelledby="yume-related-title"
     <p class="eyebrow">RELATED</p>
     <h2 id="yume-related-title">関連する夢</h2>
     <ul class="yume-tags">
-${related.map((r) => `      <li><a href="../${r.slug}/">${esc(r.word)}の夢</a></li>`).join("\n")}
+${related.map((r) => `      <li><a href="../${r.slug}/">${esc(yumeName(r.word))}</a></li>`).join("\n")}
     </ul>
   </section>
 ` : ""}
@@ -158,7 +160,7 @@ ${related.map((r) => `      <li><a href="../${r.slug}/">${esc(r.word)}の夢</a>
     <p class="eyebrow">${esc(e.cat.id.toUpperCase())}</p>
     <h2 id="yume-cat-title">${esc(e.cat.name)}のほかの夢</h2>
     <ul class="yume-tags">
-${sameCat.map((r) => `      <li><a href="../${r.slug}/">${esc(r.word)}の夢</a></li>`).join("\n")}
+${sameCat.map((r) => `      <li><a href="../${r.slug}/">${esc(yumeName(r.word))}</a></li>`).join("\n")}
       <li><a href="../#yume-${e.cat.id}">${esc(e.cat.name)}の一覧 →</a></li>
     </ul>
   </section>
@@ -175,7 +177,7 @@ ${sameCat.map((r) => `      <li><a href="../${r.slug}/">${esc(r.word)}の夢</a>
 `;
   const dir = path.join(ROOT, "yume", e.slug);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, "index.html"), head(rel, title, desc, `${word}の夢の意味｜夢占い｜えみり`, e.summary, 2) + body + foot(2));
+  fs.writeFileSync(path.join(dir, "index.html"), head(rel, title, desc, `${yumeName(word)}の意味｜夢占い｜えみり`, e.summary, 2) + body + foot(2));
 }
 
 function indexPage() {

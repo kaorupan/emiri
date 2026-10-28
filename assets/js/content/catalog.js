@@ -13,7 +13,7 @@
  *   icon      assets/img/icons.svg の名前
  *   pub       公開日（YYYY-MM-DD。新着の並び順）
  *   rec       おすすめに出すか（えみり独自の占いなど）
- *   top       TOPの「占術から探す」に出す（false なら一覧ページだけ）
+ *   top       TOPの「占い一覧」に出す（false なら一覧ページだけ）
  *
  * ブラウザでは window.KaruteContent.catalog、Node では module.exports。
  */
@@ -96,12 +96,34 @@
     E("wannyan-aisho", "わんにゃん占いの相性", "wannyan/aisho/", "わんこ×にゃんこで見る相性", "aisho", ["aisho", "renai"], "あいしょう 相性 わんにゃん 犬 猫", "aisho", "2026-10-15", { top: false })
   ];
 
-  // 読みやすさのための並び順（TOPの「占術から探す」）
+  // 読みやすさのための並び順（TOPの「占い一覧」）
   var TOP_ORDER = ["tarot", "suhijutsu", "seimei", "yume", "tesou", "tanjobi", "kyusei", "wannyan", "aisho", "shichusuimei", "fukuen", "kataomoi", "tekishoku", "gamble", "denwa", "fusui",
     "powerstone", "horoscope", "maya", "seiju", "uchuban", "hokuro", "unsei", "kippoui", "koyomi", "eto", "shukuyo", "shibi", "jyotish"];
+
+  // 一覧のカードに出す短い補足（初めての人が選ぶ手がかり。長い説明は desc）
+  var HINT = {
+    tarot: "今の気持ち・これから", suhijutsu: "性格・才能", seimei: "名前の画数", yume: "見た夢の意味", tesou: "手の線の意味",
+    tanjobi: "誕生日別の性格", kyusei: "性格・運気", wannyan: "犬猫96タイプ診断", aisho: "ふたりの相性", shichusuimei: "本質・人生の流れ",
+    fukuen: "元恋人との縁", kataomoi: "好きな人との縁", tekishoku: "向いている仕事", gamble: "今日の勝負運", denwa: "番号の吉凶",
+    fusui: "部屋と方位", powerstone: "守護石", horoscope: "星の配置で性格", maya: "太陽の紋章", seiju: "12の星獣タイプ",
+    uchuban: "行動範囲と相性", hokuro: "ほくろの位置の意味", unsei: "毎日のランキング", kippoui: "旅行・引っ越しの方位", koyomi: "縁起のよい日",
+    eto: "十二支の性格", shukuyo: "27宿の性格と相性", shibi: "命盤で性格・仕事", jyotish: "人生の時期"
+  };
+  ITEMS.forEach(function (x) { x.hint = HINT[x.id] || ""; });
+
+  // 悩みカテゴリの一覧で、占術より先に出す「悩みのテーマ」（訪れた人が知りたいことに近い順）
+  //   id があるものはその占い、url があるものはそのページへ（title・desc はテーマ用の言葉）
+  var THEMES = {
+    renai: [
+      { id: "kataomoi", title: "片思い", desc: "好きな人との縁と、気持ちを伝える時期" },
+      { id: "fukuen", title: "復縁", desc: "元恋人との縁と、歩み寄りやすい時期" },
+      { id: "aisho", title: "ふたりの相性", desc: "生年月日で8つの占術から総合診断" },
+      { url: "tesou/kekkonsen/", title: "出会い・結婚", desc: "手相の結婚線で見る、結婚の時期と縁", icon: "tesou", track: "tesou-kekkonsen" }
+    ]
+  };
 
   var byId = {};
   ITEMS.forEach(function (x) { byId[x.id] = x; });
 
-  return { GROUPS: GROUPS, NAYAMI: NAYAMI, ITEMS: ITEMS, TOP_ORDER: TOP_ORDER, byId: byId };
+  return { GROUPS: GROUPS, NAYAMI: NAYAMI, ITEMS: ITEMS, TOP_ORDER: TOP_ORDER, THEMES: THEMES, byId: byId };
 });
