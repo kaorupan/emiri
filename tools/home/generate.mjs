@@ -234,6 +234,16 @@ ${news.map((x) => "        " + row(x, "../", "ichiran-new").replace("</small>", 
 }
 
 // ---------- 悩みカテゴリ ----------
+// 悩みカテゴリの案内文（どの占いから見ればいいか迷う人向け）
+const NAYAMI_GUIDE = {
+  renai: ["好きな人との縁や、別れた人とのこれからを知りたいときは、まず上の「恋愛の悩みから選ぶ」から、いまの状況に近いものを選んでください。", "生年月日がわかる相手なら相性占い、気持ちの整理をしたいときはタロット、気になる夢を見たときは夢占いがおすすめです。占いの結果は、気持ちを整えるためのヒントとして使ってください。"],
+  aisho: ["相性は、恋人だけでなく、友だち・家族・職場の人とのあいだにもあります。ふたりの生年月日がわかれば、8つの占術をまとめた総合診断がいちばん手軽です。", "名前しかわからないときは名前の相性、誕生日だけなら12星座の相性も見られます。相性がよくない結果でも、すれ違いやすい点を知っておくことで、関係を大切にするヒントになります。"],
+  shigoto: ["向いている仕事や、転職に動きやすい時期を知りたいときは、3つの占術を組み合わせた適職占いから始めるのがおすすめです。", "自分の得意なことを言葉にしたいときは数秘術や四柱推命、職場の人との関係が気になるときは相性占いも役立ちます。大きな決断は、占いだけで決めずに、条件や暮らしもあわせて考えてください。"],
+  seikaku: ["自分らしさや才能を知りたいときは、生年月日から読む占いがおすすめです。数秘術・九星気学・四柱推命など、占術ごとに見え方が少しずつちがいます。", "いくつかの占いで共通して出てくる性質は、あなたの芯に近いところです。えみりオリジナルの星獣カルテや星のわんにゃん占いは、気軽に楽しめる入口です。"],
+  ningen: ["家族・友人・職場の人との距離感に悩んでいるときは、相手との相性や、自分の人づきあいのくせを知ることから始めてみましょう。", "宿曜占星術は相手との距離感、九星気学は五行のめぐりで関係を見ます。結果は、相手を決めつけるためではなく、接し方のヒントとして使ってください。"],
+  kinun: ["お金の流れや運気を整えたいときは、方位・部屋づくり・お守りなど、日々の暮らしで取り入れられる開運法が中心です。", "吉方位や風水で暮らしを整えたり、吉日カレンダーで始める日を選んだりできます。占いの結果は楽しみとして取り入れ、お金の大切な判断は慎重に行ってください。"],
+  kyou: ["今日の運勢は毎日更新しています。九星と12星座のランキングで、その日の過ごし方のヒントがわかります。", "大事な予定の日を選ぶときは吉日カレンダー、これから数か月の流れを知りたいときは数秘術や四柱推命も見てみてください。"]
+};
 function nayamiPage(n) {
   const themes = (C.THEMES[n.id] || []).map((t) => {
     const x = t.id ? C.byId[t.id] : null;
@@ -265,7 +275,11 @@ ${themeBlock}  <section class="home-block" aria-labelledby="list-title">
 ${list.map((x) => "      " + row(x, "../../", `nayami-${n.id}`)).join("\n")}
     </ul>
   </section>
-${themes.length ? "" : "<!--aff-inline-->\n"}
+${themes.length ? "" : "<!--aff-inline-->\n"}${NAYAMI_GUIDE[n.id] ? `  <section class="home-block prose" aria-labelledby="guide-title">
+    <h2 id="guide-title" class="block-title">${esc(n.name)}の占いの選び方</h2>
+${NAYAMI_GUIDE[n.id].map((t) => `    <p>${esc(t)}</p>`).join("\n")}
+  </section>
+` : ""}
   <section class="home-block" aria-labelledby="other-title">
     <h2 id="other-title" class="block-title">ほかの悩みから探す</h2>
     <ul class="tiles tiles-nayami">
@@ -348,7 +362,7 @@ function searchIndex() {
     const url = rel.replace(/index\.html$/, "");
     if (!url || catUrls.has(url) || /^(about|privacy|contact|tokushoho|ichiran|nayami|soudan)\//.test(url) || /^unsei\/\d/.test(url)) continue;
     const html = fs.readFileSync(path.join(ROOT, rel), "utf8");
-    if (html.includes('<meta name="robots" content="noindex">')) continue;
+    if (html.includes('<meta name="robots" content="noindex">') && !html.includes('<!--quality-noindex-->')) continue;
     const t = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || "";
     const d = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || "";
     const sec = SECTIONS[url.split("/")[0]];

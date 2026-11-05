@@ -64,10 +64,15 @@ const CATEGORY = {
 };
 const catOf = (rel) => CATEGORY[rel.replace(/index\.html$/, "")] || null;
 
+// 広告の枠を出すページをしぼる：占いのページ（1階層目）・恋愛／相性／仕事のページ・カテゴリ一覧だけ。
+//   誕生日・夢・犬猫・ほくろ・手相などの解説ページ（2階層目以下）には出さない（読みものとしての中身を主役にする）
+const DEEP_OK = (rel) => LOVE.test(rel) || AISHO.test(rel) || CAREER.test(rel);
 export function themeOf(rel) {
   if (NO_ADS.test(rel)) return null;
   const cat = catOf(rel);
   if (cat) return cat.theme;
+  if (rel.split("/").length - 1 >= 2 && !DEEP_OK(rel)) return null;
+  if (/^(kensaku|unsei|koyomi|learn)\//.test(rel)) return null;
   if (STONE.test(rel) || GAMBLE.test(rel)) return "stone";
   if (CAREER.test(rel)) return "career";
   if (AISHO.test(rel)) return "aisho";

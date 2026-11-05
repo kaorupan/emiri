@@ -106,7 +106,7 @@ test("「次はこの占いも」：占いのページに関連リンクが4つ�
   }
   for (const rel of pages()) {
     const html = read(rel);
-    const want = rel !== "index.html" && S.sections[rel.split("/")[0]] && !html.includes('<meta name="robots" content="noindex">');
+    const want = rel !== "index.html" && S.sections[rel.split("/")[0]] && !/(?<!<!--quality-noindex-->)<meta name="robots" content="noindex">/.test(html);
     const block = html.match(/<!--related-->([\s\S]*?)<!--\/related-->/);
     assert.equal(Boolean(block), Boolean(want), rel);
     if (block) assert.equal((block[1].match(/<li>/g) || []).length, 4, rel);
@@ -137,4 +137,17 @@ test("検索結果の説明文：120字以内で、文の途中で切れない",
   assert.equal(fitDesc("短い説明です。"), "短い説明です。");
   const noStop = "う".repeat(60) + "、" + "え".repeat(80);
   assert.equal(fitDesc(noStop), "う".repeat(60) + "…");
+});
+
+test("アドセンス対策：中身がほぼ同じ日ごとのページは検索に出さない（ページは残し、関連リンクも残す）", () => {
+  const no = '<!--quality-noindex--><meta name="robots" content="noindex">';
+  for (const rel of ["tanjobi/01-01/index.html", "tanjobi/12-31/index.html"]) {
+    const html = read(rel);
+    assert.equal(html.split(no).length - 1, 1, rel);
+    assert.match(html, /<!--related-->/, rel);
+  }
+  for (const rel of ["tanjobi/index.html", "unsei/index.html", "index.html", "yume/index.html"]) assert.ok(!read(rel).includes("noindex"), rel);
+  const xml = read("sitemap.xml");
+  assert.ok(!/tanjobi\/\d\d-\d\d\/|unsei\/\d{4}-/.test(xml));
+  assert.ok(xml.includes("/tanjobi/</loc>"));
 });

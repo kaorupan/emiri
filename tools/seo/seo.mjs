@@ -59,7 +59,7 @@ export function applyRelated(html, rel) {
   let out = html.replace(RELATED_RE, "\n");
   const top = rel.split("/")[0];
   const sec = SECTIONS.sections[top];
-  if (rel === "index.html" || !sec || /<meta name="robots" content="noindex">/.test(out)) return out;
+  if (rel === "index.html" || !sec || /(?<!<!--quality-noindex-->)<meta name="robots" content="noindex">/.test(out)) return out;
   const up = "../".repeat(rel.split("/").length - 1);
   // ページごとの関連先（sections.json の pages）があれば、そちらを使う。自分自身へのリンクはのぞく
   const dir = rel.replace(/\/?index\.html$/, "");
@@ -108,12 +108,20 @@ export function fitDesc(text) {
 }
 const unescAttr = (s) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 
+export const QUALITY_NOINDEX = /^(tanjobi\/\d\d-\d\d|unsei\/\d{4}-\d\d-\d\d|kensaku)\//;
+
 // 1ページ分の <head> を整える（運勢の生成でも同じ関数を通す）
 export function applyHead(html, config, rel) {
   const url = urlOf(config, rel);
   const depth = rel.split("/").length - 1;
   const feedHref = `${"../".repeat(depth)}feed.xml`;
   let out = html.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${esc(url)}">`);
+  // 検索に出さない（noindex）ページ：ページは残し、サイトマップからも外す
+  //   ・誕生日占いの日ごとのページ（となりの日と文章がほぼ同じ。中身を厚くするまで）
+  //   ・今日の運勢の日ごとのページ（毎日の自動更新でほぼ同じ形のページが増えるため。今日の運勢は unsei/ で見られる）
+  //   ・サイト内検索の結果ページ
+  out = out.replace(/\n?<!--quality-noindex--><meta name="robots" content="noindex">/, "");
+  if (QUALITY_NOINDEX.test(rel)) out = out.replace(/(<meta name="description" content="[^"]*">)/, `$1\n<!--quality-noindex--><meta name="robots" content="noindex">`);
   out = out.replace(/<meta (name="description"|property="og:description") content="([^"]*)">/g, (m, k, v) => `<meta ${k} content="${esc(fitDesc(unescAttr(v)))}">`);
   out = setOrInsertAfter(out, /<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${esc(url)}">`, /<link rel="canonical" href="[^"]*">/);
   out = setOrInsertAfter(out, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/,

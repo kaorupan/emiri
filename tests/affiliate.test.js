@@ -21,7 +21,9 @@ test("ページの種類：恋愛は love、相性占いは aisho、適職占い
   assert.equal(themeOf("tekishoku/index.html"), "career");
   assert.equal(themeOf("yume/koibito/index.html"), "love");
   assert.equal(themeOf("tesou/renai/index.html"), "love");
-  assert.equal(themeOf("yume/hebi/index.html"), "general");
+  assert.equal(themeOf("tarot/index.html"), "general");
+  assert.equal(themeOf("yume/hebi/index.html"), null, "占いの各項目（2階層目）には広告枠を出さない");
+  assert.equal(themeOf("powerstone/amethyst/index.html"), null);
   assert.equal(themeOf("index.html"), "general");
   for (const r of ["about/index.html", "privacy/index.html", "contact/index.html", "tokushoho/index.html", "premium/index.html", "premium/kantei/index.html"]) assert.equal(themeOf(r), null, r);
 });
@@ -65,25 +67,25 @@ test("並び順：rank の小さい順。テーマごとに変えられる", asy
   ];
   const names = (h) => [...h.matchAll(/<p class="consult-name">([^<]+)<\/p>/g)].map((m) => m[1]);
   assert.deepEqual(names(apply(PAGE, "yume/koibito/index.html", P)), ["B", "A", "C"]);
-  assert.deepEqual(names(apply(PAGE, "yume/hebi/index.html", P)), ["A", "B", "C"]);
+  assert.deepEqual(names(apply(PAGE, "tarot/index.html", P)), ["A", "B", "C"]);
 });
 
 test("相談の案内：確認日のある情報だけを出す・LINEの案内の前に入れる・計測の印", async () => {
   const { apply } = await load();
   const P = [{ name: "電話占いA", id: "a", format: "phone", url: "https://px.a8.net/svt/ejp?a8mat=TEST", themes: ["general"],
     verified: { checkedOn: "", price: "1分100円" } }];
-  const noDate = apply(PAGE, "yume/hebi/index.html", P);
+  const noDate = apply(PAGE, "tarot/index.html", P);
   assert.ok(!noDate.includes("1分100円"), "確認日がなければ料金は出さない");
   assert.ok(noDate.includes("電話で相談") && noDate.includes("向いている人"));
   assert.ok(noDate.includes('data-track="aff_click" data-service="a"'));
   assert.ok(noDate.includes('href="https://px.a8.net/svt/ejp?a8mat=TEST"'), "広告リンクはそのまま");
   P[0].verified.checkedOn = "2026-10-15";
-  const dated = apply(PAGE, "yume/hebi/index.html", P);
+  const dated = apply(PAGE, "tarot/index.html", P);
   assert.ok(dated.includes("1分100円") && dated.includes("情報の確認日"));
   const withLine = "<main>\n  <p>x</p>\n<!--line-cta-->\n  <aside>LINE</aside>\n<!--/line-cta-->\n</main>";
-  const o = apply(withLine, "yume/hebi/index.html", P);
+  const o = apply(withLine, "tarot/index.html", P);
   assert.ok(o.indexOf("<!--aff-->") < o.indexOf("<!--line-cta-->"));
-  assert.equal(apply(o, "yume/hebi/index.html", P), o);
+  assert.equal(apply(o, "tarot/index.html", P), o);
   assert.equal(apply(PAGE, "line/index.html", P), PAGE, "LINEの中で開くページには出さない");
 });
 
@@ -99,24 +101,24 @@ test("今のサイト：表示中の広告リンク（a8mat）が設定と一致
 
 test("パワーストーンのページ：ショップの案件があればショップの案内、なければふだんの相談の案内", async () => {
   const { apply, themeOf } = await load();
-  assert.equal(themeOf("powerstone/amethyst/index.html"), "stone");
+  assert.equal(themeOf("powerstone/index.html"), "stone");
   const consult = [{ name: "電話占いA", id: "a", format: "phone", url: "https://px.a8.net/svt/ejp?a8mat=A", themes: ["general"] }];
   const shop = [{ name: "天然石ショップB", id: "b", format: "shop", url: "https://px.a8.net/svt/ejp?a8mat=B", themes: ["stone"] }];
-  const noShop = apply(PAGE, "powerstone/amethyst/index.html", consult);
+  const noShop = apply(PAGE, "powerstone/index.html", consult);
   assert.ok(noShop.includes("電話占いA") && noShop.includes('data-theme="general"'));
-  const withShop = apply(PAGE, "powerstone/amethyst/index.html", consult.concat(shop));
+  const withShop = apply(PAGE, "powerstone/index.html", consult.concat(shop));
   assert.ok(withShop.includes("天然石ショップB") && !withShop.includes("電話占いA"));
   assert.ok(withShop.includes("公式ショップで商品と条件を見る") && withShop.includes("天然石のショップ"));
-  assert.ok(!apply(PAGE, "yume/hebi/index.html", consult.concat(shop)).includes("天然石ショップB"), "ほかのページにはショップを出さない");
+  assert.ok(!apply(PAGE, "tarot/index.html", consult.concat(shop)).includes("天然石ショップB"), "ほかのページにはショップを出さない");
 });
 
 test("風水のページ：開運グッズのショップ（案件がなければ相談の案内）", async () => {
   const { apply, themeOf } = await load();
-  assert.equal(themeOf("fusui/genkan/index.html"), "fusui");
+  assert.equal(themeOf("fusui/index.html"), "fusui");
   const consult = [{ name: "電話占いA", id: "a", format: "phone", url: "https://px.a8.net/svt/ejp?a8mat=A", themes: ["general"] }];
   const goods = [{ name: "開運グッズC", id: "c", format: "goods", url: "https://px.a8.net/svt/ejp?a8mat=C", themes: ["fusui"] }];
-  assert.ok(apply(PAGE, "fusui/genkan/index.html", consult).includes("電話占いA"));
-  const g = apply(PAGE, "fusui/genkan/index.html", consult.concat(goods));
+  assert.ok(apply(PAGE, "fusui/index.html", consult).includes("電話占いA"));
+  const g = apply(PAGE, "fusui/index.html", consult.concat(goods));
   assert.ok(g.includes("開運グッズC") && g.includes("開運グッズのショップ") && !g.includes("電話占いA"));
 });
 
@@ -130,11 +132,11 @@ test("今のサイト：ショップの広告リンクは、えみりで提携�
 
 test("広告の表示：広告枠のあるページは、ページの最初にも「広告（PR）を含みます」を出す。枠がなければ出さない", async () => {
   const { apply } = await load();
-  const o = apply(PAGE, "yume/hebi/index.html", PROGRAMS);
+  const o = apply(PAGE, "tarot/index.html", PROGRAMS);
   assert.ok(o.indexOf("<!--pr-notice-->") > o.indexOf("<main") && o.indexOf("<!--pr-notice-->") < o.indexOf("<p>結果</p>"));
-  assert.ok(o.includes('href="../../privacy/#affiliate"'));
-  assert.equal(apply(o, "yume/hebi/index.html", PROGRAMS), o, "2回目で変わらない");
-  assert.equal(apply(o, "yume/hebi/index.html", []), PAGE);
+  assert.ok(o.includes('href="../privacy/#affiliate"'));
+  assert.equal(apply(o, "tarot/index.html", PROGRAMS), o, "2回目で変わらない");
+  assert.equal(apply(o, "tarot/index.html", []), PAGE);
   assert.ok(!apply(PAGE, "about/index.html", PROGRAMS).includes("pr-notice"));
 });
 
@@ -152,5 +154,5 @@ test("適職占い・相性占い：テーマに合う案件だけを出し、�
   const aisho = apply(PAGE, "kyusei/aisho/index.html", P);
   assert.ok(aisho.includes("電話占いA") && aisho.includes("マッチングC") && !aisho.includes("転職B"));
   assert.ok(aisho.includes("ふたりの関係を進めたいときは"));
-  assert.ok(!apply(PAGE, "yume/hebi/index.html", P).includes("転職B"), "ほかのページには転職の案件を出さない");
+  assert.ok(!apply(PAGE, "tarot/index.html", P).includes("転職B"), "ほかのページには転職の案件を出さない");
 });
