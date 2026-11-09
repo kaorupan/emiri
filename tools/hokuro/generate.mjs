@@ -136,8 +136,12 @@ ${same.map((x) => `      <li><a href="../${x.slug}/">${esc(x.name)}</a></li>`).j
 
 `;
   const ex = EXTRA[s.slug];
-  write(rel, head(rel, ex ? `${ex.title}｜${s.keyword}｜えみり` : `${s.name}のほくろの意味【図解】｜${s.keyword}｜えみり`,
-    `${s.name}のほくろの意味を図で解説。${s.summary}恋愛・仕事・金運での意味と、運を生かすヒントも紹介します。`,
+  // 検索結果で切れないよう、タイトルは検索語（場所＋細かい位置）を先に。説明文は答え（意味）を先に書く
+  const first = s.summary.split("。")[0] + "。";
+  const where = ex ? (ex.h1.split("｜")[1] || "") : "";
+  write(rel, head(rel, ex ? `${ex.title}｜えみり` : `${s.name}のほくろの意味【図解】｜${s.keyword}｜えみり`,
+    ex ? `${first}${where}など位置ごとの意味${ex.spiritual ? "、スピリチュアルな意味" : ""}、恋愛・仕事・金運での意味を図で解説します。`
+      : `${s.name}のほくろの意味を図で解説。${s.summary}恋愛・仕事・金運での意味と、運を生かすヒントも紹介します。`,
     `${s.name}のほくろの意味｜えみり`, s.summary, 2) + body + foot(2));
 }
 

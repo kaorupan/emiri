@@ -18,8 +18,8 @@ const NUM = require(path.join(ROOT, "assets/js/content/seimei-numbers.js"));
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const TEMPLATE = fs.readFileSync(path.join(ROOT, "learn/suhijutsu/index.html"), "utf8");
 const rel = "denwa/";
-const title = "電話番号占い（無料）｜携帯の下4桁で吉凶を診断｜吉数一覧と選び方｜えみり";
-const desc = "電話番号の下4桁を80で割った余りで吉凶を見る、無料の電話番号占いです。携帯・固定電話・お店の番号もOK。1〜80の吉凶一覧と、新しい番号を選ぶときの吉数の探し方、数秘術で見る番号の雰囲気も紹介します。番号は保存・送信しません。";
+const title = "電話番号占い・診断（無料）｜携帯の下4桁で吉凶がわかる｜吉数一覧｜えみり";
+const desc = "電話番号の下4桁を入れるだけで、番号の吉凶を無料で診断。下4桁を80で割った余りで見る電話番号占いです。携帯・固定電話・お店の番号もOK。1〜80の吉凶一覧と、新しい番号を選ぶときの吉数の探し方、数秘術で見る番号の雰囲気も紹介します。番号は保存・送信しません。";
 const scripts = ["core/dom.js", "content/seimei-numbers.js", "content/numerology-text.js", "content/denwa.js", "pages/denwa-page.js"]
   .map((s) => `<script defer src="../assets/js/${s}"></script>`).join("\n");
 const head = TEMPLATE.slice(0, TEMPLATE.indexOf("<main"))

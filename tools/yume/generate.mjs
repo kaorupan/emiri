@@ -72,7 +72,7 @@ const foot = (depth) => (depth === 1 ? FOOT.replace(/"\.\.\/\.\.\//g, '"../') : 
 function entryPage(e) {
   const rel = `yume/${e.slug}/`;
   const word = e.word;
-  const title = `【夢占い】${yumeName(word)}の意味｜${e.variants.slice(0, 2).map((v) => v[0]).join("・")}など｜えみり`;
+  const title = `${yumeName(word)}の意味【夢占い】${e.variants.slice(0, 2).map((v) => v[0]).join("・")}など｜えみり`;
   const desc = `${yumeName(word)}の意味を夢占いで解説。${e.summary}${e.variants.map((v) => v[0]).slice(0, 3).join("、")}など、${e.variants.length}の場面ごとの意味とアドバイスを紹介します。`;
   const related = e.related.map((s) => bySlug.get(s)).filter((r) => r && r.slug !== e.parent);
   const parent = e.parent ? bySlug.get(e.parent) : null;

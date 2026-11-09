@@ -33,8 +33,8 @@ for (let m = 1; m <= 12; m++) for (let d = 1; d <= 31; d++) {
 }
 const nums = [...byNum.keys()].sort((a, b) => a - b);
 
-const title = "アティチュードナンバーとは？出し方と1〜9・11の意味｜数秘術で見る第一印象｜えみり";
-const desc = "数秘術のアティチュードナンバー（第一印象の数字）を誕生日から計算できます。出し方と、1〜9・11それぞれの意味、まわりからどう見えやすいか、ライフパスナンバーとのちがいをわかりやすく解説します。";
+const title = "アティチュードナンバーとは？【無料計算】1〜9・11の意味と出し方｜えみり";
+const desc = "誕生日を入れるだけで、アティチュードナンバー（数秘術で見る第一印象の数字）を無料で計算できます。出し方と、1〜9・11それぞれの意味、まわりからどう見えやすいか、ライフパスナンバーとのちがいをわかりやすく解説します。";
 const scripts = ["core/dom.js", "engines/numerology.js", "pages/attitude-page.js"].map((s) => `<script defer src="../../assets/js/${s}"></script>`).join("\n");
 const head = TEMPLATE.slice(0, TEMPLATE.indexOf("<main"))
   .replace(/<title>.*?<\/title>/, `<title>${esc(title)}</title>`)
