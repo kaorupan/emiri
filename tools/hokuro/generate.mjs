@@ -6,7 +6,7 @@
  * 図は tools/hokuro/svg.mjs、文章は tools/hokuro/data.mjs（どちらも、えみりのオリジナル）。
  */
 import fs from "node:fs";
-import { EXTRA } from "./extra.mjs";
+import { EXTRA, ACTION } from "./extra.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { figure } from "./svg.mjs";
@@ -63,7 +63,7 @@ function partsSection(s) {
     <p class="eyebrow">DETAIL</p>
     <h2 id="hk-parts-title">${esc(ex.h1.split("のほくろ")[0])}のどこにある？位置でちがう意味</h2>
 ${ex.parts.map(([n, t]) => `    <h3>${esc(n)}</h3>\n    <p>${linkSee(esc(t))}</p>`).join("\n")}
-${ex.spiritual ? `    <h3>スピリチュアルな意味</h3>\n    <p>${esc(ex.spiritual)}</p>\n` : ""}  </section>
+${ex.spiritual ? `    <h3>スピリチュアルな意味</h3>\n    <p>${esc(ex.spiritual)}</p>\n` : ""}${ACTION[s.slug] ? `    <h3>このほくろの意味を生かす、今日からできること</h3>\n    <ol>\n${ACTION[s.slug].map((t) => `      <li>${esc(t)}</li>`).join("\n")}\n    </ol>\n` : ""}  </section>
 
 `;
 }
