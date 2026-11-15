@@ -62,7 +62,7 @@ function partsSection(s) {
   return `  <section class="card prose" aria-labelledby="hk-parts-title">
     <p class="eyebrow">DETAIL</p>
     <h2 id="hk-parts-title">${esc(ex.h1.split("のほくろ")[0])}のどこにある？位置でちがう意味</h2>
-${ex.parts.map(([n, t]) => `    <h3>${esc(n)}</h3>\n    <p>${linkSee(esc(t))}</p>`).join("\n")}
+${ex.parts.map(([n, t, id]) => `    <h3${id ? ` id="${esc(id)}"` : ""}>${esc(n)}</h3>\n    <p>${linkSee(esc(t))}</p>`).join("\n")}
 ${ex.spiritual ? `    <h3>スピリチュアルな意味</h3>\n    <p>${esc(ex.spiritual)}</p>\n` : ""}${ACTION[s.slug] ? `    <h3>このほくろの意味を生かす、今日からできること</h3>\n    <ol>\n${ACTION[s.slug].map((t) => `      <li>${esc(t)}</li>`).join("\n")}\n    </ol>\n` : ""}  </section>
 
 `;
@@ -83,6 +83,11 @@ function spotPage(s) {
   const rel = `hokuro/${s.slug}/`;
   const area = AREAS.find((a) => a.id === s.area);
   const same = SPOTS.filter((x) => x.area === s.area && x.slug !== s.slug);
+  const links = (EXTRA[s.slug]?.parts ?? []).filter(([, , id, label]) => id && label);
+  const jumpNav = links.length ? `
+    <nav aria-label="ほくろの位置から探す">
+      <p>${links.map(([, , id, label]) => `<a href="#${esc(id)}">${esc(label)}</a>`).join(" ・ ")}</p>
+    </nav>` : "";
   const body = `<main id="main" class="wrap-narrow">
 ${crumb([["えみり", "../../"], ["ほくろ占い", "../"], [`${s.name}のほくろ`]])}
 
@@ -90,7 +95,7 @@ ${crumb([["えみり", "../../"], ["ほくろ占い", "../"], [`${s.name}のほ�
     <p class="eyebrow">MOLE READING · ${esc(area.name)}</p>
     <h1>${esc(EXTRA[s.slug] ? EXTRA[s.slug].h1 : `${s.name}のほくろの意味`)}</h1>
     <p class="hk-keyword">${esc(s.keyword)}</p>
-    <p>${esc(s.summary)}</p>
+    <p>${esc(s.summary)}</p>${jumpNav}
   </section>
 
   <section class="card hk-where" aria-labelledby="hk-where-title">
