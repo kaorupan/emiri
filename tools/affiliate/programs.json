@@ -31,8 +31,8 @@
   },
   {
    "name": "電話占い【ミラー】",
-   "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
-   "pixel": "https://www13.a8.net/0.gif?a8mat=4BEGDB+ESUZ76+4PWE+62MDE",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+ESUZ76+4PWE+5YJRM",
+   "pixel": "https://www12.a8.net/0.gif?a8mat=4BEGDB+ESUZ76+4PWE+5YJRM",
    "themes": [
     "love",
     "general"
@@ -46,14 +46,15 @@
    },
    "id": "miror",
    "format": "phone",
-   "memo": "未確認（サイトには表示しない）：新規会員登録で3,000円無料クーポンプレゼント中",
+   "memo": "2026-11-16 A8提携中・えみり選択の素材確認。電話鑑定用。チャットは本案件の成果対象外。掲載URL提出要。",
    "verified": {
     "checkedOn": "",
     "price": "",
     "priceExample": "",
     "firstOffer": "",
     "offerConditions": ""
-   }
+   },
+   "about": "この案内は電話占いのサービスです。チャットではなく、声で相談したい方は、利用料金と受付条件を公式サイトで確認してください。"
   },
   {
    "name": "電話占い【ココナラ】",
@@ -84,7 +85,7 @@
   {
    "name": "ココナラでお悩み相談・カウンセリング",
    "url": "https://px.a8.net/svt/ejp?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
-   "pixel": "https://www14.a8.net/0.gif?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
+   "pixel": "https://www16.a8.net/0.gif?a8mat=4BEGDB+EDZ52Q+2PEO+1BPGPE",
    "themes": [
     "love"
    ],
@@ -96,14 +97,15 @@
    "active": true,
    "id": "coconala-message",
    "format": "message",
-   "memo": "未確認（サイトには表示しない）：占い師やカウンセラーに、メールで悩みを相談できます",
+   "memo": "2026-11-16 A8提携中・えみり選択の素材確認。占い・悩み相談等の通常サービス購入が対象、電話は対象外。掲載URL提出要。",
    "verified": {
     "checkedOn": "",
     "price": "",
     "priceExample": "",
     "firstOffer": "",
     "offerConditions": ""
-   }
+   },
+   "about": "文章で相談する通常サービスの案内です。電話相談とは別です。出品ごとに相談内容・料金・返信までの目安が異なるため、購入前に確認してください。"
   },
   {
    "name": "パワーストーン＆スピリチュアルジュエリー Hariqua（ハリックァ）",

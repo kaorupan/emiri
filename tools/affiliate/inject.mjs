@@ -111,13 +111,13 @@ function verifiedRows(p) {
   return [[shop ? "価格の目安" : "通常料金", v.price], [shop ? "商品の例" : "料金の例", v.priceExample], [shop ? "キャンペーン" : "初回特典", v.firstOffer], [shop ? "条件" : "特典の条件", v.offerConditions], ["情報の確認日", v.checkedOn]].filter((r) => r[1]);
 }
 
-export function box(theme, programs, depth, head = null, position = "page-end") {
+export function box(theme, programs, depth, head = null, position = "page-end", limit = null) {
   // パワーストーンのページ：ショップの案件がまだなければ、ふだんの相談の案内を出す
   // ショップ用のテーマ（パワーストーン・風水）：案件がまだなければ、ふだんの相談の案内を出す
   if (SHOP_THEMES.includes(theme) && !programs.some((p) => p.themes && p.themes.includes(theme))) theme = "general";
   const rank = (p) => (p.rank && Number.isFinite(p.rank[theme]) ? p.rank[theme] : 99);
   const list = programs.filter((p) => !p.themes || p.themes.includes(theme))
-    .map((p, i) => [p, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map((x) => x[0]).slice(0, theme === "aisho" ? 4 : 3);
+    .map((p, i) => [p, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map((x) => x[0]).slice(0, limit ?? (theme === "aisho" ? 4 : 3));
   if (!list.length) return "";
   const items = list.map((p) => {
     const f = FORMAT[p.format] || null;
@@ -174,7 +174,17 @@ export function apply(html, rel, programs) {
   if (!theme) return out;
   const depth = rel.split("/").length - 1;
   const cat = catOf(rel);
-  const b = rel === "index.html" ? compactBox(programs) : cat ? box(theme, programs, depth, cat, "category") : box(theme, programs, depth);
+  // Comparison guide only: include the two verified but previously unshown formats.
+  // Other pages keep their existing three/four-item limit and ranking.
+  const guideIds = ["coconala-phone", "miror", "brillante", "kizuna", "coconala-message"];
+  const guidePrograms = rel === "soudan/index.html" ? guideIds.map((id, i) => {
+    const p = programs.find((p) => p.id === id);
+    return p ? { ...p, themes: ["general"], rank: { general: i + 1 } } : null;
+  }).filter(Boolean) : [];
+  const b = rel === "soudan/index.html" ? box("general", guidePrograms, depth, {
+    title: "相談方法に合う外部サービスを確認する",
+    text: "電話・チャット・文章での相談を、形式ごとに見比べられます。掲載順はおすすめ順位ではありません。無料占いだけを利用してもかまいません。"
+  }, "consultation-guide", 5) : rel === "index.html" ? compactBox(programs) : cat ? box(theme, programs, depth, cat, "category") : box(theme, programs, depth);
   if (!b || !out.includes("</main>")) return out;
   if (cat && cat.inline) out = out.replace(INLINE, `<!--aff-inline--><p class="aff-inline"><a href="#consult" data-track="aff_jump" data-position="category-top" data-theme="${theme}">${esc(cat.inline)}</a><span class="aff-inline-pr">広告</span></p><!--/aff-inline-->`);
   out = out.replace(/(<main[^>]*>)/, `$1${prNotice(depth)}`);

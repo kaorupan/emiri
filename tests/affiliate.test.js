@@ -156,3 +156,21 @@ test("適職占い・相性占い：テーマに合う案件だけを出し、�
   assert.ok(aisho.includes("ふたりの関係を進めたいときは"));
   assert.ok(!apply(PAGE, "tarot/index.html", P).includes("転職B"), "ほかのページには転職の案件を出さない");
 });
+
+test("相談方法ガイドだけに承認確認済みの電話・文章の選択肢を追加する", async () => {
+  const { apply, loadPrograms } = await load();
+  const programs = loadPrograms(ROOT);
+  const guide = apply(PAGE, "soudan/index.html", programs);
+  for (const id of ["miror", "coconala-message"]) {
+    const p = programs.find((p) => p.id === id);
+    assert.ok(guide.includes(p.url));
+    assert.ok(guide.includes(p.pixel));
+    assert.ok(guide.includes(`data-service="${id}"`));
+    assert.ok(!apply(PAGE, "tarot/index.html", programs).includes(p.url));
+  }
+  assert.ok(guide.includes("電話相談とは別"));
+  assert.ok(guide.includes("この案内は電話占い"));
+  assert.ok(guide.includes("PR・広告"));
+  assert.equal(apply(guide, "soudan/index.html", programs), guide);
+  assert.ok(!guide.includes("3,000円"), "未確認の特典は掲載しない");
+});

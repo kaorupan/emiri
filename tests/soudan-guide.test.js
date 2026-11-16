@@ -12,6 +12,6 @@ test('相談ガイドは無料コンテンツと外部の有料相談を区別�
 test('相談ガイドは広告表示と既存の計測・リンク保護を維持する', () => {
   assert.ok(html.includes('このページには広告（PR）を含みます'));
   assert.ok(html.includes('rel="nofollow sponsored noopener"'));
-  assert.equal((html.match(/data-track="aff_click"/g) || []).length, 3);
+  assert.equal((html.match(/data-track="aff_click"/g) || []).length, 5);
   assert.ok(!/<a[^>]+href="[^\"]*premium\//.test(html));
 });
