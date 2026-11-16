@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://emiri-uranai.com/</loc><lastmod>2026-11-16</lastmod></url>
+  <url><loc>https://emiri-uranai.com/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/about/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/aisho/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/aisho/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/contact/</loc><lastmod>2026-10-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/denwa/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/denwa/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/eto/hitsuji/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/eto/i/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/eto/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/eto/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/eto/inu/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/eto/mi/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/eto/ne/</loc><lastmod>2026-11-05</lastmod></url>
@@ -18,12 +18,12 @@
   <url><loc>https://emiri-uranai.com/eto/u/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/eto/uma/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/eto/ushi/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/fukuen/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/fukuen/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/da/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/desk/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/genkan/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/gon/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/fusui/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://emiri-uranai.com/fusui/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/kan/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/ken/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/kitchen/</loc><lastmod>2026-11-05</lastmod></url>
@@ -34,7 +34,7 @@
   <url><loc>https://emiri-uranai.com/fusui/shinshitsu/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/son/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/fusui/toilet/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/gamble/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/gamble/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/ago/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/ashikubi/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/ashiura/</loc><lastmod>2026-11-12</lastmod></url>
@@ -43,63 +43,43 @@
   <url><loc>https://emiri-uranai.com/hokuro/hitai/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/hiza/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/hoho/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/hokuro/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://emiri-uranai.com/hokuro/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/kata/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/kinun/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/kobana/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/komekami/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/koshi/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/kubi/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/hokuro/kuchibiru/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://emiri-uranai.com/hokuro/kuchibiru/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/kuchimoto/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/mayu/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/hokuro/mejiri/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://emiri-uranai.com/hokuro/mejiri/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/miken/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/mimi/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/momo/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/mune/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/hokuro/namida/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://emiri-uranai.com/hokuro/namida/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/ninki/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/onaka/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/hokuro/renai/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://emiri-uranai.com/hokuro/renai/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/seikaku/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/senaka/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/te/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://emiri-uranai.com/hokuro/ude/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/horoscope/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/horoscope/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/horoscope/seiza-aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/ichiran/</loc><lastmod>2026-10-28</lastmod></url>
-  <url><loc>https://emiri-uranai.com/jyotish/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/jyotish/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kataomoi/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/1/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/2/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/3/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/4/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/5/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/6/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/7/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/8/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/9/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2026/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/1/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/2/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/3/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/4/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/5/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/6/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/7/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/8/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/9/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/2027/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kippoui/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/horoscope/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/horoscope/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/horoscope/seiza-aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/ichiran/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/jyotish/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/jyotish/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/kataomoi/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/kippoui/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/koyomi/2026-10/</loc><lastmod>2026-11-16</lastmod></url>
   <url><loc>https://emiri-uranai.com/koyomi/2026-11/</loc><lastmod>2026-11-16</lastmod></url>
   <url><loc>https://emiri-uranai.com/koyomi/2026-12/</loc><lastmod>2026-11-16</lastmod></url>
   <url><loc>https://emiri-uranai.com/koyomi/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kyusei/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/kyusei/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/kyusei/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/kyusei/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/learn/horoscope/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/learn/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/learn/jyotish/</loc><lastmod>2026-11-05</lastmod></url>
@@ -112,159 +92,42 @@
   <url><loc>https://emiri-uranai.com/learn/shukuyo/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/learn/suhijutsu/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/learn/tarot/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/maya/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/maya/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/nayami/aisho/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/nayami/kinun/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/nayami/kyou/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/nayami/ningen/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/nayami/renai/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/nayami/seikaku/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/nayami/shigoto/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/agate/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/amazonite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/amethyst/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/aquamarine/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/aventurine/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/carnelian/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/citrine/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/fluorite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/garnet/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/hematite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/hisui/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/iolite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/iyashi/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/kinun/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/labradorite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/lapis/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/larimar/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/malachite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/mamori/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/moonstone/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/morganite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/ningen/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/onyx/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/opal/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/peridot/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/renai/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/rhodochrosite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/rosequartz/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/rutile/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/shigoto/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/smoky/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/sodalite/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/suisho/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/tigereye/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/tourmaline/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/powerstone/turquoise/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://emiri-uranai.com/maya/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/maya/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/nayami/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/nayami/kinun/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/nayami/kyou/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/nayami/ningen/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/nayami/renai/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/nayami/seikaku/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/nayami/shigoto/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/powerstone/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/privacy/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seiju/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seiju/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/01/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/02/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/03/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/04/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/05/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/06/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/07/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/08/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/09/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/10/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/11/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/12/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/13/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/14/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/15/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/16/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/17/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/18/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/19/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/20/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/21/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/22/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/23/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/24/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/25/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/26/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/27/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/28/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/29/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/30/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/31/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/32/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/33/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/34/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/35/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/36/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/37/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/38/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/39/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/40/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/41/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/42/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/43/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/44/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/45/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/46/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/47/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/48/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/49/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/50/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/51/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/52/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/53/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/54/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/55/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/56/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/57/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/58/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/59/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/60/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/61/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/62/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/63/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/64/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/65/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/66/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/67/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/68/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/69/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/70/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/71/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/72/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/73/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/74/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/75/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/76/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/77/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/78/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/79/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/80/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/seimei/kakusu/81/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://emiri-uranai.com/seiju/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/seiju/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/seimei/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/seimei/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/seimei/kakusu/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/shibi/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/shibi/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/shichusuimei/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/shichusuimei/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/shukuyo/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/shukuyo/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/shibi/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/shibi/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/shichusuimei/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/shichusuimei/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/shukuyo/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/shukuyo/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/soudan/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/suhijutsu/aisho/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/suhijutsu/aisho/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/suhijutsu/attitude/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/suhijutsu/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/suhijutsu/namae/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/tanjobi/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/tarot/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/tekishoku/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/suhijutsu/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/suhijutsu/namae/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/tanjobi/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/tarot/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/tekishoku/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/butsugan/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/eikyousen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/fish/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/tesou/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/tesou/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/kanjousen/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/tesou/kekkonsen/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/tesou/kekkonsen/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/kenkou/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/kenkousen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/kinseitai/</loc><lastmod>2026-11-05</lastmod></url>
@@ -275,9 +138,9 @@
   <url><loc>https://emiri-uranai.com/tesou/masukakesen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/nijuukanjousen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/nijuuseimeisen/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/tesou/ninkisen/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/tesou/ninkisen/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/oka/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/tesou/renai/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/tesou/renai/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/ryokousen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/seikaku/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/seimeisen/</loc><lastmod>2026-11-05</lastmod></url>
@@ -287,112 +150,16 @@
   <url><loc>https://emiri-uranai.com/tesou/shougaisen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/solomon/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/taiyousen/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/tesou/tamanokoshisen/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://emiri-uranai.com/tesou/tamanokoshisen/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/tekubisen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/unmeisen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/zaiunsen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tesou/zunousen/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://emiri-uranai.com/tokushoho/</loc><lastmod>2026-10-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/uchuban/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://emiri-uranai.com/uchuban/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/unsei/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/abyssinian/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/afghan-hound/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/aisho/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/akita/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/american-shorthair/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/balinese/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/basset-hound/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/beagle/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/bengal/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/bernese/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/bichon/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/bombay/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/border-collie/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/borzoi/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/boston-terrier/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/boxer/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/british-longhair/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/british-shorthair/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/burmese/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/cavalier/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/chartreux/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/chatora/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/chihuahua/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/chin/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/chow-chow/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/corgi/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/cornish-rex/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/dalmatian/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/devon-rex/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/doberman/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/egyptian-mau/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/exotic-shorthair/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/french-bulldog/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/german-shepherd/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/golden-retriever/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/great-dane/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/great-pyrenees/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/hachiware/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/havana-brown/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/himalayan/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/hokkaido/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/italian-greyhound/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/jack-russell/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/japanese-bobtail/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/kai/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/kijitora/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/kishu/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/korat/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/kuro/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/labrador/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/maine-coon/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/maltese/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/mike/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/miniature-dachshund/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/miniature-pinscher/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/miniature-schnauzer/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/minuet/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/munchkin/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/nebelung/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/norwegian-forest/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/ocicat/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/old-english/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/oriental/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/papillon/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/pekingese/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/persian/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/pixie-bob/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/pomeranian/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/pug/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/ragamuffin/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/ragdoll/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/rough-collie/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/russian-blue/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/sabatora/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/sabi/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/saint-bernard/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/scottish-fold/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/selkirk-rex/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/sheltie/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/shiba/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/shih-tzu/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/shiro/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/siamese/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/siberian-husky/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/siberian/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/singapura/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/snowshoe/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/somali/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/sphynx/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/standard-poodle/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/tonkinese/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/toy-poodle/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/turkish-angora/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/turkish-van/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/weimaraner/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/whippet/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://emiri-uranai.com/wannyan/yorkshire-terrier/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://emiri-uranai.com/wannyan/aisho/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/wannyan/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/akachan/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/akuma/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/akusesari/</loc><lastmod>2026-11-10</lastmod></url>
@@ -447,7 +214,7 @@
   <url><loc>https://emiri-uranai.com/yume/hoteru/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/houseki/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/ie/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/inu/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/isha/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/jiko/</loc><lastmod>2026-11-10</lastmod></url>
@@ -479,21 +246,21 @@
   <url><loc>https://emiri-uranai.com/yume/kazoku/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kega/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/keisatsu/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/kekkon/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/kekkon/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kemushi/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kenka/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/keshou/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/ki/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kimono/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kingyo/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/kisu/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/kisu/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kitsune/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kodomo/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kohi/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/koi/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/koibito/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/koi/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/koibito/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/koinu/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/kokuhaku/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/kokuhaku/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/kome/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/koneko/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/korosareru/</loc><lastmod>2026-11-10</lastmod></url>
@@ -518,7 +285,7 @@
   <url><loc>https://emiri-uranai.com/yume/michi/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/mizu/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/mori/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/motokare/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/motokare/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/mukade/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/mushi/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/naku/</loc><lastmod>2026-11-10</lastmod></url>
@@ -568,11 +335,11 @@
   <url><loc>https://emiri-uranai.com/yume/shiranaihito/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/shirohebi/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/shishi/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/shitto/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/shitto/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/sofubo/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/sora/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/souji/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/sukinahito/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/sukinahito/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/sumaho/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/supotsu/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/taberu/</loc><lastmod>2026-11-10</lastmod></url>
@@ -603,7 +370,7 @@
   <url><loc>https://emiri-uranai.com/yume/usagi/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/ushi/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/utau/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://emiri-uranai.com/yume/uwaki/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://emiri-uranai.com/yume/uwaki/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/wani/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/warau/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://emiri-uranai.com/yume/yama/</loc><lastmod>2026-11-10</lastmod></url>

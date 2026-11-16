@@ -108,7 +108,8 @@ export function fitDesc(text) {
 }
 const unescAttr = (s) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 
-export const QUALITY_NOINDEX = /^(tanjobi\/\d\d-\d\d|unsei\/\d{4}-\d\d-\d\d|kensaku)\//;
+// 型から大量に作った、そのページだけの文章が少ないページも、検索に出さず広告コードも置かない（AdSense「有用性の低いコンテンツ」対策。ページは残す）
+export const QUALITY_NOINDEX = /^(tanjobi\/\d\d-\d\d|unsei\/\d{4}-\d\d-\d\d|kensaku|wannyan\/(?!aisho\/)[^/]+|kippoui\/\d{4}|seimei\/kakusu\/\d+|powerstone\/[^/]+)\//;
 
 // 1ページ分の <head> を整える（運勢の生成でも同じ関数を通す）
 export function applyHead(html, config, rel) {
@@ -134,7 +135,7 @@ export function applyHead(html, config, rel) {
   // Google アドセンス（site.config.json の adsenseClient＝ca-pub-…。全ページ）
   const ads = (config.adsenseClient || "").trim();
   // LINE の鑑定書まわり（URL に入力内容が入る）には広告を出さない
-  if (/^line\//.test(rel)) out = out.replace(/\n?<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]*" crossorigin="anonymous"><\/script>/, "");
+  if (/^line\//.test(rel) || QUALITY_NOINDEX.test(rel)) out = out.replace(/\n?<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]*" crossorigin="anonymous"><\/script>/, "");
   else if (ads) {
     out = setOrInsertAfter(out, /<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]*" crossorigin="anonymous"><\/script>/,
       `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(ads)}" crossorigin="anonymous"></script>`, /<link rel="alternate" type="application\/rss\+xml"[^>]*>/);

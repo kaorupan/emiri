@@ -46,7 +46,8 @@ test("ページ：フォーム・質問・広告の枠（恋愛）があり、TO
     const html = fs.readFileSync(path.join(__dirname, `../${slug}/index.html`), "utf8");
     assert.match(html, new RegExp(`data-kind="${slug}"`));
     assert.match(html, /type="radio"/);
-    assert.match(html, /恋の悩みを、占い師に相談するなら/);
+    const review = JSON.parse(fs.readFileSync(path.join(__dirname, "../tools/affiliate/programs.json"), "utf8")).reviewMode === true;
+    if (!review) assert.match(html, /恋の悩みを、占い師に相談するなら/);
     assert.ok(fs.readFileSync(path.join(__dirname, "../aisho/index.html"), "utf8").includes(`href="../${slug}/"`));
   }
   assert.ok(fs.readFileSync(path.join(__dirname, "../index.html"), "utf8").includes('href="fukuen/"'));

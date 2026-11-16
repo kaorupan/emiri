@@ -67,8 +67,13 @@ const catOf = (rel) => CATEGORY[rel.replace(/index\.html$/, "")] || null;
 // 広告の枠を出すページをしぼる：占いのページ（1階層目）・恋愛／相性／仕事のページ・カテゴリ一覧だけ。
 //   誕生日・夢・犬猫・ほくろ・手相などの解説ページ（2階層目以下）には出さない（読みものとしての中身を主役にする）
 const DEEP_OK = (rel) => LOVE.test(rel) || AISHO.test(rel) || CAREER.test(rel);
+// AdSense の審査中は、アフィリエイト枠を「相談のしかた」のページ（soudan/）だけにする（programs.json の reviewMode: true）
+const REVIEW_ONLY = /^soudan\//;
+let REVIEW_MODE = false;
+export function setReviewMode(v) { REVIEW_MODE = !!v; }
 export function themeOf(rel) {
   if (NO_ADS.test(rel)) return null;
+  if (REVIEW_MODE && !REVIEW_ONLY.test(rel)) return null;
   const cat = catOf(rel);
   if (cat) return cat.theme;
   if (rel.split("/").length - 1 >= 2 && !DEEP_OK(rel)) return null;
@@ -209,11 +214,19 @@ function walk(dir, root, out = []) {
 
 export function run(root = ROOT) {
   const programs = loadPrograms(root);
+  try { setReviewMode(JSON.parse(fs.readFileSync(path.join(root, "tools/affiliate/programs.json"), "utf8")).reviewMode === true); } catch { setReviewMode(false); }
   let changed = 0;
   for (const rel of walk(root, root)) {
     const file = path.join(root, rel);
     const before = fs.readFileSync(file, "utf8");
-    const after = apply(before, rel, programs);
+    let after = apply(before, rel, programs);
+    // 枠がないページでは、「占い師に相談する方法」（#consult へのリンク）の一文をかくす
+    const hasBox = after.includes('id="consult"');
+    const up = "../".repeat(rel.split("/").length - 1);
+    after = after.replace(/<p class="result-consult"( hidden)?>([\s\S]*?)<\/p>/g, (m, h, inner) => {
+      const body = inner.replace(/href="(#consult|(?:\.\.\/)*soudan\/)"/g, `href="${hasBox ? "#consult" : up + "soudan/"}"`);
+      return `<p class="result-consult"${hasBox ? "" : " hidden"}>${body}</p>`;
+    });
     if (after !== before) { fs.writeFileSync(file, after); changed++; }
   }
   return { programs: programs.length, changed };

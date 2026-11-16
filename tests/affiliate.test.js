@@ -51,8 +51,10 @@ test("枠：PR表示・nofollow sponsored・テーマで絞り込み・何度実
 test("今のサイト：案件の設定と枠の状態が一致し、プライバシーポリシーに説明がある", async () => {
   const { loadPrograms } = await load();
   const n = loadPrograms(ROOT).length;
+  const review = JSON.parse(fs.readFileSync(path.join(ROOT, "tools/affiliate/programs.json"), "utf8")).reviewMode === true;
   const top = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
-  assert.equal(top.includes("<!--aff-->"), n > 0);
+  assert.equal(top.includes("<!--aff-->"), n > 0 && !review);
+  if (review) assert.ok(!top.includes("pr-notice"), "審査中はTOPに広告表示を出さない");
   for (const p of loadPrograms(ROOT)) assert.match(p.url, /^https:\/\//);
   const privacy = fs.readFileSync(path.join(ROOT, "privacy/index.html"), "utf8");
   assert.ok(privacy.includes('id="affiliate"') && privacy.includes("PR"));
@@ -91,6 +93,7 @@ test("相談の案内：確認日のある情報だけを出す・LINEの案内�
 
 test("今のサイト：表示中の広告リンク（a8mat）が設定と一致し、確認日のない料金・特典は出ていない", async () => {
   const { loadPrograms } = await load();
+  if (JSON.parse(fs.readFileSync(path.join(ROOT, "tools/affiliate/programs.json"), "utf8")).reviewMode === true) return; // 審査中は soudan/ 以外に枠を出さない
   const top = fs.readFileSync(path.join(ROOT, "suhijutsu/index.html"), "utf8");
   // 各ページに出すのは rank の小さい順に3件まで
   const r = (p) => (p.rank && Number.isFinite(p.rank.general) ? p.rank.general : 99);

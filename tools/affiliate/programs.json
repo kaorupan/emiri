@@ -1,4 +1,6 @@
 {
+ "reviewMode": true,
+ "_reviewMode": "true のあいだは、アフィリエイト枠を soudan/（相談のしかた）だけに出す（AdSense の審査対策）。審査に通ったら false に戻す。",
  "_": "id＝計測用の名前（英数字）。format＝phone/chat/message。料金・特典は公式サイトと提携条件で確認できたものだけ verified に書く（checkedOn＝確認日）。確認できないものは書かない。",
  "programs": [
   {
