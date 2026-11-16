@@ -174,3 +174,16 @@ test("相談方法ガイドだけに承認確認済みの電話・文章の選�
   assert.equal(apply(guide, "soudan/index.html", programs), guide);
   assert.ok(!guide.includes("3,000円"), "未確認の特典は掲載しない");
 });
+
+ test("相談カテゴリ4ページに比較ガイドを追加し広告数は増やさない", async () => {
+  const { apply, loadPrograms } = await load();
+  const programs = loadPrograms(ROOT);
+  for (const rel of ["nayami/renai/index.html", "nayami/ningen/index.html", "nayami/seikaku/index.html", "nayami/kyou/index.html"]) {
+    const html = apply(PAGE, rel, programs);
+    assert.ok(html.includes('href="../../soudan/"'));
+    assert.ok(html.includes("無料占いだけの利用でもかまいません"));
+    assert.equal((html.match(/data-track="aff_click"/g) || []).length, 3);
+    assert.equal(apply(html, rel, programs), html);
+  }
+  assert.ok(!apply(PAGE, "nayami/kinun/index.html", programs).includes('href="../../soudan/"'));
+});

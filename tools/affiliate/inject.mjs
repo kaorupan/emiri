@@ -181,10 +181,15 @@ export function apply(html, rel, programs) {
     const p = programs.find((p) => p.id === id);
     return p ? { ...p, themes: ["general"], rank: { general: i + 1 } } : null;
   }).filter(Boolean) : [];
-  const b = rel === "soudan/index.html" ? box("general", guidePrograms, depth, {
+  let b = rel === "soudan/index.html" ? box("general", guidePrograms, depth, {
     title: "相談方法に合う外部サービスを確認する",
     text: "電話・チャット・文章での相談を、形式ごとに見比べられます。掲載順はおすすめ順位ではありません。無料占いだけを利用してもかまいません。"
   }, "consultation-guide", 5) : rel === "index.html" ? compactBox(programs) : cat ? box(theme, programs, depth, cat, "category") : box(theme, programs, depth);
+  const guideCategories = new Set(["nayami/renai/index.html", "nayami/ningen/index.html", "nayami/seikaku/index.html", "nayami/kyou/index.html"]);
+  if (b && guideCategories.has(rel)) {
+    const guide = `<p class="aff-note"><a href="${"../".repeat(depth)}soudan/">電話・チャット・文章相談の違いと、利用前の料金確認ポイントを見る</a>。無料占いだけの利用でもかまいません。</p>`;
+    b = b.replace('    <ul class="consult-list">', `    ${guide}\n    <ul class="consult-list">`);
+  }
   if (!b || !out.includes("</main>")) return out;
   if (cat && cat.inline) out = out.replace(INLINE, `<!--aff-inline--><p class="aff-inline"><a href="#consult" data-track="aff_jump" data-position="category-top" data-theme="${theme}">${esc(cat.inline)}</a><span class="aff-inline-pr">広告</span></p><!--/aff-inline-->`);
   out = out.replace(/(<main[^>]*>)/, `$1${prNotice(depth)}`);
